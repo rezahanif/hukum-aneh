@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sync"
 	"time"
 
@@ -295,6 +296,18 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 	}
 	analysis.ID = analysisID
 
+	// GATE: Only proceed to content generation if the law is "suspicious"
+	// (i.e. has high controversy, low consistency, or high conflict severity)
+	if !e.isSuspicious(analysis) {
+		doc.Status = "no_conflict"
+		doc.UpdatedAt = time.Now()
+		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+			return fmt.Errorf("update doc status: %w", err)
+		}
+		e.logger.Info("law has no significant conflict or controversy, stopping pipeline", "doc_id", doc.ID, "law_number", doc.LawNumber)
+		return nil
+	}
+
 	doc.Status = "analyzed"
 	doc.UpdatedAt = time.Now()
 	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
@@ -535,6 +548,42 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 	}
 
 	return nil
+}
+
+// isSuspicious checks if the law has significant conflict, low consistency, or controversy.
+func (e *Engine) isSuspicious(analysis *models.LawAnalysis) bool {
+	// Check standard patterns for years
+	reYear := regexp.MustCompile(`\b(19\d{2}|20\d{2})\b`)
+	m := reYear.FindString(analysis.RawJSON) // Check overall JSON payload
+	if m == "" {
+		m = reYear.FindString(analysis.LawDocumentID)
+	}
+	
+	if m != "" {
+		var yr int
+		_, _ = fmt.Sscanf(m, "%d", &yr)
+		if yr > 0 && yr < 2019 {
+			e.logger.Info("law year is before 2019, skipping", "year", yr)
+			return false
+		}
+	}
+
+	// 1. High Controversy
+	if analysis.ControversyScore >= 60 {
+		return true
+	}
+	// 2. Low Consistency (high legal conflict/opposite)
+	if analysis.LegalConsistency <= 65 {
+		return true
+	}
+	// 3. High Severity on any affected law
+	for _, aff := range analysis.AffectedLaws {
+		if aff.Severity >= 0.70 {
+			return true
+		}
+	}
+
+	return false
 }
 
 // CheckStuckJobs finds documents stuck in a stage too long and re-drives them.

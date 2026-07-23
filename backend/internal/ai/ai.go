@@ -134,12 +134,12 @@ You must respond with raw JSON only, matching this exact schema:
   "title": "Pelindungan Saksi dan Korban",
   "summary": "This is a mock summary of the law because the remote LLM quota has been exceeded.",
   "affected_laws": [
-    { "law": "UU No. 13 Tahun 2006", "article": "Pasal 5", "reason": "Consistent changes on victim support", "severity": 0.5 }
+    { "law": "UU No. 13 Tahun 2006", "article": "Pasal 5", "reason": "Consistent changes on victim support", "severity": 0.85 }
   ],
   "overall_score": 85,
-  "controversy_score": 45,
+  "controversy_score": 85,
   "economic_score": 60,
-  "legal_consistency": 95,
+  "legal_consistency": 45,
   "confidence": 1.0
 }`
 
