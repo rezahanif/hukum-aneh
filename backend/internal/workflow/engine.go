@@ -4,11 +4,16 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"os"
+	"path/filepath"
+	"bytes"
+	"io"
 	"time"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 	"github.com/rezahanif/hukum-aneh/backend/internal/models"
+	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 )
 
@@ -18,14 +23,16 @@ type Engine struct {
 	cfg      *config.Config
 	repo     *repository.FirestoreRepo
 	registry *connectors.Registry
+	parser   *parser.Parser
 	logger   *slog.Logger
 }
 
-func NewEngine(cfg *config.Config, repo *repository.FirestoreRepo, registry *connectors.Registry, logger *slog.Logger) *Engine {
+func NewEngine(cfg *config.Config, repo *repository.FirestoreRepo, registry *connectors.Registry, p *parser.Parser, logger *slog.Logger) *Engine {
 	return &Engine{
 		cfg:      cfg,
 		repo:     repo,
 		registry: registry,
+		parser:   p,
 		logger:   logger,
 	}
 }
@@ -83,6 +90,94 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 	}
 
 	e.logger.Info("discovery run complete")
+	return nil
+}
+
+// ProcessDocument handles the download → parse → save pipeline for a single law.
+// Called after discovery finds a new law. Spec §3: Document Download → Document Parsing → Save to Database.
+func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) error {
+	conn, ok := e.registry.Get(doc.Source)
+	if !ok {
+		return fmt.Errorf("no connector for source: %s", doc.Source)
+	}
+
+	meta := connectors.DocumentMeta{
+		LawNumber:     doc.LawNumber,
+		Title:         doc.Title,
+		SourceURL:     doc.SourceURL,
+		Source:        doc.Source,
+		Level:         doc.Level,
+		DocumentType:  doc.DocumentType,
+		PublishedDate: doc.PublishedDate,
+	}
+
+	// Download
+	raw, err := conn.Download(ctx, meta)
+	if err != nil {
+		doc.Status = "download_failed"
+		doc.UpdatedAt = time.Now()
+		e.repo.SaveLawDocument(ctx, doc)
+		return fmt.Errorf("download: %w", err)
+	}
+	defer raw.Content.Close()
+
+	// Save raw file to storage
+	storageDir := "backend/internal/storage"
+	if err := os.MkdirAll(storageDir, 0755); err != nil {
+		return fmt.Errorf("mkdir storage: %w", err)
+	}
+	rawPath := filepath.Join(storageDir, doc.ID+"_"+raw.Filename)
+	rawFile, err := os.Create(rawPath)
+	if err != nil {
+		return fmt.Errorf("create raw file: %w", err)
+	}
+	defer rawFile.Close()
+
+	// Tee reader — write to file while parsing
+	rawBytes, err := io.ReadAll(raw.Content)
+	if err != nil {
+		return fmt.Errorf("read raw content: %w", err)
+	}
+	raw.Content.Close()
+
+	if _, err := rawFile.Write(rawBytes); err != nil {
+		return fmt.Errorf("write raw file: %w", err)
+	}
+
+	doc.RawFilePath = rawPath
+	doc.Status = "downloaded"
+	doc.UpdatedAt = time.Now()
+	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		return fmt.Errorf("save doc status: %w", err)
+	}
+
+	// Parse
+	result, err := e.parser.Parse(ctx, bytes.NewReader(rawBytes), raw.MimeType, raw.Filename)
+	if err != nil {
+		doc.Status = "parse_failed"
+		doc.UpdatedAt = time.Now()
+		e.repo.SaveLawDocument(ctx, doc)
+		return fmt.Errorf("parse: %w", err)
+	}
+
+	// Save version to Firestore
+	version := &models.LawVersion{
+		LawDocumentID: doc.ID,
+		VersionNumber: int(time.Now().Unix()),
+		TextContent:   result.TextContent,
+		ParsedAt:      time.Now(),
+	}
+	if _, err := e.repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+		return fmt.Errorf("save version: %w", err)
+	}
+
+	doc.Status = "parsed"
+	doc.UpdatedAt = time.Now()
+	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		return fmt.Errorf("update doc status: %w", err)
+	}
+
+	e.logger.Info("document processed", "id", doc.ID, "law_number", doc.LawNumber, "sections", len(result.Sections))
 	return nil
 }
 

@@ -11,9 +11,12 @@ import (
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
+	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 	"github.com/rezahanif/hukum-aneh/backend/internal/scheduler"
 	"github.com/rezahanif/hukum-aneh/backend/internal/workflow"
+	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
 func main() {
@@ -49,12 +52,20 @@ func main() {
 	}
 	defer repo.Close()
 
-	// Connectors registry — sources registered as they're implemented
+	// Connectors registry
 	registry := connectors.NewRegistry()
-	// ponytail: register connectors here as they're built
-	// e.g. registry.Register("Peraturan.go.id", peraturan.New(...))
 
-	engine := workflow.NewEngine(cfg, repo, registry, logger)
+	// Python scraper bridge
+	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
+
+	// Register Peraturan.go.id connector
+	peraturanConn := peraturan.New(scr, logger)
+	registry.Register(peraturanConn.Name(), peraturanConn)
+
+	// Document parser
+	p := parser.New(logger)
+
+	engine := workflow.NewEngine(cfg, repo, registry, p, logger)
 
 	if runOnce {
 		logger.Info("running discovery once")
