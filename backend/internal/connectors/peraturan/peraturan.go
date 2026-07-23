@@ -3,8 +3,10 @@ package peraturan
 import (
 	"context"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
+	"regexp"
 	"strings"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
@@ -13,11 +15,13 @@ import (
 
 // PeraturanConnector scrapes peraturan.go.id.
 // Covers: UUD 1945, TAP MPR, UU, Perppu, PP.
-// Uses Python subprocess for TLS-fingerprinted requests when needed.
+// Site has no anti-bot — direct HTTP works.
+// Python scraper still wired for future sources that need TLS fingerprinting.
 type PeraturanConnector struct {
 	scraper *scraper.Scraper
 	logger  *slog.Logger
 	client  *http.Client
+	baseURL string
 }
 
 func New(s *scraper.Scraper, logger *slog.Logger) *PeraturanConnector {
@@ -25,61 +29,142 @@ func New(s *scraper.Scraper, logger *slog.Logger) *PeraturanConnector {
 		scraper: s,
 		logger:  logger,
 		client:  &http.Client{},
+		baseURL: "https://www.peraturan.go.id",
 	}
 }
 
 func (p *PeraturanConnector) Name() string { return "Peraturan.go.id" }
 
+// lawLink matches: /id/uu-no-3-tahun-2026 + title text
+var lawLinkRe = regexp.MustCompile(`href="/id/((?:uu|uud|tap-mpr|perppu|pp)-no-\d+-tahun-\d+)"[^>]*title="lihat detail"[^>]*>([^<]*)</a>`)
+
+// pdfLink matches: /files/uu-no-3-tahun-2026.pdf
+var pdfLinkRe = regexp.MustCompile(`href="/files/((?:uu|uud|tap-mpr|perppu|pp)-no-\d+-tahun-\d+)\.pdf"`)
+
 // CheckUpdates polls peraturan.go.id for new/changed laws.
-// Tries direct HTTP first; falls back to Python scraper if blocked.
 func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
-	// Try Python scraper (handles TLS fingerprint + anti-bot)
-	resp, err := p.scraper.Call(ctx, scraper.ScrapeRequest{
-		URL:    "https://www.peraturan.go.id/uu",
-		Action: "check_updates",
-		Source: p.Name(),
-	})
+	// Fetch UU listing page
+	html, err := p.fetchPage(ctx, "/uu")
 	if err != nil {
-		p.logger.Warn("scraper failed, trying direct HTTP", "error", err)
-		return p.checkUpdatesDirect(ctx)
+		return nil, fmt.Errorf("fetch uu listing: %w", err)
 	}
 
-	docs := make([]connectors.DocumentMeta, 0, len(resp.Documents))
-	for _, d := range resp.Documents {
-	docs = append(docs, connectors.DocumentMeta{
-			LawNumber:     d.LawNumber,
-			Title:         d.Title,
-			SourceURL:     d.SourceURL,
-			Source:        d.Source,
-			Level:         d.Level,
-			DocumentType:  d.DocumentType,
-			PublishedDate: d.PublishedDate,
-		})
+	docs := p.parseListing(html, "Undang-Undang (UU)")
+
+	// Also fetch PP listing
+	ppHTML, err := p.fetchPage(ctx, "/pp")
+	if err != nil {
+		p.logger.Warn("failed to fetch pp listing", "error", err)
+	} else {
+		docs = append(docs, p.parseListing(ppHTML, "Peraturan Pemerintah (PP)")...)
 	}
-	return docs, nil
+
+	// Fetch Perppu
+	perppuHTML, err := p.fetchPage(ctx, "/perppu")
+	if err != nil {
+		p.logger.Warn("failed to fetch perppu listing", "error", err)
+	} else {
+		docs = append(docs, p.parseListing(perppuHTML, "Perppu")...)
+	}
+
+	// Deduplicate by law number
+	seen := make(map[string]bool)
+	var result []connectors.DocumentMeta
+	for _, d := range docs {
+		if seen[d.LawNumber] {
+			continue
+		}
+		seen[d.LawNumber] = true
+		result = append(result, d)
+	}
+
+	p.logger.Info("peraturan.go.id check complete", "found", len(result))
+	return result, nil
 }
 
-// Download fetches the raw PDF/HTML for a law.
+// parseListing extracts law metadata from listing HTML.
+func (p *PeraturanConnector) parseListing(html string, docType string) []connectors.DocumentMeta {
+	var docs []connectors.DocumentMeta
+
+	matches := lawLinkRe.FindAllStringSubmatch(html, -1)
+	for _, m := range matches {
+		slug := m[1]    // e.g. uu-no-3-tahun-2026
+		title := strings.TrimSpace(m[2])
+
+		// Convert slug to law number: "uu-no-3-tahun-2026" → "UU No. 3 Tahun 2026"
+		lawNumber := slugToLawNumber(slug)
+		if lawNumber == "" {
+			continue
+		}
+
+		docs = append(docs, connectors.DocumentMeta{
+			LawNumber:     lawNumber,
+			Title:         title,
+			SourceURL:     fmt.Sprintf("%s/files/%s.pdf", p.baseURL, slug),
+			Source:        p.Name(),
+			Level:         "national",
+			DocumentType:  docType,
+		})
+	}
+
+	return docs
+}
+
+// slugToLawNumber converts "uu-no-3-tahun-2026" → "UU No. 3 Tahun 2026"
+func slugToLawNumber(slug string) string {
+	parts := strings.Split(slug, "-")
+	if len(parts) < 5 {
+		return ""
+	}
+	// parts: [type, no, num, tahun, year]
+	prefix := strings.ToUpper(parts[0])
+	switch prefix {
+	case "UU":
+		prefix = "UU"
+	case "UUD":
+		prefix = "UUD"
+	case "TAP":
+		prefix = "TAP MPR"
+	case "PERPPU":
+		prefix = "Perppu"
+	case "PP":
+		prefix = "PP"
+	default:
+		prefix = strings.ToUpper(parts[0])
+	}
+
+	// Find the number and year
+	// Pattern: type-no-N-tahun-YYYY
+	numRe := regexp.MustCompile(`no-(\d+)-tahun-(\d+)`)
+	m := numRe.FindStringSubmatch(slug)
+	if m == nil {
+		return ""
+	}
+
+	return fmt.Sprintf("%s No. %s Tahun %s", prefix, m[1], m[2])
+}
+
+// Download fetches the raw PDF for a law.
 func (p *PeraturanConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
-	// Direct HTTP download — peraturan.go.id PDFs usually don't need TLS fingerprint
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, meta.SourceURL, nil)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("build request: %w", err)
 	}
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
 
 	resp, err := p.client.Do(req)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("download: %w", err)
 	}
 
+	if resp.StatusCode != http.StatusOK {
+		resp.Body.Close()
+		return connectors.RawDocument{}, fmt.Errorf("download failed: status %d", resp.StatusCode)
+	}
+
 	mime := resp.Header.Get("Content-Type")
 	if mime == "" {
-		if strings.HasSuffix(strings.ToLower(meta.SourceURL), ".pdf") {
-			mime = "application/pdf"
-		} else {
-			mime = "text/html"
-		}
+		mime = "application/pdf"
 	}
 
 	filename := extractFilename(meta.SourceURL)
@@ -93,8 +178,6 @@ func (p *PeraturanConnector) Download(ctx context.Context, meta connectors.Docum
 }
 
 func (p *PeraturanConnector) ExtractMetadata(ctx context.Context, raw connectors.RawDocument) (connectors.DocumentMeta, error) {
-	// ponytail: stub — extract from HTML listing page when needed
-	// upgrade: per-source HTML parser
 	return raw.Meta, nil
 }
 
@@ -102,11 +185,31 @@ func (p *PeraturanConnector) ExtractDocument(ctx context.Context, meta connector
 	return p.Download(ctx, meta)
 }
 
-// checkUpdatesDirect is the fallback when Python scraper is unavailable.
-// ponytail: minimal implementation — parse listing page
-func (p *PeraturanConnector) checkUpdatesDirect(ctx context.Context) ([]connectors.DocumentMeta, error) {
-	// Basic HTTP fetch — real parsing happens in Python scraper
-	return []connectors.DocumentMeta{}, nil
+// fetchPage fetches a page from peraturan.go.id and returns the HTML.
+func (p *PeraturanConnector) fetchPage(ctx context.Context, path string) (string, error) {
+	url := p.baseURL + path
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	if err != nil {
+		return "", fmt.Errorf("build request: %w", err)
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+
+	resp, err := p.client.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("fetch %s: %w", path, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("fetch %s: status %d", path, resp.StatusCode)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("read %s: %w", path, err)
+	}
+
+	return string(body), nil
 }
 
 func extractFilename(url string) string {
