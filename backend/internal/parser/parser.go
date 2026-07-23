@@ -104,7 +104,16 @@ func (p *Parser) parsePDF(ctx context.Context, r io.Reader, filename string) (*P
 }
 
 // extractPDFText uses ledongthuc/pdf to extract embedded text.
-func (p *Parser) extractPDFText(pdfPath string) (string, error) {
+// Recovers from panics on corrupt PDFs — falls through to OCR.
+func (p *Parser) extractPDFText(pdfPath string) (text string, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			p.logger.Warn("pdf text extraction panicked, falling back to OCR", "panic", r)
+			text = ""
+			err = fmt.Errorf("pdf panic: %v", r)
+		}
+	}()
+
 	pdfFile, pdfReader, err := pdf.Open(pdfPath)
 	if err != nil {
 		return "", fmt.Errorf("open pdf: %w", err)
