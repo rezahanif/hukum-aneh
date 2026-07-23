@@ -157,6 +157,7 @@ func slugToLawNumber(slug string) string {
 }
 
 // Download fetches the raw PDF for a law.
+// Returns error if response is not actually a PDF (some laws have no PDF file).
 func (p *PeraturanConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
 	resp, err := p.fetchURLRaw(ctx, meta.SourceURL)
 	if err != nil {
@@ -166,6 +167,12 @@ func (p *PeraturanConnector) Download(ctx context.Context, meta connectors.Docum
 	mime := resp.Header.Get("Content-Type")
 	if mime == "" {
 		mime = "application/pdf"
+	}
+
+	// Check if response is actually a PDF, not an HTML redirect/error page
+	if strings.Contains(mime, "text/html") {
+		resp.Body.Close()
+		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (server returned HTML)", meta.LawNumber)
 	}
 
 	return connectors.RawDocument{

@@ -9,6 +9,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -133,11 +134,16 @@ func main() {
 			defer func() { <-sem }()
 
 			if err := processOne(ctx, conn, p, repo, m, storageDir, logger); err != nil {
+				errStr := err.Error()
 				atomic.AddInt64(&failed, 1)
 				failedMu.Lock()
 				failures = append(failures, fmt.Sprintf("%s: %v", m.LawNumber, err))
 				failedMu.Unlock()
-				logger.Error("process failed", "law_number", m.LawNumber, "error", err)
+				if strings.Contains(errStr, "no PDF available") {
+					logger.Warn("no PDF for law", "law_number", m.LawNumber)
+				} else {
+					logger.Error("process failed", "law_number", m.LawNumber, "error", err)
+				}
 			} else {
 				atomic.AddInt64(&success, 1)
 				logger.Info("processed", "law_number", m.LawNumber, "success", atomic.LoadInt64(&success), "failed", atomic.LoadInt64(&failed))
