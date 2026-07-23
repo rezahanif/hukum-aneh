@@ -148,9 +148,11 @@ func (p *Parser) ocrPDF(ctx context.Context, pdfPath string) (string, error) {
 	}
 	defer os.RemoveAll(imgDir)
 
-	// Convert PDF to images (PNG, 300 DPI for good OCR quality)
+	// Convert PDF to images (PNG, 150 DPI — lower memory, still readable for OCR)
+	// ponytail: 300 DPI gives better accuracy but OOMs on 100+ page PDFs. Upgrade to 300 when running on host with >16GB RAM.
+	// Limit to first 50 pages to avoid OOM on massive PDFs.
 	imgPrefix := filepath.Join(imgDir, "page")
-	cmd := exec.CommandContext(ctx, "pdftoppm", "-png", "-r", "300", pdfPath, imgPrefix)
+	cmd := exec.CommandContext(ctx, "pdftoppm", "-png", "-r", "150", "-l", "50", pdfPath, imgPrefix)
 	if output, err := cmd.CombinedOutput(); err != nil {
 		return "", fmt.Errorf("pdftoppm failed: %w; output: %s", err, string(output))
 	}
@@ -189,6 +191,7 @@ func (p *Parser) ocrPDF(ctx context.Context, pdfPath string) (string, error) {
 
 		client.SetImage(imgPath)
 		text, err := client.Text()
+		os.Remove(imgPath) // free disk immediately after OCR
 		if err != nil {
 			p.logger.Warn("ocr failed for page", "page", i+1, "error", err)
 			continue
