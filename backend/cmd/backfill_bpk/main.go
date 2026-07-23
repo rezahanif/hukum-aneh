@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"runtime"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -184,6 +185,7 @@ func main() {
 
 			// Parse
 			result, err := p.Parse(ctx, raw.Content, raw.MimeType, raw.Filename)
+			raw.Content.Close()
 			if err != nil {
 				doc.Status = "parse_failed"
 				doc.UpdatedAt = time.Now()
@@ -193,11 +195,18 @@ func main() {
 				return
 			}
 
+			// Truncate to Firestore limit (1,048,487 bytes)
+			text := result.TextContent
+			if len(text) > 1048000 {
+				text = text[:1048000]
+				logger.Warn("text truncated to firestore limit", "law_number", meta.LawNumber, "original_chars", len(result.TextContent))
+			}
+
 			// Save version
 			version := &models.LawVersion{
 				LawDocumentID: doc.ID,
 				VersionNumber: int(time.Now().Unix()),
-				TextContent:   result.TextContent,
+				TextContent:   text,
 				ParsedAt:      time.Now(),
 			}
 			if _, err := repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
@@ -213,7 +222,10 @@ func main() {
 			atomic.AddInt64(&found, 1)
 			f := atomic.LoadInt64(&found)
 			nf := atomic.LoadInt64(&notFound)
-			logger.Info("backfilled from BPK", "law_number", meta.LawNumber, "found", f, "not_found", nf, "chars", len(result.TextContent))
+			logger.Info("backfilled from BPK", "law_number", meta.LawNumber, "found", f, "not_found", nf, "chars", len(text))
+
+			// Force GC to release PDF text memory before next law
+			runtime.GC()
 		}(m)
 	}
 
