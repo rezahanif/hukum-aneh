@@ -6,10 +6,12 @@ import (
 	"io"
 	"log/slog"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 
 	"github.com/ledongthuc/pdf"
+	"github.com/otiai10/gosseract/v2"
 )
 
 // Parser converts raw PDF/HTML documents into clean text/markdown.
@@ -27,6 +29,7 @@ func New(logger *slog.Logger) *Parser {
 type ParseResult struct {
 	TextContent string
 	Sections    []Section
+	Source      string // "pdf_text" or "pdf_ocr" or "html"
 }
 
 type Section struct {
@@ -51,32 +54,60 @@ func (p *Parser) Parse(ctx context.Context, r io.Reader, mimeType string, filena
 	}
 }
 
-// parsePDF extracts text from a PDF file using ledongthuc/pdf.
-// Writes to temp file first — the library requires file path or io.ReaderAt.
+// parsePDF extracts text from a PDF.
+// Strategy: try text extraction first → if empty, fall back to OCR via tesseract.
 func (p *Parser) parsePDF(ctx context.Context, r io.Reader, filename string) (*ParseResult, error) {
-	tmpPath := filepath.Join(os.TempDir(), "hukum-aneh-"+filename)
-	if err := os.MkdirAll(filepath.Dir(tmpPath), 0755); err != nil {
+	tmpDir, err := os.MkdirTemp("", "hukum-aneh-pdf-")
+	if err != nil {
 		return nil, fmt.Errorf("mkdir temp: %w", err)
 	}
+	defer os.RemoveAll(tmpDir)
 
-	f, err := os.Create(tmpPath)
+	pdfPath := filepath.Join(tmpDir, sanitizeFilename(filename))
+	f, err := os.Create(pdfPath)
 	if err != nil {
 		return nil, fmt.Errorf("create temp file: %w", err)
 	}
-	defer os.Remove(tmpPath)
-	defer f.Close()
-
 	if _, err := io.Copy(f, r); err != nil {
+		f.Close()
 		return nil, fmt.Errorf("write temp file: %w", err)
 	}
 	f.Close()
 
-	// Open with ledongthuc/pdf
-	pdfFile, pdfReader, err := pdf.Open(tmpPath)
+	// Phase 1: Try text extraction
+	text, err := p.extractPDFText(pdfPath)
+	if err == nil && len(strings.TrimSpace(text)) > 100 {
+		p.logger.Info("pdf text extraction succeeded", "chars", len(text), "filename", filename)
+		sections := detectStructure(text)
+		return &ParseResult{
+			TextContent: text,
+			Sections:    sections,
+			Source:      "pdf_text",
+		}, nil
+	}
+
+	p.logger.Info("text extraction empty or failed, falling back to OCR", "filename", filename, "text_len", len(text), "err", err)
+
+	// Phase 2: OCR fallback
+	ocrText, err := p.ocrPDF(ctx, pdfPath)
 	if err != nil {
-		// ponytail: if PDF is scanned image, this will fail.
-		// upgrade: add OCR fallback (tesseract) when text extraction returns empty
-		return nil, fmt.Errorf("open pdf: %w", err)
+		return nil, fmt.Errorf("ocr fallback failed: %w", err)
+	}
+
+	p.logger.Info("pdf ocr extraction succeeded", "chars", len(ocrText), "filename", filename)
+	sections := detectStructure(ocrText)
+	return &ParseResult{
+		TextContent: ocrText,
+		Sections:    sections,
+		Source:      "pdf_ocr",
+	}, nil
+}
+
+// extractPDFText uses ledongthuc/pdf to extract embedded text.
+func (p *Parser) extractPDFText(pdfPath string) (string, error) {
+	pdfFile, pdfReader, err := pdf.Open(pdfPath)
+	if err != nil {
+		return "", fmt.Errorf("open pdf: %w", err)
 	}
 	defer pdfFile.Close()
 
@@ -96,17 +127,72 @@ func (p *Parser) parsePDF(ctx context.Context, r io.Reader, filename string) (*P
 		sb.WriteString("\n\n--- Page Break ---\n\n")
 	}
 
-	rawText := sb.String()
-	sections := detectStructure(rawText)
+	return sb.String(), nil
+}
 
-	return &ParseResult{
-		TextContent: rawText,
-		Sections:    sections,
-	}, nil
+// ocrPDF converts PDF pages to images via pdftoppm, then OCRs each image with tesseract.
+// Uses Indonesian+English language pack.
+func (p *Parser) ocrPDF(ctx context.Context, pdfPath string) (string, error) {
+	imgDir, err := os.MkdirTemp("", "hukum-aneh-img-")
+	if err != nil {
+		return "", fmt.Errorf("mkdir img temp: %w", err)
+	}
+	defer os.RemoveAll(imgDir)
+
+	// Convert PDF to images (PNG, 300 DPI for good OCR quality)
+	imgPrefix := filepath.Join(imgDir, "page")
+	cmd := exec.CommandContext(ctx, "pdftoppm", "-png", "-r", "300", pdfPath, imgPrefix)
+	if output, err := cmd.CombinedOutput(); err != nil {
+		return "", fmt.Errorf("pdftoppm failed: %w; output: %s", err, string(output))
+	}
+
+	// Find generated images
+	entries, err := os.ReadDir(imgDir)
+	if err != nil {
+		return "", fmt.Errorf("read img dir: %w", err)
+	}
+
+	var images []string
+	for _, e := range entries {
+		if !e.IsDir() && strings.HasSuffix(e.Name(), ".png") {
+			images = append(images, filepath.Join(imgDir, e.Name()))
+		}
+	}
+
+	if len(images) == 0 {
+		return "", fmt.Errorf("no images generated from pdftoppm")
+	}
+
+	p.logger.Info("ocr processing pages", "count", len(images))
+
+	// OCR each image
+	client := gosseract.NewClient()
+	defer client.Close()
+	client.SetLanguage("ind", "eng")
+
+	var sb strings.Builder
+	for i, imgPath := range images {
+		select {
+		case <-ctx.Done():
+			return "", ctx.Err()
+		default:
+		}
+
+		client.SetImage(imgPath)
+		text, err := client.Text()
+		if err != nil {
+			p.logger.Warn("ocr failed for page", "page", i+1, "error", err)
+			continue
+		}
+
+		sb.WriteString(text)
+		sb.WriteString("\n\n--- Page Break ---\n\n")
+	}
+
+	return sb.String(), nil
 }
 
 // parseHTML extracts text from HTML documents.
-// ponytail: stub — uses basic tag stripping. Upgrade: use goquery for proper DOM parsing.
 func (p *Parser) parseHTML(ctx context.Context, r io.Reader) (*ParseResult, error) {
 	data, err := io.ReadAll(r)
 	if err != nil {
@@ -117,6 +203,7 @@ func (p *Parser) parseHTML(ctx context.Context, r io.Reader) (*ParseResult, erro
 	return &ParseResult{
 		TextContent: text,
 		Sections:    sections,
+		Source:      "html",
 	}, nil
 }
 
@@ -130,6 +217,7 @@ func (p *Parser) parseText(ctx context.Context, r io.Reader) (*ParseResult, erro
 	return &ParseResult{
 		TextContent: text,
 		Sections:    sections,
+		Source:      "text",
 	}, nil
 }
 
@@ -154,7 +242,7 @@ func detectStructure(text string) []Section {
 				sections = append(sections, *current)
 			}
 			current = &Section{
-				Type:   "chapter",
+				Type:    "chapter",
 				Number:  strings.TrimSpace(trimmed[4:]),
 				Content: trimmed + "\n",
 			}
@@ -167,13 +255,12 @@ func detectStructure(text string) []Section {
 				sections = append(sections, *current)
 			}
 			num := strings.TrimSpace(trimmed[6:])
-			// Stop at first space or newline group
 			if idx := strings.IndexAny(num, " \t"); idx > 0 {
 				num = num[:idx]
 			}
 			current = &Section{
-				Type:   "article",
-				Number: num,
+				Type:    "article",
+				Number:  num,
 				Content: trimmed + "\n",
 			}
 			continue
@@ -201,7 +288,6 @@ func detectStructure(text string) []Section {
 }
 
 // stripHTMLTags removes HTML tags and decodes entities.
-// ponytail: minimal implementation. Upgrade: use goquery.
 func stripHTMLTags(s string) string {
 	var sb strings.Builder
 	inTag := false
@@ -219,14 +305,12 @@ func stripHTMLTags(s string) string {
 		}
 	}
 	result := sb.String()
-	// Decode common entities
 	result = strings.ReplaceAll(result, "&amp;", "&")
 	result = strings.ReplaceAll(result, "&lt;", "<")
 	result = strings.ReplaceAll(result, "&gt;", ">")
 	result = strings.ReplaceAll(result, "&quot;", "\"")
 	result = strings.ReplaceAll(result, "&#39;", "'")
 	result = strings.ReplaceAll(result, "&nbsp;", " ")
-	// Collapse whitespace
 	for strings.Contains(result, "  ") {
 		result = strings.ReplaceAll(result, "  ", " ")
 	}
@@ -234,4 +318,10 @@ func stripHTMLTags(s string) string {
 		result = strings.ReplaceAll(result, "\n\n\n", "\n\n")
 	}
 	return strings.TrimSpace(result)
+}
+
+func sanitizeFilename(s string) string {
+	s = strings.ReplaceAll(s, " ", "_")
+	s = strings.ReplaceAll(s, "/", "_")
+	return s
 }

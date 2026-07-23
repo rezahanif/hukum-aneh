@@ -12,6 +12,9 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 	"github.com/rezahanif/hukum-aneh/backend/internal/scheduler"
@@ -67,6 +70,18 @@ func main() {
 	// Register Peraturan.go.id connector
 	peraturanConn := peraturan.New(scr, logger)
 	registry.Register(peraturanConn.Name(), peraturanConn)
+
+	// Register JDIHN connector
+	jdihnConn := jdihn.New(scr, logger)
+	registry.Register(jdihnConn.Name(), jdihnConn)
+
+	// Register BPK connector
+	bpkConn := bpk.New(scr, logger)
+	registry.Register(bpkConn.Name(), bpkConn)
+
+	// Register MKRI connector
+	mkriConn := mkri.New(scr, logger)
+	registry.Register(mkriConn.Name(), mkriConn)
 
 	// Document parser
 	p := parser.New(logger)
