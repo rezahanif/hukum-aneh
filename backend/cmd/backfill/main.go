@@ -57,7 +57,7 @@ func main() {
 	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
 	registry.Register("Peraturan.go.id", peraturan.New(scr, logger))
 	registry.Register("JDIHN", jdihn.New(scr, logger))
-	registry.Register("JDIH BPK", bpk.New(scr, logger))
+	registry.Register("JDIH BPK", bpk.New(logger))
 	registry.Register("Mahkamah Konstitusi", mkri.New(scr, logger))
 
 	p := parser.New(logger)

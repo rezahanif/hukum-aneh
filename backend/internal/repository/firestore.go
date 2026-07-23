@@ -357,3 +357,21 @@ func (r *FirestoreRepo) ListAllEmbeddings(ctx context.Context) ([]models.Embeddi
 	}
 	return result, nil
 }
+
+// ListAllLaws returns all law documents in Firestore.
+func (r *FirestoreRepo) ListAllLaws(ctx context.Context) ([]models.LawDocument, error) {
+	docs, err := r.client.Collection(models.ColLaws).Documents(ctx).GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("list all laws: %w", err)
+	}
+	var result []models.LawDocument
+	for _, d := range docs {
+		var doc models.LawDocument
+		if err := d.DataTo(&doc); err != nil {
+			continue
+		}
+		doc.ID = d.Ref.ID
+		result = append(result, doc)
+	}
+	return result, nil
+}
