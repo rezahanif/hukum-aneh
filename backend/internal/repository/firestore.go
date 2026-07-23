@@ -103,6 +103,27 @@ func (r *FirestoreRepo) ListLawsByStatus(ctx context.Context, status string) ([]
 
 // --- LawVersion ---
 
+func (r *FirestoreRepo) GetLatestLawVersion(ctx context.Context, lawID string) (*models.LawVersion, error) {
+	docs, err := r.client.Collection(models.ColLaws).Doc(lawID).
+		Collection(models.SubVersions).
+		OrderBy("version_number", firestore.Desc).
+		Limit(1).
+		Documents(ctx).
+		GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("query versions: %w", err)
+	}
+	if len(docs) == 0 {
+		return nil, fmt.Errorf("no versions found for law: %s", lawID)
+	}
+	var v models.LawVersion
+	if err := docs[0].DataTo(&v); err != nil {
+		return nil, fmt.Errorf("decode version: %w", err)
+	}
+	v.ID = docs[0].Ref.ID
+	return &v, nil
+}
+
 func (r *FirestoreRepo) SaveLawVersion(ctx context.Context, lawID string, v *models.LawVersion) (string, error) {
 	if v.VersionNumber == 0 {
 		v.VersionNumber = int(time.Now().Unix())
