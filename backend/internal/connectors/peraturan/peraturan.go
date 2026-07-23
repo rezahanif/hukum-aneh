@@ -8,15 +8,15 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
 // PeraturanConnector scrapes peraturan.go.id.
-// Covers: UUD 1945, TAP MPR, UU, Perppu, PP.
+// Covers: UU, PP, Perppu (active/berlaku status only).
 // Site has no anti-bot — direct HTTP works.
-// Python scraper still wired for future sources that need TLS fingerprinting.
 type PeraturanConnector struct {
 	scraper *scraper.Scraper
 	logger  *slog.Logger
@@ -28,58 +28,80 @@ func New(s *scraper.Scraper, logger *slog.Logger) *PeraturanConnector {
 	return &PeraturanConnector{
 		scraper: s,
 		logger:  logger,
-		client:  &http.Client{},
+		client: &http.Client{
+			Timeout: 30 * time.Second,
+		},
 		baseURL: "https://www.peraturan.go.id",
 	}
 }
 
 func (p *PeraturanConnector) Name() string { return "Peraturan.go.id" }
 
+// SourceType defines a law type to scrape.
+type SourceType struct {
+	Path     string // /uu, /pp, /perppu
+	DocType  string // Undang-Undang (UU), Peraturan Pemerintah (PP), Perppu
+	LastPage int    // known last page for active laws
+}
+
+var sourceTypes = []SourceType{
+	{Path: "/uu", DocType: "Undang-Undang (UU)", LastPage: 85},
+	{Path: "/pp", DocType: "Peraturan Pemerintah (PP)", LastPage: 214},
+	{Path: "/perppu", DocType: "Perppu", LastPage: 10},
+}
+
 // lawLink matches: /id/uu-no-3-tahun-2026 + title text
 var lawLinkRe = regexp.MustCompile(`href="/id/((?:uu|uud|tap-mpr|perppu|pp)-no-\d+-tahun-\d+)"[^>]*title="lihat detail"[^>]*>([^<]*)</a>`)
 
-// pdfLink matches: /files/uu-no-3-tahun-2026.pdf
-var pdfLinkRe = regexp.MustCompile(`href="/files/((?:uu|uud|tap-mpr|perppu|pp)-no-\d+-tahun-\d+)\.pdf"`)
+// statusRe extracts status from law detail page
+var statusRe = regexp.MustCompile(`<th[^>]*>Status</th><td>([^<]+)</td>`)
 
-// CheckUpdates polls peraturan.go.id for new/changed laws.
+// CheckUpdates polls peraturan.go.id for all active (Berlaku) laws.
+// Scrapes all pages for each source type with status filter.
 func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
-	// Fetch UU listing page
-	html, err := p.fetchPage(ctx, "/uu")
-	if err != nil {
-		return nil, fmt.Errorf("fetch uu listing: %w", err)
-	}
-
-	docs := p.parseListing(html, "Undang-Undang (UU)")
-
-	// Also fetch PP listing
-	ppHTML, err := p.fetchPage(ctx, "/pp")
-	if err != nil {
-		p.logger.Warn("failed to fetch pp listing", "error", err)
-	} else {
-		docs = append(docs, p.parseListing(ppHTML, "Peraturan Pemerintah (PP)")...)
-	}
-
-	// Fetch Perppu
-	perppuHTML, err := p.fetchPage(ctx, "/perppu")
-	if err != nil {
-		p.logger.Warn("failed to fetch perppu listing", "error", err)
-	} else {
-		docs = append(docs, p.parseListing(perppuHTML, "Perppu")...)
-	}
-
-	// Deduplicate by law number
+	var allDocs []connectors.DocumentMeta
 	seen := make(map[string]bool)
-	var result []connectors.DocumentMeta
-	for _, d := range docs {
-		if seen[d.LawNumber] {
-			continue
+
+	for _, st := range sourceTypes {
+		p.logger.Info("scraping source type", "type", st.DocType, "last_page", st.LastPage)
+
+		for page := 1; page <= st.LastPage; page++ {
+			select {
+			case <-ctx.Done():
+				return nil, ctx.Err()
+			default:
+			}
+
+			url := fmt.Sprintf("%s%s?PeraturanSearch%%5Bstatus%%5D=Berlaku&page=%d", p.baseURL, st.Path, page)
+			html, err := p.fetchURL(ctx, url)
+			if err != nil {
+				p.logger.Warn("fetch page failed", "type", st.DocType, "page", page, "error", err)
+				continue
+			}
+
+			docs := p.parseListing(html, st.DocType)
+			if len(docs) == 0 {
+				p.logger.Info("no more laws on page, stopping", "type", st.DocType, "page", page)
+				break
+			}
+
+			for _, d := range docs {
+				if seen[d.LawNumber] {
+					continue
+				}
+				seen[d.LawNumber] = true
+				allDocs = append(allDocs, d)
+			}
+
+			// Rate limit — be respectful
+			time.Sleep(500 * time.Millisecond)
 		}
-		seen[d.LawNumber] = true
-		result = append(result, d)
+
+		p.logger.Info("source type complete", "type", st.DocType, "total_unique", len(allDocs))
 	}
 
-	p.logger.Info("peraturan.go.id check complete", "found", len(result))
-	return result, nil
+	p.logger.Info("peraturan.go.id scrape complete", "total_laws", len(allDocs))
+	return allDocs, nil
 }
 
 // parseListing extracts law metadata from listing HTML.
@@ -88,22 +110,21 @@ func (p *PeraturanConnector) parseListing(html string, docType string) []connect
 
 	matches := lawLinkRe.FindAllStringSubmatch(html, -1)
 	for _, m := range matches {
-		slug := m[1]    // e.g. uu-no-3-tahun-2026
+		slug := m[1]
 		title := strings.TrimSpace(m[2])
 
-		// Convert slug to law number: "uu-no-3-tahun-2026" → "UU No. 3 Tahun 2026"
 		lawNumber := slugToLawNumber(slug)
 		if lawNumber == "" {
 			continue
 		}
 
 		docs = append(docs, connectors.DocumentMeta{
-			LawNumber:     lawNumber,
-			Title:         title,
-			SourceURL:     fmt.Sprintf("%s/files/%s.pdf", p.baseURL, slug),
-			Source:        p.Name(),
-			Level:         "national",
-			DocumentType:  docType,
+			LawNumber:    lawNumber,
+			Title:        title,
+			SourceURL:    fmt.Sprintf("%s/files/%s.pdf", p.baseURL, slug),
+			Source:       p.Name(),
+			Level:        "national",
+			DocumentType: docType,
 		})
 	}
 
@@ -112,12 +133,13 @@ func (p *PeraturanConnector) parseListing(html string, docType string) []connect
 
 // slugToLawNumber converts "uu-no-3-tahun-2026" → "UU No. 3 Tahun 2026"
 func slugToLawNumber(slug string) string {
-	parts := strings.Split(slug, "-")
-	if len(parts) < 5 {
+	numRe := regexp.MustCompile(`no-(\d+)-tahun-(\d+)`)
+	m := numRe.FindStringSubmatch(slug)
+	if m == nil {
 		return ""
 	}
-	// parts: [type, no, num, tahun, year]
-	prefix := strings.ToUpper(parts[0])
+
+	prefix := strings.ToUpper(strings.Split(slug, "-")[0])
 	switch prefix {
 	case "UU":
 		prefix = "UU"
@@ -129,16 +151,6 @@ func slugToLawNumber(slug string) string {
 		prefix = "Perppu"
 	case "PP":
 		prefix = "PP"
-	default:
-		prefix = strings.ToUpper(parts[0])
-	}
-
-	// Find the number and year
-	// Pattern: type-no-N-tahun-YYYY
-	numRe := regexp.MustCompile(`no-(\d+)-tahun-(\d+)`)
-	m := numRe.FindStringSubmatch(slug)
-	if m == nil {
-		return ""
 	}
 
 	return fmt.Sprintf("%s No. %s Tahun %s", prefix, m[1], m[2])
@@ -146,20 +158,9 @@ func slugToLawNumber(slug string) string {
 
 // Download fetches the raw PDF for a law.
 func (p *PeraturanConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, meta.SourceURL, nil)
-	if err != nil {
-		return connectors.RawDocument{}, fmt.Errorf("build request: %w", err)
-	}
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
-
-	resp, err := p.client.Do(req)
+	resp, err := p.fetchURLRaw(ctx, meta.SourceURL)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("download: %w", err)
-	}
-
-	if resp.StatusCode != http.StatusOK {
-		resp.Body.Close()
-		return connectors.RawDocument{}, fmt.Errorf("download failed: status %d", resp.StatusCode)
 	}
 
 	mime := resp.Header.Get("Content-Type")
@@ -167,14 +168,29 @@ func (p *PeraturanConnector) Download(ctx context.Context, meta connectors.Docum
 		mime = "application/pdf"
 	}
 
-	filename := extractFilename(meta.SourceURL)
-
 	return connectors.RawDocument{
 		Meta:     meta,
 		Content:  resp.Body,
 		MimeType: mime,
-		Filename: filename,
+		Filename: extractFilename(meta.SourceURL),
 	}, nil
+}
+
+// CheckStatus fetches the law detail page and extracts status.
+// Returns "Berlaku" or "Tidak Berlaku".
+func (p *PeraturanConnector) CheckStatus(ctx context.Context, slug string) (string, error) {
+	url := fmt.Sprintf("%s/id/%s", p.baseURL, slug)
+	html, err := p.fetchURL(ctx, url)
+	if err != nil {
+		return "", fmt.Errorf("fetch detail: %w", err)
+	}
+
+	m := statusRe.FindStringSubmatch(html)
+	if m == nil {
+		return "", fmt.Errorf("status not found for %s", slug)
+	}
+
+	return strings.TrimSpace(m[1]), nil
 }
 
 func (p *PeraturanConnector) ExtractMetadata(ctx context.Context, raw connectors.RawDocument) (connectors.DocumentMeta, error) {
@@ -185,31 +201,41 @@ func (p *PeraturanConnector) ExtractDocument(ctx context.Context, meta connector
 	return p.Download(ctx, meta)
 }
 
-// fetchPage fetches a page from peraturan.go.id and returns the HTML.
-func (p *PeraturanConnector) fetchPage(ctx context.Context, path string) (string, error) {
-	url := p.baseURL + path
+// fetchURL fetches a URL and returns the HTML as string.
+func (p *PeraturanConnector) fetchURL(ctx context.Context, url string) (string, error) {
+	resp, err := p.fetchURLRaw(ctx, url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("read body: %w", err)
+	}
+
+	return string(body), nil
+}
+
+// fetchURLRaw fetches a URL and returns the raw response.
+func (p *PeraturanConnector) fetchURLRaw(ctx context.Context, url string) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		return "", fmt.Errorf("build request: %w", err)
+		return nil, fmt.Errorf("build request: %w", err)
 	}
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
 
 	resp, err := p.client.Do(req)
 	if err != nil {
-		return "", fmt.Errorf("fetch %s: %w", path, err)
+		return nil, fmt.Errorf("fetch: %w", err)
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("fetch %s: status %d", path, resp.StatusCode)
+		resp.Body.Close()
+		return nil, fmt.Errorf("status %d for %s", resp.StatusCode, url)
 	}
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", fmt.Errorf("read %s: %w", path, err)
-	}
-
-	return string(body), nil
+	return resp, nil
 }
 
 func extractFilename(url string) string {
