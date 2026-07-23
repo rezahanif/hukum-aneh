@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 )
 
 // Config holds all runtime configuration for the pipeline.
@@ -50,6 +51,23 @@ type Config struct {
 // Load reads config from environment variables.
 // Secrets never hardcoded — all from env.
 func Load() (*Config, error) {
+	// Load .env if present
+	if data, err := os.ReadFile(".env"); err == nil {
+		lines := strings.Split(string(data), "\n")
+		for _, line := range lines {
+			line = strings.TrimSpace(line)
+			if line == "" || strings.HasPrefix(line, "#") {
+				continue
+			}
+			parts := strings.SplitN(line, "=", 2)
+			if len(parts) == 2 {
+				key := strings.TrimSpace(parts[0])
+				val := strings.TrimSpace(parts[1])
+				os.Setenv(key, val)
+			}
+		}
+	}
+
 	cfg := &Config{
 		SourcesPath: envOrDefault("SOURCES_PATH", "backend/configs/sources.json"),
 	}

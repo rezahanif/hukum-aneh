@@ -29,7 +29,7 @@ func New(s *scraper.Scraper, logger *slog.Logger) *PeraturanConnector {
 		scraper: s,
 		logger:  logger,
 		client: &http.Client{
-			Timeout: 30 * time.Second,
+			Timeout: 60 * time.Second,
 		},
 		baseURL: "https://www.peraturan.go.id",
 	}
@@ -73,9 +73,9 @@ func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.Doc
 			}
 
 			url := fmt.Sprintf("%s%s?PeraturanSearch%%5Bstatus%%5D=Berlaku&page=%d", p.baseURL, st.Path, page)
-			html, err := p.fetchURL(ctx, url)
+			html, err := p.fetchURLWithRetry(ctx, url, 3)
 			if err != nil {
-				p.logger.Warn("fetch page failed", "type", st.DocType, "page", page, "error", err)
+				p.logger.Warn("fetch page failed after retries", "type", st.DocType, "page", page, "error", err)
 				continue
 			}
 
@@ -215,6 +215,21 @@ func (p *PeraturanConnector) fetchURL(ctx context.Context, url string) (string, 
 	}
 
 	return string(body), nil
+}
+
+// fetchURLWithRetry retries fetch on failure with backoff.
+func (p *PeraturanConnector) fetchURLWithRetry(ctx context.Context, url string, maxRetries int) (string, error) {
+	var lastErr error
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		html, err := p.fetchURL(ctx, url)
+		if err == nil {
+			return html, nil
+		}
+		lastErr = err
+		p.logger.Warn("fetch retry", "attempt", attempt+1, "url", url, "error", err)
+		time.Sleep(time.Duration(attempt+1) * 2 * time.Second)
+	}
+	return "", lastErr
 }
 
 // fetchURLRaw fetches a URL and returns the raw response.
