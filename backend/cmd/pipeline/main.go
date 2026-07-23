@@ -17,6 +17,12 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/scheduler"
 	"github.com/rezahanif/hukum-aneh/backend/internal/workflow"
 	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
+	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
+	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
+	"github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
+	"github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
+	"github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
+	"github.com/rezahanif/hukum-aneh/backend/internal/validator"
 )
 
 func main() {
@@ -65,7 +71,25 @@ func main() {
 	// Document parser
 	p := parser.New(logger)
 
-	engine := workflow.NewEngine(cfg, repo, registry, p, logger)
+	// Retrieval (embedding & search)
+	ret := retrieval.New(cfg, repo)
+
+	// AI Agents
+	aiSvc := ai.New(cfg)
+
+	// Image Generator
+	imgGen := imagegen.New(cfg)
+
+	// Telegram Bot
+	tgSvc := telegram.New(cfg)
+
+	// Publishing Service
+	pubSvc := publishing.New(cfg)
+
+	// Image Validator
+	val := validator.New()
+
+	engine := workflow.NewEngine(cfg, repo, registry, p, ret, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
 
 	if runOnce {
 		logger.Info("running discovery once")
@@ -98,6 +122,17 @@ func main() {
 		logger.Error("scheduler start failed", "error", err)
 		os.Exit(1)
 	}
+
+	// Start Telegram Polling for approvals
+	go func() {
+		logger.Info("starting Telegram approval bot polling")
+		err := tgSvc.StartPolling(ctx, func(draftID string, action string, reviewerID string) error {
+			return engine.HandleApprovalAction(ctx, draftID, action, reviewerID)
+		})
+		if err != nil {
+			logger.Error("telegram bot polling stopped", "error", err)
+		}
+	}()
 
 	// Graceful shutdown
 	sigCh := make(chan os.Signal, 1)

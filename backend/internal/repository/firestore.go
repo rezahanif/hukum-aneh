@@ -126,6 +126,32 @@ func (r *FirestoreRepo) SaveLawVersion(ctx context.Context, lawID string, v *mod
 
 // --- LawAnalysis ---
 
+func (r *FirestoreRepo) GetLawAnalysisByDraft(ctx context.Context, draftID string) (*models.LawAnalysis, error) {
+	draft, err := r.GetContentDraft(ctx, draftID)
+	if err != nil {
+		return nil, err
+	}
+
+	// DocumentID represents the document identifier in queries
+	docs, err := r.client.CollectionGroup(models.SubAnalyses).Documents(ctx).GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("collection group analyses: %w", err)
+	}
+
+	for _, d := range docs {
+		if d.Ref.ID == draft.LawAnalysisID {
+			var analysis models.LawAnalysis
+			if err := d.DataTo(&analysis); err != nil {
+				return nil, fmt.Errorf("decode analysis: %w", err)
+			}
+			analysis.ID = d.Ref.ID
+			return &analysis, nil
+		}
+	}
+
+	return nil, fmt.Errorf("analysis not found for id: %s", draft.LawAnalysisID)
+}
+
 func (r *FirestoreRepo) SaveLawAnalysis(ctx context.Context, lawID string, a *models.LawAnalysis) (string, error) {
 	a.CreatedAt = time.Now()
 	if a.ID == "" {
@@ -139,10 +165,26 @@ func (r *FirestoreRepo) SaveLawAnalysis(ctx context.Context, lawID string, a *mo
 	}
 	_, err := r.client.Collection(models.ColLaws).Doc(lawID).
 		Collection(models.SubAnalyses).Doc(a.ID).Set(ctx, a)
-	return a.ID, fmt.Errorf("set analysis: %w", err)
+	if err != nil {
+		return "", fmt.Errorf("set analysis: %w", err)
+	}
+	return a.ID, nil
 }
 
 // --- ContentDraft ---
+
+func (r *FirestoreRepo) GetContentDraft(ctx context.Context, id string) (*models.ContentDraft, error) {
+	ds, err := r.client.Collection(models.ColContentDrafts).Doc(id).Get(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("get content draft: %w", err)
+	}
+	var draft models.ContentDraft
+	if err := ds.DataTo(&draft); err != nil {
+		return nil, fmt.Errorf("decode draft: %w", err)
+	}
+	draft.ID = ds.Ref.ID
+	return &draft, nil
+}
 
 func (r *FirestoreRepo) SaveContentDraft(ctx context.Context, draft *models.ContentDraft) (string, error) {
 	draft.CreatedAt = time.Now()
@@ -155,10 +197,32 @@ func (r *FirestoreRepo) SaveContentDraft(ctx context.Context, draft *models.Cont
 		return ref.ID, nil
 	}
 	_, err := r.client.Collection(models.ColContentDrafts).Doc(draft.ID).Set(ctx, draft)
-	return draft.ID, fmt.Errorf("set draft: %w", err)
+	if err != nil {
+		return "", fmt.Errorf("set draft: %w", err)
+	}
+	return draft.ID, nil
 }
 
 // --- ImageAsset ---
+
+func (r *FirestoreRepo) GetImageAssetsByDraft(ctx context.Context, draftID string) ([]models.ImageAsset, error) {
+	q := r.client.Collection(models.ColImageAssets).Where("content_draft_id", "==", draftID)
+	docs, err := q.Documents(ctx).GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("query image assets: %w", err)
+	}
+
+	var result []models.ImageAsset
+	for _, d := range docs {
+		var asset models.ImageAsset
+		if err := d.DataTo(&asset); err != nil {
+			continue
+		}
+		asset.ID = d.Ref.ID
+		result = append(result, asset)
+	}
+	return result, nil
+}
 
 func (r *FirestoreRepo) SaveImageAsset(ctx context.Context, asset *models.ImageAsset) (string, error) {
 	asset.CreatedAt = time.Now()
@@ -171,7 +235,10 @@ func (r *FirestoreRepo) SaveImageAsset(ctx context.Context, asset *models.ImageA
 		return ref.ID, nil
 	}
 	_, err := r.client.Collection(models.ColImageAssets).Doc(asset.ID).Set(ctx, asset)
-	return asset.ID, fmt.Errorf("set image asset: %w", err)
+	if err != nil {
+		return "", fmt.Errorf("set image asset: %w", err)
+	}
+	return asset.ID, nil
 }
 
 // --- Approval ---
@@ -187,7 +254,10 @@ func (r *FirestoreRepo) SaveApproval(ctx context.Context, a *models.Approval) (s
 		return ref.ID, nil
 	}
 	_, err := r.client.Collection(models.ColApprovals).Doc(a.ID).Set(ctx, a)
-	return a.ID, fmt.Errorf("set approval: %w", err)
+	if err != nil {
+		return "", fmt.Errorf("set approval: %w", err)
+	}
+	return a.ID, nil
 }
 
 // --- PublishingJob ---
@@ -202,7 +272,10 @@ func (r *FirestoreRepo) SavePublishingJob(ctx context.Context, j *models.Publish
 		return ref.ID, nil
 	}
 	_, err := r.client.Collection(models.ColPublishingJobs).Doc(j.ID).Set(ctx, j)
-	return j.ID, fmt.Errorf("set pub job: %w", err)
+	if err != nil {
+		return "", fmt.Errorf("set pub job: %w", err)
+	}
+	return j.ID, nil
 }
 
 // --- Stuck job detection ---
@@ -225,6 +298,41 @@ func (r *FirestoreRepo) FindStuckDocuments(ctx context.Context, status string, b
 		}
 		doc.ID = d.Ref.ID
 		result = append(result, doc)
+	}
+	return result, nil
+}
+
+// --- Embedding ---
+
+func (r *FirestoreRepo) SaveEmbedding(ctx context.Context, emb *models.EmbeddingEntry) (string, error) {
+	if emb.ID == "" {
+		ref, _, err := r.client.Collection(models.ColEmbeddings).Add(ctx, emb)
+		if err != nil {
+			return "", fmt.Errorf("add embedding: %w", err)
+		}
+		emb.ID = ref.ID
+		return ref.ID, nil
+	}
+	_, err := r.client.Collection(models.ColEmbeddings).Doc(emb.ID).Set(ctx, emb)
+	if err != nil {
+		return "", fmt.Errorf("set embedding: %w", err)
+	}
+	return emb.ID, nil
+}
+
+func (r *FirestoreRepo) ListAllEmbeddings(ctx context.Context) ([]models.EmbeddingEntry, error) {
+	docs, err := r.client.Collection(models.ColEmbeddings).Documents(ctx).GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("list all embeddings: %w", err)
+	}
+	var result []models.EmbeddingEntry
+	for _, d := range docs {
+		var emb models.EmbeddingEntry
+		if err := d.DataTo(&emb); err != nil {
+			continue
+		}
+		emb.ID = d.Ref.ID
+		result = append(result, emb)
 	}
 	return result, nil
 }

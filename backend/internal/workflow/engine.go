@@ -15,25 +15,55 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/models"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
+	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
+	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
+	"github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
+	"github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
+	"github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
+	"github.com/rezahanif/hukum-aneh/backend/internal/validator"
 )
 
 // Engine orchestrates the full pipeline. Owns all control flow.
 // AI agents are workers the engine calls — they never orchestrate. Spec §2.
 type Engine struct {
-	cfg      *config.Config
-	repo     *repository.FirestoreRepo
-	registry *connectors.Registry
-	parser   *parser.Parser
-	logger   *slog.Logger
+	cfg        *config.Config
+	repo       *repository.FirestoreRepo
+	registry   *connectors.Registry
+	parser     *parser.Parser
+	retrieval  *retrieval.Service
+	ai         *ai.Service
+	imagegen   *imagegen.Service
+	tg         *telegram.Service
+	publishing *publishing.Service
+	validator  *validator.ImageValidator
+	logger     *slog.Logger
 }
 
-func NewEngine(cfg *config.Config, repo *repository.FirestoreRepo, registry *connectors.Registry, p *parser.Parser, logger *slog.Logger) *Engine {
+func NewEngine(
+	cfg *config.Config,
+	repo *repository.FirestoreRepo,
+	registry *connectors.Registry,
+	p *parser.Parser,
+	ret *retrieval.Service,
+	aiSvc *ai.Service,
+	imgGen *imagegen.Service,
+	tgSvc *telegram.Service,
+	pubSvc *publishing.Service,
+	val *validator.ImageValidator,
+	logger *slog.Logger,
+) *Engine {
 	return &Engine{
-		cfg:      cfg,
-		repo:     repo,
-		registry: registry,
-		parser:   p,
-		logger:   logger,
+		cfg:        cfg,
+		repo:       repo,
+		registry:   registry,
+		parser:     p,
+		retrieval:  ret,
+		ai:         aiSvc,
+		imagegen:   imgGen,
+		tg:         tgSvc,
+		publishing: pubSvc,
+		validator:  val,
+		logger:     logger,
 	}
 }
 
@@ -86,6 +116,15 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 				continue
 			}
 			e.logger.Info("discovered new law", "id", id, "law_number", meta.LawNumber, "title", meta.Title)
+
+			// Trigger download → parse → analyze pipeline for this law
+			go func(lawDoc *models.LawDocument) {
+				procCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+				defer cancel()
+				if err := e.ProcessDocument(procCtx, lawDoc); err != nil {
+					e.logger.Error("process document failed", "id", lawDoc.ID, "law_number", lawDoc.LawNumber, "error", err)
+				}
+			}(doc)
 		}
 	}
 
@@ -178,6 +217,315 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 	}
 
 	e.logger.Info("document processed", "id", doc.ID, "law_number", doc.LawNumber, "sections", len(result.Sections))
+
+	// Trigger next pipeline steps: Embed → Similarity Search → Analyze → Strategy → Prompt → ImageGen → Approval
+	if err := e.ProcessParsedDocument(ctx, doc, version); err != nil {
+		e.logger.Error("process parsed document failed", "id", doc.ID, "error", err)
+		return fmt.Errorf("parsed pipeline: %w", err)
+	}
+
+	return nil
+}
+
+// ProcessParsedDocument implements the downstream modular pipeline steps.
+// Spec §3: Embed → Search → LawAnalysis → ContentStrategy → PromptBuilder → ImageGen → Validator → Telegram.
+func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocument, version *models.LawVersion) error {
+	e.logger.Info("generating embedding for law version", "doc_id", doc.ID)
+
+	// Step 1: Generate & Save Embedding
+	vector, err := e.retrieval.GenerateEmbedding(ctx, version.TextContent)
+	if err != nil {
+		return fmt.Errorf("generate embedding: %w", err)
+	}
+
+	embEntry := &models.EmbeddingEntry{
+		LawDocumentID: doc.ID,
+		Vector:        vector,
+	}
+	embID, err := e.repo.SaveEmbedding(ctx, embEntry)
+	if err != nil {
+		return fmt.Errorf("save embedding: %w", err)
+	}
+
+	version.EmbeddingID = embID
+	if _, err := e.repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+		return fmt.Errorf("update version embedding_id: %w", err)
+	}
+
+	// Step 2: Similarity Search
+	e.logger.Info("running similarity search against other laws")
+	candidates, err := e.retrieval.Search(ctx, vector, 3)
+	if err != nil {
+		e.logger.Warn("similarity search failed, continuing without related laws", "error", err)
+	}
+
+	var relatedTexts []string
+	for _, c := range candidates {
+		// Do not compare against self
+		if c.LawDocumentID == doc.ID {
+			continue
+		}
+		// Try to fetch related law text
+		relDoc, err := e.repo.GetLawDocument(ctx, c.LawDocumentID)
+		if err != nil {
+			continue
+		}
+		relatedTexts = append(relatedTexts, fmt.Sprintf("Law: %s, Title: %s", relDoc.LawNumber, relDoc.Title))
+	}
+
+	// Step 3: Law Analysis Agent (Hermes LLM worker)
+	e.logger.Info("calling Law Analysis Agent")
+	analysis, err := e.ai.AnalyzeLaw(ctx, version.TextContent, relatedTexts)
+	if err != nil {
+		return fmt.Errorf("law analysis agent: %w", err)
+	}
+	analysis.LawDocumentID = doc.ID
+
+	analysisID, err := e.repo.SaveLawAnalysis(ctx, doc.ID, analysis)
+	if err != nil {
+		return fmt.Errorf("save law analysis: %w", err)
+	}
+	analysis.ID = analysisID
+
+	doc.Status = "analyzed"
+	doc.UpdatedAt = time.Now()
+	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		return fmt.Errorf("update doc status: %w", err)
+	}
+
+	// Step 4: Content Strategy Agent
+	e.logger.Info("calling Content Strategy Agent")
+	draft, err := e.ai.CreateContentStrategy(ctx, analysis)
+	if err != nil {
+		return fmt.Errorf("content strategy agent: %w", err)
+	}
+	draft.Status = "draft"
+
+	draftID, err := e.repo.SaveContentDraft(ctx, draft)
+	if err != nil {
+		return fmt.Errorf("save content draft: %w", err)
+	}
+	draft.ID = draftID
+
+	// Step 5: Prompt Builder Agent
+	e.logger.Info("calling Prompt Builder Agent")
+	designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
+	if err != nil {
+		return fmt.Errorf("read design guide: %w", err)
+	}
+	characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
+	if err != nil {
+		return fmt.Errorf("read character sheet: %w", err)
+	}
+
+	imagePrompt, err := e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
+	if err != nil {
+		return fmt.Errorf("prompt builder agent: %w", err)
+	}
+
+	// Step 6: Image Generation Service
+	e.logger.Info("calling Image Generation Service", "prompt", imagePrompt)
+	asset, err := e.imagegen.GenerateImage(ctx, draft.ID, imagePrompt)
+	if err != nil {
+		return fmt.Errorf("image generation: %w", err)
+	}
+
+	// Step 7: Image Validation
+	e.logger.Info("validating generated image")
+	valid, err := e.validator.Validate(asset.FilePath)
+	if err != nil {
+		e.logger.Error("image validation returned error", "error", err)
+	}
+	asset.Validated = valid
+
+	assetID, err := e.repo.SaveImageAsset(ctx, asset)
+	if err != nil {
+		return fmt.Errorf("save image asset: %w", err)
+	}
+	asset.ID = assetID
+
+	// Step 8: Send Telegram Approval Request
+	e.logger.Info("sending Telegram approval request")
+	_, err = e.tg.SendApprovalRequest(ctx, draft, asset, analysis, doc.Title)
+	if err != nil {
+		return fmt.Errorf("send telegram approval: %w", err)
+	}
+
+	draft.Status = "pending_approval"
+	if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		return fmt.Errorf("update draft status: %w", err)
+	}
+
+	doc.Status = "pending_approval"
+	doc.UpdatedAt = time.Now()
+	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		return fmt.Errorf("update doc status: %w", err)
+	}
+
+	e.logger.Info("pipeline completed up to approval stage", "doc_id", doc.ID)
+	return nil
+}
+
+// HandleApprovalAction processes the callback query from Telegram.
+// Decisions: approve, reject, regen_img, regen_cap.
+func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, action string, reviewerID string) error {
+	e.logger.Info("processing approval action", "draft_id", draftID, "action", action, "reviewer_id", reviewerID)
+
+	draft, err := e.repo.GetContentDraft(ctx, draftID)
+	if err != nil {
+		return fmt.Errorf("get content draft: %w", err)
+	}
+
+	analysis, err := e.repo.GetLawAnalysisByDraft(ctx, draftID)
+	if err != nil {
+		return fmt.Errorf("get law analysis: %w", err)
+	}
+
+	doc, err := e.repo.GetLawDocument(ctx, analysis.LawDocumentID)
+	if err != nil {
+		return fmt.Errorf("get law document: %w", err)
+	}
+
+	// Save Approval record
+	approval := &models.Approval{
+		ContentDraftID: draftID,
+		ReviewerID:     reviewerID,
+		Decision:       action,
+		Reason:         fmt.Sprintf("Action triggered via Telegram inline keyboard"),
+		Timestamp:      time.Now(),
+	}
+	if _, err := e.repo.SaveApproval(ctx, approval); err != nil {
+		e.logger.Error("failed to save approval log", "error", err)
+	}
+
+	switch action {
+	case "approve":
+		draft.Status = "approved"
+		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+			return err
+		}
+
+		doc.Status = "approved"
+		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+			return err
+		}
+
+		// Spec §5.11: Trigger Publishing Engine
+		e.logger.Info("publishing approved content to Instagram", "draft_id", draftID)
+
+		// Fetch asset for the image
+		assets, err := e.repo.GetImageAssetsByDraft(ctx, draftID)
+		if err != nil || len(assets) == 0 {
+			return fmt.Errorf("no image asset for draft: %w", err)
+		}
+		asset := &assets[0]
+
+		// ponytail: Instagram Graph API requires public image URL.
+		// upgrade: upload to S3/GCS/Imgur first, then pass public URL here.
+		publicImageURL := e.cfg.Instagram.AccessToken // placeholder — real impl needs image hosting
+		if publicImageURL == "" {
+			return fmt.Errorf("instagram credentials or public image URL missing")
+		}
+
+		postID, err := e.publishing.PublishToInstagram(ctx, draft, asset, publicImageURL)
+		if err != nil {
+			e.logger.Error("failed to publish to instagram", "error", err)
+			pubJob := &models.PublishingJob{
+				ContentDraftID: draftID,
+				Platform:       "instagram",
+				Status:         "failed",
+			}
+			e.repo.SavePublishingJob(ctx, pubJob)
+			return fmt.Errorf("instagram publish: %w", err)
+		}
+
+		now := time.Now()
+		pubJob := &models.PublishingJob{
+			ContentDraftID: draftID,
+			Platform:       "instagram",
+			Status:         "published",
+			PostedAt:       &now,
+			ExternalPostID: postID,
+		}
+		e.repo.SavePublishingJob(ctx, pubJob)
+		e.logger.Info("instagram publication success", "post_id", postID)
+
+	case "reject":
+		draft.Status = "rejected"
+		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+			return err
+		}
+
+		doc.Status = "archived"
+		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+			return err
+		}
+
+	case "regen_img":
+		designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
+		if err != nil {
+			return err
+		}
+		characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
+		if err != nil {
+			return err
+		}
+
+		imagePrompt, err := e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
+		if err != nil {
+			return err
+		}
+
+		asset, err := e.imagegen.GenerateImage(ctx, draftID, imagePrompt)
+		if err != nil {
+			return err
+		}
+
+		valid, err := e.validator.Validate(asset.FilePath)
+		if err != nil {
+			e.logger.Error("validation error", "error", err)
+		}
+		asset.Validated = valid
+
+		if _, err := e.repo.SaveImageAsset(ctx, asset); err != nil {
+			return err
+		}
+
+		// Re-send approval request
+		if _, err := e.tg.SendApprovalRequest(ctx, draft, asset, analysis, doc.Title); err != nil {
+			return err
+		}
+
+	case "regen_cap":
+		// Re-run content strategy with analysis
+		newDraft, err := e.ai.CreateContentStrategy(ctx, analysis)
+		if err != nil {
+			return err
+		}
+		// Overwrite the existing draft text
+		draft.Caption = newDraft.Caption
+		draft.Hook = newDraft.Hook
+		draft.Hashtags = newDraft.Hashtags
+		draft.Status = "pending_approval"
+		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+			return err
+		}
+
+		// Fetch existing asset
+		assets, err := e.repo.GetImageAssetsByDraft(ctx, draftID)
+		if err != nil || len(assets) == 0 {
+			return fmt.Errorf("no existing image asset for draft: %w", err)
+		}
+
+		// Re-send approval request
+		if _, err := e.tg.SendApprovalRequest(ctx, draft, &assets[0], analysis, doc.Title); err != nil {
+			return err
+		}
+
+	default:
+		return fmt.Errorf("unknown approval action: %s", action)
+	}
+
 	return nil
 }
 

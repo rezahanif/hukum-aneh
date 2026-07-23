@@ -8,6 +8,7 @@ const (
 	ColImageAssets    = "image_assets"
 	ColApprovals      = "approvals"
 	ColPublishingJobs = "publishing_jobs"
+	ColEmbeddings     = "embeddings"
 
 	SubVersions       = "versions"
 	SubRelationships  = "relationships"

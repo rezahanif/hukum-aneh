@@ -118,3 +118,11 @@ type PublishingJob struct {
 	PostedAt       *time.Time `json:"posted_at,omitempty"`
 	ExternalPostID string     `json:"external_post_id"`
 }
+
+// EmbeddingEntry stores the raw float vector in a separate collection.
+// Firestore collection: embeddings
+type EmbeddingEntry struct {
+	ID            string    `json:"id" firestore:"-"`
+	LawDocumentID string    `json:"law_document_id"`
+	Vector        []float32 `json:"vector"`
+}
