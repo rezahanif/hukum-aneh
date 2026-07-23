@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"os"
 	"runtime"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -21,13 +22,16 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
-// Backfill missing PDFs from BPK.
-// Queries Firestore for laws that were never parsed, searches BPK for each,
-// downloads PDF, parses, saves to Firestore.
+// Backfill missing PDFs from BPK (peraturan.bpk.go.id).
+// Scrapes peraturan.go.id for all active laws, checks which are missing from
+// Firestore, searches BPK for each, downloads + parses + saves.
+// Uses local cache file to avoid burning Firestore read quota on restarts.
 //
 // Usage:
-//   go run ./backend/cmd/backfill_bpk -workers=4
-//   go run ./backend/cmd/backfill_bpk -workers=4 -dry-run
+//   go run ./backend/cmd/backfill_bpk -workers=1
+//   go run ./backend/cmd/backfill_bpk -dry-run
+
+const parsedCacheFile = "backend/configs/parsed_cache.txt"
 
 func main() {
 	var (
@@ -35,7 +39,7 @@ func main() {
 		dryRun  bool
 		verbose bool
 	)
-	flag.IntVar(&workers, "workers", 4, "parallel download workers")
+	flag.IntVar(&workers, "workers", 1, "parallel download workers")
 	flag.BoolVar(&dryRun, "dry-run", false, "search BPK only, no download/parse/save")
 	flag.BoolVar(&verbose, "verbose", false, "debug logging")
 	flag.Parse()
@@ -54,7 +58,6 @@ func main() {
 
 	ctx := context.Background()
 
-	// Firestore
 	repo, err := repository.NewFirestoreRepo(ctx, cfg.Firebase.ProjectID, cfg.Firebase.CredentialsPath)
 	if err != nil {
 		logger.Error("firestore init failed", "error", err)
@@ -62,31 +65,29 @@ func main() {
 	}
 	defer repo.Close()
 
-	// BPK connector
 	bpkConn := bpk.New(logger)
-
-	// Parser
 	p := parser.New(logger)
 
-	// Step 1: Get all laws from Firestore to know what we already have
-	logger.Info("fetching all laws from Firestore")
-	allDocs, err := repo.ListAllLaws(ctx)
-	if err != nil {
-		logger.Error("list laws failed", "error", err)
-		os.Exit(1)
-	}
-
-	// Build set of law numbers we already have parsed
-	haveParsed := make(map[string]bool)
-	for _, d := range allDocs {
-		if d.Status == "parsed" || d.Status == "analyzed" || d.Status == "pending_approval" {
-			haveParsed[d.LawNumber] = true
+	// Step 1: Load parsed law numbers from cache, fallback to Firestore
+	logger.Info("loading parsed law numbers")
+	haveParsed := loadParsedCache()
+	if len(haveParsed) == 0 {
+		logger.Info("cache empty — querying Firestore")
+		for _, status := range []string{"parsed", "analyzed", "pending_approval"} {
+			docs, err := repo.ListLawsByStatus(ctx, status)
+			if err != nil {
+				logger.Warn("list laws by status failed", "status", status, "error", err)
+				continue
+			}
+			for _, d := range docs {
+				haveParsed[d.LawNumber] = true
+			}
 		}
+		saveParsedCache(haveParsed)
 	}
+	logger.Info("already parsed laws", "count", len(haveParsed))
 
-	logger.Info("laws in Firestore", "total", len(allDocs), "already_parsed", len(haveParsed))
-
-	// Step 2: Scrape full listing from peraturan.go.id to get all active laws
+	// Step 2: Scrape peraturan.go.id for all active laws
 	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
 	peraturanConn := peraturan.New(scr, logger)
 	logger.Info("scraping peraturan.go.id for all active laws")
@@ -97,14 +98,13 @@ func main() {
 	}
 	logger.Info("scraped from peraturan.go.id", "total", len(allListed))
 
-	// Step 3: Find laws that are missing (listed but not parsed)
+	// Step 3: Find missing laws
 	var missing []connectors.DocumentMeta
 	for _, m := range allListed {
 		if !haveParsed[m.LawNumber] {
 			missing = append(missing, m)
 		}
 	}
-
 	logger.Info("missing laws to backfill from BPK", "count", len(missing))
 
 	if len(missing) == 0 {
@@ -123,16 +123,16 @@ func main() {
 		return
 	}
 
-	// Step 4: Search BPK for each missing law, download + parse + save
-	storageDir := "backend/internal/storage"
-	os.MkdirAll(storageDir, 0755)
+	// Step 4: Search BPK for each missing law
+	os.MkdirAll("backend/internal/storage", 0755)
 
 	var (
-		found    int64
-		notFound int64
-		failed   int64
-		wg       sync.WaitGroup
-		sem      = make(chan struct{}, workers)
+		found        int64
+		notFound     int64
+		failed       int64
+		wg           sync.WaitGroup
+		sem          = make(chan struct{}, workers)
+		haveParsedMu sync.Mutex
 	)
 
 	for _, m := range missing {
@@ -142,7 +142,6 @@ func main() {
 			sem <- struct{}{}
 			defer func() { <-sem }()
 
-			// Search BPK
 			bpkMeta, err := bpkConn.SearchByLawNumber(ctx, meta.LawNumber, meta.DocumentType)
 			if err != nil {
 				logger.Warn("bpk search error", "law_number", meta.LawNumber, "error", err)
@@ -154,36 +153,33 @@ func main() {
 				return
 			}
 
-			// Download from BPK
 			raw, err := bpkConn.Download(ctx, *bpkMeta)
 			if err != nil {
 				logger.Warn("bpk download failed", "law_number", meta.LawNumber, "error", err)
 				atomic.AddInt64(&failed, 1)
 				return
 			}
-			defer raw.Content.Close()
 
-			// Save LawDocument
 			doc := &models.LawDocument{
-				LawNumber:     meta.LawNumber,
-				Title:         meta.Title,
-				SourceURL:     bpkMeta.SourceURL,
-				Source:        bpkConn.Name(),
-				Level:         meta.Level,
-				DocumentType:  meta.DocumentType,
-				Status:        "downloaded",
-				CreatedAt:     time.Now(),
-				UpdatedAt:     time.Now(),
+				LawNumber:    meta.LawNumber,
+				Title:        meta.Title,
+				SourceURL:    bpkMeta.SourceURL,
+				Source:       bpkConn.Name(),
+				Level:        meta.Level,
+				DocumentType: meta.DocumentType,
+				Status:       "downloaded",
+				CreatedAt:    time.Now(),
+				UpdatedAt:    time.Now(),
 			}
 			docID, err := repo.SaveLawDocument(ctx, doc)
 			if err != nil {
 				logger.Error("save doc failed", "law_number", meta.LawNumber, "error", err)
+				raw.Content.Close()
 				atomic.AddInt64(&failed, 1)
 				return
 			}
 			doc.ID = docID
 
-			// Parse
 			result, err := p.Parse(ctx, raw.Content, raw.MimeType, raw.Filename)
 			raw.Content.Close()
 			if err != nil {
@@ -202,7 +198,6 @@ func main() {
 				logger.Warn("text truncated to firestore limit", "law_number", meta.LawNumber, "original_chars", len(result.TextContent))
 			}
 
-			// Save version
 			version := &models.LawVersion{
 				LawDocumentID: doc.ID,
 				VersionNumber: int(time.Now().Unix()),
@@ -220,11 +215,18 @@ func main() {
 			repo.SaveLawDocument(ctx, doc)
 
 			atomic.AddInt64(&found, 1)
-			f := atomic.LoadInt64(&found)
-			nf := atomic.LoadInt64(&notFound)
-			logger.Info("backfilled from BPK", "law_number", meta.LawNumber, "found", f, "not_found", nf, "chars", len(text))
+			logger.Info("backfilled from BPK",
+				"law_number", meta.LawNumber,
+				"found", atomic.LoadInt64(&found),
+				"not_found", atomic.LoadInt64(&notFound),
+				"chars", len(text),
+			)
 
-			// Force GC to release PDF text memory before next law
+			haveParsedMu.Lock()
+			haveParsed[meta.LawNumber] = true
+			saveParsedCache(haveParsed)
+			haveParsedMu.Unlock()
+
 			runtime.GC()
 		}(m)
 	}
@@ -236,4 +238,28 @@ func main() {
 	fmt.Printf("Found on BPK:   %d\n", atomic.LoadInt64(&found))
 	fmt.Printf("Not found:      %d\n", atomic.LoadInt64(&notFound))
 	fmt.Printf("Failed:         %d\n", atomic.LoadInt64(&failed))
+}
+
+func loadParsedCache() map[string]bool {
+	data, err := os.ReadFile(parsedCacheFile)
+	if err != nil {
+		return make(map[string]bool)
+	}
+	result := make(map[string]bool)
+	for _, line := range strings.Split(string(data), "\n") {
+		line = strings.TrimSpace(line)
+		if line != "" {
+			result[line] = true
+		}
+	}
+	return result
+}
+
+func saveParsedCache(m map[string]bool) {
+	var sb strings.Builder
+	for k := range m {
+		sb.WriteString(k)
+		sb.WriteString("\n")
+	}
+	os.WriteFile(parsedCacheFile, []byte(sb.String()), 0644)
 }
