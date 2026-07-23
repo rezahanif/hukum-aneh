@@ -12,16 +12,16 @@ import (
 	"sync"
 	"time"
 
+	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 	"github.com/rezahanif/hukum-aneh/backend/internal/models"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
-	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
-	"github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
+	"github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
 	"github.com/rezahanif/hukum-aneh/backend/internal/validator"
 )
 
@@ -445,7 +445,14 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 		// upgrade: upload to S3/GCS/Imgur first, then pass public URL here.
 		publicImageURL := e.cfg.Instagram.AccessToken // placeholder — real impl needs image hosting
 		if publicImageURL == "" {
-			return fmt.Errorf("instagram credentials or public image URL missing")
+			e.logger.Warn("approved draft saved, publishing skipped: public image URL missing", "draft_id", draftID)
+			pubJob := &models.PublishingJob{
+				ContentDraftID: draftID,
+				Platform:       "instagram",
+				Status:         "pending_image_hosting",
+			}
+			_, _ = e.repo.SavePublishingJob(ctx, pubJob)
+			return nil
 		}
 
 		postID, err := e.publishing.PublishToInstagram(ctx, draft, asset, publicImageURL)
@@ -558,7 +565,7 @@ func (e *Engine) isSuspicious(analysis *models.LawAnalysis) bool {
 	if m == "" {
 		m = reYear.FindString(analysis.LawDocumentID)
 	}
-	
+
 	if m != "" {
 		var yr int
 		_, _ = fmt.Sscanf(m, "%d", &yr)
