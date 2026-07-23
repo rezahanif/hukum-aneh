@@ -1,0 +1,24 @@
+{
+  "name": "Nara",
+  "description": "Recurring brand character — legal analyst persona",
+  "appearance": {
+    "gender": "female",
+    "age_range": "25-35",
+    "hair": "short bob, black",
+    "eyes": "brown",
+    "skin": "warm tan",
+    "build": "slim"
+  },
+  "outfit": {
+    "default": "navy blazer over white shirt, minimal jewelry",
+    "casual": "white blouse, fitted jeans"
+  },
+  "expression": {
+    "default": "confident, slightly serious",
+    "explaining": "pointing gesture, eyes forward",
+    "warning": "raised eyebrow, one hand up"
+  },
+  "style_tags": ["modern flat", "clean lines", "medium line weight", "indonesian"],
+  "lora_token": "<nara_character>",
+  "color_notes": "Palette stays #0055FF / #FFFFFF / #FFD400. Never deviate."
+}

@@ -1,0 +1,44 @@
+# Environment
+.env
+.env.local
+*.env
+
+# Firebase credentials
+backend/configs/firebase-service-account.json
+*-service-account*.json
+
+# Go
+/backend/tmp/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Storage
+backend/internal/storage/*
+!backend/internal/storage/.gitkeep
+
+# Logs
+*.log

@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Peraturan.go.id",
+    "level": "national",
+    "document_type": "UUD 1945",
+    "official_source": "Peraturan.go.id",
+    "official_url": "https://www.peraturan.go.id/",
+    "notes": "National legal hierarchy; search by title or number"
+  },
+  {
+    "name": "Peraturan.go.id TAP MPR",
+    "level": "national",
+    "document_type": "TAP MPR",
+    "official_source": "Peraturan.go.id",
+    "official_url": "https://www.peraturan.go.id/",
+    "notes": "National higher-level legal documents"
+  },
+  {
+    "name": "Peraturan.go.id UU",
+    "level": "national",
+    "document_type": "Undang-Undang (UU)",
+    "official_source": "Peraturan.go.id",
+    "official_url": "https://www.peraturan.go.id/uu",
+    "notes": "Official database for laws"
+  },
+  {
+    "name": "Peraturan.go.id Perppu",
+    "level": "national",
+    "document_type": "Perppu",
+    "official_source": "Peraturan.go.id",
+    "official_url": "https://www.peraturan.go.id/",
+    "notes": "Government regulation in lieu of law"
+  },
+  {
+    "name": "Peraturan.go.id PP",
+    "level": "national",
+    "document_type": "Peraturan Pemerintah (PP)",
+    "official_source": "Peraturan.go.id",
+    "official_url": "https://www.peraturan.go.id/",
+    "notes": "Government regulations"
+  },
+  {
+    "name": "JDIH Setneg Perpres",
+    "level": "national",
+    "document_type": "Peraturan Presiden (Perpres)",
+    "official_source": "JDIH Setneg",
+    "official_url": "https://jdih.setneg.go.id/",
+    "notes": "Official presidential legal repository"
+  },
+  {
+    "name": "JDIH DPR Keppres",
+    "level": "national",
+    "document_type": "Keputusan Presiden (Keppres)",
+    "official_source": "JDIH DPR RI",
+    "official_url": "https://jdih.dpr.go.id/",
+    "notes": "Often indexed alongside national regulations"
+  },
+  {
+    "name": "JDIH DPR Inpres",
+    "level": "national",
+    "document_type": "Instruksi Presiden (Inpres)",
+    "official_source": "JDIH DPR RI",
+    "official_url": "https://jdih.dpr.go.id/",
+    "notes": "Often indexed alongside national regulations"
+  },
+  {
+    "name": "JDIH Kemenkeu Peraturan Menteri",
+    "level": "national",
+    "document_type": "Peraturan Menteri",
+    "official_source": "JDIH kementerian masing-masing",
+    "official_url": "https://jdih.kemenkeu.go.id/direktori",
+    "notes": "Use the relevant ministry JDIH for sector rules"
+  },
+  {
+    "name": "JDIH Kemenkeu Keputusan Menteri",
+    "level": "national",
+    "document_type": "Keputusan Menteri",
+    "official_source": "JDIH kementerian masing-masing",
+    "official_url": "https://jdih.kemenkeu.go.id/direktori",
+    "notes": "Use the relevant ministry JDIH for sector rules"
+  },
+  {
+    "name": "MKRI Putusan MK",
+    "level": "national",
+    "document_type": "Putusan MK",
+    "official_source": "Mahkamah Konstitusi",
+    "official_url": "https://www.mkri.id/perkara/persidangan/putusan",
+    "notes": "Official constitutional court decisions"
+  },
+  {
+    "name": "JDIH MA Putusan pengadilan",
+    "level": "national",
+    "document_type": "Putusan pengadilan",
+    "official_source": "JDIH MA",
+    "official_url": "https://jdih.mahkamahagung.go.id/",
+    "notes": "Judicial documents and legal references"
+  },
+  {
+    "name": "JDIH BPK Database lintas jenis",
+    "level": "national",
+    "document_type": "Database lintas jenis",
+    "official_source": "JDIH BPK",
+    "official_url": "https://peraturan.bpk.go.id/",
+    "notes": "Useful cross-search database"
+  },
+  {
+    "name": "JDIHN National legal network",
+    "level": "national",
+    "document_type": "National legal network",
+    "official_source": "JDIHN",
+    "official_url": "https://jdihn.go.id/",
+    "notes": "Gateway to official legal documentation across Indonesia"
+  },
+  {
+    "name": "JDIH Kemnaker Employment",
+    "level": "sectoral",
+    "document_type": "Employment regulations",
+    "official_source": "JDIH Kemnaker",
+    "official_url": "https://jdih.kemnaker.go.id/peraturan",
+    "notes": "Sector-specific labor law source"
+  },
+  {
+    "name": "JDIH Kemendag Trade",
+    "level": "sectoral",
+    "document_type": "Trade regulations",
+    "official_source": "JDIH Kemendag",
+    "official_url": "https://jdih.kemendag.go.id/portal/indonesia",
+    "notes": "Sector-specific trade law portal"
+  },
+  {
+    "name": "JDIH Kemkomdigi Digital",
+    "level": "sectoral",
+    "document_type": "Digital/communications regulations",
+    "official_source": "JDIH Kemkomdigi",
+    "official_url": "https://jdih.komdigi.go.id/",
+    "notes": "Sector-specific communications and digital law portal"
+  },
+  {
+    "name": "JDIH KPU Election",
+    "level": "sectoral",
+    "document_type": "Election regulations",
+    "official_source": "JDIH KPU",
+    "official_url": "https://jdih.kpu.go.id/",
+    "notes": "Election law and related regulations"
+  },
+  {
+    "name": "JDIH BKN Civil Service",
+    "level": "sectoral",
+    "document_type": "Civil service regulations",
+    "official_source": "JDIH BKN",
+    "official_url": "https://jdih.bkn.go.id/",
+    "notes": "Personnel and civil service law source"
+  },
+  {
+    "name": "JDIH LKPP Procurement",
+    "level": "sectoral",
+    "document_type": "Procurement regulations",
+    "official_source": "JDIH LKPP",
+    "official_url": "https://jdih.lkpp.go.id/",
+    "notes": "Public procurement law source"
+  }
+]

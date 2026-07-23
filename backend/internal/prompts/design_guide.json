@@ -1,0 +1,9 @@
+{
+  "palette": ["#0055FF", "#FFFFFF", "#FFD400"],
+  "style": "modern flat",
+  "line_weight": "medium",
+  "background": "simple gradient",
+  "font": "Poppins",
+  "logo_position": "top left",
+  "aspect_ratio": "4:5"
+}
