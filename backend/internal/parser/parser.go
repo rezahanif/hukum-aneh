@@ -10,7 +10,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ledongthuc/pdf"
 	"github.com/otiai10/gosseract/v2"
 )
 
@@ -103,40 +102,15 @@ func (p *Parser) parsePDF(ctx context.Context, r io.Reader, filename string) (*P
 	}, nil
 }
 
-// extractPDFText uses ledongthuc/pdf to extract embedded text.
-// Recovers from panics on corrupt PDFs — falls through to OCR.
-func (p *Parser) extractPDFText(pdfPath string) (text string, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			p.logger.Warn("pdf text extraction panicked, falling back to OCR", "panic", r)
-			text = ""
-			err = fmt.Errorf("pdf panic: %v", r)
-		}
-	}()
-
-	pdfFile, pdfReader, err := pdf.Open(pdfPath)
+// extractPDFText uses pdftotext (poppler-utils) to extract embedded text.
+// Native C binary — no memory leaks unlike ledongthuc/pdf Go library.
+func (p *Parser) extractPDFText(pdfPath string) (string, error) {
+	cmd := exec.CommandContext(context.Background(), "pdftotext", "-layout", pdfPath, "-")
+	output, err := cmd.Output()
 	if err != nil {
-		return "", fmt.Errorf("open pdf: %w", err)
+		return "", fmt.Errorf("pdftotext failed: %w", err)
 	}
-	defer pdfFile.Close()
-
-	var sb strings.Builder
-	numPages := pdfReader.NumPage()
-	for i := 1; i <= numPages; i++ {
-		page := pdfReader.Page(i)
-		if page.V.IsNull() {
-			continue
-		}
-		text, err := page.GetPlainText(nil)
-		if err != nil {
-			p.logger.Warn("failed to extract page text", "page", i, "error", err)
-			continue
-		}
-		sb.WriteString(text)
-		sb.WriteString("\n\n--- Page Break ---\n\n")
-	}
-
-	return sb.String(), nil
+	return string(output), nil
 }
 
 // ocrPDF converts PDF pages to images via pdftoppm, then OCRs each image with tesseract.

@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"os"
 	"runtime"
+	"runtime/debug"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -227,8 +228,10 @@ func main() {
 			saveParsedCache(haveParsed)
 			haveParsedMu.Unlock()
 
+			// Force GC to release PDF text memory before next law
 			runtime.GC()
-		}(m)
+			debug.FreeOSMemory()
+			}(m)
 	}
 
 	wg.Wait()
