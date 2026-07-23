@@ -8,6 +8,7 @@ import (
 	"io"
 	"math"
 	"net/http"
+	"time"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
@@ -19,6 +20,7 @@ type Service struct {
 	cfg    *config.Config
 	repo   *repository.FirestoreRepo
 	client *http.Client
+	sem    chan struct{} // semaphore to throttle concurrent 9Router calls
 }
 
 func New(cfg *config.Config, repo *repository.FirestoreRepo) *Service {
@@ -26,6 +28,7 @@ func New(cfg *config.Config, repo *repository.FirestoreRepo) *Service {
 		cfg:    cfg,
 		repo:   repo,
 		client: &http.Client{},
+		sem:    make(chan struct{}, 2), // max 2 concurrent requests
 	}
 }
 
@@ -41,7 +44,16 @@ type EmbeddingResponse struct {
 }
 
 // GenerateEmbedding calls 9Router to generate embedding vector for text.
+// Implements rate-limiting semaphore and backoff retries to prevent 429 quota errors.
 func (s *Service) GenerateEmbedding(ctx context.Context, text string) ([]float32, error) {
+	// Acquire semaphore
+	select {
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	case s.sem <- struct{}{}:
+	}
+	defer func() { <-s.sem }()
+
 	reqBody := EmbeddingRequest{
 		Input: text,
 		Model: "text-embedding-3-small", // standard OpenAI embedding model
@@ -52,34 +64,62 @@ func (s *Service) GenerateEmbedding(ctx context.Context, text string) ([]float32
 	}
 
 	url := fmt.Sprintf("%s/embeddings", s.cfg.Router9.BaseURL)
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(bodyBytes))
-	if err != nil {
-		return nil, fmt.Errorf("new request: %w", err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", s.cfg.Router9.APIKey))
 
-	resp, err := s.client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("do request: %w", err)
-	}
-	defer resp.Body.Close()
+	var lastErr error
+	backoff := 2 * time.Second
 
-	if resp.StatusCode != http.StatusOK {
+	for attempt := 1; attempt <= 4; attempt++ {
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		default:
+		}
+
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(bodyBytes))
+		if err != nil {
+			return nil, fmt.Errorf("new request: %w", err)
+		}
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", s.cfg.Router9.APIKey))
+
+		resp, err := s.client.Do(req)
+		if err != nil {
+			lastErr = fmt.Errorf("do request: %w", err)
+			time.Sleep(backoff)
+			backoff *= 2
+			continue
+		}
+
+		if resp.StatusCode == http.StatusOK {
+			var embeddingResp EmbeddingResponse
+			err = json.NewDecoder(resp.Body).Decode(&embeddingResp)
+			resp.Body.Close()
+			if err != nil {
+				return nil, fmt.Errorf("decode response: %w", err)
+			}
+			if len(embeddingResp.Data) == 0 {
+				return nil, fmt.Errorf("empty embedding data returned")
+			}
+			return embeddingResp.Data[0].Embedding, nil
+		}
+
+		// Read error body
 		respBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("non-200 status: %d, body: %s", resp.StatusCode, string(respBytes))
+		resp.Body.Close()
+		lastErr = fmt.Errorf("non-200 status: %d, body: %s", resp.StatusCode, string(respBytes))
+
+		// If 429 rate limit or 503 server overloaded, sleep and retry
+		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode == http.StatusServiceUnavailable {
+			time.Sleep(backoff)
+			backoff *= 2
+			continue
+		}
+
+		// Other errors (e.g. 400 Bad Request, 401 Unauthorized) are fatal — stop retrying
+		return nil, lastErr
 	}
 
-	var embeddingResp EmbeddingResponse
-	if err := json.NewDecoder(resp.Body).Decode(&embeddingResp); err != nil {
-		return nil, fmt.Errorf("decode response: %w", err)
-	}
-
-	if len(embeddingResp.Data) == 0 {
-		return nil, fmt.Errorf("empty embedding data returned")
-	}
-
-	return embeddingResp.Data[0].Embedding, nil
+	return nil, fmt.Errorf("after retries: %w", lastErr)
 }
 
 // CosineSimilarity computes similarity score between two vectors.

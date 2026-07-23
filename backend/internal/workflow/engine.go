@@ -1,13 +1,14 @@
 package workflow
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"log/slog"
 	"os"
 	"path/filepath"
-	"bytes"
-	"io"
+	"sync"
 	"time"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
@@ -73,6 +74,7 @@ func NewEngine(
 // off subsequent steps. Spec §3 pipeline.
 func (e *Engine) RunDiscovery(ctx context.Context) error {
 	e.logger.Info("discovery run started")
+	var wg sync.WaitGroup
 
 	for name, conn := range e.registry.All() {
 		select {
@@ -118,7 +120,9 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 			e.logger.Info("discovered new law", "id", id, "law_number", meta.LawNumber, "title", meta.Title)
 
 			// Trigger download → parse → analyze pipeline for this law
+			wg.Add(1)
 			go func(lawDoc *models.LawDocument) {
+				defer wg.Done()
 				procCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
 				defer cancel()
 				if err := e.ProcessDocument(procCtx, lawDoc); err != nil {
@@ -127,6 +131,10 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 			}(doc)
 		}
 	}
+
+	// Wait for all discovered documents to finish processing
+	e.logger.Info("waiting for in-flight document processing to complete")
+	wg.Wait()
 
 	e.logger.Info("discovery run complete")
 	return nil
