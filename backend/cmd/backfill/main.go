@@ -13,6 +13,7 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/setneg"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
@@ -59,6 +60,7 @@ func main() {
 	registry.Register("JDIHN", jdihn.New(scr, logger))
 	registry.Register("JDIH BPK", bpk.New(logger))
 	registry.Register("Mahkamah Konstitusi", mkri.New(scr, logger))
+	registry.Register("JDIH Setneg", setneg.New(scr, logger))
 
 	p := parser.New(logger)
 	ret := retrieval.New(cfg, repo)

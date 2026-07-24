@@ -15,6 +15,7 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/setneg"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 	"github.com/rezahanif/hukum-aneh/backend/internal/scheduler"
@@ -82,6 +83,10 @@ func main() {
 	// Register MKRI connector
 	mkriConn := mkri.New(scr, logger)
 	registry.Register(mkriConn.Name(), mkriConn)
+
+	// Register JDIH Setneg connector
+	setnegConn := setneg.New(scr, logger)
+	registry.Register(setnegConn.Name(), setnegConn)
 
 	// Document parser
 	p := parser.New(logger)
