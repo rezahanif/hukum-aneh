@@ -45,13 +45,17 @@ type SourceType struct {
 }
 
 var sourceTypes = []SourceType{
+	{Path: "/uud", DocType: "UUD 1945", LastPage: 5},
 	{Path: "/uu", DocType: "Undang-Undang (UU)", LastPage: 85},
 	{Path: "/pp", DocType: "Peraturan Pemerintah (PP)", LastPage: 214},
 	{Path: "/perppu", DocType: "Perppu", LastPage: 10},
+	{Path: "/perpres", DocType: "Peraturan Presiden (Perpres)", LastPage: 200},
+	{Path: "/keppres", DocType: "Keputusan Presiden (Keppres)", LastPage: 200},
+	{Path: "/inpres", DocType: "Instruksi Presiden (Inpres)", LastPage: 50},
 }
 
 // lawLink matches: /id/uu-no-3-tahun-2026 + title text
-var lawLinkRe = regexp.MustCompile(`href="/id/((?:uu|uud|tap-mpr|perppu|pp)-no-\d+-tahun-\d+)"[^>]*title="lihat detail"[^>]*>([^<]*)</a>`)
+var lawLinkRe = regexp.MustCompile(`href="/id/((?:uu|uud|tap-mpr|perppu|pp|perpres|keppres|inpres)-no-\d+-tahun-\d+)"[^>]*title="lihat detail"[^>]*>([^<]*)</a>`)
 
 // statusRe extracts status from law detail page
 var statusRe = regexp.MustCompile(`<th[^>]*>Status</th><td>([^<]+)</td>`)
@@ -151,6 +155,12 @@ func slugToLawNumber(slug string) string {
 		prefix = "Perppu"
 	case "PP":
 		prefix = "PP"
+	case "PERPRES":
+		prefix = "Perpres"
+	case "KEPPRES":
+		prefix = "Keppres"
+	case "INPRES":
+		prefix = "Inpres"
 	}
 
 	return fmt.Sprintf("%s No. %s Tahun %s", prefix, m[1], m[2])
