@@ -1,0 +1,7 @@
+# Cache artifacts - don't include in context
+backend/configs/parsed_cache.txt
+backend/configs/*.txt
+*.txt
+
+# Go dependencies - rarely changes, low value for most tasks
+go.sum
