@@ -186,7 +186,6 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 	if err != nil {
 		return fmt.Errorf("read raw content: %w", err)
 	}
-	raw.Content.Close()
 
 	if _, err := rawFile.Write(rawBytes); err != nil {
 		return fmt.Errorf("write raw file: %w", err)
