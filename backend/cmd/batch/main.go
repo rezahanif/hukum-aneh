@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -206,52 +207,95 @@ func processOne(
 		return fmt.Errorf("save raw: %w", err)
 	}
 
-	// Save LawDocument
-	doc := &models.LawDocument{
-		LawNumber:     meta.LawNumber,
-		Title:         meta.Title,
-		SourceURL:     meta.SourceURL,
-		Source:        meta.Source,
-		Level:         meta.Level,
-		DocumentType:  meta.DocumentType,
-		RawFilePath:   rawPath,
-		Status:        "downloaded",
-		CreatedAt:     time.Now(),
-		UpdatedAt:     time.Now(),
-	}
-	docID, err := repo.SaveLawDocument(ctx, doc)
-	if err != nil {
-		return fmt.Errorf("save doc: %w", err)
-	}
-	doc.ID = docID
-
-	// Parse
+	// Parse before Firestore write so quota failures can still be queued locally.
 	result, err := p.Parse(ctx, bytes.NewReader(rawBytes), raw.MimeType, raw.Filename)
+
+	doc := &models.LawDocument{
+		LawNumber:    meta.LawNumber,
+		Title:        meta.Title,
+		SourceURL:    meta.SourceURL,
+		Source:       meta.Source,
+		Level:        meta.Level,
+		DocumentType: meta.DocumentType,
+		RawFilePath:  rawPath,
+		Status:       "parsed",
+		CreatedAt:    time.Now(),
+		UpdatedAt:    time.Now(),
+	}
 	if err != nil {
 		doc.Status = "parse_failed"
-		doc.UpdatedAt = time.Now()
-		repo.SaveLawDocument(ctx, doc)
+		if qerr := saveLocalQueue(meta, doc, nil, fmt.Sprintf("parse: %v", err)); qerr != nil {
+			return fmt.Errorf("parse: %w; local queue: %v", err, qerr)
+		}
 		return fmt.Errorf("parse: %w", err)
 	}
 
-	// Save LawVersion
 	version := &models.LawVersion{
-		LawDocumentID: doc.ID,
 		VersionNumber: int(time.Now().Unix()),
 		TextContent:   result.TextContent,
 		ParsedAt:      time.Now(),
 	}
+
+	docID, err := repo.SaveLawDocument(ctx, doc)
+	if err != nil {
+		if qerr := saveLocalQueue(meta, doc, version, fmt.Sprintf("save doc: %v", err)); qerr != nil {
+			return fmt.Errorf("save doc: %w; local queue: %v", err, qerr)
+		}
+		logger.Warn("firestore quota/error, saved parsed law to local queue", "law_number", meta.LawNumber, "error", err)
+		return nil
+	}
+	doc.ID = docID
+	version.LawDocumentID = doc.ID
+
 	if _, err := repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
-		return fmt.Errorf("save version: %w", err)
+		if qerr := saveLocalQueue(meta, doc, version, fmt.Sprintf("save version: %v", err)); qerr != nil {
+			return fmt.Errorf("save version: %w; local queue: %v", err, qerr)
+		}
+		logger.Warn("firestore quota/error, saved parsed law to local queue", "law_number", meta.LawNumber, "error", err)
+		return nil
 	}
 
-	// Update status
-	doc.Status = "parsed"
-	doc.UpdatedAt = time.Now()
 	if _, err := repo.SaveLawDocument(ctx, doc); err != nil {
-		return fmt.Errorf("update status: %w", err)
+		if qerr := saveLocalQueue(meta, doc, version, fmt.Sprintf("update status: %v", err)); qerr != nil {
+			return fmt.Errorf("update status: %w; local queue: %v", err, qerr)
+		}
+		logger.Warn("firestore quota/error, saved parsed law to local queue", "law_number", meta.LawNumber, "error", err)
+		return nil
 	}
 
 	logger.Debug("law processed", "law_number", meta.LawNumber, "text_chars", len(result.TextContent), "source", result.Source)
 	return nil
+}
+
+type queuedLaw struct {
+	Meta     connectors.DocumentMeta `json:"meta"`
+	Document *models.LawDocument     `json:"document"`
+	Version  *models.LawVersion      `json:"version,omitempty"`
+	Error    string                  `json:"error"`
+	QueuedAt time.Time               `json:"queued_at"`
+}
+
+func saveLocalQueue(meta connectors.DocumentMeta, doc *models.LawDocument, version *models.LawVersion, reason string) error {
+	queueDir := "backend/internal/storage/local_queue"
+	if err := os.MkdirAll(queueDir, 0755); err != nil {
+		return err
+	}
+
+	q := queuedLaw{
+		Meta:     meta,
+		Document: doc,
+		Version:  version,
+		Error:    reason,
+		QueuedAt: time.Now(),
+	}
+	b, err := json.MarshalIndent(q, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	name := strings.NewReplacer(" ", "_", "/", "_", "\\", "_", ":", "_", ".", "").Replace(meta.LawNumber)
+	if name == "" {
+		name = fmt.Sprintf("queued_%d", time.Now().UnixNano())
+	}
+	return os.WriteFile(filepath.Join(queueDir, name+".json"), b, 0644)
 }
