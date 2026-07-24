@@ -72,7 +72,8 @@ type ContentDraft struct {
 	Caption      string    `json:"caption" firestore:"caption"`
 	Hashtags     []string  `json:"hashtags" firestore:"hashtags"`
 	Hook         string    `json:"hook" firestore:"hook"`
-	Status       string    `json:"status" firestore:"status"` // draft, pending_approval, approved, rejected, published
+	ImagePrompt  string    `json:"image_prompt" firestore:"image_prompt"` // populated before prompt-approval gate
+	Status       string    `json:"status" firestore:"status"` // draft, pending_prompt_approval, pending_approval, approved, rejected, published
 	CreatedAt    time.Time `json:"created_at" firestore:"created_at"`
 }
 

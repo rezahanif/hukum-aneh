@@ -67,3 +67,11 @@ Scheduler → Discovery → Download → Parse → Similarity Search
 ```
 
 All AI calls return structured JSON only. No free text downstream.
+
+## Connector Guidelines (Remediation Notes)
+
+When contributing new connectors or modifying existing ones, adhere to the following contract rules:
+1. **Cursor-based Scraping:** Use `/backend/configs/scrape_cursor.json` to store the last processed law number per source type. Always crawl chronologically from page 1 and stop immediately when hitting the cursor to prevent unnecessary re-scraping and conserve HTTP requests.
+2. **Resource Ownership:** The connector `Download` method returns an `io.ReadCloser` stream. The caller is strictly responsible for closing this stream immediately after reading using `defer raw.Content.Close()`.
+3. **HTTP Client Timeouts:** Never use a default un-timeouted `&http.Client{}`. Configure a minimum `60 * time.Second` timeout and implement 3-attempt backoff retry loops for all download methods to tolerate network drops.
+
