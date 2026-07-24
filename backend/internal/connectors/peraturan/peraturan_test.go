@@ -3,7 +3,9 @@ package peraturan
 import (
 	"context"
 	"log/slog"
+	"os"
 	"testing"
+	"time"
 )
 
 // TestCheckUpdates_RealSite fetches the real peraturan.go.id and verifies
@@ -72,4 +74,80 @@ func contains(s, substr string) bool {
 		}
 	}
 	return false
+}
+
+func TestScrapeCursor(t *testing.T) {
+	// Clean cursor file first
+	os.Remove("backend/configs/scrape_cursor.json")
+	defer os.Remove("backend/configs/scrape_cursor.json")
+
+	cursors := loadScrapeCursors()
+	if len(cursors.LastKnownLaws) != 0 {
+		t.Fatalf("expected empty cursors, got: %v", cursors)
+	}
+
+	cursors.LastKnownLaws["TestType"] = ScrapeCursor{
+		LastKnownLawNumber: "TEST-123",
+		Timestamp:          time.Now(),
+	}
+	saveScrapeCursors(cursors)
+
+	loaded := loadScrapeCursors()
+	c, ok := loaded.LastKnownLaws["TestType"]
+	if !ok || c.LastKnownLawNumber != "TEST-123" {
+		t.Fatalf("failed to roundtrip cursor: %v", loaded)
+	}
+}
+
+func TestCheckUpdates_WithCursor(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping real site test in short mode")
+	}
+
+	// Clean cursor file
+	os.Remove("backend/configs/scrape_cursor.json")
+	defer os.Remove("backend/configs/scrape_cursor.json")
+
+	// Backup original sourceTypes and restore later
+	orig := sourceTypes
+	defer func() { sourceTypes = orig }()
+
+	// Use a small source type with small page cap
+	sourceTypes = []SourceType{
+		{Path: "/uu", DocType: "Undang-Undang (UU)", LastPage: 1},
+	}
+
+	conn := New(nil, slog.Default())
+	
+	// First run
+	t.Log("running first check...")
+	docs1, err := conn.CheckUpdates(context.Background())
+	if err != nil {
+		t.Fatalf("first run failed: %v", err)
+	}
+	if len(docs1) == 0 {
+		t.Fatal("expected docs on first run")
+	}
+
+	// Verify cursor was saved
+	cursors := loadScrapeCursors()
+	c, ok := cursors.LastKnownLaws["Undang-Undang (UU)"]
+	if !ok || c.LastKnownLawNumber == "" {
+		t.Fatalf("cursor not saved: %+v", cursors)
+	}
+	t.Logf("saved cursor law: %s", c.LastKnownLawNumber)
+
+	// Second run (should be caught up instantly on page 1)
+	t.Log("running second check...")
+	start := time.Now()
+	docs2, err := conn.CheckUpdates(context.Background())
+	if err != nil {
+		t.Fatalf("second run failed: %v", err)
+	}
+	duration := time.Since(start)
+
+	t.Logf("second run finished in %s, found %d new docs", duration, len(docs2))
+	if len(docs2) != 0 {
+		t.Errorf("expected 0 new docs on second run, got %d: %v", len(docs2), docs2)
+	}
 }

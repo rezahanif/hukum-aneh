@@ -2,10 +2,13 @@ package peraturan
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
+	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -13,6 +16,39 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
+
+const scrapeCursorFile = "backend/configs/scrape_cursor.json"
+
+type ScrapeCursor struct {
+	LastKnownLawNumber string    `json:"last_known_law_number"`
+	Timestamp          time.Time `json:"timestamp"`
+}
+
+type ScrapeCursors struct {
+	LastKnownLaws map[string]ScrapeCursor `json:"last_known_laws"`
+}
+
+func loadScrapeCursors() ScrapeCursors {
+	var cursors ScrapeCursors
+	cursors.LastKnownLaws = make(map[string]ScrapeCursor)
+
+	data, err := os.ReadFile(scrapeCursorFile)
+	if err != nil {
+		return cursors
+	}
+
+	_ = json.Unmarshal(data, &cursors)
+	if cursors.LastKnownLaws == nil {
+		cursors.LastKnownLaws = make(map[string]ScrapeCursor)
+	}
+	return cursors
+}
+
+func saveScrapeCursors(cursors ScrapeCursors) {
+	_ = os.MkdirAll(filepath.Dir(scrapeCursorFile), 0755)
+	data, _ := json.MarshalIndent(cursors, "", "  ")
+	_ = os.WriteFile(scrapeCursorFile, data, 0644)
+}
 
 // PeraturanConnector scrapes peraturan.go.id.
 // Covers: UU, PP, Perppu (active/berlaku status only).
@@ -61,19 +97,40 @@ var lawLinkRe = regexp.MustCompile(`href="/id/((?:uu|uud|tap-mpr|perppu|pp|perpr
 var statusRe = regexp.MustCompile(`<th[^>]*>Status</th><td>([^<]+)</td>`)
 
 // CheckUpdates polls peraturan.go.id for all active (Berlaku) laws.
-// Scrapes all pages for each source type with status filter.
+// Scrapes pages for each source type with status filter until caught up.
 func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
 	var allDocs []connectors.DocumentMeta
 	seen := make(map[string]bool)
 
-	for _, st := range sourceTypes {
-		p.logger.Info("scraping source type", "type", st.DocType, "last_page", st.LastPage)
+	cursors := loadScrapeCursors()
 
-		for page := 1; page <= st.LastPage; page++ {
+	for _, st := range sourceTypes {
+		cursor, hasCursor := cursors.LastKnownLaws[st.DocType]
+		p.logger.Info("scraping source type", 
+			"type", st.DocType, 
+			"last_page_safety_cap", st.LastPage, 
+			"has_cursor", hasCursor, 
+			"cursor_law", cursor.LastKnownLawNumber,
+		)
+
+		var newestLawNumber string
+		caughtUp := false
+
+		for page := 1; ; page++ {
 			select {
 			case <-ctx.Done():
 				return nil, ctx.Err()
 			default:
+			}
+
+			// Safety cap check
+			if page > st.LastPage {
+				p.logger.Warn("exceeded safety page cap without matching cursor, stopping source type", 
+					"type", st.DocType, 
+					"page", page, 
+					"cap", st.LastPage,
+				)
+				break
 			}
 
 			url := fmt.Sprintf("%s%s?PeraturanSearch%%5Bstatus%%5D=Berlaku&page=%d", p.baseURL, st.Path, page)
@@ -89,7 +146,18 @@ func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.Doc
 				break
 			}
 
+			// Track the newest law number (first law seen on page 1)
+			if page == 1 && len(docs) > 0 {
+				newestLawNumber = docs[0].LawNumber
+			}
+
 			for _, d := range docs {
+				if hasCursor && d.LawNumber == cursor.LastKnownLawNumber {
+					p.logger.Info("hit last known law number, caught up", "type", st.DocType, "law_number", d.LawNumber)
+					caughtUp = true
+					break
+				}
+
 				if seen[d.LawNumber] {
 					continue
 				}
@@ -97,8 +165,21 @@ func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.Doc
 				allDocs = append(allDocs, d)
 			}
 
+			if caughtUp {
+				break
+			}
+
 			// Rate limit — be respectful
 			time.Sleep(500 * time.Millisecond)
+		}
+
+		// Update cursor with the newest law seen in this run for this source type
+		if newestLawNumber != "" {
+			cursors.LastKnownLaws[st.DocType] = ScrapeCursor{
+				LastKnownLawNumber: newestLawNumber,
+				Timestamp:          time.Now(),
+			}
+			saveScrapeCursors(cursors)
 		}
 
 		p.logger.Info("source type complete", "type", st.DocType, "total_unique", len(allDocs))

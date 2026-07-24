@@ -6,34 +6,28 @@ import (
 	"testing"
 )
 
-func TestCheckUpdates_BPK(t *testing.T) {
+func TestSearchByLawNumber_BPK(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping real site test in short mode")
 	}
 
-	conn := New(nil, slog.Default())
-	docs, err := conn.CheckUpdates(context.Background())
+	conn := New(slog.Default())
+	meta, err := conn.SearchByLawNumber(context.Background(), "UU No. 1 Tahun 2020", "Undang-Undang (UU)")
 	if err != nil {
-		t.Fatalf("CheckUpdates failed: %v", err)
+		t.Fatalf("SearchByLawNumber failed: %v", err)
 	}
 
-	if len(docs) == 0 {
-		t.Fatal("expected at least 1 law, got 0")
+	if meta == nil {
+		t.Fatal("expected to find UU No. 1 Tahun 2020 on BPK, got nil")
 	}
 
-	t.Logf("found %d laws from BPK", len(docs))
+	t.Logf("found BPK law: %s — %s", meta.LawNumber, meta.Title)
+	t.Logf("pdf url: %s", meta.SourceURL)
 
-	d := docs[0]
-	if d.LawNumber == "" {
-		t.Error("LawNumber is empty")
+	if meta.LawNumber != "UU No. 1 Tahun 2020" {
+		t.Errorf("expected LawNumber 'UU No. 1 Tahun 2020', got: %s", meta.LawNumber)
 	}
-	if d.Title == "" {
-		t.Error("Title is empty")
-	}
-	if d.SourceURL == "" {
+	if meta.SourceURL == "" {
 		t.Error("SourceURL is empty")
 	}
-
-	t.Logf("first BPK law: %s — %s", d.LawNumber, d.Title)
-	t.Logf("pdf url: %s", d.SourceURL)
 }

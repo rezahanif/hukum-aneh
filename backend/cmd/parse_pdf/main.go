@@ -4,13 +4,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"io"
 	"log/slog"
 	"os"
-	"strings"
 
-	"github.com/ledongthuc/pdf"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 )
 
@@ -32,7 +30,7 @@ func main() {
 	}
 	defer f.Close()
 
-	result, err := p.Parse(os.Stderr.Context(), f, "application/pdf", inputPath)
+	result, err := p.Parse(context.Background(), f, "application/pdf", inputPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "parse: %v\n", err)
 		os.Exit(1)

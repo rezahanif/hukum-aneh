@@ -160,6 +160,7 @@ func main() {
 				atomic.AddInt64(&failed, 1)
 				return
 			}
+			defer raw.Content.Close()
 
 			doc := &models.LawDocument{
 				LawNumber:    meta.LawNumber,
@@ -175,14 +176,12 @@ func main() {
 			docID, err := repo.SaveLawDocument(ctx, doc)
 			if err != nil {
 				logger.Error("save doc failed", "law_number", meta.LawNumber, "error", err)
-				raw.Content.Close()
 				atomic.AddInt64(&failed, 1)
 				return
 			}
 			doc.ID = docID
 
 			result, err := p.Parse(ctx, raw.Content, raw.MimeType, raw.Filename)
-			raw.Content.Close()
 			if err != nil {
 				doc.Status = "parse_failed"
 				doc.UpdatedAt = time.Now()

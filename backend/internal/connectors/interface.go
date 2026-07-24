@@ -40,7 +40,7 @@ type DocumentMeta struct {
 // RawDocument is the downloaded raw file.
 type RawDocument struct {
 	Meta     DocumentMeta
-	Content  io.ReadCloser
+	Content  io.ReadCloser // Caller is responsible for closing Content once done.
 	MimeType string
 	Filename string
 }
