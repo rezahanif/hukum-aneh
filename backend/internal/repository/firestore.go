@@ -358,6 +358,91 @@ func (r *FirestoreRepo) ListAllEmbeddings(ctx context.Context) ([]models.Embeddi
 	return result, nil
 }
 
+// ListEmbeddingsBatch fetches a batch of embeddings with offset-based pagination.
+// Uses Firestore's Offset() + Limit() for server-side cursor skipping.
+func (r *FirestoreRepo) ListEmbeddingsBatch(ctx context.Context, offset, limit int) ([]models.EmbeddingEntry, error) {
+	q := r.client.Collection(models.ColEmbeddings).
+		OrderBy("law_document_id", firestore.Asc). // Stable ordering required for offset
+		Offset(offset).
+		Limit(limit)
+
+	docs, err := q.Documents(ctx).GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("list embeddings batch (offset=%d, limit=%d): %w", offset, limit, err)
+	}
+
+	var result []models.EmbeddingEntry
+	for _, d := range docs {
+		var emb models.EmbeddingEntry
+		if err := d.DataTo(&emb); err != nil {
+			continue
+		}
+		emb.ID = d.Ref.ID
+		result = append(result, emb)
+	}
+	return result, nil
+}
+
+// ListEmbeddingsByDocTypeBatch fetches embeddings filtered by document type.
+// Joins embeddings -> laws collection to filter by doc_type server-side.
+func (r *FirestoreRepo) ListEmbeddingsByDocTypeBatch(ctx context.Context, docType string, offset, limit int) ([]models.EmbeddingEntry, error) {
+	lawDocs, err := r.client.Collection(models.ColLaws).
+		Where("document_type", "==", docType).
+		Select().
+		Documents(ctx).
+		GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("list laws by doc_type: %w", err)
+	}
+
+	lawIDs := make([]string, 0, len(lawDocs))
+	for _, d := range lawDocs {
+		lawIDs = append(lawIDs, d.Ref.ID)
+	}
+
+	if len(lawIDs) == 0 {
+		return nil, nil
+	}
+
+	// Firestore IN queries support max 30 values per query
+	batchSize := 30
+	var result []models.EmbeddingEntry
+	for i := 0; i < len(lawIDs); i += batchSize {
+		end := i + batchSize
+		if end > len(lawIDs) {
+			end = len(lawIDs)
+		}
+		batch := lawIDs[i:end]
+
+		// Calculate how many more items we need to reach the limit
+		needed := limit - len(result)
+		if needed <= 0 {
+			break
+		}
+
+		q := r.client.Collection(models.ColEmbeddings).
+			Where("law_document_id", "in", batch).
+			Offset(max(0, offset-len(result))).
+			Limit(needed)
+
+		docs, err := q.Documents(ctx).GetAll()
+		if err != nil {
+			continue
+		}
+
+		for _, d := range docs {
+			var emb models.EmbeddingEntry
+			if err := d.DataTo(&emb); err != nil {
+				continue
+			}
+			emb.ID = d.Ref.ID
+			result = append(result, emb)
+		}
+	}
+
+	return result, nil
+}
+
 // ListAllLaws returns all law documents in Firestore.
 func (r *FirestoreRepo) ListAllLaws(ctx context.Context) ([]models.LawDocument, error) {
 	docs, err := r.client.Collection(models.ColLaws).Documents(ctx).GetAll()

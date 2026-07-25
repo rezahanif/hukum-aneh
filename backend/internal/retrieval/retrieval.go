@@ -1,6 +1,7 @@
 package retrieval
 
 import (
+	"container/heap"
 	"context"
 	"errors"
 	"fmt"
@@ -107,34 +108,140 @@ type SearchResult struct {
 	Score         float32
 }
 
-// Search retrieves all embeddings from Firestore, computes similarity scores against
-// the query vector, and returns the top-N candidate matches.
+// scoreHeap implements a min-heap of SearchResult.
+// The smallest (worst) score is at the top, so we can evict it
+// when we find a better candidate, keeping only the top-N.
+type scoreHeap []SearchResult
+
+func (h scoreHeap) Len() int           { return len(h) }
+func (h scoreHeap) Less(i, j int) bool { return h[i].Score < h[j].Score } // min-heap
+func (h scoreHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *scoreHeap) Push(x interface{}) {
+	*h = append(*h, x.(SearchResult))
+}
+
+func (h *scoreHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
+
+const defaultBatchSize = 500
+
+// Search retrieves all embeddings from Firestore in batches, computes similarity
+// scores against the query vector, and returns the top-N candidate matches using a min-heap.
 func (s *Service) Search(ctx context.Context, queryVector []float32, topN int) ([]SearchResult, error) {
-	allEmbs, err := s.repo.ListAllEmbeddings(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("list all embeddings: %w", err)
+	if topN <= 0 {
+		topN = 5
 	}
 
-	var results []SearchResult
-	for _, emb := range allEmbs {
-		score := CosineSimilarity(queryVector, emb.Vector)
-		results = append(results, SearchResult{
-			LawDocumentID: emb.LawDocumentID,
-			Score:         score,
-		})
-	}
+	h := &scoreHeap{}
+	heap.Init(h)
 
-	// Sort results descending by score
-	for i := 0; i < len(results); i++ {
-		for j := i + 1; j < len(results); j++ {
-			if results[j].Score > results[i].Score {
-				results[i], results[j] = results[j], results[i]
+	offset := 0
+	limit := defaultBatchSize
+
+	for {
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		default:
+		}
+
+		batch, err := s.repo.ListEmbeddingsBatch(ctx, offset, limit)
+		if err != nil {
+			return nil, fmt.Errorf("list embeddings batch failed: %w", err)
+		}
+
+		if len(batch) == 0 {
+			break
+		}
+
+		for _, emb := range batch {
+			score := CosineSimilarity(queryVector, emb.Vector)
+			candidate := SearchResult{
+				LawDocumentID: emb.LawDocumentID,
+				Score:         score,
+			}
+
+			if h.Len() < topN {
+				heap.Push(h, candidate)
+			} else if score > (*h)[0].Score {
+				heap.Pop(h)
+				heap.Push(h, candidate)
 			}
 		}
+
+		if len(batch) < limit {
+			break
+		}
+		offset += len(batch)
 	}
 
-	if len(results) > topN {
-		results = results[:topN]
+	results := make([]SearchResult, h.Len())
+	for i := h.Len() - 1; i >= 0; i-- {
+		results[i] = heap.Pop(h).(SearchResult)
+	}
+
+	return results, nil
+}
+
+// SearchByDocumentType is an optimized search that pre-filters by document type
+// in Firestore before computing similarity.
+func (s *Service) SearchByDocumentType(ctx context.Context, queryVector []float32, topN int, docType string) ([]SearchResult, error) {
+	if topN <= 0 {
+		topN = 5
+	}
+
+	h := &scoreHeap{}
+	heap.Init(h)
+
+	offset := 0
+	limit := defaultBatchSize
+
+	for {
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		default:
+		}
+
+		batch, err := s.repo.ListEmbeddingsByDocTypeBatch(ctx, docType, offset, limit)
+		if err != nil {
+			return nil, fmt.Errorf("list embeddings by doc_type batch failed: %w", err)
+		}
+
+		if len(batch) == 0 {
+			break
+		}
+
+		for _, emb := range batch {
+			score := CosineSimilarity(queryVector, emb.Vector)
+			candidate := SearchResult{
+				LawDocumentID: emb.LawDocumentID,
+				Score:         score,
+			}
+
+			if h.Len() < topN {
+				heap.Push(h, candidate)
+			} else if score > (*h)[0].Score {
+				heap.Pop(h)
+				heap.Push(h, candidate)
+			}
+		}
+
+		if len(batch) < limit {
+			break
+		}
+		offset += len(batch)
+	}
+
+	results := make([]SearchResult, h.Len())
+	for i := h.Len() - 1; i >= 0; i-- {
+		results[i] = heap.Pop(h).(SearchResult)
 	}
 
 	return results, nil
