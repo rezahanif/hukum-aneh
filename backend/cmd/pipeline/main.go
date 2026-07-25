@@ -17,7 +17,6 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemenkeu"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/ma"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/pemda"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/setneg"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
@@ -98,10 +97,6 @@ func main() {
 	// Register Mahkamah Agung putusan connector
 	maConn := ma.New(logger)
 	registry.Register(maConn.Name(), maConn)
-
-	// Register JDIH Pemda connector (Perda/Perkada regional)
-	pemdaConn := pemda.New(scr, logger)
-	registry.Register(pemdaConn.Name(), pemdaConn)
 
 	// Document parser
 	p := parser.New(logger)
