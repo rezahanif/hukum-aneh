@@ -476,6 +476,32 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 			return err
 		}
 
+	case "prompt_regen":
+		// Re-generate the image prompt using the prompt builder agent
+		designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
+		if err != nil {
+			return fmt.Errorf("read design guide: %w", err)
+		}
+		characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
+		if err != nil {
+			return fmt.Errorf("read character sheet: %w", err)
+		}
+
+		imagePrompt, err := e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
+		if err != nil {
+			return fmt.Errorf("prompt builder agent: %w", err)
+		}
+
+		draft.ImagePrompt = imagePrompt
+		draft.Status = "pending_prompt_approval"
+		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+			return fmt.Errorf("save draft with prompt: %w", err)
+		}
+
+		if _, err := e.tg.SendPromptApproval(ctx, draft, analysis, doc.Title); err != nil {
+			return fmt.Errorf("send prompt approval: %w", err)
+		}
+
 	case "prompt_reject":
 		draft.Status = "prompt_rejected"
 		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {

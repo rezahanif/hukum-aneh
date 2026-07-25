@@ -67,15 +67,15 @@ func (s *Service) SendApprovalRequest(
 			"• Economic: %d\n"+
 			"• Consistency: %d\n\n"+
 			"*Hashtags:* %s",
-		analysis.LawDocumentID,
-		title,
-		draft.Hook,
-		draft.Caption,
+		escapeMarkdownV1(analysis.LawDocumentID),
+		escapeMarkdownV1(title),
+		escapeMarkdownV1(draft.Hook),
+		escapeMarkdownV1(draft.Caption),
 		analysis.OverallScore,
 		analysis.ControversyScore,
 		analysis.EconomicScore,
 		analysis.LegalConsistency,
-		draft.Hashtags,
+		escapeMarkdownV1(formatHashtags(draft.Hashtags)),
 	)
 
 	// Ensure caption is within Telegram's 1024 char limit for photo captions
@@ -168,16 +168,16 @@ func (s *Service) SendPromptApproval(
 			"*Planned Image Prompt:*\n%s\n\n"+
 			"*Scores:* Overall=%d | Controversy=%d | Economic=%d | Consistency=%d\n\n"+
 			"*Hashtags:* %s",
-		analysis.LawDocumentID,
-		title,
-		draft.Hook,
-		draft.Caption,
-		draft.ImagePrompt,
+		escapeMarkdownV1(analysis.LawDocumentID),
+		escapeMarkdownV1(title),
+		escapeMarkdownV1(draft.Hook),
+		escapeMarkdownV1(draft.Caption),
+		escapeMarkdownV1(draft.ImagePrompt),
 		analysis.OverallScore,
 		analysis.ControversyScore,
 		analysis.EconomicScore,
 		analysis.LegalConsistency,
-		draft.Hashtags,
+		escapeMarkdownV1(formatHashtags(draft.Hashtags)),
 	)
 
 	if len(text) > 4096 {
@@ -188,7 +188,10 @@ func (s *Service) SendPromptApproval(
 		InlineKeyboard: [][]InlineKeyboardButton{
 			{
 				{Text: "✅ Approve Prompt", CallbackData: fmt.Sprintf("prompt_approve:%s", draft.ID)},
-				{Text: "❌ Reject Prompt", CallbackData: fmt.Sprintf("prompt_reject:%s", draft.ID)},
+				{Text: "❌ Reject", CallbackData: fmt.Sprintf("prompt_reject:%s", draft.ID)},
+			},
+			{
+				{Text: "🔄 Regen Prompt", CallbackData: fmt.Sprintf("prompt_regen:%s", draft.ID)},
 			},
 		},
 	}
@@ -324,4 +327,32 @@ func (s *Service) answerCallback(callbackQueryID string, text string) {
 	}
 	bodyBytes, _ := json.Marshal(reqBody)
 	_, _ = s.client.Post(url, "application/json", bytes.NewReader(bodyBytes))
+}
+
+
+// escapeMarkdownV1 escapes special Markdown characters to prevent Telegram API 400 errors.
+func escapeMarkdownV1(text string) string {
+	r := strings.NewReplacer(
+		"_", "\\_",
+		"*", "\\*",
+		"`", "\\`",
+		"[", "\\[",
+	)
+	return r.Replace(text)
+}
+
+// formatHashtags joins slice of tags into a clean space-separated string with '#' prefix if missing.
+func formatHashtags(tags []string) string {
+	var formatted []string
+	for _, tag := range tags {
+		trimmed := strings.TrimSpace(tag)
+		if trimmed == "" {
+			continue
+		}
+		if !strings.HasPrefix(trimmed, "#") {
+			trimmed = "#" + trimmed
+		}
+		formatted = append(formatted, trimmed)
+	}
+	return strings.Join(formatted, " ")
 }
