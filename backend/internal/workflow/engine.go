@@ -343,46 +343,27 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 		return fmt.Errorf("prompt builder agent: %w", err)
 	}
 
-	// Step 6: Image Generation Service
-	e.logger.Info("calling Image Generation Service", "prompt", imagePrompt)
-	asset, err := e.imagegen.GenerateImage(ctx, draft.ID, imagePrompt)
-	if err != nil {
-		return fmt.Errorf("image generation: %w", err)
-	}
-
-	// Step 7: Image Validation
-	e.logger.Info("validating generated image")
-	valid, err := e.validator.Validate(asset.FilePath)
-	if err != nil {
-		e.logger.Error("image validation returned error", "error", err)
-	}
-	asset.Validated = valid
-
-	assetID, err := e.repo.SaveImageAsset(ctx, asset)
-	if err != nil {
-		return fmt.Errorf("save image asset: %w", err)
-	}
-	asset.ID = assetID
-
-	// Step 8: Send Telegram Approval Request
-	e.logger.Info("sending Telegram approval request")
-	_, err = e.tg.SendApprovalRequest(ctx, draft, asset, analysis, doc.Title)
-	if err != nil {
-		return fmt.Errorf("send telegram approval: %w", err)
-	}
-
-	draft.Status = "pending_approval"
+	// Save prompt to draft and pause for prompt-approval gate
+	draft.ImagePrompt = imagePrompt
+	draft.Status = "pending_prompt_approval"
 	if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
-		return fmt.Errorf("update draft status: %w", err)
+		return fmt.Errorf("save draft with prompt: %w", err)
 	}
 
-	doc.Status = "pending_approval"
+	// Send prompt-approval request to Telegram (law + planned prompt)
+	e.logger.Info("sending prompt-approval request to Telegram")
+	_, err = e.tg.SendPromptApproval(ctx, draft, analysis, doc.Title)
+	if err != nil {
+		return fmt.Errorf("send prompt approval: %w", err)
+	}
+
+	doc.Status = "pending_prompt_approval"
 	doc.UpdatedAt = time.Now()
 	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
 		return fmt.Errorf("update doc status: %w", err)
 	}
 
-	e.logger.Info("pipeline completed up to approval stage", "doc_id", doc.ID)
+	e.logger.Info("pipeline paused at prompt-approval stage", "doc_id", doc.ID)
 	return nil
 }
 
@@ -488,38 +469,27 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 			return err
 		}
 
+	case "prompt_approve":
+		// Prompt approved — proceed to image generation + image-approval
+		e.logger.Info("prompt approved, generating image", "draft_id", draftID)
+		if err := e.generateAndApprove(ctx, draft, analysis, doc); err != nil {
+			return err
+		}
+
+	case "prompt_reject":
+		draft.Status = "prompt_rejected"
+		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+			return err
+		}
+		doc.Status = "archived"
+		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+			return err
+		}
+		e.logger.Info("prompt rejected, archiving", "draft_id", draftID)
+
 	case "regen_img":
-		designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
-		if err != nil {
-			return err
-		}
-		characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
-		if err != nil {
-			return err
-		}
-
-		imagePrompt, err := e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
-		if err != nil {
-			return err
-		}
-
-		asset, err := e.imagegen.GenerateImage(ctx, draftID, imagePrompt)
-		if err != nil {
-			return err
-		}
-
-		valid, err := e.validator.Validate(asset.FilePath)
-		if err != nil {
-			e.logger.Error("validation error", "error", err)
-		}
-		asset.Validated = valid
-
-		if _, err := e.repo.SaveImageAsset(ctx, asset); err != nil {
-			return err
-		}
-
-		// Re-send approval request
-		if _, err := e.tg.SendApprovalRequest(ctx, draft, asset, analysis, doc.Title); err != nil {
+		// Re-generate image using existing or rebuilt prompt
+		if err := e.generateAndApprove(ctx, draft, analysis, doc); err != nil {
 			return err
 		}
 
@@ -551,6 +521,66 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 
 	default:
 		return fmt.Errorf("unknown approval action: %s", action)
+	}
+
+	return nil
+}
+
+// generateAndApprove runs image generation → validation → image-approval send.
+// Shared by prompt_approve and regen_img flows.
+func (e *Engine) generateAndApprove(ctx context.Context, draft *models.ContentDraft, analysis *models.LawAnalysis, doc *models.LawDocument) error {
+	designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
+	if err != nil {
+		return fmt.Errorf("read design guide: %w", err)
+	}
+	characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
+	if err != nil {
+		return fmt.Errorf("read character sheet: %w", err)
+	}
+
+	imagePrompt := draft.ImagePrompt
+	if imagePrompt == "" {
+		imagePrompt, err = e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
+		if err != nil {
+			return fmt.Errorf("prompt builder agent: %w", err)
+		}
+		draft.ImagePrompt = imagePrompt
+		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+			return fmt.Errorf("save draft prompt: %w", err)
+		}
+	}
+
+	e.logger.Info("calling Image Generation Service", "prompt", imagePrompt)
+	asset, err := e.imagegen.GenerateImage(ctx, draft.ID, imagePrompt)
+	if err != nil {
+		return fmt.Errorf("image generation: %w", err)
+	}
+
+	valid, err := e.validator.Validate(asset.FilePath)
+	if err != nil {
+		e.logger.Error("image validation returned error", "error", err)
+	}
+	asset.Validated = valid
+
+	assetID, err := e.repo.SaveImageAsset(ctx, asset)
+	if err != nil {
+		return fmt.Errorf("save image asset: %w", err)
+	}
+	asset.ID = assetID
+
+	if _, err := e.tg.SendApprovalRequest(ctx, draft, asset, analysis, doc.Title); err != nil {
+		return fmt.Errorf("send telegram approval: %w", err)
+	}
+
+	draft.Status = "pending_approval"
+	if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		return err
+	}
+
+	doc.Status = "pending_approval"
+	doc.UpdatedAt = time.Now()
+	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		return err
 	}
 
 	return nil

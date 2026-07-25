@@ -151,6 +151,91 @@ func (s *Service) SendApprovalRequest(
 	return tgResp.Result.MessageID, nil
 }
 
+// SendPromptApproval sends a text message with the law details and planned image prompt,
+// with approve/reject inline buttons. This is the pre-generation approval gate.
+func (s *Service) SendPromptApproval(
+	ctx context.Context,
+	draft *models.ContentDraft,
+	analysis *models.LawAnalysis,
+	title string,
+) (int, error) {
+	text := fmt.Sprintf(
+		"🎨 *PROMPT APPROVAL NEEDED*\n\n"+
+			"*Law:* %s\n"+
+			"*Title:* %s\n\n"+
+			"*Hook:* %s\n\n"+
+			"*Caption:*\n%s\n\n"+
+			"*Planned Image Prompt:*\n%s\n\n"+
+			"*Scores:* Overall=%d | Controversy=%d | Economic=%d | Consistency=%d\n\n"+
+			"*Hashtags:* %s",
+		analysis.LawDocumentID,
+		title,
+		draft.Hook,
+		draft.Caption,
+		draft.ImagePrompt,
+		analysis.OverallScore,
+		analysis.ControversyScore,
+		analysis.EconomicScore,
+		analysis.LegalConsistency,
+		draft.Hashtags,
+	)
+
+	if len(text) > 4096 {
+		text = text[:4090] + "..."
+	}
+
+	keyboard := InlineKeyboardMarkup{
+		InlineKeyboard: [][]InlineKeyboardButton{
+			{
+				{Text: "✅ Approve Prompt", CallbackData: fmt.Sprintf("prompt_approve:%s", draft.ID)},
+				{Text: "❌ Reject Prompt", CallbackData: fmt.Sprintf("prompt_reject:%s", draft.ID)},
+			},
+		},
+	}
+	kbdBytes, _ := json.Marshal(keyboard)
+
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", s.cfg.Telegram.BotToken)
+	payload := map[string]string{
+		"chat_id":      s.cfg.Telegram.ChatID,
+		"text":         text,
+		"parse_mode":   "Markdown",
+		"reply_markup": string(kbdBytes),
+	}
+	body, err := json.Marshal(payload)
+	if err != nil {
+		return 0, fmt.Errorf("marshal payload: %w", err)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(body))
+	if err != nil {
+		return 0, fmt.Errorf("new request: %w", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := s.client.Do(req)
+	if err != nil {
+		return 0, fmt.Errorf("do request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		respBytes, _ := io.ReadAll(resp.Body)
+		return 0, fmt.Errorf("non-200 status: %d, body: %s", resp.StatusCode, string(respBytes))
+	}
+
+	var tgResp struct {
+		Ok     bool `json:"ok"`
+		Result struct {
+			MessageID int `json:"message_id"`
+		} `json:"result"`
+	}
+	if err := json.NewDecoder(resp.Body).Decode(&tgResp); err != nil {
+		return 0, fmt.Errorf("decode response: %w", err)
+	}
+
+	return tgResp.Result.MessageID, nil
+}
+
 type TGUpdate struct {
 	UpdateID      int `json:"update_id"`
 	CallbackQuery *struct {
