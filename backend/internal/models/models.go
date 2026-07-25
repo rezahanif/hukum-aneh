@@ -127,4 +127,5 @@ type EmbeddingEntry struct {
 	LawDocumentID string    `json:"law_document_id" firestore:"law_document_id"`
 	Vector        []float32 `json:"vector" firestore:"vector"`
 	IsMock        bool      `json:"is_mock" firestore:"is_mock"`
+	CreatedAt     time.Time `json:"created_at" firestore:"created_at"`
 }

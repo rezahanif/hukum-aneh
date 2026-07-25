@@ -250,6 +250,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 		LawDocumentID: doc.ID,
 		Vector:        vector,
 		IsMock:        isMock,
+		CreatedAt:     time.Now(),
 	}
 	embID, err := e.repo.SaveEmbedding(ctx, embEntry)
 	if err != nil {
