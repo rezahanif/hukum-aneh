@@ -40,5 +40,8 @@ Thumbs.db
 backend/internal/storage/*
 !backend/internal/storage/.gitkeep
 
+# Caches — local-only, regenerated each run
+backend/configs/parsed_cache.txt
+
 # Logs
 *.log
