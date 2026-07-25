@@ -230,6 +230,17 @@ func processOne(
 		return fmt.Errorf("parse: %w", err)
 	}
 
+	// Refuse to mark "parsed" if text is empty/too short — likely a failed OCR/PDF extraction.
+	// Otherwise Firestore omits the empty field, leaving a "parsed" doc with no retrievable text.
+	if len(strings.TrimSpace(result.TextContent)) < 100 {
+		doc.Status = "parse_failed"
+		logger.Warn("parse produced empty/short text, marking parse_failed", "law_number", meta.LawNumber, "text_chars", len(result.TextContent), "source", result.Source)
+		if qerr := saveLocalQueue(meta, doc, nil, fmt.Sprintf("parse: empty text (%d chars) from %s", len(result.TextContent), result.Source)); qerr != nil {
+			return fmt.Errorf("parse empty: %w; local queue: %v", err, qerr)
+		}
+		return fmt.Errorf("parse produced empty text (%d chars) for %s", len(result.TextContent), meta.LawNumber)
+	}
+
 	version := &models.LawVersion{
 		VersionNumber: int(time.Now().Unix()),
 		TextContent:   result.TextContent,

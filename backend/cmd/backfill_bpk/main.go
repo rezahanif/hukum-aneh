@@ -191,6 +191,16 @@ func main() {
 				return
 			}
 
+			// Refuse to mark "parsed" if text is empty/too short — likely a failed OCR/PDF extraction.
+			if len(strings.TrimSpace(result.TextContent)) < 100 {
+				doc.Status = "parse_failed"
+				doc.UpdatedAt = time.Now()
+				repo.SaveLawDocument(ctx, doc)
+				logger.Warn("parse produced empty/short text, marking parse_failed", "law_number", meta.LawNumber, "text_chars", len(result.TextContent), "source", result.Source)
+				atomic.AddInt64(&failed, 1)
+				return
+			}
+
 			// Truncate to Firestore limit (1,048,487 bytes)
 			text := result.TextContent
 			if len(text) > 1048000 {

@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"sync"
 	"time"
 
@@ -205,6 +206,15 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 		doc.UpdatedAt = time.Now()
 		e.repo.SaveLawDocument(ctx, doc)
 		return fmt.Errorf("parse: %w", err)
+	}
+
+	// Refuse to mark "parsed" if text is empty/too short — likely a failed OCR/PDF extraction.
+	// Otherwise Firestore omits the empty field, leaving a "parsed" doc with no retrievable text.
+	if len(strings.TrimSpace(result.TextContent)) < 100 {
+		doc.Status = "parse_failed"
+		doc.UpdatedAt = time.Now()
+		e.repo.SaveLawDocument(ctx, doc)
+		return fmt.Errorf("parse produced empty text (%d chars) for %s", len(result.TextContent), doc.LawNumber)
 	}
 
 	// Save version to Firestore
