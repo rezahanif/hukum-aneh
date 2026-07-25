@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -48,6 +49,8 @@ type Config struct {
 		PythonPath string `json:"python_path"`
 		ScriptPath string `json:"script_path"`
 	} `json:"scraper"`
+
+	WorkerPoolSize int `json:"worker_pool_size"`
 
 	SourcesPath string `json:"sources_path"`
 }
@@ -99,6 +102,13 @@ func Load() (*Config, error) {
 
 	cfg.Scraper.PythonPath = envOrDefault("PYTHON_PATH", "python3")
 	cfg.Scraper.ScriptPath = envOrDefault("SCRAPER_SCRIPT_PATH", "backend/python/scraper/scrape.py")
+
+	cfg.WorkerPoolSize = 3
+	if wp := os.Getenv("WORKER_POOL_SIZE"); wp != "" {
+		if val, err := strconv.Atoi(wp); err == nil && val > 0 {
+			cfg.WorkerPoolSize = val
+		}
+	}
 
 	return cfg, nil
 }

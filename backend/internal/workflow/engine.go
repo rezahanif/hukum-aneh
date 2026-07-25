@@ -71,28 +71,96 @@ func NewEngine(
 }
 
 // RunDiscovery is the entry point triggered by the Scheduler.
-// Iterates all registered connectors, checks for updates, and writes new
-// LawDocuments to Firestore. Does NOT parse or analyze — that's event-driven
-// off subsequent steps. Spec §3 pipeline.
+// Iterates all registered connectors with a bounded worker pool,
+// checks for updates, and writes new LawDocuments to Firestore.
 func (e *Engine) RunDiscovery(ctx context.Context) error {
-	e.logger.Info("discovery run started")
-	var wg sync.WaitGroup
+	e.logger.Info("discovery run started",
+		"connectors", len(e.registry.All()),
+		"workers", e.cfg.WorkerPoolSize,
+	)
 
+	// Collect all connector entries into a slice for dispatch
+	type connEntry struct {
+		name string
+		conn connectors.Connector
+	}
+	entries := make([]connEntry, 0, len(e.registry.All()))
 	for name, conn := range e.registry.All() {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		default:
+		entries = append(entries, connEntry{name: name, conn: conn})
+	}
+
+	// Worker pool
+	workerCount := e.cfg.WorkerPoolSize
+	if workerCount <= 0 {
+		workerCount = 1 // safe default
+	}
+
+	jobs := make(chan connEntry, len(entries))
+	results := make(chan connectorResult, len(entries))
+
+	// Start workers
+	var wg sync.WaitGroup
+	for w := 0; w < workerCount; w++ {
+		wg.Add(1)
+		go func(workerID int) {
+			defer wg.Done()
+			for entry := range jobs {
+				select {
+				case <-ctx.Done():
+					results <- connectorResult{name: entry.name, err: ctx.Err()}
+					return
+				default:
+				}
+
+				e.logger.Info("worker checking source",
+					"worker", workerID,
+					"connector", entry.name,
+				)
+
+				docs, err := entry.conn.CheckUpdates(ctx)
+				if err != nil {
+					e.logger.Error("connector check failed",
+						"worker", workerID,
+						"connector", entry.name,
+						"error", err,
+					)
+					results <- connectorResult{name: entry.name, docs: nil, err: err}
+					continue
+				}
+
+				results <- connectorResult{name: entry.name, docs: docs, err: nil}
+			}
+		}(w)
+	}
+
+	// Dispatch jobs
+	for _, entry := range entries {
+		jobs <- entry
+	}
+	close(jobs)
+
+	// Wait for workers and close results
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+
+	// Process results as they arrive
+	var processWg sync.WaitGroup
+	totalDiscovered := 0
+
+	for result := range results {
+		if result.err != nil {
+			continue // already logged by worker
 		}
 
-		e.logger.Info("checking source", "connector", name)
-		docs, err := conn.CheckUpdates(ctx)
-		if err != nil {
-			e.logger.Error("connector check failed", "connector", name, "error", err)
-			continue
-		}
+		for _, meta := range result.docs {
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			default:
+			}
 
-		for _, meta := range docs {
 			existing, err := e.repo.FindByLawNumber(ctx, meta.LawNumber)
 			if err != nil {
 				e.logger.Error("dup check failed", "law_number", meta.LawNumber, "error", err)
@@ -119,27 +187,47 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 				e.logger.Error("save law doc failed", "law_number", meta.LawNumber, "error", err)
 				continue
 			}
-			e.logger.Info("discovered new law", "id", id, "law_number", meta.LawNumber, "title", meta.Title)
 
-			// Trigger download → parse → analyze pipeline for this law
-			wg.Add(1)
+			totalDiscovered++
+			e.logger.Info("discovered new law",
+				"id", id,
+				"connector", result.name,
+				"law_number", meta.LawNumber,
+				"title", meta.Title,
+			)
+
+			// Spawn downstream processing with bounded concurrency
+			processWg.Add(1)
 			go func(lawDoc *models.LawDocument) {
-				defer wg.Done()
+				defer processWg.Done()
 				procCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
 				defer cancel()
 				if err := e.ProcessDocument(procCtx, lawDoc); err != nil {
-					e.logger.Error("process document failed", "id", lawDoc.ID, "law_number", lawDoc.LawNumber, "error", err)
+					e.logger.Error("process document failed",
+						"id", lawDoc.ID,
+						"law_number", lawDoc.LawNumber,
+						"error", err,
+					)
 				}
 			}(doc)
 		}
 	}
 
-	// Wait for all discovered documents to finish processing
-	e.logger.Info("waiting for in-flight document processing to complete")
-	wg.Wait()
+	// Wait for all downstream document processing to complete
+	e.logger.Info("waiting for in-flight document processing to complete",
+		"total_discovered", totalDiscovered,
+	)
+	processWg.Wait()
 
 	e.logger.Info("discovery run complete")
 	return nil
+}
+
+// connectorResult holds the result from a single connector's CheckUpdates call.
+type connectorResult struct {
+	name string
+	docs []connectors.DocumentMeta
+	err  error
 }
 
 // ProcessDocument handles the download → parse → save pipeline for a single law.
