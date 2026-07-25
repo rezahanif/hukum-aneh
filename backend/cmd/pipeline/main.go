@@ -86,7 +86,7 @@ func main() {
 	registry.Register(jdihnConn.Name(), jdihnConn)
 
 	// Register BPK connector
-	bpkConn := bpk.New(logger)
+	bpkConn := bpk.New(scr, logger)
 	registry.Register(bpkConn.Name(), bpkConn)
 
 	// Register MKRI connector

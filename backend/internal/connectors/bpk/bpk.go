@@ -1,75 +1,83 @@
 package bpk
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"fmt"
 	"io"
 	"log/slog"
-	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
 	"strings"
-	"time"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
+	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
-// BPKConnector scrapes peraturan.bpk.go.id.
+// BPKConnector scrapes peraturan.bpk.go.id via Python curl_cffi bridge.
 // Used as fallback source for laws missing PDFs on peraturan.go.id.
-// BPK has advanced search by jenis+nomor+tahun.
+// ⚠️ IMPORTANT: BPK is behind Cloudflare — all HTTP must go through
+// the Python scraper bridge (curl_cffi with Chrome TLS fingerprint).
+// Direct net/http requests WILL be blocked.
 type BPKConnector struct {
+	scraper *scraper.Scraper
 	logger  *slog.Logger
-	client  *http.Client
 	baseURL string
 }
 
-// jenis codes from BPK search form
 const (
-	jenisUU     = "8"
-	jenisPP     = "10"
-	jenisPerpu  = "9"
+	jenisUU    = "8"
+	jenisPP    = "10"
+	jenisPerpu = "9"
 )
 
-func New(logger *slog.Logger) *BPKConnector {
+func New(s *scraper.Scraper, logger *slog.Logger) *BPKConnector {
 	return &BPKConnector{
-		logger: logger,
-		client: &http.Client{
-			Timeout: 60 * time.Second,
-		},
+		scraper: s,
+		logger:  logger,
 		baseURL: "https://peraturan.bpk.go.id",
 	}
 }
 
 func (b *BPKConnector) Name() string { return "JDIH BPK" }
 
-// detailLinkRe matches: /Details/134563/uu-no-1-tahun-2020
 var detailLinkRe = regexp.MustCompile(`href="/Details/(\d+)/([a-z0-9-]+)"`)
 
-// pdfLinkRe matches: /Download/125355/UU Nomor 1 Tahun 2020.pdf
-var pdfLinkRe = regexp.MustCompile(`href="(/Download/\d+/[^"]+\.pdf)"`)
-
 // CheckUpdates is not used for BPK — it's a fallback source.
-// Implemented to satisfy Connector interface.
 func (b *BPKConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
 	return nil, nil
 }
 
-// SearchByLawNumber searches BPK for a specific law by jenis + nomor + tahun.
-// Returns DocumentMeta with PDF download URL if found.
+// SearchByLawNumber searches BPK for a specific law via Python bridge.
 func (b *BPKConnector) SearchByLawNumber(ctx context.Context, lawNumber string, docType string) (*connectors.DocumentMeta, error) {
 	jenis, nomor, tahun, err := parseLawNumber(lawNumber, docType)
 	if err != nil {
 		return nil, fmt.Errorf("parse law number: %w", err)
 	}
 
-	// Build search URL
 	searchURL := fmt.Sprintf("%s/Search?jenis=%s&nomor=%s&tahun=%s",
 		b.baseURL, jenis, nomor, tahun)
 
-	html, err := b.fetchURL(ctx, searchURL)
+	// Use Python bridge to bypass Cloudflare
+	resp, err := b.scraper.Call(ctx, scraper.ScrapeRequest{
+		URL:       searchURL,
+		Action:    "search_bpk",
+		Source:    b.Name(),
+		LawNumber: lawNumber,
+	})
 	if err != nil {
-		return nil, fmt.Errorf("search: %w", err)
+		return nil, fmt.Errorf("python scraper search: %w", err)
+	}
+
+	// Parse HTML from Python response
+	dataMap, ok := resp.Data.(map[string]interface{})
+	if !ok {
+		return nil, fmt.Errorf("unexpected response type from scraper")
+	}
+	html, ok := dataMap["content"].(string)
+	if !ok {
+		return nil, fmt.Errorf("no HTML content in scraper response")
 	}
 
 	// Find detail page link
@@ -78,28 +86,33 @@ func (b *BPKConnector) SearchByLawNumber(ctx context.Context, lawNumber string, 
 		id := m[1]
 		slug := m[2]
 
-		// Verify slug matches our law
 		if !slugMatches(slug, nomor, tahun) {
 			continue
 		}
 
-		// Fetch detail page to get PDF download link
+		// Fetch detail page via Python bridge
 		detailURL := fmt.Sprintf("%s/Details/%s/%s", b.baseURL, id, slug)
-		detailHTML, err := b.fetchURL(ctx, detailURL)
+		metaResp, err := b.scraper.Call(ctx, scraper.ScrapeRequest{
+			URL:    detailURL,
+			Action: "extract_metadata",
+			Source: b.Name(),
+		})
 		if err != nil {
 			b.logger.Warn("fetch detail failed", "id", id, "error", err)
 			continue
 		}
 
-		pdfMatch := pdfLinkRe.FindStringSubmatch(detailHTML)
-		if pdfMatch == nil {
+		metaMap, ok := metaResp.Data.(map[string]interface{})
+		if !ok {
 			continue
 		}
 
-		pdfURL := b.baseURL + pdfMatch[1]
+		title, _ := metaMap["title"].(string)
+		pdfURL, _ := metaMap["pdf_url"].(string)
 
-		// Extract title from detail page
-		title := b.extractTitle(detailHTML)
+		if pdfURL == "" {
+			continue
+		}
 
 		return &connectors.DocumentMeta{
 			LawNumber:    lawNumber,
@@ -111,33 +124,58 @@ func (b *BPKConnector) SearchByLawNumber(ctx context.Context, lawNumber string, 
 		}, nil
 	}
 
-	return nil, nil // not found
+	return nil, nil
 }
 
-// Download fetches the raw PDF from BPK.
+// Download fetches the raw PDF from BPK via Python curl_cffi bridge.
 func (b *BPKConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
-	resp, err := b.fetchURLRaw(ctx, meta.SourceURL)
+	resp, err := b.scraper.Call(ctx, scraper.ScrapeRequest{
+		URL:    meta.SourceURL,
+		Action: "download",
+		Source: b.Name(),
+	})
 	if err != nil {
-		return connectors.RawDocument{}, fmt.Errorf("download: %w", err)
+		return connectors.RawDocument{}, fmt.Errorf("python scraper download: %w", err)
 	}
 
-	mime := resp.Header.Get("Content-Type")
+	dataMap, ok := resp.Data.(map[string]interface{})
+	if !ok {
+		return connectors.RawDocument{}, fmt.Errorf("unexpected download response type")
+	}
+
+	contentB64, ok := dataMap["content"].(string)
+	if !ok || contentB64 == "" {
+		return connectors.RawDocument{}, fmt.Errorf("no content in download response")
+	}
+
+	mime, _ := dataMap["mime_type"].(string)
 	if mime == "" {
 		mime = "application/pdf"
 	}
 
-	// Check if response is actually a PDF
-	if strings.Contains(mime, "text/html") {
-		resp.Body.Close()
-		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (server returned HTML)", meta.LawNumber)
+	// Decode base64 content
+	rawBytes, err := base64.StdEncoding.DecodeString(contentB64)
+	if err != nil {
+		return connectors.RawDocument{}, fmt.Errorf("base64 decode: %w", err)
 	}
 
-	filename := extractFilename(meta.SourceURL)
+	// Verify it's actually a PDF (not Cloudflare HTML)
+	if len(rawBytes) > 4 && string(rawBytes[:4]) != "%PDF" {
+		if strings.Contains(string(rawBytes[:min(500, len(rawBytes))]), "cloudflare") {
+			return connectors.RawDocument{}, fmt.Errorf("BPK returned Cloudflare challenge instead of PDF")
+		}
+		b.logger.Warn("BPK response doesn't look like a PDF", "first_bytes", string(rawBytes[:min(20, len(rawBytes))]))
+	}
+
+	filename, _ := dataMap["filename"].(string)
+	if filename == "" {
+		filename = extractFilename(meta.SourceURL)
+	}
 
 	return connectors.RawDocument{
 		Meta:     meta,
-		Content:  resp.Body,
-		MimeType: "application/pdf",
+		Content:  io.NopCloser(bytes.NewReader(rawBytes)),
+		MimeType: mime,
 		Filename: filename,
 	}, nil
 }
@@ -150,10 +188,7 @@ func (b *BPKConnector) ExtractDocument(ctx context.Context, meta connectors.Docu
 	return b.Download(ctx, meta)
 }
 
-// parseLawNumber extracts jenis, nomor, tahun from law number string.
-// "UU No. 1 Tahun 2020" → jenis="8", nomor="1", tahun="2020"
 func parseLawNumber(lawNumber string, docType string) (jenis, nomor, tahun string, err error) {
-	// Extract nomor and tahun using regex
 	re := regexp.MustCompile(`No\.\s*(\d+)\s*Tahun\s*(\d+)`)
 	m := re.FindStringSubmatch(lawNumber)
 	if m == nil {
@@ -162,7 +197,6 @@ func parseLawNumber(lawNumber string, docType string) (jenis, nomor, tahun strin
 	nomor = m[1]
 	tahun = m[2]
 
-	// Map doc type to jenis code
 	switch {
 	case strings.Contains(docType, "Undang-Undang") || strings.HasPrefix(lawNumber, "UU "):
 		jenis = jenisUU
@@ -173,74 +207,11 @@ func parseLawNumber(lawNumber string, docType string) (jenis, nomor, tahun strin
 	default:
 		return "", "", "", fmt.Errorf("unknown doc type: %s", docType)
 	}
-
 	return jenis, nomor, tahun, nil
 }
 
-// slugMatches checks if BPK slug matches our law number/year.
 func slugMatches(slug, nomor, tahun string) bool {
-	// slug like "uu-no-1-tahun-2020"
 	return strings.Contains(slug, "no-"+nomor+"-tahun-"+tahun)
-}
-
-// extractTitle gets the law title from BPK detail page.
-func (b *BPKConnector) extractTitle(html string) string {
-	re := regexp.MustCompile(`<title>([^<]+)</title>`)
-	m := re.FindStringSubmatch(html)
-	if m != nil {
-		title := strings.TrimSpace(m[1])
-		// Remove " - JDIH BPK" suffix
-		if idx := strings.Index(title, " - "); idx > 0 {
-			title = title[:idx]
-		}
-		return title
-	}
-	return ""
-}
-
-// fetchURL fetches a URL and returns HTML as string.
-func (b *BPKConnector) fetchURL(ctx context.Context, url string) (string, error) {
-	resp, err := b.fetchURLRaw(ctx, url)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", fmt.Errorf("read body: %w", err)
-	}
-
-	return string(body), nil
-}
-
-// fetchURLRaw fetches a URL with retry.
-func (b *BPKConnector) fetchURLRaw(ctx context.Context, url string) (*http.Response, error) {
-	var lastErr error
-	for attempt := 0; attempt < 3; attempt++ {
-		req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-		if err != nil {
-			return nil, fmt.Errorf("build request: %w", err)
-		}
-		req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
-
-		resp, err := b.client.Do(req)
-		if err != nil {
-			lastErr = err
-			time.Sleep(time.Duration(attempt+1) * 2 * time.Second)
-			continue
-		}
-
-		if resp.StatusCode != http.StatusOK {
-			resp.Body.Close()
-			lastErr = fmt.Errorf("status %d for %s", resp.StatusCode, url)
-			time.Sleep(time.Duration(attempt+1) * 2 * time.Second)
-			continue
-		}
-
-		return resp, nil
-	}
-	return nil, lastErr
 }
 
 func extractFilename(rawURL string) string {
@@ -256,5 +227,9 @@ func extractFilename(rawURL string) string {
 	return decoded
 }
 
-// strconv import to avoid unused
-var _ = strconv.Atoi
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}

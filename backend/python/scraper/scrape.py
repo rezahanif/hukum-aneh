@@ -26,6 +26,7 @@ def main():
     action = req.get("action", "")
     url = req.get("url", "")
     source = req.get("source", "")
+    law_number = req.get("law_number", "")
 
     log.info(f"action={action} source={source} url={url}")
 
@@ -36,6 +37,9 @@ def main():
         elif action == "download":
             doc = download(url, source)
             print(json.dumps({"success": True, "data": doc}))
+        elif action == "search_bpk":
+            result = search_bpk(url, law_number)
+            print(json.dumps({"success": True, "data": result}))
         elif action == "extract_metadata":
             meta = extract_metadata(url, source)
             print(json.dumps({"success": True, "data": meta}))
@@ -225,6 +229,9 @@ def check_jdihn():
 
 def download(url, source):
     """Download raw document file (PDF/HTML)."""
+    if "BPK" in source:
+        return download_bpk(url)
+
     # For standard PDFs, try direct requests
     r = requests.get(url, impersonate="chrome120", timeout=30)
     if r.status_code != 200:
@@ -242,8 +249,94 @@ def download(url, source):
     }
 
 
+def download_bpk(url):
+    """Download from BPK with Cloudflare bypass."""
+    r = requests.get(url, impersonate="chrome120", timeout=45)
+    if r.status_code != 200:
+        raise Exception(f"BPK download failed: status {r.status_code}")
+
+    # Check for Cloudflare challenge page
+    content_type = r.headers.get("Content-Type", "")
+    if "text/html" in content_type:
+        text = r.text.lower()
+        if "just a moment..." in text or "attention required!" in text:
+            raise Exception("BPK blocked by Cloudflare challenge")
+
+    # Return raw PDF bytes as base64
+    import base64
+    content_b64 = base64.b64encode(r.content).decode("utf-8")
+
+    filename = url.split("/")[-1]
+    # URL-decode the filename
+    from urllib.parse import unquote
+    filename = unquote(filename)
+
+    return {
+        "content": content_b64,
+        "mime_type": r.headers.get("Content-Type", "application/pdf"),
+        "filename": filename
+    }
+
+
+def search_bpk(url, law_number):
+    """Search BPK for a specific law, parse results page."""
+    r = requests.get(url, impersonate="chrome120", timeout=30)
+    if r.status_code != 200:
+        raise Exception(f"BPK search failed: status {r.status_code}")
+
+    content_type = r.headers.get("Content-Type", "")
+    if "text/html" in content_type:
+        text = r.text.lower()
+        if "just a moment..." in text or "attention required!" in text:
+            raise Exception("BPK blocked by Cloudflare challenge")
+
+    # Return raw HTML for Go to parse
+    return {
+        "content": r.text,
+        "mime_type": "text/html",
+        "filename": ""
+    }
+
+
 def extract_metadata(url, source):
+    """Extract metadata from a detail page."""
+    if "BPK" in source:
+        return extract_metadata_bpk(url)
     return {"law_number": "", "title": "", "published_date": ""}
+
+
+def extract_metadata_bpk(url):
+    """Extract title and PDF link from BPK detail page."""
+    r = requests.get(url, impersonate="chrome120", timeout=30)
+    if r.status_code != 200:
+        raise Exception(f"BPK detail fetch failed: status {r.status_code}")
+
+    soup = BeautifulSoup(r.text, "html.parser")
+
+    # Extract title from <title> tag
+    title = ""
+    title_tag = soup.find("title")
+    if title_tag:
+        title = title_tag.get_text(strip=True)
+        # Remove " - JDIH BPK" suffix
+        if " - " in title:
+            title = title.split(" - ")[0]
+
+    # Extract PDF download link
+    pdf_url = ""
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if "/Download/" in href and href.endswith(".pdf"):
+            pdf_url = href
+            if not href.startswith("http"):
+                pdf_url = f"https://peraturan.bpk.go.id{href}"
+            break
+
+    return {
+        "title": title,
+        "pdf_url": pdf_url,
+        "published_date": ""
+    }
 
 
 if __name__ == "__main__":

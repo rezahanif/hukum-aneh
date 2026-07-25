@@ -66,7 +66,6 @@ func main() {
 	}
 	defer repo.Close()
 
-	bpkConn := bpk.New(logger)
 	p := parser.New(logger)
 
 	// Step 1: Load parsed law numbers from cache, fallback to Firestore
@@ -90,6 +89,7 @@ func main() {
 
 	// Step 2: Scrape peraturan.go.id for all active laws
 	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
+	bpkConn := bpk.New(scr, logger)
 	peraturanConn := peraturan.New(scr, logger)
 	logger.Info("scraping peraturan.go.id for all active laws")
 	allListed, err := peraturanConn.CheckUpdates(ctx)

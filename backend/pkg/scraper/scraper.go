@@ -31,9 +31,10 @@ func New(pythonPath, scriptPath string, logger *slog.Logger) *Scraper {
 
 // ScrapeRequest is the JSON payload sent to the Python script via stdin.
 type ScrapeRequest struct {
-	URL    string `json:"url"`
-	Action string `json:"action"` // "check_updates", "download", "extract_metadata"
-	Source string `json:"source"`
+	URL       string `json:"url"`
+	Action    string `json:"action"` // "check_updates", "download", "extract_metadata"
+	Source    string `json:"source"`
+	LawNumber string `json:"law_number,omitempty"` // For BPK search context
 }
 
 // ScrapeResponse is the JSON returned by the Python script via stdout.

@@ -4,6 +4,8 @@ import (
 	"context"
 	"log/slog"
 	"testing"
+
+	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
 func TestSearchByLawNumber_BPK(t *testing.T) {
@@ -11,7 +13,9 @@ func TestSearchByLawNumber_BPK(t *testing.T) {
 		t.Skip("skipping real site test in short mode")
 	}
 
-	conn := New(slog.Default())
+	logger := slog.Default()
+	scr := scraper.New("python3", "../../../python/scraper/scrape.py", logger)
+	conn := New(scr, logger)
 	meta, err := conn.SearchByLawNumber(context.Background(), "UU No. 1 Tahun 2020", "Undang-Undang (UU)")
 	if err != nil {
 		t.Fatalf("SearchByLawNumber failed: %v", err)
