@@ -14,7 +14,10 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemenkeu"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/ma"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/pemda"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/setneg"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
@@ -87,6 +90,18 @@ func main() {
 	// Register JDIH Setneg connector
 	setnegConn := setneg.New(scr, logger)
 	registry.Register(setnegConn.Name(), setnegConn)
+
+	// Register JDIH Kemenkeu connector (Permen/Kepmen Keuangan)
+	kemenkeuConn := kemenkeu.New(scr, logger)
+	registry.Register(kemenkeuConn.Name(), kemenkeuConn)
+
+	// Register Mahkamah Agung putusan connector
+	maConn := ma.New(logger)
+	registry.Register(maConn.Name(), maConn)
+
+	// Register JDIH Pemda connector (Perda/Perkada regional)
+	pemdaConn := pemda.New(scr, logger)
+	registry.Register(pemdaConn.Name(), pemdaConn)
 
 	// Document parser
 	p := parser.New(logger)
