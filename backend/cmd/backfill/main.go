@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
@@ -17,7 +18,6 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
-	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
@@ -63,7 +63,11 @@ func main() {
 	registry.Register("JDIH Setneg", setneg.New(scr, logger))
 
 	p := parser.New(logger)
-	ret := retrieval.New(cfg, repo)
+	ret, err := retrieval.New(ctx, cfg, repo)
+	if err != nil {
+		logger.Error("retrieval service init failed", "error", err)
+		os.Exit(1)
+	}
 	aiSvc := ai.New(cfg)
 	imgGen := imagegen.New(cfg)
 	tgSvc := telegram.New(cfg)
@@ -85,7 +89,7 @@ func main() {
 	// Run backfill processing
 	for i, doc := range parsedDocs {
 		logger.Info("processing parsed doc", "index", i+1, "total", len(parsedDocs), "law_number", doc.LawNumber)
-		
+
 		// Fetch the corresponding LawVersion
 		version, err := repo.GetLatestLawVersion(ctx, doc.ID)
 		if err != nil {

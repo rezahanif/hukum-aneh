@@ -41,12 +41,18 @@ func main() {
 	defer repo.Close()
 
 	tgSvc := telegram.New(cfg)
+	ret, err := retrieval.New(ctx, cfg, repo)
+	if err != nil {
+		logger.Error("retrieval service init failed", "error", err)
+		os.Exit(1)
+	}
+
 	engine := workflow.NewEngine(
 		cfg,
 		repo,
 		connectors.NewRegistry(),
 		parser.New(logger),
-		retrieval.New(cfg, repo),
+		ret,
 		ai.New(cfg),
 		imagegen.New(cfg),
 		tgSvc,

@@ -10,7 +10,7 @@ import (
 // Config holds all runtime configuration for the pipeline.
 type Config struct {
 	Firebase struct {
-		ProjectID      string `json:"project_id"`
+		ProjectID       string `json:"project_id"`
 		CredentialsPath string `json:"credentials_path"`
 	} `json:"firebase"`
 
@@ -18,6 +18,10 @@ type Config struct {
 		BaseURL string `json:"base_url"`
 		APIKey  string `json:"api_key"`
 	} `json:"router9"`
+
+	Gemini struct {
+		APIKey string `json:"api_key"`
+	} `json:"gemini"`
 
 	Telegram struct {
 		BotToken string `json:"bot_token"`
@@ -36,7 +40,7 @@ type Config struct {
 	} `json:"image_gen"`
 
 	Scheduler struct {
-		DiscoveryInterval string `json:"discovery_interval"` // e.g. "1h", "30m"
+		DiscoveryInterval string `json:"discovery_interval"`  // e.g. "1h", "30m"
 		StuckJobThreshold string `json:"stuck_job_threshold"` // e.g. "6h"
 	} `json:"scheduler"`
 
@@ -77,6 +81,8 @@ func Load() (*Config, error) {
 
 	cfg.Router9.BaseURL = envOrDefault("ROUTER9_BASE_URL", "http://localhost:4000/v1")
 	cfg.Router9.APIKey = os.Getenv("ROUTER9_API_KEY")
+
+	cfg.Gemini.APIKey = os.Getenv("GEMINI_API_KEY")
 
 	cfg.Telegram.BotToken = os.Getenv("TELEGRAM_BOT_TOKEN")
 	cfg.Telegram.ChatID = os.Getenv("TELEGRAM_CHAT_ID")

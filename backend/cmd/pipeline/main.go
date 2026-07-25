@@ -9,24 +9,24 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/setneg"
 	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
-	"github.com/rezahanif/hukum-aneh/backend/internal/scheduler"
-	"github.com/rezahanif/hukum-aneh/backend/internal/workflow"
-	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
-	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
+	"github.com/rezahanif/hukum-aneh/backend/internal/scheduler"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
 	"github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
 	"github.com/rezahanif/hukum-aneh/backend/internal/validator"
+	"github.com/rezahanif/hukum-aneh/backend/internal/workflow"
+	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
 func main() {
@@ -92,7 +92,11 @@ func main() {
 	p := parser.New(logger)
 
 	// Retrieval (embedding & search)
-	ret := retrieval.New(cfg, repo)
+	ret, err := retrieval.New(ctx, cfg, repo)
+	if err != nil {
+		logger.Error("retrieval service init failed", "error", err)
+		os.Exit(1)
+	}
 
 	// AI Agents
 	aiSvc := ai.New(cfg)

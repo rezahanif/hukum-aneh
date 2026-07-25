@@ -1,144 +1,88 @@
 package retrieval
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
+	"errors"
 	"fmt"
-	"io"
 	"log/slog"
 	"math"
-	"net/http"
-	"time"
+	"strings"
+
+	"google.golang.org/genai"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
 )
 
-// Service handles embedding generation and vector similarity search.
-// Spec §5.4: embed text, search related laws.
+const embeddingDimensions = 1536 // matches existing mock fallback + any prior stored data
+
 type Service struct {
 	cfg    *config.Config
 	repo   *repository.FirestoreRepo
-	client *http.Client
-	sem    chan struct{} // semaphore to throttle concurrent 9Router calls
+	client *genai.Client
+	sem    chan struct{}
 }
 
-func New(cfg *config.Config, repo *repository.FirestoreRepo) *Service {
+func New(ctx context.Context, cfg *config.Config, repo *repository.FirestoreRepo) (*Service, error) {
+	client, err := genai.NewClient(ctx, &genai.ClientConfig{APIKey: cfg.Gemini.APIKey})
+	if err != nil {
+		return nil, fmt.Errorf("create genai client: %w", err)
+	}
 	return &Service{
 		cfg:    cfg,
 		repo:   repo,
-		client: &http.Client{},
-		sem:    make(chan struct{}, 2), // max 2 concurrent requests
-	}
+		client: client,
+		sem:    make(chan struct{}, 2),
+	}, nil
 }
 
-type EmbeddingRequest struct {
-	Input string `json:"input"`
-	Model string `json:"model"`
-}
-
-type EmbeddingResponse struct {
-	Data []struct {
-		Embedding []float32 `json:"embedding"`
-	} `json:"data"`
-}
-
-// GenerateEmbedding calls 9Router to generate embedding vector for text.
-// Implements rate-limiting semaphore and backoff retries to prevent 429 quota errors.
-func (s *Service) GenerateEmbedding(ctx context.Context, text string) ([]float32, error) {
-	// Acquire semaphore
+// GenerateEmbedding calls Gemini API (gemini-embedding-2) to generate embedding vector for text.
+// Returns the embedding vector, a boolean indicating if a mock fallback was used, and any error.
+func (s *Service) GenerateEmbedding(ctx context.Context, text string) ([]float32, bool, error) {
 	select {
 	case <-ctx.Done():
-		return nil, ctx.Err()
+		return nil, false, ctx.Err()
 	case s.sem <- struct{}{}:
 	}
 	defer func() { <-s.sem }()
 
-	reqBody := EmbeddingRequest{
-		Input: text,
-		Model: "text-embedding-3-small", // standard OpenAI embedding model
-	}
-	bodyBytes, err := json.Marshal(reqBody)
+	dims := int32(embeddingDimensions)
+	res, err := s.client.Models.EmbedContent(ctx, "gemini-embedding-2", genai.Text(text), &genai.EmbedContentConfig{
+		OutputDimensionality: &dims,
+	})
 	if err != nil {
-		return nil, fmt.Errorf("marshal request: %w", err)
+		var apiErr genai.APIError
+		if errors.As(err, &apiErr) {
+			// Trigger mock fallback only on auth/quota/billing/rate-limit errors.
+			// Google API returns HTTP 400 (INVALID_ARGUMENT) with "API key not valid" message for bad keys.
+			if apiErr.Code == 401 || apiErr.Code == 402 || apiErr.Code == 403 || apiErr.Code == 429 || apiErr.Code == 503 ||
+				(apiErr.Code == 400 && (strings.Contains(apiErr.Message, "API key not valid") || strings.Contains(err.Error(), "API key not valid"))) {
+				slog.Warn("gemini embedding API quota/auth error, falling back to mock vector", "status", apiErr.Code, "error", err)
+				return s.getMockEmbedding(), true, nil
+			}
+		}
+		// Treat other errors (like network/context timeouts, bad requests) as hard failures
+		return nil, false, fmt.Errorf("gemini embed content: %w", err)
 	}
 
-	url := fmt.Sprintf("%s/embeddings", s.cfg.Router9.BaseURL)
-
-	var lastErr error
-	backoff := 2 * time.Second
-
-	for attempt := 1; attempt <= 4; attempt++ {
-		select {
-		case <-ctx.Done():
-			return nil, ctx.Err()
-		default:
-		}
-
-		req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(bodyBytes))
-		if err != nil {
-			return nil, fmt.Errorf("new request: %w", err)
-		}
-		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", s.cfg.Router9.APIKey))
-
-		resp, err := s.client.Do(req)
-		if err != nil {
-			lastErr = fmt.Errorf("do request: %w", err)
-			time.Sleep(backoff)
-			backoff *= 2
-			continue
-		}
-
-		if resp.StatusCode == http.StatusOK {
-			var embeddingResp EmbeddingResponse
-			err = json.NewDecoder(resp.Body).Decode(&embeddingResp)
-			resp.Body.Close()
-			if err != nil {
-				return nil, fmt.Errorf("decode response: %w", err)
-			}
-			if len(embeddingResp.Data) == 0 {
-				return nil, fmt.Errorf("empty embedding data returned")
-			}
-			return embeddingResp.Data[0].Embedding, nil
-		}
-
-		// Read error body
-		respBytes, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
-		lastErr = fmt.Errorf("non-200 status: %d, body: %s", resp.StatusCode, string(respBytes))
-
-		// If 429 rate limit or 503 server overloaded, sleep and retry
-		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode == http.StatusServiceUnavailable {
-			time.Sleep(backoff)
-			backoff *= 2
-			continue
-		}
-
-		// If 401/429 quota or billing error, use mock embedding vector as fallback
-		// (prevents pipeline blockers when API key is out of funds)
-		if resp.StatusCode == http.StatusUnauthorized || resp.StatusCode == http.StatusPaymentRequired {
-			slog.Warn("9Router billing/quota exceeded, falling back to mock embedding vector", "status", resp.StatusCode)
-			mockVec := make([]float32, 1536)
-			// Fill with deterministic small mock values
-			for i := range mockVec {
-				mockVec[i] = float32(i) / 1536.0
-			}
-			return mockVec, nil
-		}
-
-		// Other errors are fatal
-		return nil, lastErr
+	if len(res.Embeddings) == 0 || res.Embeddings[0] == nil {
+		return nil, false, fmt.Errorf("empty embedding returned")
 	}
 
-	// If all retries failed due to quota/429, fallback to mock embedding vector instead of failing
-	slog.Warn("9Router rate limit exceeded after retries, falling back to mock embedding vector", "error", lastErr)
-	mockVec := make([]float32, 1536)
+	values := res.Embeddings[0].Values
+	if len(values) != embeddingDimensions {
+		return nil, false, fmt.Errorf("unexpected embedding dimension: got %d, want %d", len(values), embeddingDimensions)
+	}
+
+	return values, false, nil
+}
+
+func (s *Service) getMockEmbedding() []float32 {
+	mockVec := make([]float32, embeddingDimensions)
 	for i := range mockVec {
-		mockVec[i] = float32(i) / 1536.0
+		mockVec[i] = float32(i) / float32(embeddingDimensions)
 	}
-	return mockVec, nil
+	return mockVec
 }
 
 // CosineSimilarity computes similarity score between two vectors.

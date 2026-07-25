@@ -241,7 +241,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 	e.logger.Info("generating embedding for law version", "doc_id", doc.ID)
 
 	// Step 1: Generate & Save Embedding
-	vector, err := e.retrieval.GenerateEmbedding(ctx, version.TextContent)
+	vector, isMock, err := e.retrieval.GenerateEmbedding(ctx, version.TextContent)
 	if err != nil {
 		return fmt.Errorf("generate embedding: %w", err)
 	}
@@ -249,6 +249,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 	embEntry := &models.EmbeddingEntry{
 		LawDocumentID: doc.ID,
 		Vector:        vector,
+		IsMock:        isMock,
 	}
 	embID, err := e.repo.SaveEmbedding(ctx, embEntry)
 	if err != nil {
