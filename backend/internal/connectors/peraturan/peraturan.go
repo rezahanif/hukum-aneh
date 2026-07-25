@@ -2,13 +2,10 @@ package peraturan
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
-	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -17,38 +14,7 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
-const scrapeCursorFile = "backend/configs/scrape_cursor.json"
-
-type ScrapeCursor struct {
-	LastKnownLawNumber string    `json:"last_known_law_number"`
-	Timestamp          time.Time `json:"timestamp"`
-}
-
-type ScrapeCursors struct {
-	LastKnownLaws map[string]ScrapeCursor `json:"last_known_laws"`
-}
-
-func loadScrapeCursors() ScrapeCursors {
-	var cursors ScrapeCursors
-	cursors.LastKnownLaws = make(map[string]ScrapeCursor)
-
-	data, err := os.ReadFile(scrapeCursorFile)
-	if err != nil {
-		return cursors
-	}
-
-	_ = json.Unmarshal(data, &cursors)
-	if cursors.LastKnownLaws == nil {
-		cursors.LastKnownLaws = make(map[string]ScrapeCursor)
-	}
-	return cursors
-}
-
-func saveScrapeCursors(cursors ScrapeCursors) {
-	_ = os.MkdirAll(filepath.Dir(scrapeCursorFile), 0755)
-	data, _ := json.MarshalIndent(cursors, "", "  ")
-	_ = os.WriteFile(scrapeCursorFile, data, 0644)
-}
+// Cursor types now live in internal/connectors/cursor.go (shared with other connectors).
 
 // PeraturanConnector scrapes peraturan.go.id.
 // Covers: UU, PP, Perppu (active/berlaku status only).
@@ -102,15 +68,16 @@ func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.Doc
 	var allDocs []connectors.DocumentMeta
 	seen := make(map[string]bool)
 
-	cursors := loadScrapeCursors()
+	cursors := connectors.LoadCursors()
+	cursorUpdates := make(map[string]connectors.Cursor)
 
 	for _, st := range sourceTypes {
-		cursor, hasCursor := cursors.LastKnownLaws[st.DocType]
+		cursor, hasCursor := cursors.Get(st.DocType)
 		p.logger.Info("scraping source type", 
 			"type", st.DocType, 
 			"last_page_safety_cap", st.LastPage, 
 			"has_cursor", hasCursor, 
-			"cursor_law", cursor.LastKnownLawNumber,
+			"cursor_law", cursor.LastKnownID,
 		)
 
 		var newestLawNumber string
@@ -152,7 +119,7 @@ func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.Doc
 			}
 
 			for _, d := range docs {
-				if hasCursor && d.LawNumber == cursor.LastKnownLawNumber {
+				if hasCursor && d.LawNumber == cursor.LastKnownID {
 					p.logger.Info("hit last known law number, caught up", "type", st.DocType, "law_number", d.LawNumber)
 					caughtUp = true
 					break
@@ -173,16 +140,22 @@ func (p *PeraturanConnector) CheckUpdates(ctx context.Context) ([]connectors.Doc
 			time.Sleep(500 * time.Millisecond)
 		}
 
-		// Update cursor with the newest law seen in this run for this source type
+		// Queue cursor update for batch save
 		if newestLawNumber != "" {
-			cursors.LastKnownLaws[st.DocType] = ScrapeCursor{
-				LastKnownLawNumber: newestLawNumber,
-				Timestamp:          time.Now(),
+			cursorUpdates[st.DocType] = connectors.Cursor{
+				LastKnownID: newestLawNumber,
+				Timestamp:   time.Now(),
 			}
-			saveScrapeCursors(cursors)
 		}
 
 		p.logger.Info("source type complete", "type", st.DocType, "total_unique", len(allDocs))
+	}
+
+	// Atomic batch save — all cursor updates in one locked write
+	if len(cursorUpdates) > 0 {
+		if err := connectors.SaveAll(cursorUpdates); err != nil {
+			p.logger.Warn("batch save cursors failed", "error", err)
+		}
 	}
 
 	p.logger.Info("peraturan.go.id scrape complete", "total_laws", len(allDocs))
