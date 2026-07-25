@@ -15,6 +15,12 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemenkeu"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemnaker"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemendag"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/komdigi"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kpu"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bkn"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/lkpp"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/ma"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
@@ -97,6 +103,30 @@ func main() {
 	// Register Mahkamah Agung putusan connector
 	maConn := ma.New(logger)
 	registry.Register(maConn.Name(), maConn)
+
+	// Register JDIH Kemnaker connector
+	kemnakerConn := kemnaker.New(scr, logger)
+	registry.Register(kemnakerConn.Name(), kemnakerConn)
+
+	// Register JDIH Kemendag connector
+	kemendagConn := kemendag.New(scr, logger)
+	registry.Register(kemendagConn.Name(), kemendagConn)
+
+	// Register JDIH Komdigi connector
+	komdigiConn := komdigi.New(scr, logger)
+	registry.Register(komdigiConn.Name(), komdigiConn)
+
+	// Register JDIH KPU connector
+	kpuConn := kpu.New(scr, logger)
+	registry.Register(kpuConn.Name(), kpuConn)
+
+	// Register JDIH BKN connector
+	bknConn := bkn.New(scr, logger)
+	registry.Register(bknConn.Name(), bknConn)
+
+	// Register JDIH LKPP connector
+	lkppConn := lkpp.New(scr, logger)
+	registry.Register(lkppConn.Name(), lkppConn)
 
 	// Document parser
 	p := parser.New(logger)

@@ -54,7 +54,53 @@ def check_updates(url, source):
         return check_mkri()
     elif "JDIHN" in source:
         return check_jdihn()
+    elif "LKPP" in source:
+        return check_lkpp()
     return []
+
+
+def check_lkpp():
+    """Scrapes JDIH LKPP latest regulations."""
+    url = "https://jdih.lkpp.go.id/regulation/index"
+    try:
+        r = requests.get(url, impersonate="chrome120", timeout=15, verify=False)
+        if r.status_code != 200:
+            log.warning(f"LKPP returned status {r.status_code}")
+            return []
+    except Exception as e:
+        log.warning(f"LKPP connection failed: {e}")
+        return []
+
+    soup = BeautifulSoup(r.text, "html.parser")
+    docs = []
+    
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if "/regulation/" in href and not any(x in href for x in ["/index", "/year", "/download", "/terjemahan"]):
+            slug = href.split("/")[-1]
+            title = a.text.strip()
+            if not title or len(slug) < 5:
+                continue
+            
+            # Form clean law number
+            law_num = slug.replace("-", " ").title()
+            num_match = re.search(r'nomor\s+(\d+)\s+tahun\s+(\d+)', slug.lower())
+            if num_match:
+                prefix = "Peraturan LKPP"
+                if "keputusan" in slug.lower():
+                    prefix = "Keputusan Kepala LKPP"
+                law_num = f"{prefix} No. {num_match.group(1)} Tahun {num_match.group(2)}"
+            
+            docs.append({
+                "law_number": law_num,
+                "title": title,
+                "source_url": f"https://jdih.lkpp.go.id/regulation/download-regulation?id={slug}",
+                "source": "JDIH LKPP",
+                "level": "sectoral",
+                "document_type": "Peraturan LKPP",
+                "published_date": ""
+            })
+    return docs
 
 
 def check_mkri():
