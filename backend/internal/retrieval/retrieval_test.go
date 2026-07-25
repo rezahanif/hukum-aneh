@@ -3,6 +3,7 @@ package retrieval
 import (
 	"context"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -45,7 +46,6 @@ func TestCosineSimilarity(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			got := CosineSimilarity(c.a, c.b)
-			// check with a small epsilon
 			diff := got - c.want
 			if diff < 0 {
 				diff = -diff
@@ -61,7 +61,7 @@ func TestGenerateEmbedding_FallbackAndIntegration(t *testing.T) {
 	ctx := context.Background()
 	cfg := &config.Config{}
 
-	// First test the Mock fallback flow with an invalid API Key
+	// First test the Mock fallback flow with an invalid API Key (always runs, fast, deterministic)
 	cfg.Gemini.APIKey = "invalid-api-key-to-trigger-401"
 	service, err := New(ctx, cfg, nil)
 	if err != nil {
@@ -79,11 +79,16 @@ func TestGenerateEmbedding_FallbackAndIntegration(t *testing.T) {
 		t.Errorf("expected mock vector of length %d, got %d", embeddingDimensions, len(vec))
 	}
 
-	// Next, check if a real funded GEMINI_API_KEY is available in the environment to run live integration test
+	// Live network call: gate with testing.Short()
+	if testing.Short() {
+		t.Skip("skipping live Gemini API call in short mode")
+		return
+	}
+
+	// Try to get GEMINI_API_KEY from environment or by searching parent directories for .env
 	realKey := os.Getenv("GEMINI_API_KEY")
 	if realKey == "" {
-		// Load .env if exists to find GEMINI_API_KEY
-		if envVars, err := loadDotEnv(); err == nil {
+		if envVars, err := loadDotEnvFromParents(); err == nil {
 			realKey = envVars["GEMINI_API_KEY"]
 		}
 	}
@@ -113,22 +118,36 @@ func TestGenerateEmbedding_FallbackAndIntegration(t *testing.T) {
 	t.Logf("Successfully fetched real embedding with length: %d", len(liveVec))
 }
 
-func loadDotEnv() (map[string]string, error) {
+func loadDotEnvFromParents() (map[string]string, error) {
 	env := make(map[string]string)
-	data, err := os.ReadFile("/project/hukum-aneh/.env")
+	dir, err := os.Getwd()
 	if err != nil {
 		return nil, err
 	}
-	lines := strings.Split(string(data), "\n")
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "" || strings.HasPrefix(line, "#") {
-			continue
+
+	for {
+		envPath := filepath.Join(dir, ".env")
+		if data, err := os.ReadFile(envPath); err == nil {
+			lines := strings.Split(string(data), "\n")
+			for _, line := range lines {
+				line = strings.TrimSpace(line)
+				if line == "" || strings.HasPrefix(line, "#") {
+					continue
+				}
+				parts := strings.SplitN(line, "=", 2)
+				if len(parts) == 2 {
+					env[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
+				}
+			}
+			return env, nil
 		}
-		parts := strings.SplitN(line, "=", 2)
-		if len(parts) == 2 {
-			env[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
+
+		parent := filepath.Dir(dir)
+		if parent == dir {
+			break
 		}
+		dir = parent
 	}
-	return env, nil
+
+	return nil, os.ErrNotExist
 }
