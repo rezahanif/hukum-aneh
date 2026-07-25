@@ -6,6 +6,8 @@ import (
 	"os"
 	"testing"
 	"time"
+
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
 )
 
 // TestCheckUpdates_RealSite fetches the real peraturan.go.id and verifies
@@ -78,23 +80,24 @@ func contains(s, substr string) bool {
 
 func TestScrapeCursor(t *testing.T) {
 	// Clean cursor file first
-	os.Remove("backend/configs/scrape_cursor.json")
-	defer os.Remove("backend/configs/scrape_cursor.json")
+	os.Remove(connectors.CursorFile)
+	defer os.Remove(connectors.CursorFile)
 
-	cursors := loadScrapeCursors()
-	if len(cursors.LastKnownLaws) != 0 {
+	cursors := connectors.LoadCursors()
+	if len(cursors.Cursors) != 0 {
 		t.Fatalf("expected empty cursors, got: %v", cursors)
 	}
 
-	cursors.LastKnownLaws["TestType"] = ScrapeCursor{
-		LastKnownLawNumber: "TEST-123",
-		Timestamp:          time.Now(),
+	if err := cursors.Save("TestType", connectors.Cursor{
+		LastKnownID: "TEST-123",
+		Timestamp:   time.Now(),
+	}); err != nil {
+		t.Fatalf("save failed: %v", err)
 	}
-	saveScrapeCursors(cursors)
 
-	loaded := loadScrapeCursors()
-	c, ok := loaded.LastKnownLaws["TestType"]
-	if !ok || c.LastKnownLawNumber != "TEST-123" {
+	loaded := connectors.LoadCursors()
+	c, ok := loaded.Get("TestType")
+	if !ok || c.LastKnownID != "TEST-123" {
 		t.Fatalf("failed to roundtrip cursor: %v", loaded)
 	}
 }
@@ -105,8 +108,8 @@ func TestCheckUpdates_WithCursor(t *testing.T) {
 	}
 
 	// Clean cursor file
-	os.Remove("backend/configs/scrape_cursor.json")
-	defer os.Remove("backend/configs/scrape_cursor.json")
+	os.Remove(connectors.CursorFile)
+	defer os.Remove(connectors.CursorFile)
 
 	// Backup original sourceTypes and restore later
 	orig := sourceTypes
@@ -130,12 +133,12 @@ func TestCheckUpdates_WithCursor(t *testing.T) {
 	}
 
 	// Verify cursor was saved
-	cursors := loadScrapeCursors()
-	c, ok := cursors.LastKnownLaws["Undang-Undang (UU)"]
-	if !ok || c.LastKnownLawNumber == "" {
+	cursors := connectors.LoadCursors()
+	c, ok := cursors.Get("Undang-Undang (UU)")
+	if !ok || c.LastKnownID == "" {
 		t.Fatalf("cursor not saved: %+v", cursors)
 	}
-	t.Logf("saved cursor law: %s", c.LastKnownLawNumber)
+	t.Logf("saved cursor law: %s", c.LastKnownID)
 
 	// Second run (should be caught up instantly on page 1)
 	t.Log("running second check...")
