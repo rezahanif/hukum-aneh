@@ -20,6 +20,7 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/komdigi"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kpu"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bkn"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/dpr"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/lkpp"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/ma"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
@@ -127,6 +128,10 @@ func main() {
 	// Register JDIH LKPP connector
 	lkppConn := lkpp.New(scr, logger)
 	registry.Register(lkppConn.Name(), lkppConn)
+
+	// Register JDIH DPR RI connector
+	dprConn := dpr.New(scr, logger)
+	registry.Register(dprConn.Name(), dprConn)
 
 	// Document parser
 	p := parser.New(logger)

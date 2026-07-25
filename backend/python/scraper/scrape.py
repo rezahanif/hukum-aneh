@@ -56,7 +56,57 @@ def check_updates(url, source):
         return check_jdihn()
     elif "LKPP" in source:
         return check_lkpp()
+    elif "DPR" in source:
+        return check_dpr()
     return []
+
+
+def check_dpr():
+    """Scrapes JDIH DPR RI latest regulations."""
+    url = "https://jdih.dpr.go.id/"
+    try:
+        r = requests.get(url, impersonate="chrome120", timeout=15)
+        if r.status_code != 200:
+            log.warning(f"DPR returned status {r.status_code}")
+            return []
+    except Exception as e:
+        log.warning(f"DPR connection failed: {e}")
+        return []
+
+    soup = BeautifulSoup(r.text, "html.parser")
+    docs = []
+    
+    # Simple search for Keppres / Inpres on landing or basic links
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        title = a.text.strip()
+        if not title:
+            continue
+            
+        is_keppres = "keppres" in href.lower() or "keputusan presiden" in title.lower()
+        is_inpres = "inpres" in href.lower() or "instruksi presiden" in title.lower()
+        
+        if is_keppres or is_inpres:
+            doc_type = "Keputusan Presiden (Keppres)" if is_keppres else "Instruksi Presiden (Inpres)"
+            
+            # Simple number extraction
+            num_match = re.search(r'(?:nomor|no\.?)\s+(\d+)\s+tahun\s+(\d+)', title.lower())
+            if num_match:
+                prefix = "KEPPRES" if is_keppres else "INPRES"
+                law_num = f"{prefix} No. {num_match.group(1)} Tahun {num_match.group(2)}"
+            else:
+                law_num = title
+
+            docs.append({
+                "law_number": law_num,
+                "title": title,
+                "source_url": href if href.startswith("http") else f"https://jdih.dpr.go.id{href}",
+                "source": "JDIH DPR RI",
+                "level": "national",
+                "document_type": doc_type,
+                "published_date": ""
+            })
+    return docs
 
 
 def check_lkpp():
