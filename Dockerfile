@@ -40,13 +40,9 @@ RUN CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/pipeline     ./backend/cmd/p
     CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/flush_local  ./backend/cmd/flush_local && \
     CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/count        ./backend/cmd/count && \
     CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/parse_pdf    ./backend/cmd/parse_pdf && \
-    CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/backfill_bpk ./backend/cmd/backfill_bpk
-
-# NOTE: migrate_to_pg binary is NOT included yet.
-# Stream A will create backend/cmd/migrate_to_pg in Phase 6.1.
-# After Stream A completes Phase 6.1, add the following line to this Dockerfile:
-#   CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/migrate_to_pg ./backend/cmd/migrate_to_pg
-#   COPY --from=go-builder /bin/migrate_to_pg /usr/local/bin/migrate_to_pg
+    CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/backfill_bpk      ./backend/cmd/backfill_bpk && \
+    CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/migrate_to_pg     ./backend/cmd/migrate_to_pg && \
+    CGO_ENABLED=1 go build -ldflags="-s -w" -o /bin/verify_pg_smoke   ./backend/cmd/verify_pg_smoke
 
 # ============================================================================
 # Stage 2: Runtime
@@ -87,12 +83,15 @@ COPY --from=go-builder /bin/verify_emb   /usr/local/bin/verify_embeddings
 COPY --from=go-builder /bin/flush_local  /usr/local/bin/flush_local
 COPY --from=go-builder /bin/count        /usr/local/bin/count
 COPY --from=go-builder /bin/parse_pdf    /usr/local/bin/parse_pdf
-COPY --from=go-builder /bin/backfill_bpk /usr/local/bin/backfill_bpk
+COPY --from=go-builder /bin/backfill_bpk      /usr/local/bin/backfill_bpk
+COPY --from=go-builder /bin/migrate_to_pg    /usr/local/bin/migrate_to_pg
+# verify_pg_smoke: one-shot PG smoke test (24 assertions). Useful for CI/CD.
+COPY --from=go-builder /bin/verify_pg_smoke  /usr/local/bin/verify_pg_smoke
 
 # Copy Python scraper script
 COPY backend/python/scraper/scrape.py /app/scraper/scrape.py
 
-# Copy migration files (used by migrate_to_pg tool once Stream A creates it)
+# Copy migration files (used by migrate_to_pg one-shot migration tool)
 COPY backend/migrations /app/migrations
 
 # Copy config files

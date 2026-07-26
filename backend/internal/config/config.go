@@ -59,7 +59,8 @@ type Config struct {
                 // Collection is the Qdrant collection name. Default "hukum_aneh_laws".
                 Collection string `json:"collection"`
                 // VectorSize must match the embedding model output dim.
-                // Gemini text-embedding-004 outputs 768 dims.
+                // gemini-embedding-2 outputs 1536; text-embedding-004 outputs 768.
+                // Defaults to 1536 (current model: gemini-embedding-2).
                 VectorSize int `json:"vector_size"`
                 // APIKey optional; set if Qdrant is behind an auth gateway.
                 APIKey string `json:"api_key"`
@@ -147,7 +148,10 @@ func Load() (*Config, error) {
         cfg.Qdrant.Host = envOrDefault("QDRANT_HOST", "localhost")
         cfg.Qdrant.Port = envIntOrDefault("QDRANT_PORT", 6334)
         cfg.Qdrant.Collection = envOrDefault("QDRANT_COLLECTION", "hukum_aneh_laws")
-        cfg.Qdrant.VectorSize = envIntOrDefault("QDRANT_VECTOR_SIZE", 768)
+        // VectorSize must match the embedding model output dimension.
+        // gemini-embedding-2 outputs 1536 by default; text-embedding-004 outputs 768.
+        // Set via QDRANT_VECTOR_SIZE env or defaults to 1536 (gemini-embedding-2).
+        cfg.Qdrant.VectorSize = envIntOrDefault("QDRANT_VECTOR_SIZE", 1536)
         cfg.Qdrant.APIKey = os.Getenv("QDRANT_API_KEY")
 
         cfg.Router9.BaseURL = envOrDefault("ROUTER9_BASE_URL", "http://localhost:4000/v1")
