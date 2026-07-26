@@ -236,38 +236,31 @@ func migrateLaws(ctx context.Context, fs *firestore.Client, pg *repository.Postg
 // ============================================================================
 
 func migrateLawVersions(ctx context.Context, fs *firestore.Client, pg *repository.PostgresRepo, stats *migrationStats, dryRun bool, logger *slog.Logger) error {
-	laws, err := fs.Collection(models.ColLaws).Documents(ctx).GetAll()
+	docs, err := fs.CollectionGroup(models.SubVersions).Documents(ctx).GetAll()
 	if err != nil {
-		return fmt.Errorf("list laws for versions: %w", err)
+		return fmt.Errorf("list all versions: %w", err)
 	}
 
 	count := 0
-	for _, lawDoc := range laws {
-		iter := lawDoc.Ref.Collection(models.SubVersions).Documents(ctx)
-		docs, err := iter.GetAll()
-		if err != nil {
-			logger.Warn("list versions failed", "law_id", lawDoc.Ref.ID, "error", err)
+	for _, d := range docs {
+		var v models.LawVersion
+		if err := d.DataTo(&v); err != nil {
+			logger.Warn("skip version: decode failed", "id", d.Ref.ID, "error", err)
 			continue
 		}
-		for _, d := range docs {
-			var v models.LawVersion
-			if err := d.DataTo(&v); err != nil {
-				logger.Warn("skip version: decode failed", "id", d.Ref.ID, "error", err)
-				continue
-			}
-			v.ID = d.Ref.ID
-			v.LawDocumentID = lawDoc.Ref.ID
+		v.ID = d.Ref.ID
+		lawID := d.Ref.Parent.Parent.ID
+		v.LawDocumentID = lawID
 
-			if dryRun {
-				count++
-				continue
-			}
-			if _, err := pg.SaveLawVersion(ctx, lawDoc.Ref.ID, &v); err != nil {
-				logger.Warn("save version failed (continuing)", "id", v.ID, "error", err)
-				continue
-			}
+		if dryRun {
 			count++
+			continue
 		}
+		if _, err := pg.SaveLawVersion(ctx, lawID, &v); err != nil {
+			logger.Warn("save version failed (continuing)", "id", v.ID, "error", err)
+			continue
+		}
+		count++
 	}
 	stats.versions = count
 	logger.Info("migrated law_versions", "count", count)
@@ -279,38 +272,31 @@ func migrateLawVersions(ctx context.Context, fs *firestore.Client, pg *repositor
 // ============================================================================
 
 func migrateLawAnalyses(ctx context.Context, fs *firestore.Client, pg *repository.PostgresRepo, stats *migrationStats, dryRun bool, logger *slog.Logger) error {
-	laws, err := fs.Collection(models.ColLaws).Documents(ctx).GetAll()
+	docs, err := fs.CollectionGroup(models.SubAnalyses).Documents(ctx).GetAll()
 	if err != nil {
-		return fmt.Errorf("list laws for analyses: %w", err)
+		return fmt.Errorf("list all analyses: %w", err)
 	}
 
 	count := 0
-	for _, lawDoc := range laws {
-		iter := lawDoc.Ref.Collection(models.SubAnalyses).Documents(ctx)
-		docs, err := iter.GetAll()
-		if err != nil {
-			logger.Warn("list analyses failed", "law_id", lawDoc.Ref.ID, "error", err)
+	for _, d := range docs {
+		var a models.LawAnalysis
+		if err := d.DataTo(&a); err != nil {
+			logger.Warn("skip analysis: decode failed", "id", d.Ref.ID, "error", err)
 			continue
 		}
-		for _, d := range docs {
-			var a models.LawAnalysis
-			if err := d.DataTo(&a); err != nil {
-				logger.Warn("skip analysis: decode failed", "id", d.Ref.ID, "error", err)
-				continue
-			}
-			a.ID = d.Ref.ID
-			a.LawDocumentID = lawDoc.Ref.ID
+		a.ID = d.Ref.ID
+		lawID := d.Ref.Parent.Parent.ID
+		a.LawDocumentID = lawID
 
-			if dryRun {
-				count++
-				continue
-			}
-			if _, err := pg.SaveLawAnalysis(ctx, lawDoc.Ref.ID, &a); err != nil {
-				logger.Warn("save analysis failed (continuing)", "id", a.ID, "error", err)
-				continue
-			}
+		if dryRun {
 			count++
+			continue
 		}
+		if _, err := pg.SaveLawAnalysis(ctx, lawID, &a); err != nil {
+			logger.Warn("save analysis failed (continuing)", "id", a.ID, "error", err)
+			continue
+		}
+		count++
 	}
 	stats.analyses = count
 	logger.Info("migrated law_analyses", "count", count)
