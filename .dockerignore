@@ -1,0 +1,38 @@
+# Version control
+.git
+.gitignore
+
+# IDE / editor
+.vscode
+.idea
+.cursorignore
+
+# Build artifacts
+bin/
+dist/
+*.exe
+*.dll
+
+# Local dev
+.env
+.env.local
+backend/configs/firebase-service-account.json
+
+# Storage
+backend/internal/storage/local_queue/
+*.pdf
+
+# Tooling cache
+.tool-results/
+work/
+upload/
+download/
+
+# Documentation — exclude most .md but keep essential ones
+*.md
+!README.md
+!backend/migrations/README.md
+
+# OS files
+.DS_Store
+Thumbs.db
