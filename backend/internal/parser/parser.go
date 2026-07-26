@@ -42,11 +42,11 @@ type Section struct {
 // mimeType determines the parsing strategy.
 func (p *Parser) Parse(ctx context.Context, r io.Reader, mimeType string, filename string) (*ParseResult, error) {
 	switch {
-	case strings.Contains(mimeType, "application/pdf"):
+	case strings.Contains(mimeType, "application/pdf") || strings.HasSuffix(strings.ToLower(filename), ".pdf"):
 		return p.parsePDF(ctx, r, filename)
-	case strings.Contains(mimeType, "text/html"):
+	case strings.Contains(mimeType, "text/html") || strings.HasSuffix(strings.ToLower(filename), ".html") || strings.HasSuffix(strings.ToLower(filename), ".htm"):
 		return p.parseHTML(ctx, r)
-	case strings.Contains(mimeType, "text/plain"):
+	case strings.Contains(mimeType, "text/plain") || strings.HasSuffix(strings.ToLower(filename), ".txt"):
 		return p.parseText(ctx, r)
 	default:
 		return nil, fmt.Errorf("unsupported mime type: %s", mimeType)
