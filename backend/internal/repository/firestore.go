@@ -358,20 +358,32 @@ func (r *FirestoreRepo) ListAllEmbeddings(ctx context.Context) ([]models.Embeddi
 	return result, nil
 }
 
-// ListEmbeddingsBatch fetches a batch of embeddings with offset-based pagination.
-// Uses Firestore's Offset() + Limit() for server-side cursor skipping.
-func (r *FirestoreRepo) ListEmbeddingsBatch(ctx context.Context, offset, limit int) ([]models.EmbeddingEntry, error) {
+// ListEmbeddingsBatch fetches a batch of embeddings using cursor-based pagination.
+// Pass cursor = nil for the first batch; pass the previous batch's last *firestore.DocumentSnapshot
+// for subsequent batches. Returns (embeddings, nextCursor, err) where nextCursor is the snapshot
+// of the last doc in this batch (or nil if the batch was empty / partial).
+//
+// Why cursor not Offset(): Firestore Offset() is O(offset) — server still scans skipped docs.
+// For 10k embeddings paginated 500 at a time, total scanned ≈ 100k doc-reads. Cursor pagination
+// is O(1) per batch — total scanned equals total returned.
+func (r *FirestoreRepo) ListEmbeddingsBatch(
+	ctx context.Context,
+	cursor *firestore.DocumentSnapshot,
+	limit int,
+) ([]models.EmbeddingEntry, *firestore.DocumentSnapshot, error) {
 	q := r.client.Collection(models.ColEmbeddings).
-		OrderBy("law_document_id", firestore.Asc). // Stable ordering required for offset
-		Offset(offset).
+		OrderBy(firestore.DocumentID, firestore.Asc).
 		Limit(limit)
+	if cursor != nil {
+		q = q.StartAfter(cursor)
+	}
 
 	docs, err := q.Documents(ctx).GetAll()
 	if err != nil {
-		return nil, fmt.Errorf("list embeddings batch (offset=%d, limit=%d): %w", offset, limit, err)
+		return nil, nil, fmt.Errorf("list embeddings batch: %w", err)
 	}
 
-	var result []models.EmbeddingEntry
+	result := make([]models.EmbeddingEntry, 0, len(docs))
 	for _, d := range docs {
 		var emb models.EmbeddingEntry
 		if err := d.DataTo(&emb); err != nil {
@@ -380,12 +392,26 @@ func (r *FirestoreRepo) ListEmbeddingsBatch(ctx context.Context, offset, limit i
 		emb.ID = d.Ref.ID
 		result = append(result, emb)
 	}
-	return result, nil
+
+	var nextCursor *firestore.DocumentSnapshot
+	if len(docs) > 0 {
+		nextCursor = docs[len(docs)-1]
+	}
+	return result, nextCursor, nil
 }
 
-// ListEmbeddingsByDocTypeBatch fetches embeddings filtered by document type.
-// Joins embeddings -> laws collection to filter by doc_type server-side.
-func (r *FirestoreRepo) ListEmbeddingsByDocTypeBatch(ctx context.Context, docType string, offset, limit int) ([]models.EmbeddingEntry, error) {
+// ListEmbeddingsByDocType fetches ALL embeddings belonging to laws of the given document_type.
+// Pagination removed: previous offset-based version was broken for offset > 0 because each
+// Firestore IN-chunk applied the global offset independently, returning 0 results for chunks
+// with fewer than `offset` matching embeddings (silent data loss).
+//
+// This version fetches all matching law IDs first (cheap — Select() projection),
+// then iterates IN-chunks of 30 (Firestore IN limit) with no offset/limit per chunk.
+// Memory cost = total embeddings for the doc_type. Acceptable for typical law corpora;
+// the min-heap in retrieval.Search keeps topN bounded.
+//
+// Returns a flat slice; caller is responsible for heap-based topN selection.
+func (r *FirestoreRepo) ListEmbeddingsByDocType(ctx context.Context, docType string) ([]models.EmbeddingEntry, error) {
 	lawDocs, err := r.client.Collection(models.ColLaws).
 		Where("document_type", "==", docType).
 		Select().
@@ -404,29 +430,23 @@ func (r *FirestoreRepo) ListEmbeddingsByDocTypeBatch(ctx context.Context, docTyp
 		return nil, nil
 	}
 
-	// Firestore IN queries support max 30 values per query
-	batchSize := 30
+	const inChunkSize = 30 // Firestore IN queries support max 30 values per query
 	var result []models.EmbeddingEntry
-	for i := 0; i < len(lawIDs); i += batchSize {
-		end := i + batchSize
+
+	for i := 0; i < len(lawIDs); i += inChunkSize {
+		end := i + inChunkSize
 		if end > len(lawIDs) {
 			end = len(lawIDs)
 		}
-		batch := lawIDs[i:end]
+		chunk := lawIDs[i:end]
 
-		// Calculate how many more items we need to reach the limit
-		needed := limit - len(result)
-		if needed <= 0 {
-			break
-		}
-
-		q := r.client.Collection(models.ColEmbeddings).
-			Where("law_document_id", "in", batch).
-			Offset(max(0, offset-len(result))).
-			Limit(needed)
-
-		docs, err := q.Documents(ctx).GetAll()
+		docs, err := r.client.Collection(models.ColEmbeddings).
+			Where("law_document_id", "in", chunk).
+			Documents(ctx).
+			GetAll()
 		if err != nil {
+			// Log and continue — partial failure on one chunk shouldn't fail the whole query.
+			// Caller will see fewer results than expected but still get a usable topN.
 			continue
 		}
 

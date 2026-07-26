@@ -9,6 +9,7 @@ import (
 	"math"
 	"strings"
 
+	"cloud.google.com/go/firestore"
 	"google.golang.org/genai"
 
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
@@ -131,8 +132,10 @@ func (h *scoreHeap) Pop() interface{} {
 
 const defaultBatchSize = 500
 
-// Search retrieves all embeddings from Firestore in batches, computes similarity
-// scores against the query vector, and returns the top-N candidate matches using a min-heap.
+// Search retrieves all embeddings from Firestore in cursor-paginated batches,
+// computes similarity scores against the query vector, and returns the top-N
+// candidate matches using a min-heap. O(n log k) where n=total embeddings,
+// k=topN.
 func (s *Service) Search(ctx context.Context, queryVector []float32, topN int) ([]SearchResult, error) {
 	if topN <= 0 {
 		topN = 5
@@ -141,23 +144,17 @@ func (s *Service) Search(ctx context.Context, queryVector []float32, topN int) (
 	h := &scoreHeap{}
 	heap.Init(h)
 
-	offset := 0
 	limit := defaultBatchSize
+	var cursor *firestore.DocumentSnapshot
 
 	for {
-		select {
-		case <-ctx.Done():
-			return nil, ctx.Err()
-		default:
+		if err := ctx.Err(); err != nil {
+			return nil, err
 		}
 
-		batch, err := s.repo.ListEmbeddingsBatch(ctx, offset, limit)
+		batch, next, err := s.repo.ListEmbeddingsBatch(ctx, cursor, limit)
 		if err != nil {
 			return nil, fmt.Errorf("list embeddings batch failed: %w", err)
-		}
-
-		if len(batch) == 0 {
-			break
 		}
 
 		for _, emb := range batch {
@@ -175,10 +172,10 @@ func (s *Service) Search(ctx context.Context, queryVector []float32, topN int) (
 			}
 		}
 
-		if len(batch) < limit {
+		if len(batch) < limit || next == nil {
 			break
 		}
-		offset += len(batch)
+		cursor = next
 	}
 
 	results := make([]SearchResult, h.Len())
@@ -189,54 +186,38 @@ func (s *Service) Search(ctx context.Context, queryVector []float32, topN int) (
 	return results, nil
 }
 
-// SearchByDocumentType is an optimized search that pre-filters by document type
-// in Firestore before computing similarity.
+// SearchByDocumentType pre-filters by document type in Firestore, then computes
+// similarity and returns top-N via min-heap. Single-shot fetch (no pagination)
+// because the doc_type pre-filter typically returns a manageable subset.
 func (s *Service) SearchByDocumentType(ctx context.Context, queryVector []float32, topN int, docType string) ([]SearchResult, error) {
 	if topN <= 0 {
 		topN = 5
 	}
 
+	embs, err := s.repo.ListEmbeddingsByDocType(ctx, docType)
+	if err != nil {
+		return nil, fmt.Errorf("list embeddings by doc_type failed: %w", err)
+	}
+
 	h := &scoreHeap{}
 	heap.Init(h)
 
-	offset := 0
-	limit := defaultBatchSize
-
-	for {
-		select {
-		case <-ctx.Done():
-			return nil, ctx.Err()
-		default:
+	for _, emb := range embs {
+		if err := ctx.Err(); err != nil {
+			return nil, err
+		}
+		score := CosineSimilarity(queryVector, emb.Vector)
+		candidate := SearchResult{
+			LawDocumentID: emb.LawDocumentID,
+			Score:         score,
 		}
 
-		batch, err := s.repo.ListEmbeddingsByDocTypeBatch(ctx, docType, offset, limit)
-		if err != nil {
-			return nil, fmt.Errorf("list embeddings by doc_type batch failed: %w", err)
+		if h.Len() < topN {
+			heap.Push(h, candidate)
+		} else if score > (*h)[0].Score {
+			heap.Pop(h)
+			heap.Push(h, candidate)
 		}
-
-		if len(batch) == 0 {
-			break
-		}
-
-		for _, emb := range batch {
-			score := CosineSimilarity(queryVector, emb.Vector)
-			candidate := SearchResult{
-				LawDocumentID: emb.LawDocumentID,
-				Score:         score,
-			}
-
-			if h.Len() < topN {
-				heap.Push(h, candidate)
-			} else if score > (*h)[0].Score {
-				heap.Pop(h)
-				heap.Push(h, candidate)
-			}
-		}
-
-		if len(batch) < limit {
-			break
-		}
-		offset += len(batch)
 	}
 
 	results := make([]SearchResult, h.Len())
