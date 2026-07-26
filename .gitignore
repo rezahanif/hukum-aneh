@@ -45,3 +45,16 @@ backend/configs/parsed_cache.txt
 
 # Logs
 *.log
+
+# Compiled binaries (don't commit build artifacts)
+/backend/pipeline
+/backend/bot
+/backend/backfill
+/backend/batch
+/backend/backfill_bpk
+/backend/backfill_embeddings
+/backend/flush_local
+/backend/verify_embeddings
+/backend/count
+/backend/parse_pdf
+/backend/migrate_to_pg

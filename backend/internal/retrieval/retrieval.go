@@ -20,12 +20,12 @@ const embeddingDimensions = 1536 // matches existing mock fallback + any prior s
 
 type Service struct {
 	cfg    *config.Config
-	repo   *repository.FirestoreRepo
+	repo   repository.EmbeddingRepo
 	client *genai.Client
 	sem    chan struct{}
 }
 
-func New(ctx context.Context, cfg *config.Config, repo *repository.FirestoreRepo) (*Service, error) {
+func New(ctx context.Context, cfg *config.Config, repo repository.EmbeddingRepo) (*Service, error) {
 	client, err := genai.NewClient(ctx, &genai.ClientConfig{APIKey: cfg.Gemini.APIKey})
 	if err != nil {
 		return nil, fmt.Errorf("create genai client: %w", err)

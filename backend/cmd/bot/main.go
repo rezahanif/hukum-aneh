@@ -39,9 +39,10 @@ func main() {
 		os.Exit(1)
 	}
 	defer repo.Close()
+	repos := repository.NewRepoSetFromFirestore(repo)
 
 	tgSvc := telegram.New(cfg)
-	ret, err := retrieval.New(ctx, cfg, repo)
+	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)
 	if err != nil {
 		logger.Error("retrieval service init failed", "error", err)
 		os.Exit(1)
@@ -49,7 +50,7 @@ func main() {
 
 	engine := workflow.NewEngine(
 		cfg,
-		repo,
+		repos,
 		connectors.NewRegistry(),
 		parser.New(logger),
 		ret,

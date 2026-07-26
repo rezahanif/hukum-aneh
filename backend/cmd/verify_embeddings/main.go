@@ -20,12 +20,13 @@ func main() {
 		log.Fatal(err)
 	}
 	defer repo.Close()
+	repos := repository.NewRepoSetFromFirestore(repo)
 
-	laws, err := repo.ListAllLaws(ctx)
+	laws, err := repos.LawRepo.ListAllLaws(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-	embeddings, err := repo.ListAllEmbeddings(ctx)
+	embeddings, err := repos.EmbedRepo.ListAllEmbeddings(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}

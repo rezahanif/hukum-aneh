@@ -40,6 +40,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer repo.Close()
+	repos := repository.NewRepoSetFromFirestore(repo)
 
 	files, err := filepath.Glob(filepath.Join(queueDir, "*.json"))
 	if err != nil {
@@ -67,7 +68,7 @@ func main() {
 			continue
 		}
 
-		existing, err := repo.FindByLawNumber(ctx, q.Document.LawNumber)
+		existing, err := repos.LawRepo.FindByLawNumber(ctx, q.Document.LawNumber)
 		if err != nil {
 			failed++
 			logger.Error("dedup check", "law_number", q.Document.LawNumber, "error", err)
@@ -80,7 +81,7 @@ func main() {
 		}
 
 		q.Document.ID = ""
-		docID, err := repo.SaveLawDocument(ctx, q.Document)
+		docID, err := repos.LawRepo.SaveLawDocument(ctx, q.Document)
 		if err != nil {
 			failed++
 			logger.Error("save doc", "law_number", q.Document.LawNumber, "error", err)
@@ -89,7 +90,7 @@ func main() {
 		if q.Version != nil {
 			q.Version.ID = ""
 			q.Version.LawDocumentID = docID
-			if _, err := repo.SaveLawVersion(ctx, docID, q.Version); err != nil {
+			if _, err := repos.VersionRepo.SaveLawVersion(ctx, docID, q.Version); err != nil {
 				failed++
 				logger.Error("save version", "law_number", q.Document.LawNumber, "error", err)
 				continue

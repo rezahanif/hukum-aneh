@@ -30,7 +30,7 @@ import (
 // AI agents are workers the engine calls — they never orchestrate. Spec §2.
 type Engine struct {
 	cfg        *config.Config
-	repo       *repository.FirestoreRepo
+	repos      *repository.RepoSet
 	registry   *connectors.Registry
 	parser     *parser.Parser
 	retrieval  *retrieval.Service
@@ -44,7 +44,7 @@ type Engine struct {
 
 func NewEngine(
 	cfg *config.Config,
-	repo *repository.FirestoreRepo,
+	repos *repository.RepoSet,
 	registry *connectors.Registry,
 	p *parser.Parser,
 	ret *retrieval.Service,
@@ -57,7 +57,7 @@ func NewEngine(
 ) *Engine {
 	return &Engine{
 		cfg:        cfg,
-		repo:       repo,
+		repos:      repos,
 		registry:   registry,
 		parser:     p,
 		retrieval:  ret,
@@ -190,7 +190,7 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 				break
 			}
 
-			existing, err := e.repo.FindByLawNumber(ctx, meta.LawNumber)
+			existing, err := e.repos.LawRepo.FindByLawNumber(ctx, meta.LawNumber)
 			if err != nil {
 				e.logger.Error("dup check failed", "law_number", meta.LawNumber, "error", err)
 				continue
@@ -211,7 +211,7 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 				CreatedAt:     time.Now(),
 				UpdatedAt:     time.Now(),
 			}
-			id, err := e.repo.SaveLawDocument(ctx, doc)
+			id, err := e.repos.LawRepo.SaveLawDocument(ctx, doc)
 			if err != nil {
 				e.logger.Error("save law doc failed", "law_number", meta.LawNumber, "error", err)
 				continue
@@ -279,7 +279,7 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 	if err != nil {
 		doc.Status = "download_failed"
 		doc.UpdatedAt = time.Now()
-		e.repo.SaveLawDocument(ctx, doc)
+		e.repos.LawRepo.SaveLawDocument(ctx, doc)
 		return fmt.Errorf("download: %w", err)
 	}
 	defer raw.Content.Close()
@@ -309,7 +309,7 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 	doc.RawFilePath = rawPath
 	doc.Status = "downloaded"
 	doc.UpdatedAt = time.Now()
-	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+	if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 		return fmt.Errorf("save doc status: %w", err)
 	}
 
@@ -318,7 +318,7 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 	if err != nil {
 		doc.Status = "parse_failed"
 		doc.UpdatedAt = time.Now()
-		e.repo.SaveLawDocument(ctx, doc)
+		e.repos.LawRepo.SaveLawDocument(ctx, doc)
 		return fmt.Errorf("parse: %w", err)
 	}
 
@@ -327,7 +327,7 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 	if len(strings.TrimSpace(result.TextContent)) < 100 {
 		doc.Status = "parse_failed"
 		doc.UpdatedAt = time.Now()
-		e.repo.SaveLawDocument(ctx, doc)
+		e.repos.LawRepo.SaveLawDocument(ctx, doc)
 		return fmt.Errorf("parse produced empty text (%d chars) for %s", len(result.TextContent), doc.LawNumber)
 	}
 
@@ -338,13 +338,13 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 		TextContent:   result.TextContent,
 		ParsedAt:      time.Now(),
 	}
-	if _, err := e.repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+	if _, err := e.repos.VersionRepo.SaveLawVersion(ctx, doc.ID, version); err != nil {
 		return fmt.Errorf("save version: %w", err)
 	}
 
 	doc.Status = "parsed"
 	doc.UpdatedAt = time.Now()
-	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+	if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 		return fmt.Errorf("update doc status: %w", err)
 	}
 
@@ -376,13 +376,13 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 		IsMock:        isMock,
 		CreatedAt:     time.Now(),
 	}
-	embID, err := e.repo.SaveEmbedding(ctx, embEntry)
+	embID, err := e.repos.EmbedRepo.SaveEmbedding(ctx, embEntry)
 	if err != nil {
 		return fmt.Errorf("save embedding: %w", err)
 	}
 
 	version.EmbeddingID = embID
-	if _, err := e.repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+	if _, err := e.repos.VersionRepo.SaveLawVersion(ctx, doc.ID, version); err != nil {
 		return fmt.Errorf("update version embedding_id: %w", err)
 	}
 
@@ -400,7 +400,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 			continue
 		}
 		// Try to fetch related law text
-		relDoc, err := e.repo.GetLawDocument(ctx, c.LawDocumentID)
+		relDoc, err := e.repos.LawRepo.GetLawDocument(ctx, c.LawDocumentID)
 		if err != nil {
 			continue
 		}
@@ -415,7 +415,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 	}
 	analysis.LawDocumentID = doc.ID
 
-	analysisID, err := e.repo.SaveLawAnalysis(ctx, doc.ID, analysis)
+	analysisID, err := e.repos.AnalysisRepo.SaveLawAnalysis(ctx, doc.ID, analysis)
 	if err != nil {
 		return fmt.Errorf("save law analysis: %w", err)
 	}
@@ -426,7 +426,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 	if !e.isSuspicious(analysis) {
 		doc.Status = "no_conflict"
 		doc.UpdatedAt = time.Now()
-		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 			return fmt.Errorf("update doc status: %w", err)
 		}
 		e.logger.Info("law has no significant conflict or controversy, stopping pipeline", "doc_id", doc.ID, "law_number", doc.LawNumber)
@@ -435,7 +435,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 
 	doc.Status = "analyzed"
 	doc.UpdatedAt = time.Now()
-	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+	if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 		return fmt.Errorf("update doc status: %w", err)
 	}
 
@@ -447,7 +447,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 	}
 	draft.Status = "draft"
 
-	draftID, err := e.repo.SaveContentDraft(ctx, draft)
+	draftID, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft)
 	if err != nil {
 		return fmt.Errorf("save content draft: %w", err)
 	}
@@ -472,7 +472,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 	// Save prompt to draft and pause for prompt-approval gate
 	draft.ImagePrompt = imagePrompt
 	draft.Status = "pending_prompt_approval"
-	if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+	if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 		return fmt.Errorf("save draft with prompt: %w", err)
 	}
 
@@ -485,7 +485,7 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 
 	doc.Status = "pending_prompt_approval"
 	doc.UpdatedAt = time.Now()
-	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+	if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 		return fmt.Errorf("update doc status: %w", err)
 	}
 
@@ -498,17 +498,17 @@ func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocum
 func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, action string, reviewerID string) error {
 	e.logger.Info("processing approval action", "draft_id", draftID, "action", action, "reviewer_id", reviewerID)
 
-	draft, err := e.repo.GetContentDraft(ctx, draftID)
+	draft, err := e.repos.DraftRepo.GetContentDraft(ctx, draftID)
 	if err != nil {
 		return fmt.Errorf("get content draft: %w", err)
 	}
 
-	analysis, err := e.repo.GetLawAnalysisByDraft(ctx, draftID)
+	analysis, err := e.repos.AnalysisRepo.GetLawAnalysisByDraft(ctx, draftID)
 	if err != nil {
 		return fmt.Errorf("get law analysis: %w", err)
 	}
 
-	doc, err := e.repo.GetLawDocument(ctx, analysis.LawDocumentID)
+	doc, err := e.repos.LawRepo.GetLawDocument(ctx, analysis.LawDocumentID)
 	if err != nil {
 		return fmt.Errorf("get law document: %w", err)
 	}
@@ -521,19 +521,19 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 		Reason:         fmt.Sprintf("Action triggered via Telegram inline keyboard"),
 		Timestamp:      time.Now(),
 	}
-	if _, err := e.repo.SaveApproval(ctx, approval); err != nil {
+	if _, err := e.repos.ApprovalRepo.SaveApproval(ctx, approval); err != nil {
 		e.logger.Error("failed to save approval log", "error", err)
 	}
 
 	switch action {
 	case "approve":
 		draft.Status = "approved"
-		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 			return err
 		}
 
 		doc.Status = "approved"
-		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 			return err
 		}
 
@@ -541,7 +541,7 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 		e.logger.Info("publishing approved content to Instagram", "draft_id", draftID)
 
 		// Fetch asset for the image
-		assets, err := e.repo.GetImageAssetsByDraft(ctx, draftID)
+		assets, err := e.repos.ImageRepo.GetImageAssetsByDraft(ctx, draftID)
 		if err != nil || len(assets) == 0 {
 			return fmt.Errorf("no image asset for draft: %w", err)
 		}
@@ -557,7 +557,7 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 				Platform:       "instagram",
 				Status:         "pending_image_hosting",
 			}
-			_, _ = e.repo.SavePublishingJob(ctx, pubJob)
+			_, _ = e.repos.PublishRepo.SavePublishingJob(ctx, pubJob)
 			return nil
 		}
 
@@ -569,7 +569,7 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 				Platform:       "instagram",
 				Status:         "failed",
 			}
-			e.repo.SavePublishingJob(ctx, pubJob)
+			e.repos.PublishRepo.SavePublishingJob(ctx, pubJob)
 			return fmt.Errorf("instagram publish: %w", err)
 		}
 
@@ -581,17 +581,17 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 			PostedAt:       &now,
 			ExternalPostID: postID,
 		}
-		e.repo.SavePublishingJob(ctx, pubJob)
+		e.repos.PublishRepo.SavePublishingJob(ctx, pubJob)
 		e.logger.Info("instagram publication success", "post_id", postID)
 
 	case "reject":
 		draft.Status = "rejected"
-		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 			return err
 		}
 
 		doc.Status = "archived"
-		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 			return err
 		}
 
@@ -620,7 +620,7 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 
 		draft.ImagePrompt = imagePrompt
 		draft.Status = "pending_prompt_approval"
-		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 			return fmt.Errorf("save draft with prompt: %w", err)
 		}
 
@@ -630,11 +630,11 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 
 	case "prompt_reject":
 		draft.Status = "prompt_rejected"
-		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 			return err
 		}
 		doc.Status = "archived"
-		if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+		if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 			return err
 		}
 		e.logger.Info("prompt rejected, archiving", "draft_id", draftID)
@@ -656,12 +656,12 @@ func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, actio
 		draft.Hook = newDraft.Hook
 		draft.Hashtags = newDraft.Hashtags
 		draft.Status = "pending_approval"
-		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 			return err
 		}
 
 		// Fetch existing asset
-		assets, err := e.repo.GetImageAssetsByDraft(ctx, draftID)
+		assets, err := e.repos.ImageRepo.GetImageAssetsByDraft(ctx, draftID)
 		if err != nil || len(assets) == 0 {
 			return fmt.Errorf("no existing image asset for draft: %w", err)
 		}
@@ -697,7 +697,7 @@ func (e *Engine) generateAndApprove(ctx context.Context, draft *models.ContentDr
 			return fmt.Errorf("prompt builder agent: %w", err)
 		}
 		draft.ImagePrompt = imagePrompt
-		if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+		if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 			return fmt.Errorf("save draft prompt: %w", err)
 		}
 	}
@@ -714,7 +714,7 @@ func (e *Engine) generateAndApprove(ctx context.Context, draft *models.ContentDr
 	}
 	asset.Validated = valid
 
-	assetID, err := e.repo.SaveImageAsset(ctx, asset)
+	assetID, err := e.repos.ImageRepo.SaveImageAsset(ctx, asset)
 	if err != nil {
 		return fmt.Errorf("save image asset: %w", err)
 	}
@@ -725,13 +725,13 @@ func (e *Engine) generateAndApprove(ctx context.Context, draft *models.ContentDr
 	}
 
 	draft.Status = "pending_approval"
-	if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+	if _, err := e.repos.DraftRepo.SaveContentDraft(ctx, draft); err != nil {
 		return err
 	}
 
 	doc.Status = "pending_approval"
 	doc.UpdatedAt = time.Now()
-	if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+	if _, err := e.repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 		return err
 	}
 
@@ -783,7 +783,7 @@ func (e *Engine) CheckStuckJobs(ctx context.Context) error {
 	}
 	cutoff := time.Now().Add(-threshold)
 
-	stuck, err := e.repo.FindStuckDocuments(ctx, "discovered", cutoff)
+	stuck, err := e.repos.LawRepo.FindStuckDocuments(ctx, "discovered", cutoff)
 	if err != nil {
 		return fmt.Errorf("query stuck: %w", err)
 	}
@@ -793,7 +793,7 @@ func (e *Engine) CheckStuckJobs(ctx context.Context) error {
 		// Re-trigger: mark for download retry
 		doc.Status = "discovered"
 		doc.UpdatedAt = time.Now()
-		if _, err := e.repo.SaveLawDocument(ctx, &doc); err != nil {
+		if _, err := e.repos.LawRepo.SaveLawDocument(ctx, &doc); err != nil {
 			e.logger.Error("re-queue stuck doc failed", "id", doc.ID, "error", err)
 		}
 	}

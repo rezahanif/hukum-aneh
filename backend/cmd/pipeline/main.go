@@ -12,15 +12,15 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bkn"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/dpr"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
+	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemendag"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemenkeu"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemnaker"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kemendag"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/komdigi"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/kpu"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bkn"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/dpr"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/lkpp"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/ma"
 	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
@@ -70,6 +70,10 @@ func main() {
 		os.Exit(1)
 	}
 	defer repo.Close()
+
+	// Wrap repo in RepoSet (Phase 0.5)
+	// Future Phase 5.1 will replace this with repository.NewRepoSet(ctx, cfg)
+	repos := repository.NewRepoSetFromFirestore(repo)
 
 	// Connectors registry
 	registry := connectors.NewRegistry()
@@ -137,7 +141,7 @@ func main() {
 	p := parser.New(logger)
 
 	// Retrieval (embedding & search)
-	ret, err := retrieval.New(ctx, cfg, repo)
+	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)
 	if err != nil {
 		logger.Error("retrieval service init failed", "error", err)
 		os.Exit(1)
@@ -158,7 +162,7 @@ func main() {
 	// Image Validator
 	val := validator.New()
 
-	engine := workflow.NewEngine(cfg, repo, registry, p, ret, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
+	engine := workflow.NewEngine(cfg, repos, registry, p, ret, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
 
 	if runOnce {
 		logger.Info("running discovery once")

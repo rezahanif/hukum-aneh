@@ -27,10 +27,10 @@ type queuedEmbedding struct {
 
 func main() {
 	var (
-		limit      int
-		workers    int
-		queueDir   string
-		verbose    bool
+		limit    int
+		workers  int
+		queueDir string
+		verbose  bool
 	)
 	flag.IntVar(&limit, "limit", 0, "maximum number of laws to backfill (0 for all)")
 	flag.IntVar(&workers, "workers", 1, "number of concurrent worker goroutines")
@@ -49,18 +49,19 @@ func main() {
 		log.Fatalf("firestore: %v", err)
 	}
 	defer repo.Close()
+	repos := repository.NewRepoSetFromFirestore(repo)
 
-	ret, err := retrieval.New(ctx, cfg, repo)
+	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)
 	if err != nil {
 		log.Fatalf("retrieval: %v", err)
 	}
 
 	fmt.Println("Loading laws and embeddings from Firestore...")
-	laws, err := repo.ListAllLaws(ctx)
+	laws, err := repos.LawRepo.ListAllLaws(ctx)
 	if err != nil {
 		log.Fatalf("list laws: %v", err)
 	}
-	embeddings, err := repo.ListAllEmbeddings(ctx)
+	embeddings, err := repos.EmbedRepo.ListAllEmbeddings(ctx)
 	if err != nil {
 		log.Fatalf("list embeddings: %v", err)
 	}
@@ -107,9 +108,9 @@ func main() {
 	close(jobs)
 
 	var (
-		processedCount int64
-		successCount   int64
-		failCount      int64
+		processedCount  int64
+		successCount    int64
+		failCount       int64
 		localQueueCount int64
 	)
 
@@ -134,7 +135,7 @@ func main() {
 						atomic.LoadInt64(&successCount), atomic.LoadInt64(&failCount), atomic.LoadInt64(&localQueueCount))
 				}
 
-				version, err := repo.GetLatestLawVersion(ctx, law.ID)
+				version, err := repos.VersionRepo.GetLatestLawVersion(ctx, law.ID)
 				if err != nil {
 					atomic.AddInt64(&failCount, 1)
 					if verbose {
@@ -168,7 +169,7 @@ func main() {
 				}
 
 				// Save embedding
-				_, saveErr := repo.SaveEmbedding(ctx, embEntry)
+				_, saveErr := repos.EmbedRepo.SaveEmbedding(ctx, embEntry)
 				if saveErr != nil {
 					// Firestore write failure — fallback to local queue
 					log.Printf("Worker %d: SaveEmbedding failed for law ID %s (falling back to local queue): %v", workerID, law.ID, saveErr)

@@ -64,6 +64,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer repo.Close()
+	repos := repository.NewRepoSetFromFirestore(repo)
 
 	// Connector
 	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
@@ -95,7 +96,7 @@ func main() {
 	// Step 2: Check which laws already exist in Firestore
 	var toProcess []connectors.DocumentMeta
 	for _, d := range docs {
-		existing, err := repo.FindByLawNumber(ctx, d.LawNumber)
+		existing, err := repos.LawRepo.FindByLawNumber(ctx, d.LawNumber)
 		if err != nil {
 			logger.Warn("dup check failed", "law_number", d.LawNumber, "error", err)
 			toProcess = append(toProcess, d)
@@ -134,7 +135,7 @@ func main() {
 			sem <- struct{}{}
 			defer func() { <-sem }()
 
-			if err := processOne(ctx, conn, p, repo, m, storageDir, logger); err != nil {
+			if err := processOne(ctx, conn, p, repos, m, storageDir, logger); err != nil {
 				errStr := err.Error()
 				atomic.AddInt64(&failed, 1)
 				failedMu.Lock()
@@ -183,7 +184,7 @@ func processOne(
 	ctx context.Context,
 	conn connectors.Connector,
 	p *parser.Parser,
-	repo *repository.FirestoreRepo,
+	repos *repository.RepoSet,
 	meta connectors.DocumentMeta,
 	storageDir string,
 	logger *slog.Logger,
@@ -247,7 +248,7 @@ func processOne(
 		ParsedAt:      time.Now(),
 	}
 
-	docID, err := repo.SaveLawDocument(ctx, doc)
+	docID, err := repos.LawRepo.SaveLawDocument(ctx, doc)
 	if err != nil {
 		if qerr := saveLocalQueue(meta, doc, version, fmt.Sprintf("save doc: %v", err)); qerr != nil {
 			return fmt.Errorf("save doc: %w; local queue: %v", err, qerr)
@@ -258,7 +259,7 @@ func processOne(
 	doc.ID = docID
 	version.LawDocumentID = doc.ID
 
-	if _, err := repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+	if _, err := repos.VersionRepo.SaveLawVersion(ctx, doc.ID, version); err != nil {
 		if qerr := saveLocalQueue(meta, doc, version, fmt.Sprintf("save version: %v", err)); qerr != nil {
 			return fmt.Errorf("save version: %w; local queue: %v", err, qerr)
 		}
@@ -266,7 +267,7 @@ func processOne(
 		return nil
 	}
 
-	if _, err := repo.SaveLawDocument(ctx, doc); err != nil {
+	if _, err := repos.LawRepo.SaveLawDocument(ctx, doc); err != nil {
 		if qerr := saveLocalQueue(meta, doc, version, fmt.Sprintf("update status: %v", err)); qerr != nil {
 			return fmt.Errorf("update status: %w; local queue: %v", err, qerr)
 		}

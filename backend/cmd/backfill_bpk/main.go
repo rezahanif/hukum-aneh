@@ -65,6 +65,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer repo.Close()
+	repos := repository.NewRepoSetFromFirestore(repo)
 
 	p := parser.New(logger)
 
@@ -74,7 +75,7 @@ func main() {
 	if len(haveParsed) == 0 {
 		logger.Info("cache empty — querying Firestore")
 		for _, status := range []string{"parsed", "analyzed", "pending_approval"} {
-			docs, err := repo.ListLawsByStatus(ctx, status)
+			docs, err := repos.LawRepo.ListLawsByStatus(ctx, status)
 			if err != nil {
 				logger.Warn("list laws by status failed", "status", status, "error", err)
 				continue
@@ -173,7 +174,7 @@ func main() {
 				CreatedAt:    time.Now(),
 				UpdatedAt:    time.Now(),
 			}
-			docID, err := repo.SaveLawDocument(ctx, doc)
+			docID, err := repos.LawRepo.SaveLawDocument(ctx, doc)
 			if err != nil {
 				logger.Error("save doc failed", "law_number", meta.LawNumber, "error", err)
 				atomic.AddInt64(&failed, 1)
@@ -185,7 +186,7 @@ func main() {
 			if err != nil {
 				doc.Status = "parse_failed"
 				doc.UpdatedAt = time.Now()
-				repo.SaveLawDocument(ctx, doc)
+				repos.LawRepo.SaveLawDocument(ctx, doc)
 				logger.Warn("parse failed", "law_number", meta.LawNumber, "error", err)
 				atomic.AddInt64(&failed, 1)
 				return
@@ -195,7 +196,7 @@ func main() {
 			if len(strings.TrimSpace(result.TextContent)) < 100 {
 				doc.Status = "parse_failed"
 				doc.UpdatedAt = time.Now()
-				repo.SaveLawDocument(ctx, doc)
+				repos.LawRepo.SaveLawDocument(ctx, doc)
 				logger.Warn("parse produced empty/short text, marking parse_failed", "law_number", meta.LawNumber, "text_chars", len(result.TextContent), "source", result.Source)
 				atomic.AddInt64(&failed, 1)
 				return
@@ -214,7 +215,7 @@ func main() {
 				TextContent:   text,
 				ParsedAt:      time.Now(),
 			}
-			if _, err := repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+			if _, err := repos.VersionRepo.SaveLawVersion(ctx, doc.ID, version); err != nil {
 				logger.Error("save version failed", "law_number", meta.LawNumber, "error", err)
 				atomic.AddInt64(&failed, 1)
 				return
@@ -222,7 +223,7 @@ func main() {
 
 			doc.Status = "parsed"
 			doc.UpdatedAt = time.Now()
-			repo.SaveLawDocument(ctx, doc)
+			repos.LawRepo.SaveLawDocument(ctx, doc)
 
 			atomic.AddInt64(&found, 1)
 			logger.Info("backfilled from BPK",
@@ -240,7 +241,7 @@ func main() {
 			// Force GC to release PDF text memory before next law
 			runtime.GC()
 			debug.FreeOSMemory()
-			}(m)
+		}(m)
 	}
 
 	wg.Wait()

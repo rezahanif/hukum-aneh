@@ -53,6 +53,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer repo.Close()
+	repos := repository.NewRepoSetFromFirestore(repo)
 
 	registry := connectors.NewRegistry()
 	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
@@ -63,7 +64,7 @@ func main() {
 	registry.Register("JDIH Setneg", setneg.New(scr, logger))
 
 	p := parser.New(logger)
-	ret, err := retrieval.New(ctx, cfg, repo)
+	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)
 	if err != nil {
 		logger.Error("retrieval service init failed", "error", err)
 		os.Exit(1)
@@ -74,11 +75,11 @@ func main() {
 	pubSvc := publishing.New(cfg)
 	val := validator.New()
 
-	engine := workflow.NewEngine(cfg, repo, registry, p, ret, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
+	engine := workflow.NewEngine(cfg, repos, registry, p, ret, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
 
 	// Fetch parsed documents
 	logger.Info("fetching parsed documents from Firestore...")
-	parsedDocs, err := repo.ListLawsByStatus(ctx, "parsed")
+	parsedDocs, err := repos.LawRepo.ListLawsByStatus(ctx, "parsed")
 	if err != nil {
 		logger.Error("failed to list parsed docs", "error", err)
 		os.Exit(1)
@@ -91,7 +92,7 @@ func main() {
 		logger.Info("processing parsed doc", "index", i+1, "total", len(parsedDocs), "law_number", doc.LawNumber)
 
 		// Fetch the corresponding LawVersion
-		version, err := repo.GetLatestLawVersion(ctx, doc.ID)
+		version, err := repos.VersionRepo.GetLatestLawVersion(ctx, doc.ID)
 		if err != nil {
 			logger.Error("failed to get law version", "doc_id", doc.ID, "error", err)
 			continue
