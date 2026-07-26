@@ -144,6 +144,11 @@ type DualWriteRepo struct {
         secondary *PostgresRepo  // best-effort writes only
 }
 
+// Postgres returns the underlying Postgres repository wrapper.
+func (d *DualWriteRepo) Postgres() *PostgresRepo {
+        return d.secondary
+}
+
 // Close releases both backends. Errors from either are logged; final error
 // returned is the primary's (matches non-dual-write semantics).
 func (d *DualWriteRepo) Close() error {
