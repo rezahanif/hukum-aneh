@@ -250,32 +250,71 @@ def download(url, source):
 
 
 def download_bpk(url):
-    """Download from BPK with Cloudflare bypass."""
-    r = requests.get(url, impersonate="chrome120", timeout=45)
-    if r.status_code != 200:
-        raise Exception(f"BPK download failed: status {r.status_code}")
+    """Download from BPK with Cloudflare bypass and 3-attempt retry.
 
-    # Check for Cloudflare challenge page
-    content_type = r.headers.get("Content-Type", "")
-    if "text/html" in content_type:
-        text = r.text.lower()
-        if "just a moment..." in text or "attention required!" in text:
-            raise Exception("BPK blocked by Cloudflare challenge")
+    Retries on:
+      - HTTP 429 (rate limit) and 503 (service unavailable)
+      - Cloudflare challenge page detected in HTML response
+      - Network exceptions (timeouts, connection resets)
 
-    # Return raw PDF bytes as base64
+    Backoff: 2s, 4s, 8s (exponential, base 2).
+    """
     import base64
-    content_b64 = base64.b64encode(r.content).decode("utf-8")
-
-    filename = url.split("/")[-1]
-    # URL-decode the filename
+    import time
     from urllib.parse import unquote
-    filename = unquote(filename)
 
-    return {
-        "content": content_b64,
-        "mime_type": r.headers.get("Content-Type", "application/pdf"),
-        "filename": filename
-    }
+    max_attempts = 3
+    base_backoff = 2  # seconds
+
+    last_err = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            r = requests.get(url, impersonate="chrome120", timeout=45)
+
+            if r.status_code in (429, 503):
+                last_err = Exception(f"BPK download failed: status {r.status_code}")
+                if attempt < max_attempts:
+                    backoff = base_backoff * (2 ** (attempt - 1))
+                    log.warning(f"BPK transient status {r.status_code}, retrying in {backoff}s (attempt {attempt}/{max_attempts})")
+                    time.sleep(backoff)
+                    continue
+                raise last_err
+
+            if r.status_code != 200:
+                raise Exception(f"BPK download failed: status {r.status_code}")
+
+            # Check for Cloudflare challenge page
+            content_type = r.headers.get("Content-Type", "")
+            if "text/html" in content_type:
+                text = r.text.lower()
+                if "just a moment..." in text or "attention required!" in text:
+                    last_err = Exception("BPK blocked by Cloudflare challenge")
+                    if attempt < max_attempts:
+                        backoff = base_backoff * (2 ** (attempt - 1))
+                        log.warning(f"BPK Cloudflare challenge, retrying in {backoff}s (attempt {attempt}/{max_attempts})")
+                        time.sleep(backoff)
+                        continue
+                    raise last_err
+
+            content_b64 = base64.b64encode(r.content).decode("utf-8")
+            filename = unquote(url.split("/")[-1])
+
+            return {
+                "content": content_b64,
+                "mime_type": r.headers.get("Content-Type", "application/pdf"),
+                "filename": filename
+            }
+
+        except Exception as e:
+            last_err = e
+            if attempt < max_attempts:
+                backoff = base_backoff * (2 ** (attempt - 1))
+                log.warning(f"BPK download error: {e}, retrying in {backoff}s (attempt {attempt}/{max_attempts})")
+                time.sleep(backoff)
+                continue
+            raise
+
+    raise last_err or Exception("BPK download failed after 3 attempts")
 
 
 def search_bpk(url, law_number):
