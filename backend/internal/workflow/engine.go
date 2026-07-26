@@ -73,11 +73,27 @@ func NewEngine(
 // RunDiscovery is the entry point triggered by the Scheduler.
 // Iterates all registered connectors with a bounded worker pool,
 // checks for updates, and writes new LawDocuments to Firestore.
+//
+// Concurrency model:
+//   - Workers pull from `jobs` channel, push to `results` channel (both buffered to len(entries)).
+//   - Main loop drains `results`, persists new docs, and spawns a downstream
+//     ProcessDocument goroutine per discovered law.
+//
+// Cancellation semantics:
+//   - On ctx cancel, main loop stops draining results.
+//   - A derived ctx (procCtx) is created with cancel, so downstream ProcessDocument
+//     goroutines also get cancelled when discovery returns.
+//   - defer processWg.Wait() ensures we don't return until in-flight downstream
+//     goroutines have exited.
 func (e *Engine) RunDiscovery(ctx context.Context) error {
 	e.logger.Info("discovery run started",
 		"connectors", len(e.registry.All()),
 		"workers", e.cfg.WorkerPoolSize,
 	)
+
+	// Derived ctx so we can cancel downstream ProcessDocument goroutines on early return.
+	// defer for procCancel is at the bottom of this function, ordered to run before processWg.Wait().
+	procCtx, procCancel := context.WithCancel(ctx)
 
 	// Collect all connector entries into a slice for dispatch
 	type connEntry struct {
@@ -145,20 +161,33 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 		close(results)
 	}()
 
-	// Process results as they arrive
+	// Process results as they arrive. Spawn downstream ProcessDocument goroutines
+	// and track them in processWg. defer order matters (LIFO):
+	//   - procCancel() runs first → cancels procCtx so downstream goroutines exit promptly
+	//   - processWg.Wait() runs second → blocks until they've actually exited
+	// On normal exit, procCtx is already done (parent ctx still alive but all jobs drained),
+	// so cancel is a no-op and Wait just collects the finished goroutines.
 	var processWg sync.WaitGroup
+	defer processWg.Wait()
+	defer procCancel()
+
 	totalDiscovered := 0
+	var firstErr error
 
 	for result := range results {
 		if result.err != nil {
+			if firstErr == nil {
+				firstErr = result.err
+			}
 			continue // already logged by worker
 		}
 
 		for _, meta := range result.docs {
-			select {
-			case <-ctx.Done():
-				return ctx.Err()
-			default:
+			if err := ctx.Err(); err != nil {
+				if firstErr == nil {
+					firstErr = err
+				}
+				break
 			}
 
 			existing, err := e.repo.FindByLawNumber(ctx, meta.LawNumber)
@@ -196,13 +225,14 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 				"title", meta.Title,
 			)
 
-			// Spawn downstream processing with bounded concurrency
+			// Spawn downstream processing. Uses procCtx (derived from discovery ctx)
+			// with a 10min per-doc timeout so cancellation propagates correctly.
 			processWg.Add(1)
 			go func(lawDoc *models.LawDocument) {
 				defer processWg.Done()
-				procCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+				docCtx, cancel := context.WithTimeout(procCtx, 10*time.Minute)
 				defer cancel()
-				if err := e.ProcessDocument(procCtx, lawDoc); err != nil {
+				if err := e.ProcessDocument(docCtx, lawDoc); err != nil {
 					e.logger.Error("process document failed",
 						"id", lawDoc.ID,
 						"law_number", lawDoc.LawNumber,
@@ -213,14 +243,10 @@ func (e *Engine) RunDiscovery(ctx context.Context) error {
 		}
 	}
 
-	// Wait for all downstream document processing to complete
-	e.logger.Info("waiting for in-flight document processing to complete",
+	e.logger.Info("discovery run complete",
 		"total_discovered", totalDiscovered,
 	)
-	processWg.Wait()
-
-	e.logger.Info("discovery run complete")
-	return nil
+	return firstErr
 }
 
 // connectorResult holds the result from a single connector's CheckUpdates call.
