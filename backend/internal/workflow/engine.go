@@ -314,7 +314,14 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
         }
 
         if e.driveSvc != nil {
-                driveID, err := e.driveSvc.UploadPDF(ctx, doc.ID+"_"+raw.Filename, bytes.NewReader(rawBytes))
+                group := doc.DocumentType
+                if group == "" {
+                        group = doc.Source
+                }
+                if group == "" {
+                        group = "Unsorted"
+                }
+                driveID, err := e.driveSvc.UploadPDF(ctx, doc.ID+"_"+raw.Filename, bytes.NewReader(rawBytes), group)
                 if err != nil {
                         e.logger.Warn("failed to upload PDF to Google Drive", "id", doc.ID, "error", err)
                 } else {
