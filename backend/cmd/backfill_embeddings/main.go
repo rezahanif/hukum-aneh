@@ -1,215 +1,226 @@
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"flag"
-	"fmt"
-	"log"
-	"os"
-	"path/filepath"
-	"strings"
-	"sync"
-	"sync/atomic"
-	"time"
+        "context"
+        "encoding/json"
+        "flag"
+        "fmt"
+        "log"
+        "os"
+        "path/filepath"
+        "strings"
+        "sync"
+        "sync/atomic"
+        "time"
 
-	"github.com/rezahanif/hukum-aneh/backend/internal/config"
-	"github.com/rezahanif/hukum-aneh/backend/internal/models"
-	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
-	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
+        "github.com/rezahanif/hukum-aneh/backend/internal/config"
+        "github.com/rezahanif/hukum-aneh/backend/internal/models"
+        "github.com/rezahanif/hukum-aneh/backend/internal/repository"
+        "github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
 )
 
 type queuedEmbedding struct {
-	Embedding *models.EmbeddingEntry `json:"embedding"`
-	Error     string                 `json:"error"`
-	QueuedAt  time.Time              `json:"queued_at"`
+        Embedding *models.EmbeddingEntry `json:"embedding"`
+        Error     string                 `json:"error"`
+        QueuedAt  time.Time              `json:"queued_at"`
 }
 
 func main() {
-	var (
-		limit    int
-		workers  int
-		queueDir string
-		verbose  bool
-	)
-	flag.IntVar(&limit, "limit", 0, "maximum number of laws to backfill (0 for all)")
-	flag.IntVar(&workers, "workers", 1, "number of concurrent worker goroutines")
-	flag.StringVar(&queueDir, "queue", "backend/internal/storage/local_queue_embeddings", "directory for local queue fallback")
-	flag.BoolVar(&verbose, "verbose", false, "enable verbose debug logging")
-	flag.Parse()
+        var (
+                limit    int
+                workers  int
+                queueDir string
+                verbose  bool
+        )
+        flag.IntVar(&limit, "limit", 0, "maximum number of laws to backfill (0 for all)")
+        flag.IntVar(&workers, "workers", 1, "number of concurrent worker goroutines")
+        flag.StringVar(&queueDir, "queue", "backend/internal/storage/local_queue_embeddings", "directory for local queue fallback")
+        flag.BoolVar(&verbose, "verbose", false, "enable verbose debug logging")
+        flag.Parse()
 
-	ctx := context.Background()
-	cfg, err := config.Load()
-	if err != nil {
-		log.Fatalf("config: %v", err)
-	}
+        ctx := context.Background()
+        cfg, err := config.Load()
+        if err != nil {
+                log.Fatalf("config: %v", err)
+        }
 
-	repos, err := repository.NewRepoSet(ctx, cfg)
-	if err != nil {
-		log.Fatalf("storage init: %v", err)
-	}
-	defer repos.Closer.Close()
+        repos, err := repository.NewRepoSet(ctx, cfg)
+        if err != nil {
+                log.Fatalf("storage init: %v", err)
+        }
+        defer repos.Closer.Close()
 
-	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)
-	if err != nil {
-		log.Fatalf("retrieval: %v", err)
-	}
+        // Qdrant client: only created when storage mode is postgres or dual_write
+        var qdrantClient *retrieval.QdrantClient
+        if cfg.IsPostgres() {
+                logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelInfo}))
+                qdrantClient, err = retrieval.NewQdrantClient(ctx, cfg.Qdrant.Host, cfg.Qdrant.Port, cfg.Qdrant.Collection, cfg.Qdrant.APIKey, cfg.Qdrant.VectorSize, logger)
+                if err != nil {
+                        log.Fatalf("qdrant init: %v", err)
+                }
+                defer qdrantClient.Close()
+        }
 
-	fmt.Println("Loading laws and embeddings from Firestore...")
-	laws, err := repos.LawRepo.ListAllLaws(ctx)
-	if err != nil {
-		log.Fatalf("list laws: %v", err)
-	}
-	embeddings, err := repos.EmbedRepo.ListAllEmbeddings(ctx)
-	if err != nil {
-		log.Fatalf("list embeddings: %v", err)
-	}
+        ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo, qdrantClient)
+        if err != nil {
+                log.Fatalf("retrieval: %v", err)
+        }
 
-	// Index valid (real + has CreatedAt) embeddings by LawDocumentID
-	validEmbs := make(map[string]bool)
-	for _, e := range embeddings {
-		if !e.IsMock && !e.CreatedAt.IsZero() {
-			validEmbs[e.LawDocumentID] = true
-		}
-	}
+        fmt.Println("Loading laws and embeddings from Firestore...")
+        laws, err := repos.LawRepo.ListAllLaws(ctx)
+        if err != nil {
+                log.Fatalf("list laws: %v", err)
+        }
+        embeddings, err := repos.EmbedRepo.ListAllEmbeddings(ctx)
+        if err != nil {
+                log.Fatalf("list embeddings: %v", err)
+        }
 
-	// Filter laws needing backfill (Status >= "parsed" and no valid embedding)
-	var targetLaws []models.LawDocument
-	for _, law := range laws {
-		if law.Status != "discovered" && law.Status != "downloaded" {
-			if !validEmbs[law.ID] {
-				targetLaws = append(targetLaws, law)
-			}
-		}
-	}
+        // Index valid (real + has CreatedAt) embeddings by LawDocumentID
+        validEmbs := make(map[string]bool)
+        for _, e := range embeddings {
+                if !e.IsMock && !e.CreatedAt.IsZero() {
+                        validEmbs[e.LawDocumentID] = true
+                }
+        }
 
-	totalTargets := len(targetLaws)
-	fmt.Printf("Total parsed laws: %d\n", len(laws))
-	fmt.Printf("Total existing embeddings: %d (valid real: %d)\n", len(embeddings), len(validEmbs))
-	fmt.Printf("Parsed laws needing embedding: %d\n", totalTargets)
+        // Filter laws needing backfill (Status >= "parsed" and no valid embedding)
+        var targetLaws []models.LawDocument
+        for _, law := range laws {
+                if law.Status != "discovered" && law.Status != "downloaded" {
+                        if !validEmbs[law.ID] {
+                                targetLaws = append(targetLaws, law)
+                        }
+                }
+        }
 
-	if limit > 0 && limit < totalTargets {
-		targetLaws = targetLaws[:limit]
-		totalTargets = limit
-		fmt.Printf("Limiting run to first %d targets\n", limit)
-	}
+        totalTargets := len(targetLaws)
+        fmt.Printf("Total parsed laws: %d\n", len(laws))
+        fmt.Printf("Total existing embeddings: %d (valid real: %d)\n", len(embeddings), len(validEmbs))
+        fmt.Printf("Parsed laws needing embedding: %d\n", totalTargets)
 
-	if totalTargets == 0 {
-		fmt.Println("All parsed laws have valid embeddings. Nothing to do!")
-		return
-	}
+        if limit > 0 && limit < totalTargets {
+                targetLaws = targetLaws[:limit]
+                totalTargets = limit
+                fmt.Printf("Limiting run to first %d targets\n", limit)
+        }
 
-	// Channel to feed target laws to workers
-	jobs := make(chan models.LawDocument, totalTargets)
-	for _, l := range targetLaws {
-		jobs <- l
-	}
-	close(jobs)
+        if totalTargets == 0 {
+                fmt.Println("All parsed laws have valid embeddings. Nothing to do!")
+                return
+        }
 
-	var (
-		processedCount  int64
-		successCount    int64
-		failCount       int64
-		localQueueCount int64
-	)
+        // Channel to feed target laws to workers
+        jobs := make(chan models.LawDocument, totalTargets)
+        for _, l := range targetLaws {
+                jobs <- l
+        }
+        close(jobs)
 
-	// Concurrency group
-	var wg sync.WaitGroup
-	wg.Add(workers)
+        var (
+                processedCount  int64
+                successCount    int64
+                failCount       int64
+                localQueueCount int64
+        )
 
-	fmt.Printf("Starting backfill with %d workers...\n", workers)
-	startTime := time.Now()
+        // Concurrency group
+        var wg sync.WaitGroup
+        wg.Add(workers)
 
-	for i := 0; i < workers; i++ {
-		go func(workerID int) {
-			defer wg.Done()
-			for law := range jobs {
-				// Process single law
-				currProcessed := atomic.AddInt64(&processedCount, 1)
+        fmt.Printf("Starting backfill with %d workers...\n", workers)
+        startTime := time.Now()
 
-				// Log progress every 100 docs
-				if currProcessed%100 == 0 || currProcessed == 1 {
-					fmt.Printf("[%s] Progress: %d/%d laws processed (success: %d, fail: %d, local_queued: %d)\n",
-						time.Now().Format("15:04:05"), currProcessed, totalTargets,
-						atomic.LoadInt64(&successCount), atomic.LoadInt64(&failCount), atomic.LoadInt64(&localQueueCount))
-				}
+        for i := 0; i < workers; i++ {
+                go func(workerID int) {
+                        defer wg.Done()
+                        for law := range jobs {
+                                // Process single law
+                                currProcessed := atomic.AddInt64(&processedCount, 1)
 
-				version, err := repos.VersionRepo.GetLatestLawVersion(ctx, law.ID)
-				if err != nil {
-					atomic.AddInt64(&failCount, 1)
-					if verbose {
-						log.Printf("Worker %d: GetLatestLawVersion failed for law ID %s: %v", workerID, law.ID, err)
-					}
-					continue
-				}
+                                // Log progress every 100 docs
+                                if currProcessed%100 == 0 || currProcessed == 1 {
+                                        fmt.Printf("[%s] Progress: %d/%d laws processed (success: %d, fail: %d, local_queued: %d)\n",
+                                                time.Now().Format("15:04:05"), currProcessed, totalTargets,
+                                                atomic.LoadInt64(&successCount), atomic.LoadInt64(&failCount), atomic.LoadInt64(&localQueueCount))
+                                }
 
-				textContent := strings.TrimSpace(version.TextContent)
-				if textContent == "" {
-					atomic.AddInt64(&failCount, 1)
-					if verbose {
-						log.Printf("Worker %d: Empty text content for law ID %s", workerID, law.ID)
-					}
-					continue
-				}
+                                version, err := repos.VersionRepo.GetLatestLawVersion(ctx, law.ID)
+                                if err != nil {
+                                        atomic.AddInt64(&failCount, 1)
+                                        if verbose {
+                                                log.Printf("Worker %d: GetLatestLawVersion failed for law ID %s: %v", workerID, law.ID, err)
+                                        }
+                                        continue
+                                }
 
-				// Generate embedding via Gemini API
-				vector, isMock, err := ret.GenerateEmbedding(ctx, textContent)
-				if err != nil {
-					atomic.AddInt64(&failCount, 1)
-					log.Printf("Worker %d: GenerateEmbedding failed for law ID %s: %v", workerID, law.ID, err)
-					continue
-				}
+                                textContent := strings.TrimSpace(version.TextContent)
+                                if textContent == "" {
+                                        atomic.AddInt64(&failCount, 1)
+                                        if verbose {
+                                                log.Printf("Worker %d: Empty text content for law ID %s", workerID, law.ID)
+                                        }
+                                        continue
+                                }
 
-				embEntry := &models.EmbeddingEntry{
-					LawDocumentID: law.ID,
-					Vector:        vector,
-					IsMock:        isMock,
-					CreatedAt:     time.Now(),
-				}
+                                // Generate embedding via Gemini API
+                                vector, isMock, err := ret.GenerateEmbedding(ctx, textContent)
+                                if err != nil {
+                                        atomic.AddInt64(&failCount, 1)
+                                        log.Printf("Worker %d: GenerateEmbedding failed for law ID %s: %v", workerID, law.ID, err)
+                                        continue
+                                }
 
-				// Save embedding
-				_, saveErr := repos.EmbedRepo.SaveEmbedding(ctx, embEntry)
-				if saveErr != nil {
-					// Firestore write failure — fallback to local queue
-					log.Printf("Worker %d: SaveEmbedding failed for law ID %s (falling back to local queue): %v", workerID, law.ID, saveErr)
-					if qErr := saveLocalEmbedding(queueDir, embEntry, saveErr.Error()); qErr != nil {
-						log.Printf("Worker %d: Failed to save to local queue: %v", workerID, qErr)
-						atomic.AddInt64(&failCount, 1)
-					} else {
-						atomic.AddInt64(&localQueueCount, 1)
-					}
-					continue
-				}
+                                embEntry := &models.EmbeddingEntry{
+                                        LawDocumentID: law.ID,
+                                        Vector:        vector,
+                                        IsMock:        isMock,
+                                        CreatedAt:     time.Now(),
+                                }
 
-				atomic.AddInt64(&successCount, 1)
-			}
-		}(i)
-	}
+                                // Save embedding
+                                _, saveErr := repos.EmbedRepo.SaveEmbedding(ctx, embEntry)
+                                if saveErr != nil {
+                                        // Firestore write failure — fallback to local queue
+                                        log.Printf("Worker %d: SaveEmbedding failed for law ID %s (falling back to local queue): %v", workerID, law.ID, saveErr)
+                                        if qErr := saveLocalEmbedding(queueDir, embEntry, saveErr.Error()); qErr != nil {
+                                                log.Printf("Worker %d: Failed to save to local queue: %v", workerID, qErr)
+                                                atomic.AddInt64(&failCount, 1)
+                                        } else {
+                                                atomic.AddInt64(&localQueueCount, 1)
+                                        }
+                                        continue
+                                }
 
-	wg.Wait()
-	duration := time.Since(startTime)
+                                atomic.AddInt64(&successCount, 1)
+                        }
+                }(i)
+        }
 
-	fmt.Printf("\nBackfill complete! Duration: %v\n", duration)
-	fmt.Printf("Total processed: %d\n", processedCount)
-	fmt.Printf("Successfully saved to Firestore: %d\n", successCount)
-	fmt.Printf("Saved to local fallback queue: %d\n", localQueueCount)
-	fmt.Printf("Failed: %d\n", failCount)
+        wg.Wait()
+        duration := time.Since(startTime)
+
+        fmt.Printf("\nBackfill complete! Duration: %v\n", duration)
+        fmt.Printf("Total processed: %d\n", processedCount)
+        fmt.Printf("Successfully saved to Firestore: %d\n", successCount)
+        fmt.Printf("Saved to local fallback queue: %d\n", localQueueCount)
+        fmt.Printf("Failed: %d\n", failCount)
 }
 
 func saveLocalEmbedding(dir string, emb *models.EmbeddingEntry, reason string) error {
-	if err := os.MkdirAll(dir, 0755); err != nil {
-		return err
-	}
-	q := queuedEmbedding{
-		Embedding: emb,
-		Error:     reason,
-		QueuedAt:  time.Now(),
-	}
-	b, err := json.MarshalIndent(q, "", "  ")
-	if err != nil {
-		return err
-	}
-	// Safe filename based on document ID
-	name := strings.NewReplacer(" ", "_", "/", "_", "\\", "_", ":", "_").Replace(emb.LawDocumentID)
-	return os.WriteFile(filepath.Join(dir, name+".json"), b, 0644)
+        if err := os.MkdirAll(dir, 0755); err != nil {
+                return err
+        }
+        q := queuedEmbedding{
+                Embedding: emb,
+                Error:     reason,
+                QueuedAt:  time.Now(),
+        }
+        b, err := json.MarshalIndent(q, "", "  ")
+        if err != nil {
+                return err
+        }
+        // Safe filename based on document ID
+        name := strings.NewReplacer(" ", "_", "/", "_", "\\", "_", ":", "_").Replace(emb.LawDocumentID)
+        return os.WriteFile(filepath.Join(dir, name+".json"), b, 0644)
 }

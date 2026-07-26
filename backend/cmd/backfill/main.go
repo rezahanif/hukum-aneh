@@ -1,113 +1,125 @@
 package main
 
 import (
-	"context"
-	"flag"
-	"log/slog"
-	"os"
-	"time"
+        "context"
+        "flag"
+        "log/slog"
+        "os"
+        "time"
 
-	"github.com/rezahanif/hukum-aneh/backend/internal/ai"
-	"github.com/rezahanif/hukum-aneh/backend/internal/config"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
-	"github.com/rezahanif/hukum-aneh/backend/internal/connectors/setneg"
-	"github.com/rezahanif/hukum-aneh/backend/internal/parser"
-	"github.com/rezahanif/hukum-aneh/backend/internal/repository"
-	"github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
-	"github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
-	"github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
-	"github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
-	"github.com/rezahanif/hukum-aneh/backend/internal/validator"
-	"github.com/rezahanif/hukum-aneh/backend/internal/workflow"
-	"github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
+        "github.com/rezahanif/hukum-aneh/backend/internal/ai"
+        "github.com/rezahanif/hukum-aneh/backend/internal/config"
+        "github.com/rezahanif/hukum-aneh/backend/internal/connectors"
+        "github.com/rezahanif/hukum-aneh/backend/internal/connectors/bpk"
+        "github.com/rezahanif/hukum-aneh/backend/internal/connectors/jdihn"
+        "github.com/rezahanif/hukum-aneh/backend/internal/connectors/mkri"
+        "github.com/rezahanif/hukum-aneh/backend/internal/connectors/peraturan"
+        "github.com/rezahanif/hukum-aneh/backend/internal/connectors/setneg"
+        "github.com/rezahanif/hukum-aneh/backend/internal/parser"
+        "github.com/rezahanif/hukum-aneh/backend/internal/repository"
+        "github.com/rezahanif/hukum-aneh/backend/internal/retrieval"
+        "github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
+        "github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
+        "github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
+        "github.com/rezahanif/hukum-aneh/backend/internal/validator"
+        "github.com/rezahanif/hukum-aneh/backend/internal/workflow"
+        "github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
 )
 
 func main() {
-	var verbose bool
-	flag.BoolVar(&verbose, "verbose", false, "enable debug logging")
-	flag.Parse()
+        var verbose bool
+        flag.BoolVar(&verbose, "verbose", false, "enable debug logging")
+        flag.Parse()
 
-	level := slog.LevelInfo
-	if verbose {
-		level = slog.LevelDebug
-	}
-	logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: level}))
-	slog.SetDefault(logger)
+        level := slog.LevelInfo
+        if verbose {
+                level = slog.LevelDebug
+        }
+        logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: level}))
+        slog.SetDefault(logger)
 
-	cfg, err := config.Load()
-	if err != nil {
-		logger.Error("config load failed", "error", err)
-		os.Exit(1)
-	}
+        cfg, err := config.Load()
+        if err != nil {
+                logger.Error("config load failed", "error", err)
+                os.Exit(1)
+        }
 
-	ctx := context.Background()
+        ctx := context.Background()
 
-	// Storage (firestore | postgres | dual_write based on STORAGE_MODE)
-	repos, err := repository.NewRepoSet(ctx, cfg)
-	if err != nil {
-		logger.Error("storage init failed", "error", err, "mode", cfg.StorageMode)
-		os.Exit(1)
-	}
-	defer repos.Closer.Close()
+        // Storage (firestore | postgres | dual_write based on STORAGE_MODE)
+        repos, err := repository.NewRepoSet(ctx, cfg)
+        if err != nil {
+                logger.Error("storage init failed", "error", err, "mode", cfg.StorageMode)
+                os.Exit(1)
+        }
+        defer repos.Closer.Close()
 
-	registry := connectors.NewRegistry()
-	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
-	registry.Register("Peraturan.go.id", peraturan.New(scr, logger))
-	registry.Register("JDIHN", jdihn.New(scr, logger))
-	registry.Register("JDIH BPK", bpk.New(scr, logger))
-	registry.Register("Mahkamah Konstitusi", mkri.New(scr, logger))
-	registry.Register("JDIH Setneg", setneg.New(scr, logger))
+        registry := connectors.NewRegistry()
+        scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
+        registry.Register("Peraturan.go.id", peraturan.New(scr, logger))
+        registry.Register("JDIHN", jdihn.New(scr, logger))
+        registry.Register("JDIH BPK", bpk.New(scr, logger))
+        registry.Register("Mahkamah Konstitusi", mkri.New(scr, logger))
+        registry.Register("JDIH Setneg", setneg.New(scr, logger))
 
-	p := parser.New(logger)
-	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)
-	if err != nil {
-		logger.Error("retrieval service init failed", "error", err)
-		os.Exit(1)
-	}
-	aiSvc := ai.New(cfg)
-	imgGen := imagegen.New(cfg)
-	tgSvc := telegram.New(cfg)
-	pubSvc := publishing.New(cfg)
-	val := validator.New()
+        p := parser.New(logger)
 
-	engine := workflow.NewEngine(cfg, repos, registry, p, ret, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
+        // Qdrant client: only created when storage mode is postgres or dual_write
+        var qdrantClient *retrieval.QdrantClient
+        if cfg.IsPostgres() {
+                qdrantClient, err = retrieval.NewQdrantClient(ctx, cfg.Qdrant.Host, cfg.Qdrant.Port, cfg.Qdrant.Collection, cfg.Qdrant.APIKey, cfg.Qdrant.VectorSize, logger)
+                if err != nil {
+                        logger.Error("qdrant init failed", "error", err)
+                        os.Exit(1)
+                }
+                defer qdrantClient.Close()
+        }
 
-	// Fetch parsed documents
-	logger.Info("fetching parsed documents from Firestore...")
-	parsedDocs, err := repos.LawRepo.ListLawsByStatus(ctx, "parsed")
-	if err != nil {
-		logger.Error("failed to list parsed docs", "error", err)
-		os.Exit(1)
-	}
+        ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo, qdrantClient)
+        if err != nil {
+                logger.Error("retrieval service init failed", "error", err)
+                os.Exit(1)
+        }
+        aiSvc := ai.New(cfg)
+        imgGen := imagegen.New(cfg)
+        tgSvc := telegram.New(cfg)
+        pubSvc := publishing.New(cfg)
+        val := validator.New()
 
-	logger.Info("found parsed documents", "count", len(parsedDocs))
+        engine := workflow.NewEngine(cfg, repos, registry, p, ret, qdrantClient, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
 
-	// Run backfill processing
-	for i, doc := range parsedDocs {
-		logger.Info("processing parsed doc", "index", i+1, "total", len(parsedDocs), "law_number", doc.LawNumber)
+        // Fetch parsed documents
+        logger.Info("fetching parsed documents from Firestore...")
+        parsedDocs, err := repos.LawRepo.ListLawsByStatus(ctx, "parsed")
+        if err != nil {
+                logger.Error("failed to list parsed docs", "error", err)
+                os.Exit(1)
+        }
 
-		// Fetch the corresponding LawVersion
-		version, err := repos.VersionRepo.GetLatestLawVersion(ctx, doc.ID)
-		if err != nil {
-			logger.Error("failed to get law version", "doc_id", doc.ID, "error", err)
-			continue
-		}
+        logger.Info("found parsed documents", "count", len(parsedDocs))
 
-		err = engine.ProcessParsedDocument(ctx, &doc, version)
-		if err != nil {
-			logger.Error("failed to process parsed doc", "law_number", doc.LawNumber, "error", err)
-			// Wait 5 seconds before next one to allow rate limits to reset if needed
-			time.Sleep(5 * time.Second)
-			continue
-		}
+        // Run backfill processing
+        for i, doc := range parsedDocs {
+                logger.Info("processing parsed doc", "index", i+1, "total", len(parsedDocs), "law_number", doc.LawNumber)
 
-		logger.Info("successfully processed doc", "law_number", doc.LawNumber)
-		time.Sleep(2 * time.Second) // rate limit spacer
-	}
+                // Fetch the corresponding LawVersion
+                version, err := repos.VersionRepo.GetLatestLawVersion(ctx, doc.ID)
+                if err != nil {
+                        logger.Error("failed to get law version", "doc_id", doc.ID, "error", err)
+                        continue
+                }
 
-	logger.Info("backfill complete")
+                err = engine.ProcessParsedDocument(ctx, &doc, version)
+                if err != nil {
+                        logger.Error("failed to process parsed doc", "law_number", doc.LawNumber, "error", err)
+                        // Wait 5 seconds before next one to allow rate limits to reset if needed
+                        time.Sleep(5 * time.Second)
+                        continue
+                }
+
+                logger.Info("successfully processed doc", "law_number", doc.LawNumber)
+                time.Sleep(2 * time.Second) // rate limit spacer
+        }
+
+        logger.Info("backfill complete")
 }

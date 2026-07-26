@@ -20,21 +20,33 @@ const embeddingDimensions = 1536 // matches existing mock fallback + any prior s
 
 type Service struct {
 	cfg    *config.Config
-	repo   repository.EmbeddingRepo
+	repo   repository.EmbeddingRepo // changed from *repository.FirestoreRepo in Phase 0.4
+	qdrant *QdrantClient            // nil = brute-force fallback; non-nil = use Qdrant
 	client *genai.Client
 	sem    chan struct{}
+	logger *slog.Logger
 }
 
-func New(ctx context.Context, cfg *config.Config, repo repository.EmbeddingRepo) (*Service, error) {
+func New(ctx context.Context, cfg *config.Config, repo repository.EmbeddingRepo, qdrantClient *QdrantClient) (*Service, error) {
 	client, err := genai.NewClient(ctx, &genai.ClientConfig{APIKey: cfg.Gemini.APIKey})
 	if err != nil {
 		return nil, fmt.Errorf("create genai client: %w", err)
 	}
+
+	var logger *slog.Logger
+	if qdrantClient != nil {
+		logger = qdrantClient.logger
+	} else {
+		logger = slog.Default()
+	}
+
 	return &Service{
 		cfg:    cfg,
 		repo:   repo,
+		qdrant: qdrantClient,
 		client: client,
 		sem:    make(chan struct{}, 2),
+		logger: logger,
 	}, nil
 }
 
@@ -132,15 +144,37 @@ func (h *scoreHeap) Pop() interface{} {
 
 const defaultBatchSize = 500
 
-// Search retrieves all embeddings from Firestore in cursor-paginated batches,
-// computes similarity scores against the query vector, and returns the top-N
-// candidate matches using a min-heap. O(n log k) where n=total embeddings,
-// k=topN.
+// Search retrieves similar embeddings, using Qdrant when available
+// and falling back to brute-force when Qdrant is nil or returns an error.
+//
+// CRITICAL: brute-force fallback only works during dual-write period (Phase 5-6),
+// when Firestore still has the embeddings. After Phase 7.2 (Firestore removal),
+// brute-force will return 0 results. Do not rely on fallback in production
+// post-migration.
 func (s *Service) Search(ctx context.Context, queryVector []float32, topN int) ([]SearchResult, error) {
 	if topN <= 0 {
 		topN = 5
 	}
 
+	// Qdrant path
+	if s.qdrant != nil {
+		results, err := s.qdrant.Search(ctx, queryVector, topN)
+		if err != nil {
+			s.logger.Warn("qdrant search failed, falling back to brute-force", "error", err)
+			// fall through to brute-force
+		} else {
+			return results, nil
+		}
+	}
+
+	// Brute-force fallback (legacy path)
+	return s.bruteForceSearch(ctx, queryVector, topN)
+}
+
+// bruteForceSearch is the legacy in-memory cosine similarity search.
+// Kept as fallback during dual-write migration period.
+// TODO: remove after Phase 7.2 (Firestore removal) completes successfully.
+func (s *Service) bruteForceSearch(ctx context.Context, queryVector []float32, topN int) ([]SearchResult, error) {
 	h := &scoreHeap{}
 	heap.Init(h)
 
@@ -186,9 +220,9 @@ func (s *Service) Search(ctx context.Context, queryVector []float32, topN int) (
 	return results, nil
 }
 
-// SearchByDocumentType pre-filters by document type in Firestore, then computes
-// similarity and returns top-N via min-heap. Single-shot fetch (no pagination)
-// because the doc_type pre-filter typically returns a manageable subset.
+// SearchByDocumentType pre-filters by document type, then computes
+// similarity and returns top-N via min-heap. Uses brute-force because
+// Qdrant doesn't know about doc_type unless we add it to payload — future enhancement.
 func (s *Service) SearchByDocumentType(ctx context.Context, queryVector []float32, topN int, docType string) ([]SearchResult, error) {
 	if topN <= 0 {
 		topN = 5
