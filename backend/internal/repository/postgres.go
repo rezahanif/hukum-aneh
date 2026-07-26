@@ -120,6 +120,17 @@ func (r *PostgresRepo) Close() error {
 	return nil
 }
 
+// Pool exposes the underlying *pgxpool.Pool for tooling that needs direct
+// SQL access (e.g. migrate_to_pg, smoke tests, admin cleanup scripts).
+//
+// Production code should prefer the interface methods — direct pool access
+// bypasses the abstraction and will not work with FirestoreRepo or
+// DualWriteRepo. Use only in cmd/ utilities that explicitly know they're
+// running against PG.
+func (r *PostgresRepo) Pool() *pgxpool.Pool {
+	return r.pool
+}
+
 // ============================================================================
 // Helpers
 // ============================================================================
@@ -157,22 +168,22 @@ func (r *PostgresRepo) SaveLawDocument(ctx context.Context, doc *models.LawDocum
 	doc.UpdatedAt = time.Now()
 
 	const q = `
-		INSERT INTO law_documents
-		    (id, law_number, title, source_url, source, level, document_type,
-		     raw_file_path, published_date, status, created_at, updated_at)
-		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
-		ON CONFLICT (id) DO UPDATE SET
-		    law_number     = EXCLUDED.law_number,
-		    title          = EXCLUDED.title,
-		    source_url     = EXCLUDED.source_url,
-		    source         = EXCLUDED.source,
-		    level          = EXCLUDED.level,
-		    document_type  = EXCLUDED.document_type,
-		    raw_file_path  = EXcluded.raw_file_path,
-		    published_date = EXCLUDED.published_date,
-		    status         = EXCLUDED.status,
-		    updated_at     = EXCLUDED.updated_at
-	`
+                INSERT INTO law_documents
+                    (id, law_number, title, source_url, source, level, document_type,
+                     raw_file_path, published_date, status, created_at, updated_at)
+                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+                ON CONFLICT (id) DO UPDATE SET
+                    law_number     = EXCLUDED.law_number,
+                    title          = EXCLUDED.title,
+                    source_url     = EXCLUDED.source_url,
+                    source         = EXCLUDED.source,
+                    level          = EXCLUDED.level,
+                    document_type  = EXCLUDED.document_type,
+                    raw_file_path  = EXcluded.raw_file_path,
+                    published_date = EXCLUDED.published_date,
+                    status         = EXCLUDED.status,
+                    updated_at     = EXCLUDED.updated_at
+        `
 	_, err := r.pool.Exec(ctx, q,
 		doc.ID, doc.LawNumber, doc.Title, doc.SourceURL, doc.Source,
 		doc.Level, doc.DocumentType, doc.RawFilePath, doc.PublishedDate,
@@ -186,10 +197,10 @@ func (r *PostgresRepo) SaveLawDocument(ctx context.Context, doc *models.LawDocum
 
 func (r *PostgresRepo) GetLawDocument(ctx context.Context, id string) (*models.LawDocument, error) {
 	const q = `
-		SELECT id, law_number, title, source_url, source, level, document_type,
-		       raw_file_path, published_date, status, created_at, updated_at
-		FROM law_documents WHERE id = $1
-	`
+                SELECT id, law_number, title, source_url, source, level, document_type,
+                       raw_file_path, published_date, status, created_at, updated_at
+                FROM law_documents WHERE id = $1
+        `
 	var doc models.LawDocument
 	err := r.pool.QueryRow(ctx, q, id).Scan(
 		&doc.ID, &doc.LawNumber, &doc.Title, &doc.SourceURL, &doc.Source,
@@ -204,10 +215,10 @@ func (r *PostgresRepo) GetLawDocument(ctx context.Context, id string) (*models.L
 
 func (r *PostgresRepo) FindByLawNumber(ctx context.Context, lawNumber string) (*models.LawDocument, error) {
 	const q = `
-		SELECT id, law_number, title, source_url, source, level, document_type,
-		       raw_file_path, published_date, status, created_at, updated_at
-		FROM law_documents WHERE law_number = $1 LIMIT 1
-	`
+                SELECT id, law_number, title, source_url, source, level, document_type,
+                       raw_file_path, published_date, status, created_at, updated_at
+                FROM law_documents WHERE law_number = $1 LIMIT 1
+        `
 	var doc models.LawDocument
 	err := r.pool.QueryRow(ctx, q, lawNumber).Scan(
 		&doc.ID, &doc.LawNumber, &doc.Title, &doc.SourceURL, &doc.Source,
@@ -225,11 +236,11 @@ func (r *PostgresRepo) FindByLawNumber(ctx context.Context, lawNumber string) (*
 
 func (r *PostgresRepo) ListLawsByStatus(ctx context.Context, status string) ([]models.LawDocument, error) {
 	const q = `
-		SELECT id, law_number, title, source_url, source, level, document_type,
-		       raw_file_path, published_date, status, created_at, updated_at
-		FROM law_documents WHERE status = $1
-		ORDER BY created_at DESC
-	`
+                SELECT id, law_number, title, source_url, source, level, document_type,
+                       raw_file_path, published_date, status, created_at, updated_at
+                FROM law_documents WHERE status = $1
+                ORDER BY created_at DESC
+        `
 	rows, err := r.pool.Query(ctx, q, status)
 	if err != nil {
 		return nil, fmt.Errorf("list laws by status: %w", err)
@@ -253,10 +264,10 @@ func (r *PostgresRepo) ListLawsByStatus(ctx context.Context, status string) ([]m
 
 func (r *PostgresRepo) ListAllLaws(ctx context.Context) ([]models.LawDocument, error) {
 	const q = `
-		SELECT id, law_number, title, source_url, source, level, document_type,
-		       raw_file_path, published_date, status, created_at, updated_at
-		FROM law_documents ORDER BY created_at DESC
-	`
+                SELECT id, law_number, title, source_url, source, level, document_type,
+                       raw_file_path, published_date, status, created_at, updated_at
+                FROM law_documents ORDER BY created_at DESC
+        `
 	rows, err := r.pool.Query(ctx, q)
 	if err != nil {
 		return nil, fmt.Errorf("list all laws: %w", err)
@@ -280,12 +291,12 @@ func (r *PostgresRepo) ListAllLaws(ctx context.Context) ([]models.LawDocument, e
 
 func (r *PostgresRepo) FindStuckDocuments(ctx context.Context, status string, before time.Time) ([]models.LawDocument, error) {
 	const q = `
-		SELECT id, law_number, title, source_url, source, level, document_type,
-		       raw_file_path, published_date, status, created_at, updated_at
-		FROM law_documents
-		WHERE status = $1 AND updated_at < $2
-		ORDER BY updated_at ASC
-	`
+                SELECT id, law_number, title, source_url, source, level, document_type,
+                       raw_file_path, published_date, status, created_at, updated_at
+                FROM law_documents
+                WHERE status = $1 AND updated_at < $2
+                ORDER BY updated_at ASC
+        `
 	rows, err := r.pool.Query(ctx, q, status, before)
 	if err != nil {
 		return nil, fmt.Errorf("find stuck docs: %w", err)
@@ -313,12 +324,12 @@ func (r *PostgresRepo) FindStuckDocuments(ctx context.Context, status string, be
 
 func (r *PostgresRepo) GetLatestLawVersion(ctx context.Context, lawID string) (*models.LawVersion, error) {
 	const q = `
-		SELECT id, law_document_id, version_number, text_content, embedding_id, parsed_at
-		FROM law_versions
-		WHERE law_document_id = $1
-		ORDER BY version_number DESC
-		LIMIT 1
-	`
+                SELECT id, law_document_id, version_number, text_content, embedding_id, parsed_at
+                FROM law_versions
+                WHERE law_document_id = $1
+                ORDER BY version_number DESC
+                LIMIT 1
+        `
 	var v models.LawVersion
 	// embedding_id is nullable in schema; use a pointer to handle NULL.
 	var embeddingID *string
@@ -353,16 +364,16 @@ func (r *PostgresRepo) SaveLawVersion(ctx context.Context, lawID string, v *mode
 	}
 
 	const q = `
-		INSERT INTO law_versions
-		    (id, law_document_id, version_number, text_content, embedding_id, parsed_at)
-		VALUES ($1,$2,$3,$4,$5,$6)
-		ON CONFLICT (id) DO UPDATE SET
-		    law_document_id = EXCLUDED.law_document_id,
-		    version_number  = EXCLUDED.version_number,
-		    text_content    = EXCLUDED.text_content,
-		    embedding_id    = EXCLUDED.embedding_id,
-		    parsed_at       = EXCLUDED.parsed_at
-	`
+                INSERT INTO law_versions
+                    (id, law_document_id, version_number, text_content, embedding_id, parsed_at)
+                VALUES ($1,$2,$3,$4,$5,$6)
+                ON CONFLICT (id) DO UPDATE SET
+                    law_document_id = EXCLUDED.law_document_id,
+                    version_number  = EXCLUDED.version_number,
+                    text_content    = EXCLUDED.text_content,
+                    embedding_id    = EXCLUDED.embedding_id,
+                    parsed_at       = EXCLUDED.parsed_at
+        `
 	var embeddingID interface{}
 	if v.EmbeddingID != "" {
 		embeddingID = v.EmbeddingID
@@ -403,22 +414,22 @@ func (r *PostgresRepo) SaveLawAnalysis(ctx context.Context, lawID string, a *mod
 	}
 
 	const q = `
-		INSERT INTO law_analyses
-		    (id, law_document_id, summary, affected_laws, overall_score,
-		     controversy_score, economic_score, legal_consistency, confidence,
-		     raw_json, created_at)
-		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
-		ON CONFLICT (id) DO UPDATE SET
-		    law_document_id    = EXCLUDED.law_document_id,
-		    summary            = EXCLUDED.summary,
-		    affected_laws      = EXCLUDED.affected_laws,
-		    overall_score      = EXCLUDED.overall_score,
-		    controversy_score  = EXCLUDED.controversy_score,
-		    economic_score     = EXCLUDED.economic_score,
-		    legal_consistency  = EXCLUDED.legal_consistency,
-		    confidence         = EXCLUDED.confidence,
-		    raw_json           = EXCLUDED.raw_json
-	`
+                INSERT INTO law_analyses
+                    (id, law_document_id, summary, affected_laws, overall_score,
+                     controversy_score, economic_score, legal_consistency, confidence,
+                     raw_json, created_at)
+                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+                ON CONFLICT (id) DO UPDATE SET
+                    law_document_id    = EXCLUDED.law_document_id,
+                    summary            = EXCLUDED.summary,
+                    affected_laws      = EXCLUDED.affected_laws,
+                    overall_score      = EXCLUDED.overall_score,
+                    controversy_score  = EXCLUDED.controversy_score,
+                    economic_score     = EXCLUDED.economic_score,
+                    legal_consistency  = EXCLUDED.legal_consistency,
+                    confidence         = EXCLUDED.confidence,
+                    raw_json           = EXCLUDED.raw_json
+        `
 	_, err = r.pool.Exec(ctx, q,
 		a.ID, a.LawDocumentID, a.Summary, affectedJSON,
 		a.OverallScore, a.ControversyScore, a.EconomicScore, a.LegalConsistency,
@@ -442,11 +453,11 @@ func (r *PostgresRepo) GetLawAnalysisByDraft(ctx context.Context, draftID string
 	}
 
 	const q = `
-		SELECT id, law_document_id, summary, affected_laws, overall_score,
-		       controversy_score, economic_score, legal_consistency, confidence,
-		       raw_json, created_at
-		FROM law_analyses WHERE id = $1
-	`
+                SELECT id, law_document_id, summary, affected_laws, overall_score,
+                       controversy_score, economic_score, legal_consistency, confidence,
+                       raw_json, created_at
+                FROM law_analyses WHERE id = $1
+        `
 	var a models.LawAnalysis
 	var affectedJSON []byte
 	err = r.pool.QueryRow(ctx, q, draft.LawAnalysisID).Scan(
@@ -471,10 +482,10 @@ func (r *PostgresRepo) GetLawAnalysisByDraft(ctx context.Context, draftID string
 
 func (r *PostgresRepo) GetContentDraft(ctx context.Context, id string) (*models.ContentDraft, error) {
 	const q = `
-		SELECT id, law_analysis_id, caption, hashtags, hook, image_prompt,
-		       status, created_at
-		FROM content_drafts WHERE id = $1
-	`
+                SELECT id, law_analysis_id, caption, hashtags, hook, image_prompt,
+                       status, created_at
+                FROM content_drafts WHERE id = $1
+        `
 	var d models.ContentDraft
 	var lawAnalysisID *string
 	var hashtagsJSON []byte
@@ -520,17 +531,17 @@ func (r *PostgresRepo) SaveContentDraft(ctx context.Context, draft *models.Conte
 	}
 
 	const q = `
-		INSERT INTO content_drafts
-		    (id, law_analysis_id, caption, hashtags, hook, image_prompt, status, created_at)
-		VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
-		ON CONFLICT (id) DO UPDATE SET
-		    law_analysis_id = EXCLUDED.law_analysis_id,
-		    caption         = EXCLUDED.caption,
-		    hashtags        = EXCLUDED.hashtags,
-		    hook            = EXCLUDED.hook,
-		    image_prompt    = EXCLUDED.image_prompt,
-		    status          = EXCLUDED.status
-	`
+                INSERT INTO content_drafts
+                    (id, law_analysis_id, caption, hashtags, hook, image_prompt, status, created_at)
+                VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+                ON CONFLICT (id) DO UPDATE SET
+                    law_analysis_id = EXCLUDED.law_analysis_id,
+                    caption         = EXCLUDED.caption,
+                    hashtags        = EXCLUDED.hashtags,
+                    hook            = EXCLUDED.hook,
+                    image_prompt    = EXCLUDED.image_prompt,
+                    status          = EXCLUDED.status
+        `
 	_, err = r.pool.Exec(ctx, q,
 		draft.ID, lawAnalysisID, draft.Caption, hashtagsJSON,
 		draft.Hook, draft.ImagePrompt, draft.Status, draft.CreatedAt,
@@ -547,10 +558,10 @@ func (r *PostgresRepo) SaveContentDraft(ctx context.Context, draft *models.Conte
 
 func (r *PostgresRepo) GetImageAssetsByDraft(ctx context.Context, draftID string) ([]models.ImageAsset, error) {
 	const q = `
-		SELECT id, content_draft_id, prompt_used, file_path, validated,
-		       design_guide_version, created_at
-		FROM image_assets WHERE content_draft_id = $1 ORDER BY created_at ASC
-	`
+                SELECT id, content_draft_id, prompt_used, file_path, validated,
+                       design_guide_version, created_at
+                FROM image_assets WHERE content_draft_id = $1 ORDER BY created_at ASC
+        `
 	rows, err := r.pool.Query(ctx, q, draftID)
 	if err != nil {
 		return nil, fmt.Errorf("list image assets: %w", err)
@@ -581,17 +592,17 @@ func (r *PostgresRepo) SaveImageAsset(ctx context.Context, asset *models.ImageAs
 	asset.CreatedAt = time.Now()
 
 	const q = `
-		INSERT INTO image_assets
-		    (id, content_draft_id, prompt_used, file_path, validated,
-		     design_guide_version, created_at)
-		VALUES ($1,$2,$3,$4,$5,$6,$7)
-		ON CONFLICT (id) DO UPDATE SET
-		    content_draft_id     = EXCLUDED.content_draft_id,
-		    prompt_used          = EXCLUDED.prompt_used,
-		    file_path            = EXCLUDED.file_path,
-		    validated            = EXCLUDED.validated,
-		    design_guide_version = EXCLUDED.design_guide_version
-	`
+                INSERT INTO image_assets
+                    (id, content_draft_id, prompt_used, file_path, validated,
+                     design_guide_version, created_at)
+                VALUES ($1,$2,$3,$4,$5,$6,$7)
+                ON CONFLICT (id) DO UPDATE SET
+                    content_draft_id     = EXCLUDED.content_draft_id,
+                    prompt_used          = EXCLUDED.prompt_used,
+                    file_path            = EXCLUDED.file_path,
+                    validated            = EXCLUDED.validated,
+                    design_guide_version = EXCLUDED.design_guide_version
+        `
 	_, err := r.pool.Exec(ctx, q,
 		asset.ID, asset.ContentDraftID, asset.PromptUsed, asset.FilePath,
 		asset.Validated, asset.DesignGuideVersion, asset.CreatedAt,
@@ -616,16 +627,16 @@ func (r *PostgresRepo) SaveApproval(ctx context.Context, a *models.Approval) (st
 	a.Timestamp = time.Now()
 
 	const q = `
-		INSERT INTO approvals
-		    (id, content_draft_id, reviewer_id, decision, reason, timestamp)
-		VALUES ($1,$2,$3,$4,$5,$6)
-		ON CONFLICT (id) DO UPDATE SET
-		    content_draft_id = EXCLUDED.content_draft_id,
-		    reviewer_id      = EXCLUDED.reviewer_id,
-		    decision         = EXCLUDED.decision,
-		    reason           = EXCLUDED.reason,
-		    timestamp        = EXCLUDED.timestamp
-	`
+                INSERT INTO approvals
+                    (id, content_draft_id, reviewer_id, decision, reason, timestamp)
+                VALUES ($1,$2,$3,$4,$5,$6)
+                ON CONFLICT (id) DO UPDATE SET
+                    content_draft_id = EXCLUDED.content_draft_id,
+                    reviewer_id      = EXCLUDED.reviewer_id,
+                    decision         = EXCLUDED.decision,
+                    reason           = EXCLUDED.reason,
+                    timestamp        = EXCLUDED.timestamp
+        `
 	_, err := r.pool.Exec(ctx, q,
 		a.ID, a.ContentDraftID, a.ReviewerID, a.Decision, a.Reason, a.Timestamp,
 	)
@@ -649,16 +660,16 @@ func (r *PostgresRepo) SavePublishingJob(ctx context.Context, j *models.Publishi
 
 	// posted_at is nullable — pass *time.Time directly; pgx handles nil.
 	const q = `
-		INSERT INTO publishing_jobs
-		    (id, content_draft_id, platform, status, posted_at, external_post_id)
-		VALUES ($1,$2,$3,$4,$5,$6)
-		ON CONFLICT (id) DO UPDATE SET
-		    content_draft_id = EXCLUDED.content_draft_id,
-		    platform         = EXCLUDED.platform,
-		    status           = EXCLUDED.status,
-		    posted_at        = EXCLUDED.posted_at,
-		    external_post_id = EXCLUDED.external_post_id
-	`
+                INSERT INTO publishing_jobs
+                    (id, content_draft_id, platform, status, posted_at, external_post_id)
+                VALUES ($1,$2,$3,$4,$5,$6)
+                ON CONFLICT (id) DO UPDATE SET
+                    content_draft_id = EXCLUDED.content_draft_id,
+                    platform         = EXCLUDED.platform,
+                    status           = EXCLUDED.status,
+                    posted_at        = EXCLUDED.posted_at,
+                    external_post_id = EXCLUDED.external_post_id
+        `
 	_, err := r.pool.Exec(ctx, q,
 		j.ID, j.ContentDraftID, j.Platform, j.Status, j.PostedAt, j.ExternalPostID,
 	)
@@ -705,14 +716,14 @@ func (r *PostgresRepo) SaveEmbedding(ctx context.Context, emb *models.EmbeddingE
 	}
 
 	const q = `
-		INSERT INTO embedding_metadata
-		    (id, law_document_id, is_mock, qdrant_point_id, created_at)
-		VALUES ($1,$2,$3,$4,$5)
-		ON CONFLICT (id) DO UPDATE SET
-		    law_document_id = EXCLUDED.law_document_id,
-		    is_mock         = EXCLUDED.is_mock,
-		    qdrant_point_id = EXCLUDED.qdrant_point_id
-	`
+                INSERT INTO embedding_metadata
+                    (id, law_document_id, is_mock, qdrant_point_id, created_at)
+                VALUES ($1,$2,$3,$4,$5)
+                ON CONFLICT (id) DO UPDATE SET
+                    law_document_id = EXCLUDED.law_document_id,
+                    is_mock         = EXCLUDED.is_mock,
+                    qdrant_point_id = EXCLUDED.qdrant_point_id
+        `
 	_, err := r.pool.Exec(ctx, q,
 		emb.ID, emb.LawDocumentID, emb.IsMock, qdrantID, emb.CreatedAt,
 	)
@@ -724,9 +735,9 @@ func (r *PostgresRepo) SaveEmbedding(ctx context.Context, emb *models.EmbeddingE
 
 func (r *PostgresRepo) ListAllEmbeddings(ctx context.Context) ([]models.EmbeddingEntry, error) {
 	const q = `
-		SELECT id, law_document_id, is_mock, qdrant_point_id, created_at
-		FROM embedding_metadata ORDER BY created_at ASC
-	`
+                SELECT id, law_document_id, is_mock, qdrant_point_id, created_at
+                FROM embedding_metadata ORDER BY created_at ASC
+        `
 	rows, err := r.pool.Query(ctx, q)
 	if err != nil {
 		return nil, fmt.Errorf("list all embeddings: %w", err)
@@ -769,12 +780,12 @@ func (r *PostgresRepo) ListEmbeddingsBatch(
 // actual vectors from Qdrant using the returned IDs (Stream B B-4.1).
 func (r *PostgresRepo) ListEmbeddingsByDocType(ctx context.Context, docType string) ([]models.EmbeddingEntry, error) {
 	const q = `
-		SELECT em.id, em.law_document_id, em.is_mock, em.qdrant_point_id, em.created_at
-		FROM embedding_metadata em
-		JOIN law_documents ld ON ld.id = em.law_document_id
-		WHERE ld.document_type = $1
-		ORDER BY em.created_at ASC
-	`
+                SELECT em.id, em.law_document_id, em.is_mock, em.qdrant_point_id, em.created_at
+                FROM embedding_metadata em
+                JOIN law_documents ld ON ld.id = em.law_document_id
+                WHERE ld.document_type = $1
+                ORDER BY em.created_at ASC
+        `
 	rows, err := r.pool.Query(ctx, q, docType)
 	if err != nil {
 		return nil, fmt.Errorf("list embeddings by doc type: %w", err)
