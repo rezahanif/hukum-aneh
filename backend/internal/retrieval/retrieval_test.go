@@ -63,7 +63,7 @@ func TestGenerateEmbedding_FallbackAndIntegration(t *testing.T) {
 
 	// First test the Mock fallback flow with an invalid API Key (always runs, fast, deterministic)
 	cfg.Gemini.APIKey = "invalid-api-key-to-trigger-401"
-	service, err := New(ctx, cfg, nil)
+	service, err := New(ctx, cfg, nil, nil)
 	if err != nil {
 		t.Fatalf("failed to create service: %v", err)
 	}
@@ -100,7 +100,7 @@ func TestGenerateEmbedding_FallbackAndIntegration(t *testing.T) {
 
 	t.Log("Running live Gemini API integration test...")
 	cfg.Gemini.APIKey = realKey
-	liveService, err := New(ctx, cfg, nil)
+	liveService, err := New(ctx, cfg, nil, nil)
 	if err != nil {
 		t.Fatalf("failed to create live service: %v", err)
 	}

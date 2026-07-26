@@ -1,12 +1,13 @@
 package main
 
 import (
-        "context"
-        "encoding/json"
-        "flag"
-        "fmt"
-        "log"
-        "os"
+	"context"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"log"
+	"log/slog"
+	"os"
         "path/filepath"
         "strings"
         "sync"

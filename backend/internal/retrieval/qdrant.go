@@ -42,7 +42,7 @@ func NewQdrantClient(ctx context.Context, host string, port int, collection stri
 	client, err := qdrant.NewClient(&qdrant.Config{
 		Host:   host,
 		Port:   port,
-		ApiKey: apiKey,
+		APIKey: apiKey,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("create qdrant client: %w", err)
