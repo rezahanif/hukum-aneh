@@ -1,0 +1,640 @@
+    50→        ret *retrieval.Service,
+    51→        aiSvc *ai.Service,
+    52→        imgGen *imagegen.Service,
+    53→        tgSvc *telegram.Service,
+    54→        pubSvc *publishing.Service,
+    55→        val *validator.ImageValidator,
+    56→        logger *slog.Logger,
+    57→) *Engine {
+    58→        return &Engine{
+    59→                cfg:        cfg,
+    60→                repo:       repo,
+    61→                registry:   registry,
+    62→                parser:     p,
+    63→                retrieval:  ret,
+    64→                ai:         aiSvc,
+    65→                imagegen:   imgGen,
+    66→                tg:         tgSvc,
+    67→                publishing: pubSvc,
+    68→                validator:  val,
+    69→                logger:     logger,
+    70→        }
+    71→}
+    72→
+    73→// RunDiscovery is the entry point triggered by the Scheduler.
+    74→// Iterates all registered connectors, checks for updates, and writes new
+    75→// LawDocuments to Firestore. Does NOT parse or analyze — that's event-driven
+    76→// off subsequent steps. Spec §3 pipeline.
+    77→func (e *Engine) RunDiscovery(ctx context.Context) error {
+    78→        e.logger.Info("discovery run started")
+    79→        var wg sync.WaitGroup
+    80→
+    81→        for name, conn := range e.registry.All() {
+    82→                select {
+    83→                case <-ctx.Done():
+    84→                        return ctx.Err()
+    85→                default:
+    86→                }
+    87→
+    88→                e.logger.Info("checking source", "connector", name)
+    89→                docs, err := conn.CheckUpdates(ctx)
+    90→                if err != nil {
+    91→                        e.logger.Error("connector check failed", "connector", name, "error", err)
+    92→                        continue
+    93→                }
+    94→
+    95→                for _, meta := range docs {
+    96→                        existing, err := e.repo.FindByLawNumber(ctx, meta.LawNumber)
+    97→                        if err != nil {
+    98→                                e.logger.Error("dup check failed", "law_number", meta.LawNumber, "error", err)
+    99→                                continue
+   100→                        }
+   101→                        if existing != nil {
+   102→                                continue
+   103→                        }
+   104→
+   105→                        doc := &models.LawDocument{
+   106→                                LawNumber:     meta.LawNumber,
+   107→                                Title:         meta.Title,
+   108→                                SourceURL:     meta.SourceURL,
+   109→                                Source:        meta.Source,
+   110→                                Level:         meta.Level,
+   111→                                DocumentType:  meta.DocumentType,
+   112→                                PublishedDate: meta.PublishedDate,
+   113→                                Status:        "discovered",
+   114→                                CreatedAt:     time.Now(),
+   115→                                UpdatedAt:     time.Now(),
+   116→                        }
+   117→                        id, err := e.repo.SaveLawDocument(ctx, doc)
+   118→                        if err != nil {
+   119→                                e.logger.Error("save law doc failed", "law_number", meta.LawNumber, "error", err)
+   120→                                continue
+   121→                        }
+   122→                        e.logger.Info("discovered new law", "id", id, "law_number", meta.LawNumber, "title", meta.Title)
+   123→
+   124→                        // Trigger download → parse → analyze pipeline for this law
+   125→                        wg.Add(1)
+   126→                        go func(lawDoc *models.LawDocument) {
+   127→                                defer wg.Done()
+   128→                                procCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+   129→                                defer cancel()
+   130→                                if err := e.ProcessDocument(procCtx, lawDoc); err != nil {
+   131→                                        e.logger.Error("process document failed", "id", lawDoc.ID, "law_number", lawDoc.LawNumber, "error", err)
+   132→                                }
+   133→                        }(doc)
+   134→                }
+   135→        }
+   136→
+   137→        // Wait for all discovered documents to finish processing
+   138→        e.logger.Info("waiting for in-flight document processing to complete")
+   139→        wg.Wait()
+   140→
+   141→        e.logger.Info("discovery run complete")
+   142→        return nil
+   143→}
+   144→
+   145→// ProcessDocument handles the download → parse → save pipeline for a single law.
+   146→// Called after discovery finds a new law. Spec §3: Document Download → Document Parsing → Save to Database.
+   147→func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) error {
+   148→        conn, ok := e.registry.Get(doc.Source)
+   149→        if !ok {
+   150→                return fmt.Errorf("no connector for source: %s", doc.Source)
+   151→        }
+   152→
+   153→        meta := connectors.DocumentMeta{
+   154→                LawNumber:     doc.LawNumber,
+   155→                Title:         doc.Title,
+   156→                SourceURL:     doc.SourceURL,
+   157→                Source:        doc.Source,
+   158→                Level:         doc.Level,
+   159→                DocumentType:  doc.DocumentType,
+   160→                PublishedDate: doc.PublishedDate,
+   161→        }
+   162→
+   163→        // Download
+   164→        raw, err := conn.Download(ctx, meta)
+   165→        if err != nil {
+   166→                doc.Status = "download_failed"
+   167→                doc.UpdatedAt = time.Now()
+   168→                e.repo.SaveLawDocument(ctx, doc)
+   169→                return fmt.Errorf("download: %w", err)
+   170→        }
+   171→        defer raw.Content.Close()
+   172→
+   173→        // Save raw file to storage
+   174→        storageDir := "backend/internal/storage"
+   175→        if err := os.MkdirAll(storageDir, 0755); err != nil {
+   176→                return fmt.Errorf("mkdir storage: %w", err)
+   177→        }
+   178→        rawPath := filepath.Join(storageDir, doc.ID+"_"+raw.Filename)
+   179→        rawFile, err := os.Create(rawPath)
+   180→        if err != nil {
+   181→                return fmt.Errorf("create raw file: %w", err)
+   182→        }
+   183→        defer rawFile.Close()
+   184→
+   185→        // Tee reader — write to file while parsing
+   186→        rawBytes, err := io.ReadAll(raw.Content)
+   187→        if err != nil {
+   188→                return fmt.Errorf("read raw content: %w", err)
+   189→        }
+   190→
+   191→        if _, err := rawFile.Write(rawBytes); err != nil {
+   192→                return fmt.Errorf("write raw file: %w", err)
+   193→        }
+   194→
+   195→        doc.RawFilePath = rawPath
+   196→        doc.Status = "downloaded"
+   197→        doc.UpdatedAt = time.Now()
+   198→        if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   199→                return fmt.Errorf("save doc status: %w", err)
+   200→        }
+   201→
+   202→        // Parse
+   203→        result, err := e.parser.Parse(ctx, bytes.NewReader(rawBytes), raw.MimeType, raw.Filename)
+   204→        if err != nil {
+   205→                doc.Status = "parse_failed"
+   206→                doc.UpdatedAt = time.Now()
+   207→                e.repo.SaveLawDocument(ctx, doc)
+   208→                return fmt.Errorf("parse: %w", err)
+   209→        }
+   210→
+   211→        // Refuse to mark "parsed" if text is empty/too short — likely a failed OCR/PDF extraction.
+   212→        // Otherwise Firestore omits the empty field, leaving a "parsed" doc with no retrievable text.
+   213→        if len(strings.TrimSpace(result.TextContent)) < 100 {
+   214→                doc.Status = "parse_failed"
+   215→                doc.UpdatedAt = time.Now()
+   216→                e.repo.SaveLawDocument(ctx, doc)
+   217→                return fmt.Errorf("parse produced empty text (%d chars) for %s", len(result.TextContent), doc.LawNumber)
+   218→        }
+   219→
+   220→        // Save version to Firestore
+   221→        version := &models.LawVersion{
+   222→                LawDocumentID: doc.ID,
+   223→                VersionNumber: int(time.Now().Unix()),
+   224→                TextContent:   result.TextContent,
+   225→                ParsedAt:      time.Now(),
+   226→        }
+   227→        if _, err := e.repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+   228→                return fmt.Errorf("save version: %w", err)
+   229→        }
+   230→
+   231→        doc.Status = "parsed"
+   232→        doc.UpdatedAt = time.Now()
+   233→        if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   234→                return fmt.Errorf("update doc status: %w", err)
+   235→        }
+   236→
+   237→        e.logger.Info("document processed", "id", doc.ID, "law_number", doc.LawNumber, "sections", len(result.Sections))
+   238→
+   239→        // Trigger next pipeline steps: Embed → Similarity Search → Analyze → Strategy → Prompt → ImageGen → Approval
+   240→        if err := e.ProcessParsedDocument(ctx, doc, version); err != nil {
+   241→                e.logger.Error("process parsed document failed", "id", doc.ID, "error", err)
+   242→                return fmt.Errorf("parsed pipeline: %w", err)
+   243→        }
+   244→
+   245→        return nil
+   246→}
+   247→
+   248→// ProcessParsedDocument implements the downstream modular pipeline steps.
+   249→// Spec §3: Embed → Search → LawAnalysis → ContentStrategy → PromptBuilder → ImageGen → Validator → Telegram.
+   250→func (e *Engine) ProcessParsedDocument(ctx context.Context, doc *models.LawDocument, version *models.LawVersion) error {
+   251→        e.logger.Info("generating embedding for law version", "doc_id", doc.ID)
+   252→
+   253→        // Step 1: Generate & Save Embedding
+   254→        vector, isMock, err := e.retrieval.GenerateEmbedding(ctx, version.TextContent)
+   255→        if err != nil {
+   256→                return fmt.Errorf("generate embedding: %w", err)
+   257→        }
+   258→
+   259→        embEntry := &models.EmbeddingEntry{
+   260→                LawDocumentID: doc.ID,
+   261→                Vector:        vector,
+   262→                IsMock:        isMock,
+   263→                CreatedAt:     time.Now(),
+   264→        }
+   265→        embID, err := e.repo.SaveEmbedding(ctx, embEntry)
+   266→        if err != nil {
+   267→                return fmt.Errorf("save embedding: %w", err)
+   268→        }
+   269→
+   270→        version.EmbeddingID = embID
+   271→        if _, err := e.repo.SaveLawVersion(ctx, doc.ID, version); err != nil {
+   272→                return fmt.Errorf("update version embedding_id: %w", err)
+   273→        }
+   274→
+   275→        // Step 2: Similarity Search
+   276→        e.logger.Info("running similarity search against other laws")
+   277→        candidates, err := e.retrieval.Search(ctx, vector, 3)
+   278→        if err != nil {
+   279→                e.logger.Warn("similarity search failed, continuing without related laws", "error", err)
+   280→        }
+   281→
+   282→        var relatedTexts []string
+   283→        for _, c := range candidates {
+   284→                // Do not compare against self
+   285→                if c.LawDocumentID == doc.ID {
+   286→                        continue
+   287→                }
+   288→                // Try to fetch related law text
+   289→                relDoc, err := e.repo.GetLawDocument(ctx, c.LawDocumentID)
+   290→                if err != nil {
+   291→                        continue
+   292→                }
+   293→                relatedTexts = append(relatedTexts, fmt.Sprintf("Law: %s, Title: %s", relDoc.LawNumber, relDoc.Title))
+   294→        }
+   295→
+   296→        // Step 3: Law Analysis Agent (Hermes LLM worker)
+   297→        e.logger.Info("calling Law Analysis Agent")
+   298→        analysis, err := e.ai.AnalyzeLaw(ctx, version.TextContent, relatedTexts)
+   299→        if err != nil {
+   300→                return fmt.Errorf("law analysis agent: %w", err)
+   301→        }
+   302→        analysis.LawDocumentID = doc.ID
+   303→
+   304→        analysisID, err := e.repo.SaveLawAnalysis(ctx, doc.ID, analysis)
+   305→        if err != nil {
+   306→                return fmt.Errorf("save law analysis: %w", err)
+   307→        }
+   308→        analysis.ID = analysisID
+   309→
+   310→        // GATE: Only proceed to content generation if the law is "suspicious"
+   311→        // (i.e. has high controversy, low consistency, or high conflict severity)
+   312→        if !e.isSuspicious(analysis) {
+   313→                doc.Status = "no_conflict"
+   314→                doc.UpdatedAt = time.Now()
+   315→                if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   316→                        return fmt.Errorf("update doc status: %w", err)
+   317→                }
+   318→                e.logger.Info("law has no significant conflict or controversy, stopping pipeline", "doc_id", doc.ID, "law_number", doc.LawNumber)
+   319→                return nil
+   320→        }
+   321→
+   322→        doc.Status = "analyzed"
+   323→        doc.UpdatedAt = time.Now()
+   324→        if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   325→                return fmt.Errorf("update doc status: %w", err)
+   326→        }
+   327→
+   328→        // Step 4: Content Strategy Agent
+   329→        e.logger.Info("calling Content Strategy Agent")
+   330→        draft, err := e.ai.CreateContentStrategy(ctx, analysis)
+   331→        if err != nil {
+   332→                return fmt.Errorf("content strategy agent: %w", err)
+   333→        }
+   334→        draft.Status = "draft"
+   335→
+   336→        draftID, err := e.repo.SaveContentDraft(ctx, draft)
+   337→        if err != nil {
+   338→                return fmt.Errorf("save content draft: %w", err)
+   339→        }
+   340→        draft.ID = draftID
+   341→
+   342→        // Step 5: Prompt Builder Agent
+   343→        e.logger.Info("calling Prompt Builder Agent")
+   344→        designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
+   345→        if err != nil {
+   346→                return fmt.Errorf("read design guide: %w", err)
+   347→        }
+   348→        characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
+   349→        if err != nil {
+   350→                return fmt.Errorf("read character sheet: %w", err)
+   351→        }
+   352→
+   353→        imagePrompt, err := e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
+   354→        if err != nil {
+   355→                return fmt.Errorf("prompt builder agent: %w", err)
+   356→        }
+   357→
+   358→        // Save prompt to draft and pause for prompt-approval gate
+   359→        draft.ImagePrompt = imagePrompt
+   360→        draft.Status = "pending_prompt_approval"
+   361→        if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   362→                return fmt.Errorf("save draft with prompt: %w", err)
+   363→        }
+   364→
+   365→        // Send prompt-approval request to Telegram (law + planned prompt)
+   366→        e.logger.Info("sending prompt-approval request to Telegram")
+   367→        _, err = e.tg.SendPromptApproval(ctx, draft, analysis, doc.Title)
+   368→        if err != nil {
+   369→                return fmt.Errorf("send prompt approval: %w", err)
+   370→        }
+   371→
+   372→        doc.Status = "pending_prompt_approval"
+   373→        doc.UpdatedAt = time.Now()
+   374→        if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   375→                return fmt.Errorf("update doc status: %w", err)
+   376→        }
+   377→
+   378→        e.logger.Info("pipeline paused at prompt-approval stage", "doc_id", doc.ID)
+   379→        return nil
+   380→}
+   381→
+   382→// HandleApprovalAction processes the callback query from Telegram.
+   383→// Decisions: approve, reject, regen_img, regen_cap.
+   384→func (e *Engine) HandleApprovalAction(ctx context.Context, draftID string, action string, reviewerID string) error {
+   385→        e.logger.Info("processing approval action", "draft_id", draftID, "action", action, "reviewer_id", reviewerID)
+   386→
+   387→        draft, err := e.repo.GetContentDraft(ctx, draftID)
+   388→        if err != nil {
+   389→                return fmt.Errorf("get content draft: %w", err)
+   390→        }
+   391→
+   392→        analysis, err := e.repo.GetLawAnalysisByDraft(ctx, draftID)
+   393→        if err != nil {
+   394→                return fmt.Errorf("get law analysis: %w", err)
+   395→        }
+   396→
+   397→        doc, err := e.repo.GetLawDocument(ctx, analysis.LawDocumentID)
+   398→        if err != nil {
+   399→                return fmt.Errorf("get law document: %w", err)
+   400→        }
+   401→
+   402→        // Save Approval record
+   403→        approval := &models.Approval{
+   404→                ContentDraftID: draftID,
+   405→                ReviewerID:     reviewerID,
+   406→                Decision:       action,
+   407→                Reason:         fmt.Sprintf("Action triggered via Telegram inline keyboard"),
+   408→                Timestamp:      time.Now(),
+   409→        }
+   410→        if _, err := e.repo.SaveApproval(ctx, approval); err != nil {
+   411→                e.logger.Error("failed to save approval log", "error", err)
+   412→        }
+   413→
+   414→        switch action {
+   415→        case "approve":
+   416→                draft.Status = "approved"
+   417→                if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   418→                        return err
+   419→                }
+   420→
+   421→                doc.Status = "approved"
+   422→                if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   423→                        return err
+   424→                }
+   425→
+   426→                // Spec §5.11: Trigger Publishing Engine
+   427→                e.logger.Info("publishing approved content to Instagram", "draft_id", draftID)
+   428→
+   429→                // Fetch asset for the image
+   430→                assets, err := e.repo.GetImageAssetsByDraft(ctx, draftID)
+   431→                if err != nil || len(assets) == 0 {
+   432→                        return fmt.Errorf("no image asset for draft: %w", err)
+   433→                }
+   434→                asset := &assets[0]
+   435→
+   436→                // ponytail: Instagram Graph API requires public image URL.
+   437→                // upgrade: upload to S3/GCS/Imgur first, then pass public URL here.
+   438→                publicImageURL := e.cfg.Instagram.AccessToken // placeholder — real impl needs image hosting
+   439→                if publicImageURL == "" {
+   440→                        e.logger.Warn("approved draft saved, publishing skipped: public image URL missing", "draft_id", draftID)
+   441→                        pubJob := &models.PublishingJob{
+   442→                                ContentDraftID: draftID,
+   443→                                Platform:       "instagram",
+   444→                                Status:         "pending_image_hosting",
+   445→                        }
+   446→                        _, _ = e.repo.SavePublishingJob(ctx, pubJob)
+   447→                        return nil
+   448→                }
+   449→
+   450→                postID, err := e.publishing.PublishToInstagram(ctx, draft, asset, publicImageURL)
+   451→                if err != nil {
+   452→                        e.logger.Error("failed to publish to instagram", "error", err)
+   453→                        pubJob := &models.PublishingJob{
+   454→                                ContentDraftID: draftID,
+   455→                                Platform:       "instagram",
+   456→                                Status:         "failed",
+   457→                        }
+   458→                        e.repo.SavePublishingJob(ctx, pubJob)
+   459→                        return fmt.Errorf("instagram publish: %w", err)
+   460→                }
+   461→
+   462→                now := time.Now()
+   463→                pubJob := &models.PublishingJob{
+   464→                        ContentDraftID: draftID,
+   465→                        Platform:       "instagram",
+   466→                        Status:         "published",
+   467→                        PostedAt:       &now,
+   468→                        ExternalPostID: postID,
+   469→                }
+   470→                e.repo.SavePublishingJob(ctx, pubJob)
+   471→                e.logger.Info("instagram publication success", "post_id", postID)
+   472→
+   473→        case "reject":
+   474→                draft.Status = "rejected"
+   475→                if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   476→                        return err
+   477→                }
+   478→
+   479→                doc.Status = "archived"
+   480→                if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   481→                        return err
+   482→                }
+   483→
+   484→        case "prompt_approve":
+   485→                // Prompt approved — proceed to image generation + image-approval
+   486→                e.logger.Info("prompt approved, generating image", "draft_id", draftID)
+   487→                if err := e.generateAndApprove(ctx, draft, analysis, doc); err != nil {
+   488→                        return err
+   489→                }
+   490→
+   491→        case "prompt_regen":
+   492→                // Re-generate the image prompt using the prompt builder agent
+   493→                designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
+   494→                if err != nil {
+   495→                        return fmt.Errorf("read design guide: %w", err)
+   496→                }
+   497→                characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
+   498→                if err != nil {
+   499→                        return fmt.Errorf("read character sheet: %w", err)
+   500→                }
+   501→
+   502→                imagePrompt, err := e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
+   503→                if err != nil {
+   504→                        return fmt.Errorf("prompt builder agent: %w", err)
+   505→                }
+   506→
+   507→                draft.ImagePrompt = imagePrompt
+   508→                draft.Status = "pending_prompt_approval"
+   509→                if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   510→                        return fmt.Errorf("save draft with prompt: %w", err)
+   511→                }
+   512→
+   513→                if _, err := e.tg.SendPromptApproval(ctx, draft, analysis, doc.Title); err != nil {
+   514→                        return fmt.Errorf("send prompt approval: %w", err)
+   515→                }
+   516→
+   517→        case "prompt_reject":
+   518→                draft.Status = "prompt_rejected"
+   519→                if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   520→                        return err
+   521→                }
+   522→                doc.Status = "archived"
+   523→                if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   524→                        return err
+   525→                }
+   526→                e.logger.Info("prompt rejected, archiving", "draft_id", draftID)
+   527→
+   528→        case "regen_img":
+   529→                // Re-generate image using existing or rebuilt prompt
+   530→                if err := e.generateAndApprove(ctx, draft, analysis, doc); err != nil {
+   531→                        return err
+   532→                }
+   533→
+   534→        case "regen_cap":
+   535→                // Re-run content strategy with analysis
+   536→                newDraft, err := e.ai.CreateContentStrategy(ctx, analysis)
+   537→                if err != nil {
+   538→                        return err
+   539→                }
+   540→                // Overwrite the existing draft text
+   541→                draft.Caption = newDraft.Caption
+   542→                draft.Hook = newDraft.Hook
+   543→                draft.Hashtags = newDraft.Hashtags
+   544→                draft.Status = "pending_approval"
+   545→                if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   546→                        return err
+   547→                }
+   548→
+   549→                // Fetch existing asset
+   550→                assets, err := e.repo.GetImageAssetsByDraft(ctx, draftID)
+   551→                if err != nil || len(assets) == 0 {
+   552→                        return fmt.Errorf("no existing image asset for draft: %w", err)
+   553→                }
+   554→
+   555→                // Re-send approval request
+   556→                if _, err := e.tg.SendApprovalRequest(ctx, draft, &assets[0], analysis, doc.Title); err != nil {
+   557→                        return err
+   558→                }
+   559→
+   560→        default:
+   561→                return fmt.Errorf("unknown approval action: %s", action)
+   562→        }
+   563→
+   564→        return nil
+   565→}
+   566→
+   567→// generateAndApprove runs image generation → validation → image-approval send.
+   568→// Shared by prompt_approve and regen_img flows.
+   569→func (e *Engine) generateAndApprove(ctx context.Context, draft *models.ContentDraft, analysis *models.LawAnalysis, doc *models.LawDocument) error {
+   570→        designGuide, err := os.ReadFile("backend/internal/prompts/design_guide.json")
+   571→        if err != nil {
+   572→                return fmt.Errorf("read design guide: %w", err)
+   573→        }
+   574→        characterSheet, err := os.ReadFile("backend/internal/prompts/character_sheet.json")
+   575→        if err != nil {
+   576→                return fmt.Errorf("read character sheet: %w", err)
+   577→        }
+   578→
+   579→        imagePrompt := draft.ImagePrompt
+   580→        if imagePrompt == "" {
+   581→                imagePrompt, err = e.ai.BuildImagePrompt(ctx, draft, string(designGuide), string(characterSheet))
+   582→                if err != nil {
+   583→                        return fmt.Errorf("prompt builder agent: %w", err)
+   584→                }
+   585→                draft.ImagePrompt = imagePrompt
+   586→                if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   587→                        return fmt.Errorf("save draft prompt: %w", err)
+   588→                }
+   589→        }
+   590→
+   591→        e.logger.Info("calling Image Generation Service", "prompt", imagePrompt)
+   592→        asset, err := e.imagegen.GenerateImage(ctx, draft.ID, imagePrompt)
+   593→        if err != nil {
+   594→                return fmt.Errorf("image generation: %w", err)
+   595→        }
+   596→
+   597→        valid, err := e.validator.Validate(asset.FilePath)
+   598→        if err != nil {
+   599→                e.logger.Error("image validation returned error", "error", err)
+   600→        }
+   601→        asset.Validated = valid
+   602→
+   603→        assetID, err := e.repo.SaveImageAsset(ctx, asset)
+   604→        if err != nil {
+   605→                return fmt.Errorf("save image asset: %w", err)
+   606→        }
+   607→        asset.ID = assetID
+   608→
+   609→        if _, err := e.tg.SendApprovalRequest(ctx, draft, asset, analysis, doc.Title); err != nil {
+   610→                return fmt.Errorf("send telegram approval: %w", err)
+   611→        }
+   612→
+   613→        draft.Status = "pending_approval"
+   614→        if _, err := e.repo.SaveContentDraft(ctx, draft); err != nil {
+   615→                return err
+   616→        }
+   617→
+   618→        doc.Status = "pending_approval"
+   619→        doc.UpdatedAt = time.Now()
+   620→        if _, err := e.repo.SaveLawDocument(ctx, doc); err != nil {
+   621→                return err
+   622→        }
+   623→
+   624→        return nil
+   625→}
+   626→
+   627→// isSuspicious checks if the law has significant conflict, low consistency, or controversy.
+   628→func (e *Engine) isSuspicious(analysis *models.LawAnalysis) bool {
+   629→        // Check standard patterns for years
+   630→        reYear := regexp.MustCompile(`\b(19\d{2}|20\d{2})\b`)
+   631→        m := reYear.FindString(analysis.RawJSON) // Check overall JSON payload
+   632→        if m == "" {
+   633→                m = reYear.FindString(analysis.LawDocumentID)
+   634→        }
+   635→
+   636→        if m != "" {
+   637→                var yr int
+   638→                _, _ = fmt.Sscanf(m, "%d", &yr)
+   639→                if yr > 0 && yr < 2019 {
+   640→                        e.logger.Info("law year is before 2019, skipping", "year", yr)
+   641→                        return false
+   642→                }
+   643→        }
+   644→
+   645→        // 1. High Controversy
+   646→        if analysis.ControversyScore >= 60 {
+   647→                return true
+   648→        }
+   649→        // 2. Low Consistency (high legal conflict/opposite)
+   650→        if analysis.LegalConsistency <= 65 {
+   651→                return true
+   652→        }
+   653→        // 3. High Severity on any affected law
+   654→        for _, aff := range analysis.AffectedLaws {
+   655→                if aff.Severity >= 0.70 {
+   656→                        return true
+   657→                }
+   658→        }
+   659→
+   660→        return false
+   661→}
+   662→
+   663→// CheckStuckJobs finds documents stuck in a stage too long and re-drives them.
+   664→// Spec §5.1 responsibility.
+   665→func (e *Engine) CheckStuckJobs(ctx context.Context) error {
+   666→        threshold, err := time.ParseDuration(e.cfg.Scheduler.StuckJobThreshold)
+   667→        if err != nil {
+   668→                threshold = 6 * time.Hour
+   669→        }
+   670→        cutoff := time.Now().Add(-threshold)
+   671→
+   672→        stuck, err := e.repo.FindStuckDocuments(ctx, "discovered", cutoff)
+   673→        if err != nil {
+   674→                return fmt.Errorf("query stuck: %w", err)
+   675→        }
+   676→
+   677→        for _, doc := range stuck {
+   678→                e.logger.Warn("stuck document detected", "id", doc.ID, "law_number", doc.LawNumber, "status", doc.Status)
+   679→                // Re-trigger: mark for download retry
+   680→                doc.Status = "discovered"
+   681→                doc.UpdatedAt = time.Now()
+   682→                if _, err := e.repo.SaveLawDocument(ctx, &doc); err != nil {
+   683→                        e.logger.Error("re-queue stuck doc failed", "id", doc.ID, "error", err)
+   684→                }
+   685→        }
+   686→
+   687→        return nil
+   688→}
+   689→
