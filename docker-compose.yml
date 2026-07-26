@@ -1,0 +1,48 @@
+# docker-compose.yml
+# Local development environment for hukum-aneh.
+# Provides: PostgreSQL 16 + Qdrant vector DB.
+# Firestore emulator not included — uses real Firebase project credentials via env.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hukum-aneh-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hukum_aneh
+      POSTGRES_USER: hukum
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-localdev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/migrations:/docker-entrypoint-initdb.d:ro  # auto-run on first init only
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hukum -d hukum_aneh"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: hukum-aneh-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"  # REST API
+      - "6334:6334"  # gRPC (used by qdrant-go-client)
+    volumes:
+      - qdrant_data:/qdrant/storage
+      - qdrant_snapshots:/qdrant/snapshots
+    environment:
+      QDRANT__SERVICE__GRPC_PORT: 6334
+      QDRANT__LOG_LEVEL: INFO
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/6333 && echo -e \"GET / HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n\" >&3'"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  qdrant_data:
+  qdrant_snapshots:
