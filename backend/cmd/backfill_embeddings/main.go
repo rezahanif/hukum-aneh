@@ -44,12 +44,11 @@ func main() {
 		log.Fatalf("config: %v", err)
 	}
 
-	repo, err := repository.NewFirestoreRepo(ctx, cfg.Firebase.ProjectID, cfg.Firebase.CredentialsPath)
+	repos, err := repository.NewRepoSet(ctx, cfg)
 	if err != nil {
-		log.Fatalf("firestore: %v", err)
+		log.Fatalf("storage init: %v", err)
 	}
-	defer repo.Close()
-	repos := repository.NewRepoSetFromFirestore(repo)
+	defer repos.Closer.Close()
 
 	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)
 	if err != nil {

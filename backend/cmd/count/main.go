@@ -7,8 +7,8 @@ import (
 	"os"
 
 	"cloud.google.com/go/firestore"
-	"google.golang.org/api/option"
 	"github.com/rezahanif/hukum-aneh/backend/internal/config"
+	"google.golang.org/api/option"
 )
 
 // Quick tool to count documents in Firestore collections.

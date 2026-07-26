@@ -15,12 +15,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	repo, err := repository.NewFirestoreRepo(ctx, cfg.Firebase.ProjectID, cfg.Firebase.CredentialsPath)
+	repos, err := repository.NewRepoSet(ctx, cfg)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("storage init: %v", err)
 	}
-	defer repo.Close()
-	repos := repository.NewRepoSetFromFirestore(repo)
+	defer repos.Closer.Close()
 
 	laws, err := repos.LawRepo.ListAllLaws(ctx)
 	if err != nil {

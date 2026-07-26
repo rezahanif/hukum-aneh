@@ -33,13 +33,12 @@ func main() {
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 
-	repo, err := repository.NewFirestoreRepo(ctx, cfg.Firebase.ProjectID, cfg.Firebase.CredentialsPath)
+	repos, err := repository.NewRepoSet(ctx, cfg)
 	if err != nil {
-		logger.Error("firestore init failed", "error", err)
+		logger.Error("storage init failed", "error", err, "mode", cfg.StorageMode)
 		os.Exit(1)
 	}
-	defer repo.Close()
-	repos := repository.NewRepoSetFromFirestore(repo)
+	defer repos.Closer.Close()
 
 	tgSvc := telegram.New(cfg)
 	ret, err := retrieval.New(ctx, cfg, repos.EmbedRepo)

@@ -57,14 +57,13 @@ func main() {
 
 	ctx := context.Background()
 
-	// Firestore
-	repo, err := repository.NewFirestoreRepo(ctx, cfg.Firebase.ProjectID, cfg.Firebase.CredentialsPath)
+	// Storage (firestore | postgres | dual_write based on STORAGE_MODE)
+	repos, err := repository.NewRepoSet(ctx, cfg)
 	if err != nil {
-		logger.Error("firestore init failed", "error", err)
+		logger.Error("storage init failed", "error", err, "mode", cfg.StorageMode)
 		os.Exit(1)
 	}
-	defer repo.Close()
-	repos := repository.NewRepoSetFromFirestore(repo)
+	defer repos.Closer.Close()
 
 	// Connector
 	scr := scraper.New(cfg.Scraper.PythonPath, cfg.Scraper.ScriptPath, logger)
