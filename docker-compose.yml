@@ -1,6 +1,6 @@
 # docker-compose.yml
 # Local development environment for hukum-aneh.
-# Provides: PostgreSQL 16.
+# Provides: PostgreSQL 16 & Hukum Aneh API Server.
 # Firestore emulator not included — uses real Firebase project credentials via env.
 
 services:
@@ -22,6 +22,39 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hukum-aneh-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - STORAGE_MODE=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=hukum_aneh
+      - POSTGRES_USER=hukum
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-localdev}
+      - QDRANT_HOST=63213460-7671-4d9f-a940-3a5b70f466d1.eu-central-1-0.aws.cloud.qdrant.io
+      - QDRANT_PORT=6334
+      - QDRANT_COLLECTION=hukum_aneh_laws
+      - QDRANT_VECTOR_SIZE=1536
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - ROUTER9_BASE_URL=${ROUTER9_BASE_URL}
+      - ROUTER9_API_KEY=${ROUTER9_API_KEY}
+      - GOOGLE_CREDENTIALS_PATH=/project/google-credentials.json
+      - GOOGLE_TOKEN_PATH=/project/token.json
+      - GOOGLE_DRIVE_FOLDER_ID=${GOOGLE_DRIVE_FOLDER_ID}
+    volumes:
+      - /project/google-credentials.json:/project/google-credentials.json:ro
+      - /project/token.json:/project/token.json:rw
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:
