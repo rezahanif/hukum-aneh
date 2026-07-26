@@ -8,12 +8,62 @@ import (
 	"strings"
 )
 
+// StorageMode controls which storage backend the pipeline uses.
+//   - "firestore"  : Firestore only (current production behavior)
+//   - "postgres"   : PostgreSQL only (target end state after migration)
+//   - "dual_write" : Write to both Firestore and Postgres; reads prefer Firestore
+//     (migration cutover mode — Phase 5 dual-write pattern)
+//
+// The repository factory (Phase 5.1) reads this to decide which concrete
+// RepoSet to construct. Empty defaults to "firestore" for backward compat.
+type StorageMode string
+
+const (
+	StorageModeFirestore string = "firestore"
+	StorageModePostgres  string = "postgres"
+	StorageModeDualWrite string = "dual_write"
+)
+
 // Config holds all runtime configuration for the pipeline.
 type Config struct {
+	// StorageMode selects the storage backend. See StorageMode docs above.
+	StorageMode string `json:"storage_mode"`
+
 	Firebase struct {
 		ProjectID       string `json:"project_id"`
 		CredentialsPath string `json:"credentials_path"`
 	} `json:"firebase"`
+
+	// Postgres holds PostgreSQL connection settings. Required when
+	// StorageMode is "postgres" or "dual_write". Ignored otherwise.
+	Postgres struct {
+		Host     string `json:"host"`
+		Port     int    `json:"port"`
+		Database string `json:"database"`
+		Username string `json:"username"`
+		Password string `json:"password"`
+		SSLMode  string `json:"ssl_mode"` // disable, require, verify-ca, verify-full
+		// MaxConns caps the pgxpool size. Default 10 if unset.
+		MaxConns int `json:"max_conns"`
+		// MigrationsPath is the filesystem path to .sql files used by
+		// golang-migrate. Defaults to "backend/migrations".
+		MigrationsPath string `json:"migrations_path"`
+	} `json:"postgres"`
+
+	// Qdrant holds Qdrant vector store settings. Required when
+	// StorageMode is "postgres" (vector data lives in Qdrant, not PG).
+	// Ignored when StorageMode is "firestore".
+	Qdrant struct {
+		Host string `json:"host"` // gRPC host (default localhost)
+		Port int    `json:"port"` // gRPC port (default 6334)
+		// Collection is the Qdrant collection name. Default "hukum_aneh_laws".
+		Collection string `json:"collection"`
+		// VectorSize must match the embedding model output dim.
+		// Gemini text-embedding-004 outputs 768 dims.
+		VectorSize int `json:"vector_size"`
+		// APIKey optional; set if Qdrant is behind an auth gateway.
+		APIKey string `json:"api_key"`
+	} `json:"qdrant"`
 
 	Router9 struct {
 		BaseURL string `json:"base_url"`
@@ -77,10 +127,28 @@ func Load() (*Config, error) {
 
 	cfg := &Config{
 		SourcesPath: envOrDefault("SOURCES_PATH", "backend/configs/sources.json"),
+		StorageMode: envOrDefault("STORAGE_MODE", StorageModeFirestore),
 	}
 
 	cfg.Firebase.ProjectID = os.Getenv("FIREBASE_PROJECT_ID")
 	cfg.Firebase.CredentialsPath = envOrDefault("FIREBASE_CREDENTIALS_PATH", "backend/configs/firebase-service-account.json")
+
+	// PostgreSQL config (Phase 1.3)
+	cfg.Postgres.Host = envOrDefault("POSTGRES_HOST", "localhost")
+	cfg.Postgres.Port = envIntOrDefault("POSTGRES_PORT", 5432)
+	cfg.Postgres.Database = envOrDefault("POSTGRES_DB", "hukum_aneh")
+	cfg.Postgres.Username = envOrDefault("POSTGRES_USER", "hukum")
+	cfg.Postgres.Password = os.Getenv("POSTGRES_PASSWORD")
+	cfg.Postgres.SSLMode = envOrDefault("POSTGRES_SSL_MODE", "disable")
+	cfg.Postgres.MaxConns = envIntOrDefault("POSTGRES_MAX_CONNS", 10)
+	cfg.Postgres.MigrationsPath = envOrDefault("POSTGRES_MIGRATIONS_PATH", "backend/migrations")
+
+	// Qdrant config (Phase 1.3) — used by Stream B B-2.1 + Phase 4 of Stream A
+	cfg.Qdrant.Host = envOrDefault("QDRANT_HOST", "localhost")
+	cfg.Qdrant.Port = envIntOrDefault("QDRANT_PORT", 6334)
+	cfg.Qdrant.Collection = envOrDefault("QDRANT_COLLECTION", "hukum_aneh_laws")
+	cfg.Qdrant.VectorSize = envIntOrDefault("QDRANT_VECTOR_SIZE", 768)
+	cfg.Qdrant.APIKey = os.Getenv("QDRANT_API_KEY")
 
 	cfg.Router9.BaseURL = envOrDefault("ROUTER9_BASE_URL", "http://localhost:4000/v1")
 	cfg.Router9.APIKey = os.Getenv("ROUTER9_API_KEY")
@@ -140,4 +208,33 @@ func envOrDefault(key, defaultVal string) string {
 		return v
 	}
 	return defaultVal
+}
+
+// envIntOrDefault parses an env var as int; falls back to defaultVal on missing/invalid.
+func envIntOrDefault(key string, defaultVal int) int {
+	if v := os.Getenv(key); v != "" {
+		if val, err := strconv.Atoi(v); err == nil {
+			return val
+		}
+	}
+	return defaultVal
+}
+
+// PostgresDSN builds a libpq-style connection string from Postgres config.
+// Used by pgxpool.ParseConfig and golang-migrate.
+func (c *Config) PostgresDSN() string {
+	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
+		c.Postgres.Host,
+		c.Postgres.Port,
+		c.Postgres.Username,
+		c.Postgres.Password,
+		c.Postgres.Database,
+		c.Postgres.SSLMode,
+	)
+}
+
+// IsPostgres returns true when StorageMode is postgres OR dual_write.
+// Convenience for code paths that need to know if PG is in play at all.
+func (c *Config) IsPostgres() bool {
+	return c.StorageMode == StorageModePostgres || c.StorageMode == StorageModeDualWrite
 }
