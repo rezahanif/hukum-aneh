@@ -33,6 +33,7 @@ import (
         "github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
         "github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
         "github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
+        "github.com/rezahanif/hukum-aneh/backend/internal/services/drive"
         "github.com/rezahanif/hukum-aneh/backend/internal/validator"
         "github.com/rezahanif/hukum-aneh/backend/internal/workflow"
         "github.com/rezahanif/hukum-aneh/backend/pkg/scraper"
@@ -166,10 +167,21 @@ func main() {
         // Publishing Service
         pubSvc := publishing.New(cfg)
 
+        // Google Drive Service
+        var driveSvc *drive.Service
+        if _, err := os.Stat(cfg.Google.CredentialsPath); err == nil {
+                driveSvc, err = drive.New(ctx, cfg.Google.CredentialsPath, cfg.Google.TokenPath, cfg.Google.FolderID)
+                if err != nil {
+                        logger.Warn("google drive init failed", "error", err)
+                } else {
+                        logger.Info("google drive service initialized")
+                }
+        }
+
         // Image Validator
         val := validator.New()
 
-        engine := workflow.NewEngine(cfg, repos, registry, p, ret, qdrantClient, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
+        engine := workflow.NewEngine(cfg, repos, registry, p, ret, qdrantClient, aiSvc, imgGen, tgSvc, pubSvc, driveSvc, val, logger)
 
         if runOnce {
                 logger.Info("running discovery once")

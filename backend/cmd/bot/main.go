@@ -70,6 +70,7 @@ func main() {
                 imagegen.New(cfg),
                 tgSvc,
                 publishing.New(cfg),
+                nil,
                 validator.New(),
                 logger,
         )

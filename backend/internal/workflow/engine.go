@@ -23,6 +23,7 @@ import (
         "github.com/rezahanif/hukum-aneh/backend/internal/services/imagegen"
         "github.com/rezahanif/hukum-aneh/backend/internal/services/publishing"
         "github.com/rezahanif/hukum-aneh/backend/internal/services/telegram"
+        "github.com/rezahanif/hukum-aneh/backend/internal/services/drive"
         "github.com/rezahanif/hukum-aneh/backend/internal/validator"
 )
 
@@ -39,6 +40,7 @@ type Engine struct {
         imagegen   *imagegen.Service
         tg         *telegram.Service
         publishing *publishing.Service
+        driveSvc   *drive.Service // nullable; nil = skip Google Drive upload
         validator  *validator.ImageValidator
         logger     *slog.Logger
 }
@@ -54,6 +56,7 @@ func NewEngine(
         imgGen *imagegen.Service,
         tgSvc *telegram.Service,
         pubSvc *publishing.Service,
+        driveSvc *drive.Service,
         val *validator.ImageValidator,
         logger *slog.Logger,
 ) *Engine {
@@ -68,6 +71,7 @@ func NewEngine(
                 imagegen:   imgGen,
                 tg:         tgSvc,
                 publishing: pubSvc,
+                driveSvc:   driveSvc,
                 validator:  val,
                 logger:     logger,
         }
@@ -307,6 +311,16 @@ func (e *Engine) ProcessDocument(ctx context.Context, doc *models.LawDocument) e
 
         if _, err := rawFile.Write(rawBytes); err != nil {
                 return fmt.Errorf("write raw file: %w", err)
+        }
+
+        if e.driveSvc != nil {
+                driveID, err := e.driveSvc.UploadPDF(ctx, doc.ID+"_"+raw.Filename, bytes.NewReader(rawBytes))
+                if err != nil {
+                        e.logger.Warn("failed to upload PDF to Google Drive", "id", doc.ID, "error", err)
+                } else {
+                        rawPath = "drive://" + driveID
+                        e.logger.Info("uploaded PDF to Google Drive", "id", doc.ID, "drive_id", driveID)
+                }
         }
 
         doc.RawFilePath = rawPath

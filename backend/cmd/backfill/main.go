@@ -86,7 +86,7 @@ func main() {
         pubSvc := publishing.New(cfg)
         val := validator.New()
 
-        engine := workflow.NewEngine(cfg, repos, registry, p, ret, qdrantClient, aiSvc, imgGen, tgSvc, pubSvc, val, logger)
+        engine := workflow.NewEngine(cfg, repos, registry, p, ret, qdrantClient, aiSvc, imgGen, tgSvc, pubSvc, nil, val, logger)
 
         // Fetch parsed documents
         logger.Info("fetching parsed documents from Firestore...")

@@ -104,6 +104,12 @@ type Config struct {
         WorkerPoolSize int `json:"worker_pool_size"`
 
         SourcesPath string `json:"sources_path"`
+
+        Google struct {
+                CredentialsPath string `json:"credentials_path"`
+                TokenPath       string `json:"token_path"`
+                FolderID        string `json:"folder_id"`
+        } `json:"google"`
 }
 
 // Load reads config from environment variables.
@@ -181,6 +187,10 @@ func Load() (*Config, error) {
                         cfg.WorkerPoolSize = val
                 }
         }
+
+        cfg.Google.CredentialsPath = envOrDefault("GOOGLE_CREDENTIALS_PATH", "/project/google-credentials.json")
+        cfg.Google.TokenPath = envOrDefault("GOOGLE_TOKEN_PATH", "/project/token.json")
+        cfg.Google.FolderID = os.Getenv("GOOGLE_DRIVE_FOLDER_ID")
 
         return cfg, nil
 }
