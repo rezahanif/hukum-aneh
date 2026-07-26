@@ -11,6 +11,30 @@ import (
 	"github.com/rezahanif/hukum-aneh/backend/internal/models"
 )
 
+// ============================================================================
+// Compile-time interface assertions (Phase 0.2)
+// ============================================================================
+//
+// These force the compiler to verify that *FirestoreRepo implements every
+// method declared in the 8 repository interfaces. If any method is missing
+// or has a mismatched signature, the build fails here with a clear error.
+//
+// When adding a new method to an interface, also add the implementation to
+// FirestoreRepo. The assertion below will tell you if you forget.
+var (
+	_ LawDocumentRepo   = (*FirestoreRepo)(nil)
+	_ LawVersionRepo    = (*FirestoreRepo)(nil)
+	_ LawAnalysisRepo   = (*FirestoreRepo)(nil)
+	_ ContentDraftRepo  = (*FirestoreRepo)(nil)
+	_ ImageAssetRepo    = (*FirestoreRepo)(nil)
+	_ ApprovalRepo      = (*FirestoreRepo)(nil)
+	_ PublishingJobRepo = (*FirestoreRepo)(nil)
+	_ EmbeddingRepo     = (*FirestoreRepo)(nil)
+	_ Closer            = (*FirestoreRepo)(nil)
+)
+
+// ============================================================================
+
 // FirestoreRepo wraps Firestore client for all model CRUD.
 // Each method touches only the collections it owns.
 type FirestoreRepo struct {
