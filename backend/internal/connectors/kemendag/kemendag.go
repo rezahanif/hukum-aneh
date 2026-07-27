@@ -7,7 +7,6 @@ import (
 	"log/slog"
 	"net/http"
 	"regexp"
-	"strconv"
 	"strings"
 	"time"
 
@@ -39,9 +38,24 @@ func New(s *scraper.Scraper, logger *slog.Logger) *KemendagConnector {
 
 func (k *KemendagConnector) Name() string { return "JDIH Kemendag" }
 
-// resultLinkRe matches Kemendag law links, e.g. /peraturan/keputusan-menteri-perdagangan-republik-indonesia-nomor-1559-tahun-2026-tentang-...
-// or /peraturan/detail/3309/2
-var resultLinkRe = regexp.MustCompile(`href="https://jdih.kemendag.go.id/peraturan/detail/(\d+)/(\d+)"`)
+// resultLinkRe matches Kemendag slug-based listing links, e.g.
+//
+//	href="https://jdih.kemendag.go.id/peraturan/keputusan-menteri-perdagangan-republik-indonesia-nomor-1559-tahun-2026-tentang-..."
+var resultLinkRe = regexp.MustCompile(`href="(https://jdih\.kemendag\.go\.id/peraturan/(?:keputusan-menteri|peraturan-menteri)[^"]+)"`)
+
+// slugNumRe extracts regulation number and year from the slug, e.g.
+//
+//	"keputusan-menteri-perdagangan-republik-indonesia-nomor-1559-tahun-2026-tentang-..."
+//	→ ["nomor-1559-tahun-2026", "1559", "2026"]
+var slugNumRe = regexp.MustCompile(`nomor-(\d+)-tahun-(\d+)`)
+
+// detailDownloadRe extracts download link from detail page (full URL form).
+// Matches: href="https://jdih.kemendag.go.id/peraturan/download/3367/2"
+var detailDownloadRe = regexp.MustCompile(`href="https://jdih\.kemendag\.go\.id/peraturan/download/(\d+)/(\d+)"`)
+
+// detailDownloadRelRe extracts relative download links from detail page.
+// Some pages may use relative paths: href="/peraturan/download/3367/2"
+var detailDownloadRelRe = regexp.MustCompile(`href="(/peraturan/download/(\d+)/(\d+))"`)
 
 func (k *KemendagConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
 	var allDocs []connectors.DocumentMeta
@@ -103,8 +117,8 @@ func (k *KemendagConnector) scrapeYear(
 	var newestLaw string
 	caughtUp := false
 
-	// Try up to 10 pages per docType/year
-	const maxPages = 10
+	// Bumped from 10 to 20 for more complete coverage.
+	const maxPages = 20
 	for page := 1; page <= maxPages; page++ {
 		select {
 		case <-ctx.Done():
@@ -112,8 +126,8 @@ func (k *KemendagConnector) scrapeYear(
 		default:
 		}
 
-		// URL structure for Kemendag search/listing
 		url := fmt.Sprintf("%s/peraturan?page=%d&year=%d", k.baseURL, page, year)
+		k.logger.Debug("fetching kemendag listing", "url", url, "page", page)
 
 		html, err := k.fetchWithRetry(ctx, url, 3)
 		if err != nil {
@@ -122,8 +136,11 @@ func (k *KemendagConnector) scrapeYear(
 
 		pageDocs := k.parseListing(html, docType, year)
 		if len(pageDocs) == 0 {
+			k.logger.Debug("no results on page, stopping", "page", page)
 			break
 		}
+
+		k.logger.Debug("parsed kemendag listing page", "page", page, "count", len(pageDocs))
 
 		if page == 1 && len(pageDocs) > 0 {
 			newestLaw = pageDocs[0].LawNumber
@@ -152,37 +169,65 @@ func (k *KemendagConnector) parseListing(html string, docType string, year int) 
 	var docs []connectors.DocumentMeta
 	matches := resultLinkRe.FindAllStringSubmatch(html, -1)
 	for _, m := range matches {
-		if len(m) < 3 {
+		if len(m) < 2 {
 			continue
 		}
-		id := m[1]
-		subID := m[2]
+		slugURL := m[1]
 
-		// Construct detail URL to help debugging if needed, but download can be constructed directly!
-		downloadURL := fmt.Sprintf("%s/peraturan/download/%s/%s", k.baseURL, id, subID)
+		// Extract regulation number and year from slug.
+		slugNum := slugNumRe.FindStringSubmatch(slugURL)
+		if slugNum == nil || len(slugNum) < 3 {
+			continue
+		}
+		num := slugNum[1]
+		slugYear := slugNum[2]
 
-		// Create a best-guess LawNumber
 		prefix := "Permendag"
-		if docType == "Keputusan Menteri" {
+		if strings.Contains(strings.ToLower(slugURL), "keputusan") {
 			prefix = "Kepmendag"
 		}
-		lawNum := fmt.Sprintf("%s No. %s Tahun %s", prefix, id, strconv.Itoa(year))
+		lawNum := fmt.Sprintf("%s No. %s Tahun %s", prefix, num, slugYear)
 
 		docs = append(docs, connectors.DocumentMeta{
 			LawNumber:     lawNum,
-			Title:         fmt.Sprintf("%s Nomor %s Tahun %s", docType, id, strconv.Itoa(year)),
-			SourceURL:     downloadURL,
+			Title:         strings.ReplaceAll(slugURL[strings.LastIndex(slugURL, "/")+1:], "-", " "),
+			SourceURL:     slugURL, // detail page; Download() fetches this for download link
 			Source:        k.Name(),
 			Level:         "sectoral",
 			DocumentType:  docType,
-			PublishedDate: strconv.Itoa(year),
+			PublishedDate: slugYear,
 		})
 	}
 	return docs
 }
 
 func (k *KemendagConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, meta.SourceURL, nil)
+	// SourceURL is the detail page (slug-based). Fetch it to extract the
+	// download link (detail/download/{id}/{subid}).
+	detailHTML, err := k.fetchWithRetry(ctx, meta.SourceURL, 3)
+	if err != nil {
+		return connectors.RawDocument{}, fmt.Errorf("fetch detail page: %w", err)
+	}
+
+	// Try full URL form first, then relative path form.
+	var downloadURL string
+	var filename string
+
+	if dlMatch := detailDownloadRe.FindStringSubmatch(detailHTML); dlMatch != nil && len(dlMatch) >= 3 {
+		downloadURL = fmt.Sprintf("%s/peraturan/download/%s/%s", k.baseURL, dlMatch[1], dlMatch[2])
+		filename = fmt.Sprintf("download_%s_%s.pdf", dlMatch[1], dlMatch[2])
+		k.logger.Debug("found full URL download link", "law", meta.LawNumber, "url", downloadURL)
+	} else if dlMatch := detailDownloadRelRe.FindStringSubmatch(detailHTML); dlMatch != nil && len(dlMatch) >= 4 {
+		downloadURL = k.baseURL + dlMatch[1]
+		filename = fmt.Sprintf("download_%s_%s.pdf", dlMatch[2], dlMatch[3])
+		k.logger.Debug("found relative download link", "law", meta.LawNumber, "url", downloadURL)
+	} else {
+		k.logger.Warn("no download link on detail page",
+			"law", meta.LawNumber, "source_url", meta.SourceURL)
+		return connectors.RawDocument{}, fmt.Errorf("no download link on detail page for %s", meta.LawNumber)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, downloadURL, nil)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("build request: %w", err)
 	}
@@ -193,20 +238,51 @@ func (k *KemendagConnector) Download(ctx context.Context, meta connectors.Docume
 		return connectors.RawDocument{}, fmt.Errorf("download PDF: %w", err)
 	}
 
+	// Follow redirect if present (Kemendag download returns 302 → PDF).
+	// Note: http.Client already follows redirects by default (up to 10),
+	// but we handle it explicitly in case of edge cases.
+	if resp.StatusCode == http.StatusFound || resp.StatusCode == http.StatusMovedPermanently {
+		location := resp.Header.Get("Location")
+		resp.Body.Close()
+		if location == "" {
+			return connectors.RawDocument{}, fmt.Errorf("redirect with no Location for %s", meta.LawNumber)
+		}
+		// Resolve relative redirect URLs.
+		if !strings.HasPrefix(location, "http") {
+			location = k.baseURL + location
+		}
+		k.logger.Debug("following redirect", "law", meta.LawNumber, "location", location)
+
+		req, err = http.NewRequestWithContext(ctx, http.MethodGet, location, nil)
+		if err != nil {
+			return connectors.RawDocument{}, fmt.Errorf("build redirect request: %w", err)
+		}
+		req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+		resp, err = k.client.Do(req)
+		if err != nil {
+			return connectors.RawDocument{}, fmt.Errorf("follow redirect: %w", err)
+		}
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		resp.Body.Close()
+		return connectors.RawDocument{}, fmt.Errorf("download returned status %d for %s", resp.StatusCode, meta.LawNumber)
+	}
+
 	mime := resp.Header.Get("Content-Type")
 	if mime == "" {
 		mime = "application/pdf"
 	}
 	if strings.Contains(mime, "text/html") {
 		resp.Body.Close()
-		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (got HTML)", meta.LawNumber)
+		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (got HTML, content-type: %s)", meta.LawNumber, mime)
 	}
 
 	return connectors.RawDocument{
 		Meta:     meta,
 		Content:  resp.Body,
 		MimeType: mime,
-		Filename: fmt.Sprintf("%s.pdf", meta.LawNumber),
+		Filename: filename,
 	}, nil
 }
 

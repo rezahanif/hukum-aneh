@@ -18,8 +18,9 @@ import (
 // KemenkeuConnector scrapes jdih.kemenkeu.go.id.
 // Covers: Peraturan Menteri Keuangan (PMK) and Keputusan Menteri Keuangan (KMK).
 //
-// Site behavior: paginated search listing filtered by year + document type.
-// URL pattern: /search?jenis=PMK&tahun=2024&page=1
+// Site is now a Next.js app. The listing page embeds structured JSON data with
+// document metadata (slug, no, tahun, nomor, judul). Detail pages at /dok/{slug}
+// contain PDF download links at /api/download/{uuid}/{filename}.pdf.
 type KemenkeuConnector struct {
 	scraper  *scraper.Scraper
 	logger   *slog.Logger
@@ -42,15 +43,34 @@ func New(s *scraper.Scraper, logger *slog.Logger) *KemenkeuConnector {
 
 func (k *KemenkeuConnector) Name() string { return "JDIH Kemenkeu" }
 
-// resultLinkRe matches links to law detail pages on Kemenkeu JDIH.
-// Pattern: /view/12345/peraturan-menteri-keuangan-nomor-xxx
-var resultLinkRe = regexp.MustCompile(`href="(/view/\d+/[a-z0-9-]+)"[^>]*>\s*([^<]+)\s*</a>`)
+// listingItemRe extracts embedded JSON metadata from the Next.js listing page.
+// Matches blocks like:
+//
+//	"slug":"pmk-31-tahun-2026","bentuk":"Peraturan Menteri","no":31,"tahun":2026,
+//	"nomor":"PMK 31 TAHUN 2026","status":"Berlaku","judul":"Perubahan atas..."
+//
+// Capture groups: (1)slug (2)bentuk (3)no (4)tahun (5)nomor (6)judul
+var listingItemRe = regexp.MustCompile(
+	`"slug":"([a-z0-9-]+)"[^}]*?"bentuk":"([^"]+)"[^}]*?"no":(\d+)[^}]*?"tahun":(\d+)[^}]*?"nomor":"([^"]+)"[^}]*?"judul":"([^"]*)"`,
+)
+
+// docLinkRe is a fallback regex for <a> tags linking to /dok/... pages.
+// Capture groups: (1)full href path (/dok/slug) (2)slug
+var docLinkRe = regexp.MustCompile(`href="(/dok/([a-z0-9-]+))"`)
+
+// slugPartsRe extracts the type prefix, number, and year from a slug like "pmk-31-tahun-2026".
+// Capture groups: (1)prefix (pmk|kmk) (2)number (3)year
+var slugPartsRe = regexp.MustCompile(`^(pmk|kmk)-(\d+)-tahun-(\d+)$`)
 
 // pdfLinkRe extracts PDF download link from detail page.
-var pdfLinkRe = regexp.MustCompile(`href="(/download/\d+/[^"]+\.pdf[^"]*)"`)
+// Matches: href="/api/download/{uuid}/{filename}.pdf"
+var pdfLinkRe = regexp.MustCompile(`href="(/api/download/[^"]+\.pdf)"`)
 
-// pageInfoRe extracts total entries for pagination.
-var pageInfoRe = regexp.MustCompile(`of\s+(\d+)\s+(?:results|entries|results\.)`)
+// maxPageRe detects page numbers from pagination links in the HTML.
+var maxPageRe = regexp.MustCompile(`page=(\d+)`)
+
+// maxPages caps pagination to a reasonable limit (site shows up to page 12).
+const maxPages = 15
 
 func (k *KemenkeuConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
 	var allDocs []connectors.DocumentMeta
@@ -121,7 +141,7 @@ func (k *KemenkeuConnector) scrapeYear(
 	var newestLaw string
 	caughtUp := false
 
-	totalPages := 1
+	totalPages := maxPages
 	for page := 1; page <= totalPages; page++ {
 		select {
 		case <-ctx.Done():
@@ -131,21 +151,27 @@ func (k *KemenkeuConnector) scrapeYear(
 
 		url := fmt.Sprintf("%s/search?jenis=%s&tahun=%d&page=%d",
 			k.baseURL, jenis, year, page)
+		k.logger.Debug("fetching kemenkeu listing", "url", url, "page", page)
+
 		html, err := k.fetchWithRetry(ctx, url, 3)
 		if err != nil {
 			return nil, "", false, fmt.Errorf("fetch year=%d page=%d: %w", year, page, err)
 		}
 
+		// Detect total pages from pagination links on first page.
 		if page == 1 {
-			if m := pageInfoRe.FindStringSubmatch(html); m != nil {
-				if total, err := strconv.Atoi(m[1]); err == nil {
-					totalPages = (total + k.perPage - 1) / k.perPage
+			if detected := detectMaxPage(html); detected > 0 {
+				totalPages = detected
+				if totalPages > maxPages {
+					totalPages = maxPages
 				}
+				k.logger.Debug("detected max pages from pagination", "total", totalPages)
 			}
 		}
 
-		pageDocs := parseKemenkeuListing(html, docType, year, k.baseURL)
+		pageDocs := parseKemenkeuListing(html, docType, year, k.baseURL, k.logger)
 		if len(pageDocs) == 0 {
+			k.logger.Debug("no results on page, stopping", "page", page)
 			break
 		}
 
@@ -172,77 +198,143 @@ func (k *KemenkeuConnector) scrapeYear(
 	return docs, newestLaw, caughtUp, nil
 }
 
-func parseKemenkeuListing(html, docType string, year int, baseURL string) []connectors.DocumentMeta {
-	var docs []connectors.DocumentMeta
-	matches := resultLinkRe.FindAllStringSubmatch(html, -1)
+// detectMaxPage finds the highest page number from pagination links in the HTML.
+func detectMaxPage(html string) int {
+	matches := maxPageRe.FindAllStringSubmatch(html, -1)
+	highest := 0
 	for _, m := range matches {
+		if len(m) >= 2 {
+			if p, err := strconv.Atoi(m[1]); err == nil && p > highest {
+				highest = p
+			}
+		}
+	}
+	return highest
+}
+
+func parseKemenkeuListing(html, docType string, year int, baseURL string, logger *slog.Logger) []connectors.DocumentMeta {
+	var docs []connectors.DocumentMeta
+
+	// Strategy 1: Extract from embedded JSON (Next.js data blob).
+	jsonMatches := listingItemRe.FindAllStringSubmatch(html, -1)
+	if len(jsonMatches) > 0 {
+		for _, m := range jsonMatches {
+			if len(m) < 7 {
+				continue
+			}
+			slug := m[1]
+			num := m[3]
+			yr := m[4]
+			nomor := m[5]  // e.g. "PMK 31 TAHUN 2026"
+			judul := m[6] // e.g. "Perubahan atas Peraturan..."
+
+			// Filter by document type based on the nomor field or slug prefix.
+			nomorLower := strings.ToLower(nomor)
+			slugLower := strings.ToLower(slug)
+			isPMK := strings.HasPrefix(nomorLower, "pmk") || strings.HasPrefix(slugLower, "pmk")
+			isKMK := strings.HasPrefix(nomorLower, "kmk") || strings.HasPrefix(slugLower, "kmk")
+
+			if docType == "Peraturan Menteri Keuangan" && !isPMK {
+				continue
+			}
+			if docType == "Keputusan Menteri Keuangan" && !isKMK {
+				continue
+			}
+
+			prefix := "PMK"
+			if docType == "Keputusan Menteri Keuangan" {
+				prefix = "KMK"
+			}
+			lawNum := fmt.Sprintf("%s No. %s Tahun %s", prefix, num, yr)
+
+			docs = append(docs, connectors.DocumentMeta{
+				LawNumber:     lawNum,
+				Title:         fmt.Sprintf("%s - %s", nomor, judul),
+				SourceURL:     fmt.Sprintf("%s/dok/%s", baseURL, slug),
+				Source:        "JDIH Kemenkeu",
+				Level:         "national",
+				DocumentType:  docType,
+				PublishedDate: yr,
+			})
+		}
+
+		if len(docs) > 0 {
+			logger.Debug("parsed listing from embedded JSON", "count", len(docs))
+			return docs
+		}
+	}
+
+	// Strategy 2 (fallback): Extract from <a href="/dok/..."> tags in the rendered HTML.
+	linkMatches := docLinkRe.FindAllStringSubmatch(html, -1)
+	for _, m := range linkMatches {
 		if len(m) < 3 {
 			continue
 		}
-		href := m[1]
-		text := strings.TrimSpace(m[2])
+		slug := m[2]
 
-		lawNum := extractKemenkeuLawNumber(text, href, docType, year)
+		lawNum := extractKemenkeuLawNumberFromSlug(slug, docType, year)
 		if lawNum == "" {
 			continue
 		}
 
 		docs = append(docs, connectors.DocumentMeta{
 			LawNumber:     lawNum,
-			Title:         text,
-			SourceURL:     baseURL + href,
+			Title:         strings.ReplaceAll(slug, "-", " "),
+			SourceURL:     fmt.Sprintf("%s/dok/%s", baseURL, slug),
 			Source:        "JDIH Kemenkeu",
 			Level:         "national",
 			DocumentType:  docType,
 			PublishedDate: strconv.Itoa(year),
 		})
 	}
+
+	logger.Debug("parsed listing from link tags (fallback)", "count", len(docs))
 	return docs
 }
 
-func extractKemenkeuLawNumber(text, href, docType string, year int) string {
-	re := regexp.MustCompile(`(?i)(?:nomor|no\.?)\s*(\d+)(?:\s*(?:tahun\s*(\d+)))?`)
-	if m := re.FindStringSubmatch(text); m != nil {
-		num := m[1]
-		yr := m[2]
-		if yr == "" {
-			yr = strconv.Itoa(year)
-		}
-		prefix := "PMK"
-		if docType == "Keputusan Menteri Keuangan" {
-			prefix = "KMK"
-		}
-		return fmt.Sprintf("%s No. %s Tahun %s", prefix, num, yr)
+// extractKemenkeuLawNumberFromSlug builds a law number from a slug like "pmk-31-tahun-2026".
+func extractKemenkeuLawNumberFromSlug(slug, docType string, year int) string {
+	m := slugPartsRe.FindStringSubmatch(slug)
+	if m == nil || len(m) < 4 {
+		return ""
 	}
-	slugMatch := regexp.MustCompile(`-nomor-(\d+)(?:-tahun-(\d+))?`).FindStringSubmatch(href)
-	if len(slugMatch) >= 2 {
-		num := slugMatch[1]
-		yr := slugMatch[2]
-		if yr == "" {
-			yr = strconv.Itoa(year)
-		}
-		prefix := "PMK"
-		if docType == "Keputusan Menteri Keuangan" {
-			prefix = "KMK"
-		}
-		return fmt.Sprintf("%s No. %s Tahun %s", prefix, num, yr)
+
+	slugPrefix := strings.ToUpper(m[1]) // "PMK" or "KMK"
+
+	// Verify slug prefix matches the requested document type.
+	if docType == "Peraturan Menteri Keuangan" && slugPrefix != "PMK" {
+		return ""
 	}
-	return ""
+	if docType == "Keputusan Menteri Keuangan" && slugPrefix != "KMK" {
+		return ""
+	}
+
+	return fmt.Sprintf("%s No. %s Tahun %s", slugPrefix, m[2], m[3])
 }
 
 func (k *KemenkeuConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
-	// Fetch detail page first to get PDF URL
+	// SourceURL points to the detail page: /dok/{slug}
+	// Fetch it to extract the /api/download/... PDF link.
 	html, err := k.fetchWithRetry(ctx, meta.SourceURL, 3)
 	if err != nil {
-		return connectors.RawDocument{}, fmt.Errorf("fetch detail: %w", err)
+		return connectors.RawDocument{}, fmt.Errorf("fetch detail page %s: %w", meta.SourceURL, err)
 	}
 
-	pdfURL := extractKemenkeuPDFURL(html, k.baseURL)
-	if pdfURL == "" {
-		return connectors.RawDocument{}, fmt.Errorf("no PDF link found on detail page for %s", meta.LawNumber)
+	pdfPath := extractKemenkeuPDFPath(html)
+	if pdfPath == "" {
+		return connectors.RawDocument{}, fmt.Errorf("no PDF link found on detail page for %s (url: %s)", meta.LawNumber, meta.SourceURL)
 	}
 
-	resp, err := k.client.Get(pdfURL)
+	pdfURL := k.baseURL + pdfPath
+	k.logger.Debug("downloading PDF", "url", pdfURL, "law", meta.LawNumber)
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, pdfURL, nil)
+	if err != nil {
+		return connectors.RawDocument{}, fmt.Errorf("build PDF request: %w", err)
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36")
+
+	resp, err := k.client.Do(req)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("download PDF: %w", err)
 	}
@@ -253,7 +345,7 @@ func (k *KemenkeuConnector) Download(ctx context.Context, meta connectors.Docume
 	}
 	if strings.Contains(mime, "text/html") {
 		resp.Body.Close()
-		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (got HTML)", meta.LawNumber)
+		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (got HTML, content-type: %s)", meta.LawNumber, mime)
 	}
 
 	return connectors.RawDocument{
@@ -264,13 +356,11 @@ func (k *KemenkeuConnector) Download(ctx context.Context, meta connectors.Docume
 	}, nil
 }
 
-func extractKemenkeuPDFURL(html, baseURL string) string {
+// extractKemenkeuPDFPath returns the /api/download/... path from a detail page,
+// or empty string if not found. Uses the first matching PDF link (Dokumen).
+func extractKemenkeuPDFPath(html string) string {
 	if m := pdfLinkRe.FindStringSubmatch(html); m != nil {
-		href := m[1]
-		if strings.HasPrefix(href, "http") {
-			return href
-		}
-		return baseURL + href
+		return m[1]
 	}
 	return ""
 }

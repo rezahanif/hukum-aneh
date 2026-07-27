@@ -39,8 +39,17 @@ func New(s *scraper.Scraper, logger *slog.Logger) *KemnakerConnector {
 
 func (k *KemnakerConnector) Name() string { return "JDIH Kemnaker" }
 
-// resultLinkRe matches detail link, e.g. /peraturan/detail/3043/undang-undang-nomor-2-tahun-2026
-var resultLinkRe = regexp.MustCompile(`href="https://jdih.kemnaker.go.id/peraturan/detail/(\d+)/([a-z0-9-]+)"[^>]*>\s*([^<]+)\s*</a>`)
+// resultLinkRe matches detail links from Kemnaker listing page.
+// Matches: href="https://jdih.kemnaker.go.id/peraturan/detail/3043/slug-text"
+// Capture groups: (1)id (2)slug
+var resultLinkRe = regexp.MustCompile(`href="https://jdih\.kemnaker\.go\.id/peraturan/detail/(\d+)/([a-z0-9-]+)"`)
+
+// linkTextRe extracts the visible text content between > and </a>.
+var linkTextRe = regexp.MustCompile(`>([^<]+)</a>`)
+
+// slugNumRe extracts number and year from the slug, e.g.
+// "undang-undang-nomor-2-tahun-2026" → "2", "2026"
+var slugNumRe = regexp.MustCompile(`nomor-(\d+)-tahun-(\d+)`)
 
 func (k *KemnakerConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
 	var allDocs []connectors.DocumentMeta
@@ -102,8 +111,8 @@ func (k *KemnakerConnector) scrapeYear(
 	var newestLaw string
 	caughtUp := false
 
-	// Try up to 10 pages per docType/year
-	const maxPages = 10
+	// Bumped from 10 to 20 for more complete coverage.
+	const maxPages = 20
 	for page := 1; page <= maxPages; page++ {
 		select {
 		case <-ctx.Done():
@@ -111,9 +120,9 @@ func (k *KemnakerConnector) scrapeYear(
 		default:
 		}
 
-		// URL structure for Kemnaker listing
 		url := fmt.Sprintf("%s/peraturan?keyword=&nomor=&tahun=%d&status=&terjemahan=&per_page=%d&hal=%d",
 			k.baseURL, year, k.perPage, page)
+		k.logger.Debug("fetching kemnaker listing", "url", url, "page", page)
 
 		html, err := k.fetchWithRetry(ctx, url, 3)
 		if err != nil {
@@ -122,8 +131,11 @@ func (k *KemnakerConnector) scrapeYear(
 
 		pageDocs := k.parseListing(html, docType, year)
 		if len(pageDocs) == 0 {
+			k.logger.Debug("no results on page, stopping", "page", page)
 			break
 		}
+
+		k.logger.Debug("parsed kemnaker listing page", "page", page, "count", len(pageDocs))
 
 		if page == 1 && len(pageDocs) > 0 {
 			newestLaw = pageDocs[0].LawNumber
@@ -150,29 +162,69 @@ func (k *KemnakerConnector) scrapeYear(
 
 func (k *KemnakerConnector) parseListing(html string, docType string, year int) []connectors.DocumentMeta {
 	var docs []connectors.DocumentMeta
-	matches := resultLinkRe.FindAllStringSubmatch(html, -1)
-	for _, m := range matches {
-		if len(m) < 4 {
-			continue
-		}
-		id := m[1]
-		slug := m[2]
-		text := strings.TrimSpace(m[3])
+	matches := resultLinkRe.FindAllStringSubmatchIndex(html, -1)
 
-		// Skip irrelevant categories if text has them
-		if docType == "Peraturan Menteri" && !strings.Contains(strings.ToLower(text), "menteri") {
-			continue
-		}
-		if docType == "Keputusan Menteri" && !strings.Contains(strings.ToLower(text), "keputusan") {
-			continue
+	for _, loc := range matches {
+		// loc[2:4] is group 1 (id), loc[4:6] is group 2 (slug)
+		id := html[loc[2]:loc[3]]
+		slug := html[loc[4]:loc[5]]
+
+		// Extract the link text: find the > ... </a> after the href match.
+		afterMatch := html[loc[1]:]
+		text := ""
+		if textMatch := linkTextRe.FindStringSubmatchIndex(afterMatch); textMatch != nil {
+			text = strings.TrimSpace(afterMatch[textMatch[2]:textMatch[3]])
 		}
 
-		lawNum := extractKemnakerLawNumber(text, slug, docType, year)
-		if lawNum == "" {
+		// If no text found, build a title from the slug.
+		if text == "" {
+			text = strings.ReplaceAll(slug, "-", " ")
+		}
+
+		// Extract number and year from the slug first (most reliable).
+		slugNum := slugNumRe.FindStringSubmatch(slug)
+		var num, yr string
+		if slugNum != nil && len(slugNum) >= 3 {
+			num = slugNum[1]
+			yr = slugNum[2]
+		}
+
+		// If slug parsing failed, try the text.
+		if num == "" {
+			re := regexp.MustCompile(`(?i)(?:nomor|no\.?)\s*(\d+)(?:\s*(?:tahun\s*(\d+)))?`)
+			if m := re.FindStringSubmatch(text); m != nil {
+				num = m[1]
+				yr = m[2]
+			}
+		}
+
+		if num == "" {
 			continue
 		}
 
-		// We can construct the direct download PDF link without loading detail page!
+		if yr == "" {
+			yr = strconv.Itoa(year)
+		}
+
+		// Classify by text/slug content.
+		textLower := strings.ToLower(text)
+		slugLower := strings.ToLower(slug)
+		isKeputusan := strings.Contains(textLower, "keputusan") || strings.Contains(slugLower, "keputusan")
+
+		if docType == "Keputusan Menteri" && !isKeputusan {
+			continue
+		}
+		if docType == "Peraturan Menteri" && isKeputusan {
+			continue
+		}
+
+		prefix := "Permenaker"
+		if docType == "Keputusan Menteri" {
+			prefix = "Kepmenaker"
+		}
+		lawNum := fmt.Sprintf("%s No. %s Tahun %s", prefix, num, yr)
+
+		// Direct download URL — no need to load detail page.
 		sourceURL := fmt.Sprintf("%s/download.php?id=%s", k.baseURL, id)
 
 		docs = append(docs, connectors.DocumentMeta{
@@ -182,30 +234,15 @@ func (k *KemnakerConnector) parseListing(html string, docType string, year int) 
 			Source:        k.Name(),
 			Level:         "sectoral",
 			DocumentType:  docType,
-			PublishedDate: strconv.Itoa(year),
+			PublishedDate: yr,
 		})
 	}
 	return docs
 }
 
-func extractKemnakerLawNumber(text, slug, docType string, year int) string {
-	re := regexp.MustCompile(`(?i)(?:nomor|no\.?)\s*(\d+)(?:\s*(?:tahun\s*(\d+)))?`)
-	if m := re.FindStringSubmatch(text); m != nil {
-		num := m[1]
-		yr := m[2]
-		if yr == "" {
-			yr = strconv.Itoa(year)
-		}
-		prefix := "Permenaker"
-		if docType == "Keputusan Menteri" {
-			prefix = "Kepmenaker"
-		}
-		return fmt.Sprintf("%s No. %s Tahun %s", prefix, num, yr)
-	}
-	return ""
-}
-
 func (k *KemnakerConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
+	k.logger.Debug("downloading PDF", "url", meta.SourceURL, "law", meta.LawNumber)
+
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, meta.SourceURL, nil)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("build request: %w", err)
@@ -217,13 +254,41 @@ func (k *KemnakerConnector) Download(ctx context.Context, meta connectors.Docume
 		return connectors.RawDocument{}, fmt.Errorf("download PDF: %w", err)
 	}
 
+	// Follow redirect if the server returns one.
+	if resp.StatusCode == http.StatusFound || resp.StatusCode == http.StatusMovedPermanently {
+		location := resp.Header.Get("Location")
+		resp.Body.Close()
+		if location == "" {
+			return connectors.RawDocument{}, fmt.Errorf("redirect with no Location for %s", meta.LawNumber)
+		}
+		if !strings.HasPrefix(location, "http") {
+			location = k.baseURL + location
+		}
+		k.logger.Debug("following redirect", "law", meta.LawNumber, "location", location)
+
+		req, err = http.NewRequestWithContext(ctx, http.MethodGet, location, nil)
+		if err != nil {
+			return connectors.RawDocument{}, fmt.Errorf("build redirect request: %w", err)
+		}
+		req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+		resp, err = k.client.Do(req)
+		if err != nil {
+			return connectors.RawDocument{}, fmt.Errorf("follow redirect: %w", err)
+		}
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		resp.Body.Close()
+		return connectors.RawDocument{}, fmt.Errorf("download returned status %d for %s", resp.StatusCode, meta.LawNumber)
+	}
+
 	mime := resp.Header.Get("Content-Type")
 	if mime == "" {
 		mime = "application/pdf"
 	}
 	if strings.Contains(mime, "text/html") {
 		resp.Body.Close()
-		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (got HTML)", meta.LawNumber)
+		return connectors.RawDocument{}, fmt.Errorf("no PDF available for %s (got HTML, content-type: %s)", meta.LawNumber, mime)
 	}
 
 	return connectors.RawDocument{
