@@ -1,8 +1,12 @@
 {
-  "last_known_laws": {
-    "Undang-Undang (UU)": {
-      "last_known_law_number": "UU No. 3 Tahun 2026",
-      "timestamp": "2026-07-24T15:19:32.023465295Z"
+  "cursors": {
+    "Keputusan Menteri": {
+      "last_known_id": "Kepmendag No. 1559 Tahun 2026",
+      "timestamp": "2026-07-28T07:33:10.973639287Z"
+    },
+    "Peraturan Menteri": {
+      "last_known_id": "Kepmendag No. 1559 Tahun 2026",
+      "timestamp": "2026-07-28T07:32:42.587191057Z"
     }
   }
 }
