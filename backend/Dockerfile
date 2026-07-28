@@ -1,10 +1,17 @@
 # Build stage
 FROM golang:1.25-alpine AS builder
 WORKDIR /app
-COPY go.mod go.sum ./
+
+# Copy go module files
+COPY go.mod go.sum* ./
 RUN go mod download
+
+# Copy the rest of the source code
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -buildvcs=false -o api ./backend/cmd/api
+
+# Run tidy to resolve any missing module declarations, then build
+RUN go mod tidy && \
+    CGO_ENABLED=0 GOOS=linux go build -buildvcs=false -o api ./backend/cmd/api
 
 # Run stage
 FROM alpine:3.19
