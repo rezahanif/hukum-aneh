@@ -4,7 +4,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -buildvcs=false -o api ./cmd/api
+RUN CGO_ENABLED=0 GOOS=linux go build -buildvcs=false -o api ./backend/cmd/api
 
 # Run stage
 FROM alpine:3.19
