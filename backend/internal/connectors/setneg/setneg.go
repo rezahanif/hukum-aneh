@@ -1,12 +1,13 @@
 package setneg
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
-	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -16,42 +17,51 @@ import (
 )
 
 // SetnegConnector scrapes jdih.setneg.go.id (JDIH Sekretariat Negara).
-// Primary source for Peraturan Presiden (Perpres).
+// Primary source for Peraturan Presiden (Perpres), Keppres, Inpres, PP, Perpu.
 //
-// Site behavior: search-results page with year filter, paginated 10 per page.
-// Cursor key: law number (e.g. "PERPRES NOMOR 12 TAHUN 2026").
-// We crawl current year + previous year — older years are static and can be
-// backfilled on demand.
+// Site migrated to Next.js with JSON API. Data is fetched via POST to
+// /api/hukumproduk/produkhukum with JSON body:
+//
+//	{"tentang":"","p_lihan":"semua","jns":["PERPRES"],"thn":["2026"],
+//	 "status":"","terx":"All","sortOrder":"desc","length":10,"start":0}
+//
+// The API returns: {data: [{idperaturan, no_peraturan, tahun, tentang, jns, nama_jenis, ...}]}
 type SetnegConnector struct {
 	scraper  *scraper.Scraper
 	logger   *slog.Logger
 	client   *http.Client
 	baseURL  string
 	perPage  int
-	docTypes []string
+	docTypes []docTypeConfig
+}
+
+type docTypeConfig struct {
+	Label    string // display label for logging
+	JNS      string // API jns filter value
+	DocType  string // DocumentType for DocumentMeta
+	Prefix   string // law number prefix
 }
 
 func New(s *scraper.Scraper, logger *slog.Logger) *SetnegConnector {
 	return &SetnegConnector{
-		scraper:  s,
-		logger:   logger,
-		client:   &http.Client{Timeout: 30 * time.Second},
-		baseURL:  "https://jdih.setneg.go.id",
-		perPage:  10,
-		docTypes: []string{"Peraturan Presiden (Perpres)"},
+		scraper: s,
+		logger:  logger,
+		client:  &http.Client{Timeout: 30 * time.Second},
+		baseURL: "https://jdih.setneg.go.id",
+		perPage: 10,
+		docTypes: []docTypeConfig{
+			{Label: "Perpres", JNS: "PERPRES", DocType: "Peraturan Presiden (Perpres)", Prefix: "Perpres"},
+			{Label: "Keppres", JNS: "KEPPRES", DocType: "Keputusan Presiden (Keppres)", Prefix: "Keppres"},
+			{Label: "Inpres", JNS: "INPRES", DocType: "Instruksi Presiden (Inpres)", Prefix: "Inpres"},
+			{Label: "PP", JNS: "PP", DocType: "Peraturan Pemerintah (PP)", Prefix: "PP"},
+			{Label: "Perpu", JNS: "PERPU", DocType: "Perppu", Prefix: "Perppu"},
+		},
 	}
 }
 
 func (s *SetnegConnector) Name() string { return "JDIH Setneg" }
 
-// resultLinkRe matches links to perpres detail page on Setneg.
-var resultLinkRe = regexp.MustCompile(`href="(/peraturan[^"]+)"[^>]*>([^<]+)<`)
-
-// pageInfoRe extracts "Showing X to Y of Z entries" for pagination calc.
-var pageInfoRe = regexp.MustCompile(`Showing\s+\d+\s+to\s+\d+\s+of\s+(\d+)\s+entries`)
-
-// CheckUpdates polls Setneg for new Perpres by year. We crawl current year
-// first; if cursor indicates a year boundary, also crawl previous year.
+// CheckUpdates polls Setneg API for new laws. Crawls current year + previous year.
 func (s *SetnegConnector) CheckUpdates(ctx context.Context) ([]connectors.DocumentMeta, error) {
 	var allDocs []connectors.DocumentMeta
 	seen := make(map[string]bool)
@@ -61,18 +71,18 @@ func (s *SetnegConnector) CheckUpdates(ctx context.Context) ([]connectors.Docume
 	now := time.Now()
 	years := []int{now.Year(), now.Year() - 1}
 
-	for _, docType := range s.docTypes {
-		cursor, hasCursor := cursors.Get(docType)
+	for _, dt := range s.docTypes {
+		cursor, hasCursor := cursors.Get(dt.DocType)
 		s.logger.Info("scraping JDIH Setneg",
-			"type", docType,
+			"type", dt.Label,
 			"has_cursor", hasCursor,
 			"cursor_law", cursor.LastKnownID,
 		)
 
 		for _, year := range years {
-			docs, newest, caughtUp, err := s.scrapeYear(ctx, docType, year, cursor, hasCursor)
+			docs, newest, caughtUp, err := s.scrapeYear(ctx, dt, year, cursor, hasCursor)
 			if err != nil {
-				s.logger.Warn("scrape year failed", "type", docType, "year", year, "error", err)
+				s.logger.Warn("scrape year failed", "type", dt.Label, "year", year, "error", err)
 				continue
 			}
 
@@ -84,9 +94,8 @@ func (s *SetnegConnector) CheckUpdates(ctx context.Context) ([]connectors.Docume
 				allDocs = append(allDocs, d)
 			}
 
-			// Queue cursor update for batch save
 			if !caughtUp && newest != "" {
-				cursorUpdates[docType] = connectors.Cursor{
+				cursorUpdates[dt.DocType] = connectors.Cursor{
 					LastKnownID: newest,
 					Timestamp:   time.Now(),
 				}
@@ -94,7 +103,6 @@ func (s *SetnegConnector) CheckUpdates(ctx context.Context) ([]connectors.Docume
 		}
 	}
 
-	// Atomic batch save — all cursor updates in one locked write
 	if len(cursorUpdates) > 0 {
 		if err := connectors.SaveAll(cursorUpdates); err != nil {
 			s.logger.Warn("batch save cursors failed", "error", err)
@@ -104,10 +112,40 @@ func (s *SetnegConnector) CheckUpdates(ctx context.Context) ([]connectors.Docume
 	return allDocs, nil
 }
 
-// scrapeYear crawls a single year listing. Returns (docs, newestLaw, caughtUp, err).
+// apiRequest is the POST body for /api/hukumproduk/produkhukum.
+type apiRequest struct {
+	Tentang  string   `json:"tentang"`
+	PLihan   string   `json:"p_lihan"`
+	JNS      []string `json:"jns"`
+	Thn      []string `json:"thn"`
+	Status   string   `json:"status"`
+	Terx     string   `json:"terx"`
+	SortOrder string  `json:"sortOrder"`
+	Length   int      `json:"length"`
+	Start    int      `json:"start"`
+}
+
+// apiResponse is the JSON response from the API.
+type apiResponse struct {
+	Data []apiItem `json:"data"`
+	Jml  int       `json:"jml"` // total count
+}
+
+// apiItem represents a single regulation from the API.
+type apiItem struct {
+	IDPeraturan  string `json:"idperaturan"`
+	NoPeraturan  string `json:"no_peraturan"`
+	Tahun        string `json:"tahun"`
+	Tentang      string `json:"tentang"`
+	JNS          string `json:"jns"`
+	NamaJenis    string `json:"nama_jenis"`
+	Files        string `json:"files"`
+	StatusHukum  string `json:"status_hukum"`
+}
+
 func (s *SetnegConnector) scrapeYear(
 	ctx context.Context,
-	docType string,
+	dt docTypeConfig,
 	year int,
 	cursor connectors.Cursor,
 	hasCursor bool,
@@ -116,49 +154,85 @@ func (s *SetnegConnector) scrapeYear(
 	var newestLaw string
 	caughtUp := false
 
-	// First, find total pages from page 1
-	totalPages := 1
-	for page := 1; page <= totalPages; page++ {
+	// Fetch first page to get total count
+	start := 0
+	for {
 		select {
 		case <-ctx.Done():
 			return nil, "", false, ctx.Err()
 		default:
 		}
 
-		url := fmt.Sprintf("%s/?perPage=%d&page=%d&tahun=%d&jenis=Perpres",
-			s.baseURL, s.perPage, page, year)
-		html, err := s.fetchWithRetry(ctx, url, 3)
+		reqBody := apiRequest{
+			Tentang:   "",
+			PLihan:    "semua",
+			JNS:       []string{dt.JNS},
+			Thn:       []string{strconv.Itoa(year)},
+			Status:    "",
+			Terx:      "All",
+			SortOrder: "desc",
+			Length:    s.perPage,
+			Start:     start,
+		}
+
+		bodyBytes, err := json.Marshal(reqBody)
 		if err != nil {
-			return nil, "", false, fmt.Errorf("fetch year=%d page=%d: %w", year, page, err)
+			return nil, "", false, fmt.Errorf("marshal request: %w", err)
 		}
 
-		// On first page, learn total count
-		if page == 1 {
-			if m := pageInfoRe.FindStringSubmatch(html); m != nil {
-				if total, err := strconv.Atoi(m[1]); err == nil {
-					totalPages = (total + s.perPage - 1) / s.perPage
-				}
-			}
+		url := fmt.Sprintf("%s/api/hukumproduk/produkhukum", s.baseURL)
+		respData, err := s.postWithRetry(ctx, url, bodyBytes, 3)
+		if err != nil {
+			return nil, "", false, fmt.Errorf("fetch year=%d start=%d: %w", year, start, err)
 		}
 
-		pageDocs := parseListing(html, year, s.baseURL)
-		if len(pageDocs) == 0 {
+		var apiResp apiResponse
+		if err := json.Unmarshal(respData, &apiResp); err != nil {
+			s.logger.Warn("failed to parse API response", "error", err, "body_len", len(respData))
 			break
 		}
 
-		// Track newest (first law on page 1 of current year)
-		if page == 1 && year == time.Now().Year() && len(pageDocs) > 0 {
-			newestLaw = pageDocs[0].LawNumber
+		if len(apiResp.Data) == 0 {
+			break
 		}
 
-		for _, d := range pageDocs {
+		for _, item := range apiResp.Data {
+			num, err := strconv.Atoi(item.NoPeraturan)
+			if err != nil {
+				continue
+			}
+			lawNum := fmt.Sprintf("%s No. %d Tahun %s", dt.Prefix, num, item.Tahun)
+
+			d := connectors.DocumentMeta{
+				LawNumber:     lawNum,
+				Title:          item.Tentang,
+				SourceURL:      fmt.Sprintf("%s/api/hukumproduk/detailperaturan?jns=%s&no=%s&thn=%s", s.baseURL, dt.JNS, item.NoPeraturan, item.Tahun),
+				Source:         "JDIH Setneg",
+				Level:          "national",
+				DocumentType:   dt.DocType,
+				PublishedDate:  item.Tahun,
+			}
+			docs = append(docs, d)
+
 			if hasCursor && d.LawNumber == cursor.LastKnownID {
 				s.logger.Info("hit last known law, caught up",
-					"type", docType, "year", year, "law", d.LawNumber)
+					"type", dt.Label, "year", year, "law", d.LawNumber)
 				caughtUp = true
 				return docs, "", true, nil
 			}
-			docs = append(docs, d)
+		}
+
+		// Track newest (first item on first page of current year)
+		if start == 0 && year == time.Now().Year() && len(apiResp.Data) > 0 {
+			item := apiResp.Data[0]
+			num, _ := strconv.Atoi(item.NoPeraturan)
+			newestLaw = fmt.Sprintf("%s No. %d Tahun %s", dt.Prefix, num, item.Tahun)
+		}
+
+		// Check if we've fetched all
+		start += s.perPage
+		if start >= apiResp.Jml {
+			break
 		}
 
 		if caughtUp {
@@ -170,69 +244,43 @@ func (s *SetnegConnector) scrapeYear(
 	return docs, newestLaw, caughtUp, nil
 }
 
-// parseListing extracts law metadata from a Setneg search-results page.
-func parseListing(html string, year int, baseURL string) []connectors.DocumentMeta {
-	var docs []connectors.DocumentMeta
-	matches := resultLinkRe.FindAllStringSubmatch(html, -1)
-	for _, m := range matches {
-		if len(m) < 3 {
-			continue
-		}
-		href := m[1]
-		text := strings.TrimSpace(m[2])
-
-		// Extract law number from link text (e.g. "PERPRES NOMOR 12 TAHUN 2026")
-		// Or from URL slug
-		lawNum := extractLawNumber(text, href)
-		if lawNum == "" {
-			continue
-		}
-
-		docs = append(docs, connectors.DocumentMeta{
-			LawNumber:     lawNum,
-			Title:         text,
-			SourceURL:     baseURL + href,
-			Source:        "JDIH Setneg",
-			Level:         "national",
-			DocumentType:  "Peraturan Presiden (Perpres)",
-			PublishedDate: strconv.Itoa(year),
-		})
-	}
-	return docs
-}
-
-func extractLawNumber(text, href string) string {
-	// Try parsing from text first
-	re := regexp.MustCompile(`(?i)(?:nomor|no\.?)\s*(\d+)\s*(?:tahun\s*(\d+))?`)
-	if m := re.FindStringSubmatch(text); m != nil {
-		num := m[1]
-		yr := m[2]
-		if yr == "" {
-			yr = strconv.Itoa(time.Now().Year())
-		}
-		return fmt.Sprintf("Perpres No. %s Tahun %s", num, yr)
-	}
-	// Fall back to URL slug
-	slugMatch := regexp.MustCompile(`/perpres[-/](\d+)[-/](\d+)`).FindStringSubmatch(href)
-	if len(slugMatch) == 3 {
-		return fmt.Sprintf("Perpres No. %s Tahun %s", slugMatch[1], slugMatch[2])
-	}
-	return ""
-}
-
+// Download fetches the PDF for a Setneg regulation.
+// The detail API may be WAF-protected, so we construct a direct download URL
+// from the detail API endpoint, then fetch the detail page to find PDF links.
 func (s *SetnegConnector) Download(ctx context.Context, meta connectors.DocumentMeta) (connectors.RawDocument, error) {
-	// Fetch detail page first to get PDF URL
-	html, err := s.fetchWithRetry(ctx, meta.SourceURL, 3)
+	// Try fetching the detail page to find PDF download links
+	// The detail page URL pattern: /peraturan/{jns}-{no}-{tahun}
+	detailURL := fmt.Sprintf("%s/peraturan?jns=%s&no=%s&thn=%s",
+		s.baseURL, extractJNSFromMeta(meta), extractNoFromMeta(meta), extractYearFromMeta(meta))
+
+	html, err := s.fetchWithRetry(ctx, detailURL, 3)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("fetch detail: %w", err)
 	}
 
+	// Look for PDF links in the rendered HTML
 	pdfURL := extractPDFURL(html, s.baseURL)
 	if pdfURL == "" {
-		return connectors.RawDocument{}, fmt.Errorf("no PDF link found on detail page for %s", meta.LawNumber)
+		// Also try the detail API directly
+		detailAPIURL := fmt.Sprintf("%s/api/hukumproduk/detailperaturan?jns=%s&no=%s&thn=%s",
+			s.baseURL, extractJNSFromMeta(meta), extractNoFromMeta(meta), extractYearFromMeta(meta))
+		apiHTML, err := s.fetchWithRetry(ctx, detailAPIURL, 2)
+		if err == nil {
+			pdfURL = extractPDFURL(apiHTML, s.baseURL)
+		}
 	}
 
-	resp, err := s.client.Get(pdfURL)
+	if pdfURL == "" {
+		return connectors.RawDocument{}, fmt.Errorf("no PDF link found for %s (detailURL: %s)", meta.LawNumber, detailURL)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, pdfURL, nil)
+	if err != nil {
+		return connectors.RawDocument{}, fmt.Errorf("build PDF request: %w", err)
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36")
+
+	resp, err := s.client.Do(req)
 	if err != nil {
 		return connectors.RawDocument{}, fmt.Errorf("download PDF: %w", err)
 	}
@@ -250,8 +298,45 @@ func (s *SetnegConnector) Download(ctx context.Context, meta connectors.Document
 		Meta:     meta,
 		Content:  resp.Body,
 		MimeType: mime,
-		Filename: extractFilename(pdfURL),
+		Filename: fmt.Sprintf("%s.pdf", meta.LawNumber),
 	}, nil
+}
+
+// extractJNSFromMeta extracts the JNS code from DocumentMeta fields.
+func extractJNSFromMeta(meta connectors.DocumentMeta) string {
+	dt := strings.ToLower(meta.DocumentType)
+	switch {
+	case strings.Contains(dt, "perpres"):
+		return "PERPRES"
+	case strings.Contains(dt, "keppres"):
+		return "KEPPRES"
+	case strings.Contains(dt, "inpres"):
+		return "INPRES"
+	case strings.Contains(dt, "peraturan pemerintah"):
+		return "PP"
+	case strings.Contains(dt, "perppu"):
+		return "PERPU"
+	default:
+		return "PERPRES"
+	}
+}
+
+// extractNoFromMeta extracts the regulation number from LawNumber.
+func extractNoFromMeta(meta connectors.DocumentMeta) string {
+	re := regexp.MustCompile(`No\.\s*(\d+)\s*Tahun`)
+	if m := re.FindStringSubmatch(meta.LawNumber); len(m) >= 2 {
+		return m[1]
+	}
+	return ""
+}
+
+// extractYearFromMeta extracts the year from LawNumber.
+func extractYearFromMeta(meta connectors.DocumentMeta) string {
+	re := regexp.MustCompile(`Tahun\s+(\d+)`)
+	if m := re.FindStringSubmatch(meta.LawNumber); len(m) >= 2 {
+		return m[1]
+	}
+	return ""
 }
 
 var pdfLinkRe = regexp.MustCompile(`href="([^"]+\.pdf[^"]*)"`)
@@ -283,6 +368,7 @@ func (s *SetnegConnector) fetchWithRetry(ctx context.Context, url string, maxRet
 			return "", err
 		}
 		req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36")
+		req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 
 		resp, err := s.client.Do(req)
 		if err != nil {
@@ -308,11 +394,37 @@ func (s *SetnegConnector) fetchWithRetry(ctx context.Context, url string, maxRet
 	return "", lastErr
 }
 
-func extractFilename(url string) string {
-	parts := strings.Split(url, "/")
-	filename := parts[len(parts)-1]
-	if idx := strings.Index(filename, "?"); idx != -1 {
-		filename = filename[:idx]
+func (s *SetnegConnector) postWithRetry(ctx context.Context, url string, body []byte, maxRetries int) ([]byte, error) {
+	var lastErr error
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(body))
+		if err != nil {
+			return nil, err
+		}
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36")
+		req.Header.Set("Accept", "application/json")
+
+		resp, err := s.client.Do(req)
+		if err != nil {
+			lastErr = err
+			time.Sleep(time.Duration(attempt+1) * time.Second)
+			continue
+		}
+
+		if resp.StatusCode != http.StatusOK {
+			resp.Body.Close()
+			lastErr = fmt.Errorf("status %d", resp.StatusCode)
+			time.Sleep(time.Duration(attempt+1) * time.Second)
+			continue
+		}
+
+		respBody, err := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		return respBody, nil
 	}
-	return filename
+	return nil, lastErr
 }
