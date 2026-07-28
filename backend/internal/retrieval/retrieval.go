@@ -1,16 +1,18 @@
 package retrieval
 
 import (
+        "bytes"
         "container/heap"
         "context"
+        "encoding/json"
         "errors"
         "fmt"
         "log/slog"
         "math"
+        "net/http"
         "strings"
 
         "cloud.google.com/go/firestore"
-        "google.golang.org/genai"
 
         "github.com/rezahanif/hukum-aneh/backend/internal/config"
         "github.com/rezahanif/hukum-aneh/backend/internal/repository"
@@ -25,18 +27,12 @@ type Service struct {
         cfg        *config.Config
         repo       repository.EmbeddingRepo // changed from *repository.FirestoreRepo in Phase 0.4
         qdrant     *QdrantClient            // nil = brute-force fallback; non-nil = use Qdrant
-        client     *genai.Client
         sem        chan struct{}
         logger     *slog.Logger
         vectorSize int // embedding dimension, from cfg.Qdrant.VectorSize or default 1536
 }
 
 func New(ctx context.Context, cfg *config.Config, repo repository.EmbeddingRepo, qdrantClient *QdrantClient) (*Service, error) {
-        client, err := genai.NewClient(ctx, &genai.ClientConfig{APIKey: cfg.Gemini.APIKey})
-        if err != nil {
-                return nil, fmt.Errorf("create genai client: %w", err)
-        }
-
         var logger *slog.Logger
         if qdrantClient != nil {
                 logger = qdrantClient.logger
@@ -55,14 +51,25 @@ func New(ctx context.Context, cfg *config.Config, repo repository.EmbeddingRepo,
                 cfg:        cfg,
                 repo:       repo,
                 qdrant:     qdrantClient,
-                client:     client,
                 sem:        make(chan struct{}, 2),
                 logger:     logger,
                 vectorSize: vectorSize,
         }, nil
 }
 
-// GenerateEmbedding calls Gemini API (gemini-embedding-2) to generate embedding vector for text.
+type Router9EmbeddingRequest struct {
+        Model      string `json:"model"`
+        Input      string `json:"input"`
+        Dimensions int    `json:"dimensions,omitempty"`
+}
+
+type Router9EmbeddingResponse struct {
+        Data []struct {
+                Embedding []float32 `json:"embedding"`
+        } `json:"data"`
+}
+
+// GenerateEmbedding calls Router9 embedding API to generate embedding vector for text.
 // Returns the embedding vector, a boolean indicating if a mock fallback was used, and any error.
 func (s *Service) GenerateEmbedding(ctx context.Context, text string) ([]float32, bool, error) {
         select {
@@ -72,32 +79,54 @@ func (s *Service) GenerateEmbedding(ctx context.Context, text string) ([]float32
         }
         defer func() { <-s.sem }()
 
-        dims := int32(s.vectorSize)
-        res, err := s.client.Models.EmbedContent(ctx, "gemini-embedding-2", genai.Text(text), &genai.EmbedContentConfig{
-                OutputDimensionality: &dims,
-        })
+        modelName := s.cfg.Router9.Model
+        if modelName == "" || modelName == "gpt-4o" {
+                modelName = "openrouter/openai/text-embedding-3-large"
+        }
+
+        reqBody := Router9EmbeddingRequest{
+                Model:      modelName,
+                Input:      text,
+                Dimensions: s.vectorSize,
+        }
+        bodyBytes, err := json.Marshal(reqBody)
         if err != nil {
-                var apiErr genai.APIError
-                if errors.As(err, &apiErr) {
-                        // Trigger mock fallback only on auth/quota/billing/rate-limit errors.
-                        // Google API returns HTTP 400 (INVALID_ARGUMENT) with "API key not valid" message for bad keys.
-                        if apiErr.Code == 401 || apiErr.Code == 402 || apiErr.Code == 403 || apiErr.Code == 429 || apiErr.Code == 503 ||
-                                (apiErr.Code == 400 && (strings.Contains(apiErr.Message, "API key not valid") || strings.Contains(err.Error(), "API key not valid"))) {
-                                slog.Warn("gemini embedding API quota/auth error, falling back to mock vector", "status", apiErr.Code, "error", err)
-                                return s.getMockEmbedding(), true, nil
-                        }
-                }
-                // Treat other errors (like network/context timeouts, bad requests) as hard failures
-                return nil, false, fmt.Errorf("gemini embed content: %w", err)
+                return nil, false, fmt.Errorf("marshal request: %w", err)
         }
 
-        if len(res.Embeddings) == 0 || res.Embeddings[0] == nil {
-                return nil, false, fmt.Errorf("empty embedding returned")
+        url := fmt.Sprintf("%s/embeddings", s.cfg.Router9.BaseURL)
+        req, err := http.NewRequestWithContext(ctx, "POST", url, bytes.NewReader(bodyBytes))
+        if err != nil {
+                return nil, false, fmt.Errorf("create http request: %w", err)
+        }
+        req.Header.Set("Content-Type", "application/json")
+        req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", s.cfg.Router9.APIKey))
+
+        client := &http.Client{}
+        resp, err := client.Do(req)
+        if err != nil {
+                s.logger.Warn("router9 embedding API error, falling back to mock vector", "error", err)
+                return s.getMockEmbedding(), true, nil
+        }
+        defer resp.Body.Close()
+
+        if resp.StatusCode != http.StatusOK {
+                s.logger.Warn("router9 embedding API non-200 status, falling back to mock vector", "status", resp.StatusCode)
+                return s.getMockEmbedding(), true, nil
         }
 
-        values := res.Embeddings[0].Values
+        var resBody Router9EmbeddingResponse
+        if err := json.NewDecoder(resp.Body).Decode(&resBody); err != nil {
+                return nil, false, fmt.Errorf("decode response: %w", err)
+        }
+
+        if len(resBody.Data) == 0 {
+                return nil, false, fmt.Errorf("empty embedding returned from router9")
+        }
+
+        values := resBody.Data[0].Embedding
         if len(values) != s.vectorSize {
-                return nil, false, fmt.Errorf("unexpected embedding dimension: got %d, want %d", len(values), s.vectorSize)
+                return nil, false, fmt.Errorf("unexpected embedding dimension from router9: got %d, want %d", len(values), s.vectorSize)
         }
 
         return values, false, nil
