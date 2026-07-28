@@ -69,6 +69,7 @@ type Config struct {
         Router9 struct {
                 BaseURL string `json:"base_url"`
                 APIKey  string `json:"api_key"`
+                Model   string `json:"model"`
         } `json:"router9"`
 
         Gemini struct {
@@ -162,6 +163,7 @@ func Load() (*Config, error) {
 
         cfg.Router9.BaseURL = envOrDefault("ROUTER9_BASE_URL", "http://localhost:4000/v1")
         cfg.Router9.APIKey = os.Getenv("ROUTER9_API_KEY")
+        cfg.Router9.Model = envOrDefault("ROUTER9_MODEL", "gpt-4o")
 
         cfg.Gemini.APIKey = os.Getenv("GEMINI_API_KEY")
 
