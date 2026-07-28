@@ -60,22 +60,26 @@ DRIVE_SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 # Regex patterns for Indonesian law metadata extraction
 # These cover the standard header format found in 90%+ of Indonesian regulations
 
-DOC_TYPE_PATTERNS = {
-    # Order matters — more specific first
-    "PERATURAN PEMERINTAH PENGGANTI UNDANG-UNDANG": "Perppu",
-    "UNDANG-UNDANG DASAR NEGARA REPUBLIK INDONESIA TAHUN 1945": "UUD 1945",
-    "UNDANG-UNDANG REPUBLIK INDONESIA": "UU",
-    "PERATURAN PEMERINTAH REPUBLIK INDONESIA": "PP",
-    "PERATURAN PRESIDEN REPUBLIK INDONESIA": "Perpres",
-    "KEPUTUSAN PRESIDEN REPUBLIK INDONESIA": "Keppres",
-    "PERATURAN MENTERI": "Permen",
-    "KEPUTUSAN MENTERI": "Kepmen",
-    "PERATURAN BANK INDONESIA": "PBI",
-    "PERATURAN DAERAH": "Perda",
-    "TRITURA": "TAP MPR",
-    "KETETAPAN MAJELIS PERMUSYAWARATAN RAKYAT": "TAP MPR",
-    "KETETAPAN DEWAN PERWAKILAN RAKYAT": "TAP DPR",
-}
+DOC_TYPE_PATTERNS = [
+    # (pattern, doc_type_code) — order: most specific first
+    ("PERATURAN PEMERINTAH PENGGANTI UNDANG-UNDANG", "Perppu"),
+    ("PERATURAN PEMERINTAH REPUBLIK INDONESIA", "PP"),
+    ("PERATURAN PRESIDEN REPUBLIK INDONESIA", "Perpres"),
+    ("KEPUTUSAN PRESIDEN REPUBLIK INDONESIA", "Keppres"),
+    ("PERATURAN BANK INDONESIA", "PBI"),
+    ("PERATURAN MENTERI", "Permen"),
+    ("KEPUTUSAN MENTERI", "Kepmen"),
+    ("KETETAPAN MAJELIS PERMUSYAWARATAN RAKYAT", "TAP MPR"),
+    ("KETETAPAN DEWAN PERWAKILAN RAKYAT", "TAP DPR"),
+    ("PERATURAN DAERAH", "Perda"),
+    # UU must come AFTER Perppu/PP/Perpres so they match first
+    ("UNDANG-UNDANG REPUBLIK INDONESIA", "UU"),
+    # UUD 1945 is almost never the actual document type —
+    # it appears in preambles of other laws. Only match if
+    # NO other doc type was found AND the text is very short (< 5000 chars)
+    # which indicates it's actually the UUD document itself.
+    ("UNDANG-UNDANG DASAR NEGARA REPUBLIK INDONESIA TAHUN 1945", "UUD 1945"),
+]
 
 # Matches: "NOMOR 11 TAHUN 2020" or "No. 11 Tahun 2020" or "Nomor 11/2020"
 LAW_NUMBER_RE = re.compile(
@@ -126,13 +130,42 @@ def extract_metadata(text: str, filename: str) -> dict:
     header_orig = text[:3000]
 
     # 1. Detect document type
+    # Strategy: find which doc type pattern appears RIGHT BEFORE
+    # the "NOMOR X TAHUN YYYY" line. This avoids matching UUD 1945
+    # from preambles when the actual doc is a regular UU.
     doc_type = None
-    doc_type_long = None
-    for pattern, dtype in DOC_TYPE_PATTERNS.items():
-        if pattern in header:
-            doc_type = dtype
-            doc_type_long = pattern
-            break
+    header_text = text[:5000]  # expanded window for positional matching
+
+    # Find the position of the NOMOR/TAHUN line
+    nomor_pos = LAW_NUMBER_RE.search(header_text)
+    nomor_char_pos = nomor_pos.start() if nomor_pos else len(header_text)
+
+    # Find the best doc type: closest to (but before) the NOMOR line
+    best_dist = float('inf')
+    best_type = None
+    for pattern, dtype in DOC_TYPE_PATTERNS:
+        # Search in the 1000 chars before the NOMOR line
+        search_window = header_text[max(0, nomor_char_pos - 1000):nomor_char_pos]
+        idx = search_window.upper().find(pattern)
+        if idx >= 0:
+            dist = nomor_char_pos - (max(0, nomor_char_pos - 1000) + idx)
+            if dist < best_dist:
+                best_dist = dist
+                best_type = dtype
+
+    # Special case: UUD 1945 from preamble — only accept if NO other type found
+    # AND the NOMOR pattern is within 500 chars of the UUD text (meaning it IS the UUD)
+    if best_type == "UUD 1945":
+        # Check if there's a UU match closer to the NOMOR line
+        for pattern, dtype in DOC_TYPE_PATTERNS:
+            if dtype == "UU":
+                search_window = header_text[max(0, nomor_char_pos - 1000):nomor_char_pos]
+                idx = search_window.upper().find(pattern)
+                if idx >= 0:
+                    best_type = "UU"  # UU takes priority over UUD 1945
+                    break
+
+    doc_type = best_type
 
     # 2. Extract number and year
     number = None
