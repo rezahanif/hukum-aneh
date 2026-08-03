@@ -1,0 +1,113 @@
+{
+  "uu": {
+    "family": "A",
+    "doc_type": "UU",
+    "issuer": "Presiden/DPR",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal",
+    "note": "Undang-Undang (Statute). Hierarchical: BAB > Bagian > Pasal > Ayat."
+  },
+  "pp": {
+    "family": "A",
+    "doc_type": "PP",
+    "issuer": "Presiden",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "perppu": {
+    "family": "A",
+    "doc_type": "PerPPU",
+    "issuer": "Presiden",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "perpres": {
+    "family": "A",
+    "doc_type": "Perpres",
+    "issuer": "Presiden",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal",
+    "note": "Some short ones use numbered clauses without BAB/Pasal."
+  },
+  "perda": {
+    "family": "A",
+    "doc_type": "Perda",
+    "issuer": "Kepala Daerah",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "uud-1945": {
+    "family": "A",
+    "doc_type": "UUD1945",
+    "issuer": "BPUPKI/PPKI",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "JDIH_Kemnaker": {
+    "family": "A",
+    "doc_type": "Permen",
+    "issuer": "Menteri Ketenagakerjaan",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "JDIH_Kemenkeu": {
+    "family": "A",
+    "doc_type": "Permen",
+    "issuer": "Menteri Keuangan",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "JDIH_Komdigi": {
+    "family": "A",
+    "doc_type": "Permen",
+    "issuer": "Menteri Komunikasi dan Informatika",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "JDIH_KPU": {
+    "family": "A",
+    "doc_type": "PKPU",
+    "issuer": "Komisi Pemilihan Umum",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal"
+  },
+  "peraturan": {
+    "family": "A",
+    "doc_type": "PP",
+    "issuer": "Presiden",
+    "chunk_unit": "ayat",
+    "fallback_unit": "pasal",
+    "note": "Simple/old PP, may have Pasal > Ayat without BAB."
+  },
+  "keppres": {
+    "family": "B",
+    "doc_type": "Keppres",
+    "issuer": "Presiden",
+    "chunk_unit": "diktum"
+  },
+  "inpres": {
+    "family": "B",
+    "doc_type": "Inpres",
+    "issuer": "Presiden",
+    "chunk_unit": "diktum"
+  },
+  "tap_mpr": {
+    "family": "B",
+    "doc_type": "Tap_MPR",
+    "issuer": "MPR",
+    "chunk_unit": "diktum",
+    "note": "Scanned PDFs, needs OCR."
+  },
+  "JDIH_Kemendag": {
+    "family": "B",
+    "doc_type": "Kepmen",
+    "issuer": "Menteri Perdagangan",
+    "chunk_unit": "diktum"
+  },
+  "Putusan-MK": {
+    "family": "C",
+    "doc_type": "Putusan_MK",
+    "issuer": "Mahkamah Konstitusi",
+    "chunk_unit": "amar"
+  }
+}

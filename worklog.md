@@ -17,3 +17,23 @@ Stage Summary:
 - Document covers 7 phases (Phase 0-7) with 22 executable subtasks
 - All 9 gaps from original plan addressed
 - Task dependency table included for execution order
+---
+Task ID: 1
+Agent: main
+Task: Implement Phase 0-4 of legal document chunking pipeline
+
+Work Log:
+- Built Phase 0.1: encoding diagnosis (glyph substitution patterns, font CMap checks)
+- Built Phase 0.2: clean_extractor.py (boilerplate stripping, header/footer removal, glyph fixes)
+- Built Phase 1: 3-family classification (directory_family_map.json)
+- Built Phase 2: Family A parser (BAB > Bagian > Pasal > Ayat state machine)
+- Built Phase 3: Family B parser (Menimbang > MEMUTUSKAN > Diktum with ordinal word support)
+- Built Phase 4: Family C parser (MENGADILI > Amar for court rulings)
+- Ran full test: 1005 chunks from 15/16 directories (tap_mpr is scanned)
+- Identified 8 known issues for next iteration
+
+Stage Summary:
+- All 3 parsers working, producing valid JSON chunks matching target format
+- Chunk IDs follow convention: {doc_type}:{nomor}:{year}:{pasal}:{ayat}
+- Family B uses ordinal words (KESATU, KEDUA...) for Inpres/Kemendag
+- Key remaining issues: quoted amendment text, glyph corruption, JDIH type mixing
