@@ -1,0 +1,884 @@
+   301→  L074 p 2 fs= 12.0 bold=False | Khusus
+   302→  L075 p 2 fs= 12.0 bold=False | Maloy
+   303→  L076 p 2 fs= 12.0 bold=False | Batuta
+   304→  L077 p 2 fs= 12.0 bold=False | Trans
+   305→  L078 p 2 fs= 12.0 bold=False | Kalimantan (Lembaran Negara Republik Indonesia Tahun
+   306→  L079 p 2 fs= 12.0 bold=False | 2014 Nomor 306, Tambahan Lembaran Negara Republik
+   307→  L080 p 2 fs= 12.0 bold=False | Indonesia Nomor 5611);
+   308→  L081 p 2 fs= 12.0 bold=False | 5. Peraturan Presiden Nomor 33 Tahun 2010 tentang Dewan
+   309→  L082 p 2 fs= 12.0 bold=False | Nasional dan Dewan Kawasan Kawasan Ekonomi Khusus
+   310→  L083 p 2 fs= 12.0 bold=False | sebagaimana telah diubah beberapa kali terakhir dengan
+   311→  L084 p 2 fs= 12.0 bold=False | Peraturan Presiden Nomor 150 Tahun 2014 tentang
+   312→  L085 p 2 fs= 12.0 bold=False | Perubahan Kedua atas Peraturan Presiden Nomor 33
+   313→  L086 p 2 fs= 12.0 bold=False | Tahun 2010 tentang Dewan Nasional dan Dewan Kawasan
+   314→  L087 p 2 fs= 12.0 bold=False | Kawasan Ekonomi Khusus (Lembaran Negara Republik
+   315→  L088 p 2 fs= 12.0 bold=False | Indonesia Tahun 2014 Nomor 277);
+   316→  L089 p 2 fs= 12.0 bold=False | MEMUTUSKAN :
+   317→  L090 p 2 fs= 12.0 bold=False | Menetapkan :
+   318→  L091 p 2 fs= 12.0 bold=False | KEPUTUSAN
+   319→  L092 p 2 fs= 12.0 bold=False | PRESIDEN
+   320→  L093 p 2 fs= 12.0 bold=False | TENTANG
+   321→  L094 p 2 fs= 12.0 bold=False | DEWAN
+   322→  L095 p 2 fs= 12.0 bold=False | KAWASAN
+   323→  L096 p 2 fs= 12.0 bold=False | KAWASAN
+   324→  L097 p 2 fs= 12.0 bold=False | EKONOMI
+   325→  L098 p 2 fs= 12.0 bold=False | KHUSUS
+   326→  L099 p 2 fs= 12.0 bold=False | PROVINSI
+   327→  L100 p 2 fs= 12.0 bold=False | KALIMANTAN
+   328→  L101 p 2 fs= 12.0 bold=False | TIMUR.
+   329→  L102 p 2 fs= 12.0 bold=False | Pasal 1
+   330→  L103 p 3 fs= 12.0 bold=False | - 3 -
+   331→  L104 p 3 fs= 12.0 bold=False | Pasal 1
+   332→  L105 p 3 fs= 12.0 bold=False | Menetapkan Dewan Kawasan Kawasan Ekonomi Khusus
+   333→  L106 p 3 fs= 12.0 bold=False | Provinsi Kalimantan Timur, yang selanjutnya disebut Dewan
+   334→  L107 p 3 fs= 12.0 bold=False | Kawasan, dengan susunan keanggotaan sebagai berikut:
+   335→  L108 p 3 fs= 12.0 bold=False | Ketua merangkap
+   336→  L109 p 3 fs= 12.0 bold=False | : Gubernur Kalimantan Timur;
+   337→  L110 p 3 fs= 12.0 bold=False | Anggota
+   338→  L111 p 3 fs= 12.0 bold=False | Wakil Ketua
+   339→  L112 p 3 fs= 12.0 bold=False | : Bupati Kutai Timur;
+   340→  L113 p 3 fs= 12.0 bold=False | merangkap Anggota
+   341→  L114 p 3 fs= 12.0 bold=False | Anggota
+   342→  L115 p 3 fs= 12.0 bold=False | : 1. Kepala Kantor Wilayah Badan
+   343→  L116 p 3 fs= 12.0 bold=False | Pertanahan
+   344→  L117 p 3 fs= 12.0 bold=False | Nasional
+   345→  L118 p 3 fs= 12.0 bold=False | Provinsi
+   346→  L119 p 3 fs= 12.0 bold=False | Kalimantan Timur;
+   347→  L120 p 3 fs= 12.0 bold=False | 2. Kepala Kantor Wilayah Direktorat
+   348→  L121 p 3 fs= 12.0 bold=False | Jenderal
+   349→  L122 p 3 fs= 12.0 bold=False | Bea
+   350→  L123 p 3 fs= 12.0 bold=False | dan
+   351→  L124 p 3 fs= 12.0 bold=False | Cukai
+   352→  L125 p 3 fs= 12.0 bold=False | Kalimantan Bagian Timur;
+   353→  L126 p 3 fs= 12.0 bold=False | 3. Kepala Kantor Wilayah Direktorat
+   354→  L127 p 3 fs= 12.0 bold=False | Jenderal
+   355→  L128 p 3 fs= 12.0 bold=False | Pajak
+   356→  L129 p 3 fs= 12.0 bold=False | Kalimantan
+   357→  L130 p 3 fs= 12.0 bold=False | Timur;
+   358→  L131 p 3 fs= 12.0 bold=False | 4. Kepala
+   359→  L132 p 3 fs= 12.0 bold=False | Badan
+   360→  L133 p 3 fs= 12.0 bold=False | Perencanaan
+   361→  L134 p 3 fs= 12.0 bold=False | Pembangunan Daerah Provinsi
+   362→  L135 p 3 fs= 12.0 bold=False | Kalimantan Timur;
+   363→  L136 p 3 fs= 12.0 bold=False | 5. Kepala
+   364→  L137 p 3 fs= 12.0 bold=False | Dinas
+   365→  L138 p 3 fs= 12.0 bold=False | Perhubungan
+   366→  L139 p 3 fs= 12.0 bold=False | Provinsi Kalimantan Timur;
+   367→  L140 p 3 fs= 12.0 bold=False | 6. Kepala Dinas Pekerjaan Umum
+   368→  L141 p 3 fs= 12.0 bold=False | Provinsi Kalimantan Timur;
+   369→  L142 p 3 fs= 12.0 bold=False | 7. Kepala
+   370→  L143 p 4 fs= 12.0 bold=False | - 4 -
+   371→  L144 p 4 fs= 12.0 bold=False | 7. Kepala Dinas Pekerjaan Umum
+   372→  L145 p 4 fs= 12.0 bold=False | Kabupaten Kutai Timur;
+   373→  L146 p 4 fs= 12.0 bold=False | 8. Kepala
+   374→  L147 p 4 fs= 12.0 bold=False | Dinas
+   375→  L148 p 4 fs= 12.0 bold=False | Perhubungan,
+   376→  L149 p 4 fs= 12.0 bold=False | Komunikasi,
+   377→  L150 p 4 fs= 12.0 bold=False | dan
+   378→  L151 p 4 fs= 12.0 bold=False | Informatika
+   379→  L152 p 4 fs= 12.0 bold=False | Kabupaten Kutai Timur;
+   380→  L153 p 4 fs= 12.0 bold=False | 9. Kepala Dinas Perindustrian dan
+   381→  L154 p 4 fs= 12.0 bold=False | Perdagangan Kabupaten Kutai
+   382→  L155 p 4 fs= 12.0 bold=False | Timur.
+   383→  L156 p 4 fs= 12.0 bold=False | Pasal 2
+   384→  L157 p 4 fs= 12.0 bold=False | Dewan Kawasan bertanggung jawab dan melaporkan hasil
+   385→  L158 p 4 fs= 12.0 bold=False | pelaksanaan tugasnya kepada Dewan Nasional Kawasan
+   386→  L159 p 4 fs= 12.0 bold=False | Ekonomi Khusus paling kurang 1 (satu) kali dalam 6 (enam)
+   387→  L160 p 4 fs= 12.0 bold=False | bulan atau sewaktu-waktu bila diperlukan.
+   388→  L161 p 4 fs= 12.0 bold=False | Pasal 3
+   389→  L162 p 4 fs= 12.0 bold=False | Segala biaya yang diperlukan untuk pelaksanaan tugas
+   390→  L163 p 4 fs= 12.0 bold=False | Dewan Kawasan dibebankan pada Anggaran Pendapatan dan
+   391→  L164 p 4 fs= 12.0 bold=False | Belanja Daerah Provinsi Kalimantan Timur dan sumber lain
+   392→  L165 p 4 fs= 12.0 bold=False | yang
+   393→  L166 p 4 fs= 12.0 bold=False | tidak
+   394→  L167 p 4 fs= 12.0 bold=False | bertentangan
+   395→  L168 p 4 fs= 12.0 bold=False | dengan
+   396→  L169 p 4 fs= 12.0 bold=False | ketentuan
+   397→  L170 p 4 fs= 12.0 bold=False | peraturan
+   398→  L171 p 4 fs= 12.0 bold=False | perundang-undangan.
+   399→  L172 p 4 fs= 12.0 bold=False | Pasal 4
+   400→  L173 p 5 fs= 12.0 bold=False | - 5 -
+   401→  L174 p 5 fs= 12.0 bold=False | Pasal 4
+   402→  L175 p 5 fs= 12.0 bold=False | Keputusan
+   403→  L176 p 5 fs= 12.0 bold=False | Presiden
+   404→  L177 p 5 fs= 12.0 bold=False | ini
+   405→  L178 p 5 fs= 12.0 bold=False | mulai
+   406→  L179 p 5 fs= 12.0 bold=False | berlaku
+   407→  L180 p 5 fs= 12.0 bold=False | pada
+   408→  L181 p 5 fs= 12.0 bold=False | tanggal
+   409→  L182 p 5 fs= 12.0 bold=False | ditetapkan.
+   410→  L183 p 5 fs= 12.0 bold=False | Ditetapkan di Jakarta
+   411→  L184 p 5 fs= 12.0 bold=False | pada tanggal 11 Februari 2015
+   412→  L185 p 5 fs= 12.0 bold=False | PRESIDEN REPUBLIK INDONESIA,
+   413→  L186 p 5 fs= 12.0 bold=False | ttd.
+   414→  L187 p 5 fs= 12.0 bold=False | JOKO WIDODO
+   415→  L188 p 5 fs= 12.0 bold=False | Salinan sesuai dengan aslinya
+   416→  L189 p 5 fs= 12.0 bold=False | SEKRETARIAT KABINET RI
+   417→  L190 p 5 fs= 12.0 bold=False | Deputi Bidang Perekonomian,
+   418→  L191 p 5 fs= 12.0 bold=False | ttd.
+   419→  L192 p 5 fs= 12.0 bold=False | Ratih Nurdiati
+   420→
+   421→================================================================================
+   422→FILE: /home/z/my-project/download/skeletons/Putusan-MK_skeleton.json
+   423→================================================================================
+   424→Folder: Putusan-MK
+   425→Filename: putusan_mkri_5301.pdf
+   426→Total lines: 127
+   427→Most common font size: 12.0
+   428→Font sizes: [12.0]
+   429→Sections: []
+   430→Numbering patterns: ['letter_a.']
+   431→
+   432→--- FULL TEXT (127 lines) ---
+   433→  L000 p 1 fs= 12.0 bold= True | SALINAN
+   434→  L001 p 1 fs= 12.0 bold= True | KETETAPAN
+   435→  L002 p 1 fs= 12.0 bold= True | Nomor 96/PUU-XVI/2018
+   436→  L003 p 1 fs= 12.0 bold= True | DEMI KEADILAN BERDASARKAN KETUHANAN YANG MAHA ESA
+   437→  L004 p 1 fs= 12.0 bold= True | MAHKAMAH KONSTITUSI REPUBLIK INDONESIA,
+   438→  L005 p 1 fs= 12.0 bold=False | Yang mengadili perkara konstitusi pada tingkat pertama dan terakhir
+   439→  L006 p 1 fs= 12.0 bold=False | menjatuhkan Ketetapan dalam perkara pengujian Kitab Undang-Undang Hukum
+   440→  L007 p 1 fs= 12.0 bold=False | Perdata terhadap Undang-Undang Dasar Negara Republik Indonesia Tahun 1945,
+   441→  L008 p 1 fs= 12.0 bold= True | sebagai berikut:
+   442→  L009 p 1 fs= 12.0 bold=False | Menimbang : 1. Bahwa Mahkamah Konstitusi telah menerima permohonan
+   443→  L010 p 1 fs= 12.0 bold=False | bertanggal 7 November 2018 dari Jandi Mukianto, yang
+   444→  L011 p 1 fs= 12.0 bold=False | berdasarkan Surat Kuasa Khusus bertanggal 1 November 2018
+   445→  L012 p 1 fs= 12.0 bold=False | memberi kuasa kepada: Haris Satiadi, S.H., Suheru Prayitno,
+   446→  L013 p 1 fs= 12.0 bold=False | S.H., Rendy Alexander, S.H., Nikite Alvinta Bujangga, S.H., Praja
+   447→  L014 p 1 fs= 12.0 bold=False | Wibawa, S.H., dan Ocar Puspa Dewi, S.H., kesemuanya adalah
+   448→  L015 p 1 fs= 12.0 bold= True | Advokat dan Advokat Magang [sic!] pada Lembaga Bantuan
+   449→  L016 p 1 fs= 12.0 bold= True | Hukum Lentera Keadilan Rakyat (LBH LKRA) yang beralamat
+   450→  L017 p 1 fs= 12.0 bold=False | di Jalan Sukarjo Wiryopranoto Nomor 8D Gambir, Jakarta Pusat,
+   451→  L018 p 1 fs= 12.0 bold=False | yang diterima di Kepaniteraan Mahkamah Konstitusi pada
+   452→  L019 p 1 fs= 12.0 bold=False | tanggal 13 November 2018 dan dicatat dalam Buku Registrasi
+   453→  L020 p 1 fs= 12.0 bold= True | Perkara Konstitusi dengan Nomor 96/PUU-XVI/2018 pada
+   454→  L021 p 1 fs= 12.0 bold=False | tanggal 21 November 2018 perihal Permohonan Pengujian kata
+   455→  L022 p 1 fs= 12.0 bold=False | “Tionghoa” dalam Kitab Undang-Undang Hukum Perdata
+   456→  L023 p 1 fs= 12.0 bold=False | terhadap Undang-Undang Dasar Negara Republik Indonesia
+   457→  L024 p 1 fs= 12.0 bold=False | Tahun 1945;
+   458→  L025 p 1 fs= 12.0 bold=False | 2. Bahwa terhadap permohonan Nomor 96/PUU-XVI/2018 tersebut,
+   459→  L026 p 1 fs= 12.0 bold=False | Mahkamah Konstitusi telah menerbitkan:
+   460→  L027 p 1 fs= 12.0 bold=False | a. Ketetapan
+   461→  L028 p 1 fs= 12.0 bold=False | Ketua
+   462→  L029 p 1 fs= 12.0 bold=False | Mahkamah
+   463→  L030 p 1 fs= 12.0 bold=False | Konstitusi
+   464→  L031 p 1 fs= 12.0 bold=False | Nomor
+   465→  L032 p 1 fs= 12.0 bold=False | 234/TAP.MK/2018 tentang Pembentukan Panel Hakim Untuk
+   466→  L033 p 1 fs= 12.0 bold=False | Memeriksa Perkara Nomor 96/PUU-XVI/2018, bertanggal 21
+   467→  L034 p 1 fs= 12.0 bold=False | November 2018;
+   468→  L035 p 2 fs= 12.0 bold=False | 2
+   469→  L036 p 2 fs= 12.0 bold=False | b. Ketetapan Ketua Panel Hakim Mahkamah Konstitusi Nomor
+   470→  L037 p 2 fs= 12.0 bold=False | 235/TAP.MK/2018 tentang Penetapan Hari Sidang Pertama
+   471→  L038 p 2 fs= 12.0 bold=False | untuk
+   472→  L039 p 2 fs= 12.0 bold=False | memeriksa
+   473→  L040 p 2 fs= 12.0 bold=False | perkara
+   474→  L041 p 2 fs= 12.0 bold=False | Nomor
+   475→  L042 p 2 fs= 12.0 bold=False | 96/PUU-XVI/2018,
+   476→  L043 p 2 fs= 12.0 bold=False | bertanggal 21 November 2018;
+   477→  L044 p 2 fs= 12.0 bold=False | 3. Bahwa
+   478→  L045 p 2 fs= 12.0 bold=False | Mahkamah
+   479→  L046 p 2 fs= 12.0 bold=False | telah
+   480→  L047 p 2 fs= 12.0 bold=False | menyelenggarakan
+   481→  L048 p 2 fs= 12.0 bold=False | Pemeriksaan
+   482→  L049 p 2 fs= 12.0 bold=False | Pendahuluan terhadap permohonan tersebut melalui Sidang
+   483→  L050 p 2 fs= 12.0 bold=False | Panel pada tanggal 6 Desember 2018;
+   484→  L051 p 2 fs= 12.0 bold=False | 4. Bahwa Mahkamah telah menerima surat dari Pemohon
+   485→  L052 p 2 fs= 12.0 bold=False | bertanggal 17 Desember 2018 perihal penarikan permohonan
+   486→  L053 p 2 fs= 12.0 bold=False | yang diterima di Kepaniteraan Mahkamah Konstitusi pada
+   487→  L054 p 2 fs= 12.0 bold=False | tanggal 17 Desember 2018;
+   488→  L055 p 2 fs= 12.0 bold=False | 5. Bahwa Mahkamah telah menyelenggarakan Sidang Panel pada
+   489→  L056 p 2 fs= 12.0 bold=False | tanggal 19 Desember 2018 dengan agenda menerima Perbaikan
+   490→  L057 p 2 fs= 12.0 bold=False | Permohonan dan sekaligus meminta konfirmasi perihal surat
+   491→  L058 p 2 fs= 12.0 bold=False | sebagaimana termaktub pada angka 4 di atas, namun Pemohon
+   492→  L059 p 2 fs= 12.0 bold=False | tidak hadir sekalipun telah dipanggil secara sah dan patut;
+   493→  L060 p 2 fs= 12.0 bold=False | 6. Bahwa terhadap penarikan kembali permohonan Pemohon
+   494→  L061 p 2 fs= 12.0 bold=False | tersebut, Pasal 35 ayat (1) UU MK menyatakan, “Pemohon dapat
+   495→  L062 p 2 fs= 12.0 bold=False | menarik kembali Permohonan sebelum atau selama pemeriksaan
+   496→  L063 p 2 fs= 12.0 bold=False | Mahkamah Konstitusi dilakukan”;
+   497→  L064 p 2 fs= 12.0 bold=False | 7. Bahwa Rapat Permusyawaratan Hakim pada tanggal 10 Januari
+   498→  L065 p 2 fs= 12.0 bold=False | 2019 telah menetapkan pencabutan atau penarikan kembali
+   499→  L066 p 2 fs= 12.0 bold=False | permohonan Nomor 96/PUU-XVI/2018 beralasan menurut hukum
+   500→  L067 p 2 fs= 12.0 bold=False | dan sesuai dengan Pasal 35 ayat (2) UU MK, penarikan kembali
+   501→  L068 p 2 fs= 12.0 bold=False | suatu Permohonan mengakibatkan Permohonan tersebut tidak
+   502→  L069 p 2 fs= 12.0 bold=False | dapat diajukan kembali.
+   503→  L070 p 2 fs= 12.0 bold=False | Mengingat : 1. Undang-Undang Dasar Negara Republik Indonesia Tahun 1945;
+   504→  L071 p 2 fs= 12.0 bold=False | 2. Undang-Undang Nomor 24 Tahun 2003 tentang Mahkamah
+   505→  L072 p 2 fs= 12.0 bold=False | Konstitusi sebagaimana telah diubah dengan Undang-Undang
+   506→  L073 p 2 fs= 12.0 bold=False | Nomor 8 Tahun 2011 tentang Perubahan Atas Undang-Undang
+   507→  L074 p 2 fs= 12.0 bold=False | Nomor 24 Tahun 2003 tentang Mahkamah Konstitusi (Lembaran
+   508→  L075 p 2 fs= 12.0 bold=False | Negara Republik Indonesia Tahun 2011 Nomor 70, Tambahan
+   509→  L076 p 2 fs= 12.0 bold=False | Lembaran Negara Republik Indonesia Nomor 5226);
+   510→  L077 p 3 fs= 12.0 bold=False | 3
+   511→  L078 p 3 fs= 12.0 bold=False | 3. Undang-Undang Nomor 48 Tahun 2009 tentang Kekuasaan
+   512→  L079 p 3 fs= 12.0 bold=False | Kehakiman (Lembaran Negara Republik Indonesia Tahun 2009
+   513→  L080 p 3 fs= 12.0 bold=False | Nomor 157, Tambahan Lembaran Negara Republik Indonesia
+   514→  L081 p 3 fs= 12.0 bold=False | Nomor 5076);
+   515→  L082 p 3 fs= 12.0 bold= True | MENETAPKAN:
+   516→  L083 p 3 fs= 12.0 bold=False | 1. Mengabulkan penarikan kembali permohonan Pemohon;
+   517→  L084 p 3 fs= 12.0 bold=False | 2. Menyatakan Permohonan Nomor 96/PUU-XVI/2018 ditarik kembali dan
+   518→  L085 p 3 fs= 12.0 bold=False | Pemohon tidak dapat mengajukan kembali permohonan a quo;
+   519→  L086 p 3 fs= 12.0 bold=False | 3. Memerintahkan kepada Panitera Mahkamah Konstitusi untuk menerbitkan Akta
+   520→  L087 p 3 fs= 12.0 bold=False | Pembatalan Registrasi Permohonan dan mengembalikan berkas permohonan
+   521→  L088 p 3 fs= 12.0 bold=False | kepada Pemohon;
+   522→  L089 p 3 fs= 12.0 bold=False | Demikian diputus dalam Rapat Permusyawaratan Hakim oleh sembilan
+   523→  L090 p 3 fs= 12.0 bold=False | Hakim Konstitusi, yaitu Anwar Usman, selaku Ketua merangkap Anggota,
+   524→  L091 p 3 fs= 12.0 bold=False | Aswanto, Arief Hidayat, Suhartoyo, Enny Nurbaningsih, I Dewa Gede Palguna,
+   525→  L092 p 3 fs= 12.0 bold=False | Manahan M.P. Sitompul, Saldi Isra, dan Wahiduddin Adams, masing-masing
+   526→  L093 p 3 fs= 12.0 bold= True | sebagai Anggota, pada hari Kamis, tanggal sepuluh, bulan Januari, tahun dua
+   527→  L094 p 3 fs= 12.0 bold= True | ribu sembilan belas, yang diucapkan dalam Sidang Pleno Mahkamah Konstitusi
+   528→  L095 p 3 fs= 12.0 bold= True | terbuka untuk umum pada hari Kamis, tanggal dua puluh empat, bulan Januari,
+   529→  L096 p 3 fs= 12.0 bold= True | tahun dua ribu sembilan belas, selesai diucapkan pukul 11.20 WIB, oleh
+   530→  L097 p 3 fs= 12.0 bold=False | sembilan Hakim Konstitusi, yaitu Anwar Usman selaku Ketua merangkap Anggota,
+   531→  L098 p 3 fs= 12.0 bold=False | Aswanto, Arief Hidayat, Suhartoyo, Enny Nurbaningsih, I Dewa Gede Palguna,
+   532→  L099 p 3 fs= 12.0 bold=False | Manahan M.P. Sitompul, Saldi Isra, dan Wahiduddin Adams, masing-masing
+   533→  L100 p 3 fs= 12.0 bold=False | sebagai Anggota, dengan dibantu oleh Hani Adhani sebagai Panitera Pengganti,
+   534→  L101 p 3 fs= 12.0 bold=False | serta dihadiri oleh Presiden atau yang mewakili dan Dewan Perwakilan Rakyat
+   535→  L102 p 3 fs= 12.0 bold=False | atau yang mewakili serta tanpa dihadiri oleh Pemohon/kuasanya.
+   536→  L103 p 3 fs= 12.0 bold= True | KETUA,
+   537→  L104 p 3 fs= 12.0 bold= True | ttd.
+   538→  L105 p 3 fs= 12.0 bold= True | Anwar Usman
+   539→  L106 p 4 fs= 12.0 bold=False | 4
+   540→  L107 p 4 fs= 12.0 bold= True | ANGGOTA-ANGGOTA,
+   541→  L108 p 4 fs= 12.0 bold= True | ttd.
+   542→  L109 p 4 fs= 12.0 bold= True | Aswanto
+   543→  L110 p 4 fs= 12.0 bold= True | ttd.
+   544→  L111 p 4 fs= 12.0 bold= True | Arief Hidayat
+   545→  L112 p 4 fs= 12.0 bold= True | ttd.
+   546→  L113 p 4 fs= 12.0 bold= True | Suhartoyo
+   547→  L114 p 4 fs= 12.0 bold= True | ttd.
+   548→  L115 p 4 fs= 12.0 bold= True | Enny Nurbaningsih
+   549→  L116 p 4 fs= 12.0 bold= True | ttd.
+   550→  L117 p 4 fs= 12.0 bold= True | I Dewa Gede Palguna
+   551→  L118 p 4 fs= 12.0 bold= True | ttd.
+   552→  L119 p 4 fs= 12.0 bold= True | Manahan M.P. Sitompul
+   553→  L120 p 4 fs= 12.0 bold= True | ttd.
+   554→  L121 p 4 fs= 12.0 bold= True | Saldi Isra
+   555→  L122 p 4 fs= 12.0 bold= True | ttd.
+   556→  L123 p 4 fs= 12.0 bold= True | Wahiduddin Adams
+   557→  L124 p 4 fs= 12.0 bold= True | PANITERA PENGGANTI,
+   558→  L125 p 4 fs= 12.0 bold= True | ttd.
+   559→  L126 p 4 fs= 12.0 bold= True | Hani Adhani
+   560→
+   561→================================================================================
+   562→FILE: /home/z/my-project/download/skeletons/JDIH_Kemendag_skeleton.json
+   563→================================================================================
+   564→Folder: JDIH_Kemendag
+   565→Filename: Kepmendag_No__123_Tahun_2025_download_3142_2.pdf
+   566→Total lines: 195
+   567→Most common font size: 12.0
+   568→Font sizes: [11.4, 11.5, 11.8, 11.9, 12.0, 12.8, 13.1, 13.2, 13.5, 13.8, 14.2, 14.4, 15.4, 16.5, 17.1, 18.1, 19.1, 19.3, 19.5, 19.8, 20.0, 20.2, 21.5, 22.6, 23.0, 24.5, 27.5]
+   569→Sections: []
+   570→Numbering patterns: ['letter_a.', 'number_1)', 'pasal_arabic']
+   571→
+   572→--- FULL TEXT (195 lines) ---
+   573→  L000 p 1 fs= 12.0 bold=False | KEPUTUSAN MENTERI PERDAGANGAN REPUBLIK INDONESIA
+   574→  L001 p 1 fs= 12.0 bold=False | NOMOR 123 TAHUN 2025
+   575→  L002 p 1 fs= 12.0 bold=False | TENTANG
+   576→  L003 p 1 fs= 12.0 bold=False | HARGA REFERENSI CRUDE PALM OIL YANG DIKENAKAN BEA KELUAR DAN
+   577→  L004 p 1 fs= 12.0 bold=False | TARIF LAYANAN BADAN LAYANAN UMUM BADAN PENGELOLA DANA
+   578→  L005 p 1 fs= 12.0 bold=False | PERKEBUNAN KELAPA SAWIT
+   579→  L006 p 1 fs= 12.0 bold=False | MENTERI PERDAGANGAN REPUBLIK INDONESIA,
+   580→  L007 p 1 fs= 12.0 bold=False | Menimbang
+   581→  L008 p 1 fs= 12.0 bold=False | : a. bahwa untuk melaksanakan ketentuan Pasal 3 ayat (1)
+   582→  L009 p 1 fs= 12.0 bold=False | Peraturan Menteri Perdagangan Nomor 46 Tahun 2022
+   583→  L010 p 1 fs= 12.0 bold=False | tentang Tata Cara Penetapan Harga Patokan Ekspor atas
+   584→  L011 p 1 fs= 12.0 bold=False | Produk Pertanian dan Kehutanan yang Dikenakan Bea
+   585→  L012 p 1 fs= 12.0 bold=False | Keluar, Harga Referensi atas Produk Pertanian dan
+   586→  L013 p 1 fs= 12.0 bold=False | Kehutanan dan Daftar Merek Refined, Bleached and
+   587→  L014 p 1 fs= 12.0 bold=False | Deodorized Palm Olein yang Dikenakan Bea Keluar dan
+   588→  L015 p 1 fs= 12.0 bold=False | Tarif Layanan Badan Layanan Umum Badan Pengelola
+   589→  L016 p 1 fs= 12.0 bold=False | Dana Perkebunan Kelapa Sawit, perlu menetapkan harga
+   590→  L017 p 1 fs= 12.0 bold=False | referensi crude palm oil yang dikenakan bea keluar dan
+   591→  L018 p 1 fs= 12.0 bold=False | tarif layanan Badan Layanan Umum Badan Pengelola
+   592→  L019 p 1 fs= 12.0 bold=False | Dana Perkebunan Kelapa Sawit;
+   593→  L020 p 1 fs= 12.0 bold=False | b.
+   594→  L021 p 1 fs= 12.0 bold=False | bahwa penetapan harga referensi atas produk crude palm
+   595→  L022 p 1 fs= 12.0 bold=False | oil yang dikenakan bea keluar dan tarif layanan Badan
+   596→  L023 p 1 fs= 12.0 bold=False | Layanan Umum Badan Pengelola Dana Perkebunan Kelapa
+   597→  L024 p 1 fs= 12.0 bold=False | Sawit dilakukan setelah memperhatikan usulan tertulis
+   598→  L025 p 1 fs= 12.0 bold=False | dan hasil rapat koordinasi dengan kementerian, lembaga
+   599→  L026 p 1 fs= 12.0 bold=False | pemerintah non kementerian, dan/atau badan teknis
+   600→  L027 p 1 fs= 12.0 bold=False | terkait;
+   601→  L028 p 1 fs= 12.0 bold=False | c. bahwa berdasarkan pertimbangan sebagaimana dimaksud
+   602→  L029 p 1 fs= 12.0 bold=False | dalam huruf a dan huruf b, perlu menetapkan Keputusan
+   603→  L030 p 1 fs= 12.0 bold=False | Menteri Perdagangan tentang Harga Referensi Crude Palm
+   604→  L031 p 1 fs= 12.0 bold=False | Oil yang Dikenakan Bea Keluar dan Tarif Layanan Badan
+   605→  L032 p 1 fs= 12.0 bold=False | Layanan Umum Badan Pengelola Dana Perkebunan
+   606→  L033 p 1 fs= 12.0 bold=False | Kelapa Sawit;
+   607→  L034 p 1 fs= 12.0 bold=False | Mengingat
+   608→  L035 p 1 fs= 12.0 bold=False | : 1.
+   609→  L036 p 1 fs= 12.0 bold=False | Pasal 17 ayat (3) Undang-Undang Dasar Negara Republik
+   610→  L037 p 1 fs= 12.0 bold=False | Indonesia Tahun 1945;
+   611→  L038 p 1 fs= 12.0 bold=False | 2.
+   612→  L039 p 1 fs= 12.0 bold=False | Undang-Undang
+   613→  L040 p 1 fs= 12.0 bold=False | Nomor
+   614→  L041 p 1 fs= 12.0 bold=False | 7
+   615→  L042 p 1 fs= 12.0 bold=False | Tahun
+   616→  L043 p 1 fs= 12.0 bold=False | 1994
+   617→  L044 p 1 fs= 12.0 bold=False | tentang
+   618→  L045 p 1 fs= 12.0 bold=False | Pengesahan Agreement Establishing The World Trade
+   619→  L046 p 1 fs= 12.0 bold=False | Organization
+   620→  L047 p 1 fs= 12.0 bold=False | (Persetujuan
+   621→  L048 p 1 fs= 12.0 bold=False | Pembentukan
+   622→  L049 p 1 fs= 12.0 bold=False | Organisasi
+   623→  L050 p 1 fs= 12.0 bold=False | Perdagangan
+   624→  L051 p 1 fs= 12.0 bold=False | Dunia)
+   625→  L052 p 1 fs= 12.0 bold=False | (Lembaran
+   626→  L053 p 1 fs= 12.0 bold=False | Negara
+   627→  L054 p 1 fs= 12.0 bold=False | Republik
+   628→  L055 p 1 fs= 12.0 bold=False | Indonesia Tahun 1994 Nomor 57, Tambahan Lembaran
+   629→  L056 p 1 fs= 12.0 bold=False | Negara Republik Indonesia Nomor 3564);
+   630→  L057 p 1 fs= 12.0 bold=False | 3.
+   631→  L058 p 1 fs= 12.0 bold=False | Undang-Undang
+   632→  L059 p 1 fs= 12.0 bold=False | Nomor
+   633→  L060 p 1 fs= 12.0 bold=False | 10
+   634→  L061 p 1 fs= 12.0 bold=False | Tahun
+   635→  L062 p 1 fs= 12.0 bold=False | 1995
+   636→  L063 p 1 fs= 12.0 bold=False | tentang
+   637→  L064 p 1 fs= 12.0 bold=False | Kepabeanan (Lembaran Negara Republik Indonesia Tahun
+   638→  L065 p 2 fs= 12.0 bold=False | -2-
+   639→  L066 p 2 fs= 12.0 bold=False | 1995 Nomor 75, Tambahan Lembaran Negara Republik
+   640→  L067 p 2 fs= 12.0 bold=False | Indonesia Nomor 3612) sebagaimana telah diubah dengan
+   641→  L068 p 2 fs= 12.0 bold=False | Undang-Undang
+   642→  L069 p 2 fs= 12.0 bold=False | Nomor
+   643→  L070 p 2 fs= 12.0 bold=False | 17
+   644→  L071 p 2 fs= 12.0 bold=False | Tahun
+   645→  L072 p 2 fs= 12.0 bold=False | 2006
+   646→  L073 p 2 fs= 12.0 bold=False | tentang
+   647→  L074 p 2 fs= 12.0 bold=False | Perubahan atas Undang-Undang Nomor 10 Tahun 1995
+   648→  L075 p 2 fs= 12.0 bold=False | tentang
+   649→  L076 p 2 fs= 12.0 bold=False | Kepabeanan
+   650→  L077 p 2 fs= 12.0 bold=False | (Lembaran
+   651→  L078 p 2 fs= 12.0 bold=False | Negara
+   652→  L079 p 2 fs= 12.0 bold=False | Republik
+   653→  L080 p 2 fs= 12.0 bold=False | Indonesia Tahun 2006 Nomor 93, Tambahan Lembaran
+   654→  L081 p 2 fs= 12.0 bold=False | Negara Republik Indonesia Nomor 4661);
+   655→  L082 p 2 fs= 12.0 bold=False | 4.
+   656→  L083 p 2 fs= 12.0 bold=False | Undang-Undang
+   657→  L084 p 2 fs= 12.0 bold=False | Nomor
+   658→  L085 p 2 fs= 12.0 bold=False | 39
+   659→  L086 p 2 fs= 12.0 bold=False | Tahun
+   660→  L087 p 2 fs= 12.0 bold=False | 2008
+   661→  L088 p 2 fs= 12.0 bold=False | tentang
+   662→  L089 p 2 fs= 12.0 bold=False | Kementerian
+   663→  L090 p 2 fs= 12.0 bold=False | Negara
+   664→  L091 p 2 fs= 12.0 bold=False | (Lembaran
+   665→  L092 p 2 fs= 12.0 bold=False | Negara
+   666→  L093 p 2 fs= 12.0 bold=False | Republik
+   667→  L094 p 2 fs= 12.0 bold=False | Indonesia Tahun 2008 Nomor 166, Tambahan Lembaran
+   668→  L095 p 2 fs= 12.0 bold=False | Negara Republik Indonesia Nomor 4916) sebagaimana
+   669→  L096 p 2 fs= 12.0 bold=False | telah diubah dengan Undang-Undang Nomor 61 Tahun
+   670→  L097 p 2 fs= 12.0 bold=False | 2024 tentang Perubahan atas Undang-Undang Nomor 39
+   671→  L098 p 2 fs= 12.0 bold=False | Tahun 2008 tentang Kementerian Negara (Lembaran
+   672→  L099 p 2 fs= 12.0 bold=False | Negara Republik Indonesia Tahun 2024 Nomor 225,
+   673→  L100 p 2 fs= 12.0 bold=False | Tambahan Lembaran Negara Republik Indonesia Nomor
+   674→  L101 p 2 fs= 12.0 bold=False | 6994);
+   675→  L102 p 2 fs= 12.0 bold=False | 5.
+   676→  L103 p 2 fs= 12.0 bold=False | Undang-Undang
+   677→  L104 p 2 fs= 12.0 bold=False | Nomor
+   678→  L105 p 2 fs= 12.0 bold=False | 7
+   679→  L106 p 2 fs= 12.0 bold=False | Tahun
+   680→  L107 p 2 fs= 12.0 bold=False | 2014
+   681→  L108 p 2 fs= 12.0 bold=False | tentang
+   682→  L109 p 2 fs= 12.0 bold=False | Perdagangan (Lembaran Negara Republik Indonesia Tahun
+   683→  L110 p 2 fs= 12.0 bold=False | 2014 Nomor 45, Tambahan Lembaran Negara Republik
+   684→  L111 p 2 fs= 12.0 bold=False | Indonesia Nomor 5512);
+   685→  L112 p 2 fs= 12.0 bold=False | 6.
+   686→  L113 p 2 fs= 12.0 bold=False | Undang-Undang Nomor 6 Tahun 2023 tentang Penetapan
+   687→  L114 p 2 fs= 12.0 bold=False | Peraturan Pemerintah Pengganti Undang-Undang Nomor 2
+   688→  L115 p 2 fs= 12.0 bold=False | Tahun 2022 tentang Cipta Kerja Menjadi Undang-Undang
+   689→  L116 p 2 fs= 12.0 bold=False | (Lembaran Negara Republik Indonesia Tahun 2023 Nomor
+   690→  L117 p 2 fs= 12.0 bold=False | 41, Tambahan Lembaran Negara Republik Indonesia
+   691→  L118 p 2 fs= 12.0 bold=False | Nomor 6856);
+   692→  L119 p 2 fs= 12.0 bold=False | 7.
+   693→  L120 p 2 fs= 12.0 bold=False | Peraturan Pemerintah Nomor 55 Tahun 2008 tentang
+   694→  L121 p 2 fs= 12.0 bold=False | Pengenaan Bea Keluar terhadap Barang Ekspor (Lembaran
+   695→  L122 p 2 fs= 12.0 bold=False | Negara Republik Indonesia Tahun 2008 Nomor 116,
+   696→  L123 p 2 fs= 12.0 bold=False | Tambahan Lembaran Negara Republik Indonesia Nomor
+   697→  L124 p 2 fs= 12.0 bold=False | 4886);
+   698→  L125 p 2 fs= 12.0 bold=False | 8.
+   699→  L126 p 2 fs= 12.0 bold=False | Peraturan Pemerintah Nomor 24 Tahun 2015 tentang
+   700→  L127 p 2 fs= 12.0 bold=False | Penghimpunan Dana Perkebunan (Lembaran Negara
+   701→  L128 p 2 fs= 12.0 bold=False | Republik Indonesia Tahun 2015 Nomor 104, Tambahan
+   702→  L129 p 2 fs= 12.0 bold=False | Lembaran Negara Republik Indonesia Nomor 5697);
+   703→  L130 p 2 fs= 12.0 bold=False | 9.
+   704→  L131 p 2 fs= 12.0 bold=False | Peraturan Presiden Nomor 168 Tahun 2024 tentang
+   705→  L132 p 2 fs= 12.0 bold=False | Kementerian Perdagangan (Lembaran Negara Republik
+   706→  L133 p 2 fs= 12.0 bold=False | Indonesia Tahun 2024 Nomor 364);
+   707→  L134 p 2 fs= 12.0 bold=False | 10. Peraturan Menteri Perdagangan Nomor 46 Tahun 2022
+   708→  L135 p 2 fs= 12.0 bold=False | tentang Tata Cara Penetapan Harga Patokan Ekspor atas
+   709→  L136 p 2 fs= 12.0 bold=False | Produk Pertanian dan Kehutanan yang Dikenakan Bea
+   710→  L137 p 2 fs= 12.0 bold=False | Keluar, Harga Referensi atas Produk Pertanian dan
+   711→  L138 p 2 fs= 12.0 bold=False | Kehutanan dan Daftar Merek Refined, Bleached and
+   712→  L139 p 2 fs= 12.0 bold=False | Deodorized Palm Olein yang Dikenakan Bea Keluar dan
+   713→  L140 p 2 fs= 12.0 bold=False | Tarif Layanan Badan Layanan Umum Badan Pengelola
+   714→  L141 p 2 fs= 12.0 bold=False | Dana Perkebunan Kelapa Sawit (Berita Negara Republik
+   715→  L142 p 2 fs= 12.0 bold=False | Indonesia Tahun 2022 Nomor 728);
+   716→  L143 p 2 fs= 12.0 bold=False | 11. Peraturan Menteri Perdagangan Nomor 23 Tahun 2023
+   717→  L144 p 2 fs= 12.0 bold=False | tentang Kebijakan dan Pengaturan Ekspor (Berita Negara
+   718→  L145 p 2 fs= 12.0 bold=False | Republik Indonesia Tahun 2023 Nomor 527) sebagaimana
+   719→  L146 p 2 fs= 12.0 bold=False | telah diubah beberapa kali terakhir dengan Peraturan
+   720→  L147 p 2 fs= 12.0 bold=False | Menteri Perdagangan Nomor 21 Tahun 2024 tentang
+   721→  L148 p 2 fs= 12.0 bold=False | Perubahan Kedua atas Peraturan Menteri Perdagangan
+   722→  L149 p 2 fs= 12.0 bold=False | Nomor 23 Tahun 2023 tentang Kebijakan dan Pengaturan
+   723→  L150 p 2 fs= 12.0 bold=False | Ekspor (Berita Negara Republik Indonesia Tahun 2024
+   724→  L151 p 3 fs= 11.4 bold=False | -3-
+   725→  L152 p 3 fs= 12.8 bold=False | Nomor 512);
+   726→  L153 p 3 fs= 19.8 bold=False | 12. Peraturan Menteri Keuangan Nomor 38 Tahun 2024
+   727→  L154 p 3 fs= 16.5 bold=False | tentang Penetapan Barang Ekspor yang Dikenakan Bea
+   728→  L155 p 3 fs= 19.1 bold=False | Keluar dan Tarif Bea Keluar (Berita Negara Republik
+   729→  L156 p 3 fs= 14.2 bold=False | Indonesia Tahun 2024 Nomor 294);
+   730→  L157 p 3 fs= 17.1 bold=False | 13. Peraturan Menteri Perdagangan Nomor 26 Tahun 2024
+   731→  L158 p 3 fs= 14.4 bold=False | tentang Ketentuan Ekspor Produk Turunan Kelapa Sawit
+   732→  L159 p 3 fs= 18.1 bold=False | (Berita Negara Republik Indonesia Tahun 2024 Nomor
+   733→  L160 p 3 fs= 11.8 bold=False | 674);
+   734→  L161 p 3 fs= 12.0 bold=False | 14. Peraturan
+   735→  L162 p 3 fs= 12.0 bold=False | Menteri
+   736→  L163 p 3 fs= 12.0 bold=False | Perdagangan
+   737→  L164 p 3 fs= 11.9 bold=False | Nomor
+   738→  L165 p 3 fs= 21.5 bold=False | 6 Tahun 2025 tentang Organisasi dan Tata Kerja
+   739→  L166 p 3 fs= 24.5 bold=False | Kementerian Perdagangan (Berita Negara Republik
+   740→  L167 p 3 fs= 13.8 bold=False | Indonesia Tahun 2025 Nomor 53);
+   741→  L168 p 3 fs= 11.9 bold=False | MEMUTUSKAN:
+   742→  L169 p 3 fs= 11.9 bold=False | Menetapkan
+   743→  L170 p 3 fs= 19.8 bold=False | : KEPUTUSAN MENTERI PERDAGANGAN TENTANG HARGA
+   744→  L171 p 3 fs= 22.6 bold=False | REFERENSI CRUDE PALM OIL YANG DIKENAKAN BEA
+   745→  L172 p 3 fs= 20.2 bold=False | KELUAR DAN TARIF LAYANAN BADAN LAYANAN UMUM
+   746→  L173 p 3 fs= 13.5 bold=False | BADAN PENGELOLA DANA PERKEBUNAN KELAPA SAWIT.
+   747→  L174 p 3 fs= 11.8 bold=False | KESATU
+   748→  L175 p 3 fs= 19.5 bold=False | : Menetapkan Harga Referensi Crude Palm Oil yang dikenakan
+   749→  L176 p 3 fs= 15.4 bold=False | Bea Keluar dan Tarif Layanan Badan Layanan Umum Badan
+   750→  L177 p 3 fs= 27.5 bold=False | Pengelola Dana Perkebunan Kelapa Sawit sebesar
+   751→  L178 p 3 fs= 13.5 bold=False | US$ 955,44/MT.
+   752→  L179 p 3 fs= 11.9 bold=False | KEDUA
+   753→  L180 p 3 fs= 23.0 bold=False | : Harga Referensi sebagaimana dimaksud dalam Diktum
+   754→  L181 p 3 fs= 20.0 bold=False | KESATU berlaku terhitung sejak tanggal 1 Februari 2025
+   755→  L182 p 3 fs= 13.5 bold=False | sampai dengan tanggal 28 Februari 2025.
+   756→  L183 p 3 fs= 11.8 bold=False | KETIGA
+   757→  L184 p 3 fs= 19.3 bold=False | : Keputusan Menteri ini mulai berlaku pada tanggal 1 Februari
+   758→  L185 p 3 fs= 11.8 bold=False | 2025.
+   759→  L186 p 3 fs= 13.1 bold=False | Ditetapkan di Jakarta
+   760→  L187 p 3 fs= 14.2 bold=False | pada tanggal 31 Januari 2025
+   761→  L188 p 3 fs= 14.4 bold=False | a.n. MENTERI PERDAGANGAN REPUBLIK INDONESIA
+   762→  L189 p 3 fs= 14.4 bold=False | Pit. Direktur Jenderal Perdagangan Luar Negeri,
+   763→  L190 p 3 fs= 11.5 bold=False | ttd.
+   764→  L191 p 3 fs= 13.2 bold=False | ISY KARIM
+   765→  L192 p 3 fs= 13.2 bold=False | Salinan sesuai dengan aslinya
+   766→  L193 p 3 fs= 12.0 bold=False | Sekretariat Jenderal
+   767→  L194 p 3 fs= 13.1 bold=False | Kementerian Perdagangan
+   768→
+   769→================================================================================
+   770→FILE: /home/z/my-project/download/skeletons/JDIH_KPU_skeleton.json
+   771→================================================================================
+   772→Folder: JDIH_KPU
+   773→Filename: PKPU_8_2026.pdf
+   774→Total lines: 286
+   775→Most common font size: 12.0
+   776→Font sizes: [12.0]
+   777→Sections: []
+   778→Numbering patterns: ['ayat_(N)', 'letter_a.', 'pasal_roman']
+   779→
+   780→--- FULL TEXT (200 lines) ---
+   781→  L000 p 2 fs= 12.0 bold=False | - 2 -
+   782→  L001 p 2 fs= 12.0 bold=False | Daerah (Lembaran Negara Republik Indonesia Tahun 201
+   783→  L002 p 2 fs= 12.0 bold=False | Nomor 117, Tambahan Lembaran Negara Republik
+   784→  L003 p 2 fs= 12.0 bold=False | Indonesia Nomor 5316);
+   785→  L004 p 2 fs= 12.0 bold=False | 4.
+   786→  L005 p 2 fs= 12.0 bold=False | Peraturan Komisi Pemilihan Umum Nomor 07 Tahun
+   787→  L006 p 2 fs= 12.0 bold=False | 2012
+   788→  L007 p 2 fs= 12.0 bold=False | tentang
+   789→  L008 p 2 fs= 12.0 bold=False | Tahapan,
+   790→  L009 p 2 fs= 12.0 bold=False | Program,
+   791→  L010 p 2 fs= 12.0 bold=False | dan
+   792→  L011 p 2 fs= 12.0 bold=False | Jadual
+   793→  L012 p 2 fs= 12.0 bold=False | Penyelenggaraan
+   794→  L013 p 2 fs= 12.0 bold=False | Pemilihan
+   795→  L014 p 2 fs= 12.0 bold=False | Umum
+   796→  L015 p 2 fs= 12.0 bold=False | Anggota
+   797→  L016 p 2 fs= 12.0 bold=False | Dewan
+   798→  L017 p 2 fs= 12.0 bold=False | Perwakilan Rakyat, Dewan Perwakilan Daerah, dan
+   799→  L018 p 2 fs= 12.0 bold=False | Dewan
+   800→  L019 p 2 fs= 12.0 bold=False | Perwakilan
+   801→  L020 p 2 fs= 12.0 bold=False | Rakyat
+   802→  L021 p 2 fs= 12.0 bold=False | Daerah
+   803→  L022 p 2 fs= 12.0 bold=False | Tahun
+   804→  L023 p 2 fs= 12.0 bold=False | 2014,
+   805→  L024 p 2 fs= 12.0 bold=False | sebagaimana telah beberapa kali diubah, terakhir dengan
+   806→  L025 p 2 fs= 12.0 bold=False | Peraturan Komisi Pemilihan Umum Nomor 21 Tahun
+   807→  L026 p 2 fs= 12.0 bold=False | 2013;
+   808→  L027 p 2 fs= 12.0 bold=False | 5.
+   809→  L028 p 2 fs= 12.0 bold=False | Peraturan Komisi Pemilihan Umum Nomor 01 Tahun
+   810→  L029 p 2 fs= 12.0 bold=False | 2013 tentang Pedoman Pelaksanaan Kampanye Pemilihan
+   811→  L030 p 2 fs= 12.0 bold=False | Umum Anggota Dewan Perwakilan Rakyat, Dewan
+   812→  L031 p 2 fs= 12.0 bold=False | Perwakilan Daerah, dan Dewan Perwakilan Rakyat
+   813→  L032 p 2 fs= 12.0 bold=False | Daerah, sebagaimana telah diubah dengan Peraturan
+   814→  L033 p 2 fs= 12.0 bold=False | Komisi Pemilihan Umum Nomor 15 Tahun 2013;
+   815→  L034 p 2 fs= 12.0 bold=False | MEMUTUSKAN :
+   816→  L035 p 2 fs= 12.0 bold=False | Menetapkan: PERATURAN
+   817→  L036 p 2 fs= 12.0 bold=False | KOMISI
+   818→  L037 p 2 fs= 12.0 bold=False | PEMILIHAN
+   819→  L038 p 2 fs= 12.0 bold=False | UMUM
+   820→  L039 p 2 fs= 12.0 bold=False | TENTANG
+   821→  L040 p 2 fs= 12.0 bold=False | PERUBAHAN ATAS PERATURAN KOMISI PEMILIHAN UMUM
+   822→  L041 p 2 fs= 12.0 bold=False | NOMOR 17 TAHUN 2013 TENTANG PEDOMAN PELAPORAN
+   823→  L042 p 2 fs= 12.0 bold=False | DANA KAMPANYE PESERTA PEMILIHAN UMUM ANGGOTA
+   824→  L043 p 2 fs= 12.0 bold=False | DEWAN
+   825→  L044 p 2 fs= 12.0 bold=False | PERWAKILAN
+   826→  L045 p 2 fs= 12.0 bold=False | RAKYAT,
+   827→  L046 p 2 fs= 12.0 bold=False | DEWAN
+   828→  L047 p 2 fs= 12.0 bold=False | PERWAKILAN
+   829→  L048 p 2 fs= 12.0 bold=False | DAERAH DAN DEWAN PERWAKILAN RAKYAT DAERAH.
+   830→  L049 p 2 fs= 12.0 bold=False | Pasal I
+   831→  L050 p 2 fs= 12.0 bold=False | Beberapa ketentuan dalam Peraturan Komisi Pemilihan
+   832→  L051 p 2 fs= 12.0 bold=False | Umum Nomor 17 Tahun 2013 tentang Pedoman Pelaporan
+   833→  L052 p 2 fs= 12.0 bold=False | Dana Kampanye Peserta Pemilu Anggota Dewan Perwakilan
+   834→  L053 p 2 fs= 12.0 bold=False | Rakyat, Dewan Perwakilan Daerah, dan Dewan Perwakilan
+   835→  L054 p 2 fs= 12.0 bold=False | Rakyat Daerah, diubah sebagai berikut:
+   836→  L055 p 2 fs= 12.0 bold=False | 1.
+   837→  L056 p 2 fs= 12.0 bold=False | Ketentuan Pasal 20 ayat (5) diubah, sehingga berbunyi
+   838→  L057 p 2 fs= 12.0 bold=False | sebagai berikut:
+   839→  L058 p 2 fs= 12.0 bold=False | “Pasal 20
+   840→  L059 p 2 fs= 12.0 bold=False | (1)
+   841→  L060 p 2 fs= 12.0 bold=False | Pengurus Partai Politik Peserta Pemilu sesuai dengan
+   842→  L061 p 2 fs= 12.0 bold=False | tingkatannya wajib menyampaikan laporan awal
+   843→  L062 p 2 fs= 12.0 bold=False | Dana Kampanye Partai Politik Peserta Pemilu kepada
+   844→  L063 p 2 fs= 12.0 bold=False | KPU, KPU Provinsi, dan KPU Kabupaten/Kota.
+   845→  L064 p 2 fs= 12.0 bold=False | (2)
+   846→  L065 p 2 fs= 12.0 bold=False | Laporan awal Dana Kampanye Partai Politik Peserta
+   847→  L066 p 2 fs= 12.0 bold=False | Pemilu
+   848→  L067 p 2 fs= 12.0 bold=False | sebagaimana
+   849→  L068 p 2 fs= 12.0 bold=False | dimaksud
+   850→  L069 p 2 fs= 12.0 bold=False | pada
+   851→  L070 p 2 fs= 12.0 bold=False | ayat
+   852→  L071 p 2 fs= 12.0 bold=False | (1)
+   853→  L072 p 2 fs= 12.0 bold=False | mencakup …
+   854→  L073 p 3 fs= 12.0 bold=False | - 3 -
+   855→  L074 p 3 fs= 12.0 bold=False | mencakup laporan awal Dana Kampanye para calon
+   856→  L075 p 3 fs= 12.0 bold=False | anggota
+   857→  L076 p 3 fs= 12.0 bold=False | DPR,
+   858→  L077 p 3 fs= 12.0 bold=False | DPRD
+   859→  L078 p 3 fs= 12.0 bold=False | provinsi
+   860→  L079 p 3 fs= 12.0 bold=False | dan
+   861→  L080 p 3 fs= 12.0 bold=False | DPRD
+   862→  L081 p 3 fs= 12.0 bold=False | kabupaten/kota.
+   863→  L082 p 3 fs= 12.0 bold=False | (3)
+   864→  L083 p 3 fs= 12.0 bold=False | Laporan awal Dana Kampanye Partai Politik Peserta
+   865→  L084 p 3 fs= 12.0 bold=False | Pemilu sebagaimana dimaksud pada ayat (1) wajib
+   866→  L085 p 3 fs= 12.0 bold=False | dilampiri
+   867→  L086 p 3 fs= 12.0 bold=False | laporan
+   868→  L087 p 3 fs= 12.0 bold=False | pencatatan
+   869→  L088 p 3 fs= 12.0 bold=False | penerimaan
+   870→  L089 p 3 fs= 12.0 bold=False | dan
+   871→  L090 p 3 fs= 12.0 bold=False | pengeluaran Dana Kampanye Calon Anggota DPR,
+   872→  L091 p 3 fs= 12.0 bold=False | DPRD provinsi dan DPRD kabupaten/kota.
+   873→  L092 p 3 fs= 12.0 bold=False | (4)
+   874→  L093 p 3 fs= 12.0 bold=False | Calon Anggota DPD wajib menyampaikan laporan
+   875→  L094 p 3 fs= 12.0 bold=False | awal Dana Kampanye Calon Anggota DPD yang
+   876→  L095 p 3 fs= 12.0 bold=False | bersangkutan kepada KPU melalui KPU Provinsi.
+   877→  L096 p 3 fs= 12.0 bold=False | (5)
+   878→  L097 p 3 fs= 12.0 bold=False | Laporan sebagaimana dimaksud pada ayat (1) dan
+   879→  L098 p 3 fs= 12.0 bold=False | ayat (4) disampaikan paling lambat 14 (empat belas)
+   880→  L099 p 3 fs= 12.0 bold=False | hari sebelum hari pertama jadual pelaksanaan
+   881→  L100 p 3 fs= 12.0 bold=False | Kampanye Pemilu dalam bentuk rapat umum.”
+   882→  L101 p 3 fs= 12.0 bold=False | 2.
+   883→  L102 p 3 fs= 12.0 bold=False | Ketentuan Pasal 21 ayat (1), diubah, sehingga berbunyi
+   884→  L103 p 3 fs= 12.0 bold=False | sebagai berikut:
+   885→  L104 p 3 fs= 12.0 bold=False | “Pasal 21
+   886→  L105 p 3 fs= 12.0 bold=False | (1)
+   887→  L106 p 3 fs= 12.0 bold=False | Laporan
+   888→  L107 p 3 fs= 12.0 bold=False | awal
+   889→  L108 p 3 fs= 12.0 bold=False | Dana
+   890→  L109 p 3 fs= 12.0 bold=False | Kampanye
+   891→  L110 p 3 fs= 12.0 bold=False | sebagaimana
+   892→  L111 p 3 fs= 12.0 bold=False | dimaksud dalam Pasal 20 ayat (1) dan ayat (4)
+   893→  L112 p 3 fs= 12.0 bold=False | mencakup:
+   894→  L113 p 3 fs= 12.0 bold=False | a.
+   895→  L114 p 3 fs= 12.0 bold=False | informasi daftar penyumbang;
+   896→  L115 p 3 fs= 12.0 bold=False | b.
+   897→  L116 p 3 fs= 12.0 bold=False | jumlah penerimaan dan pengeluaran Dana
+   898→  L117 p 3 fs= 12.0 bold=False | Kampanye berupa uang, barang dan/atau jasa
+   899→  L118 p 3 fs= 12.0 bold=False | setelah tanggal pembukaan rekening khusus
+   900→  L119 p 3 fs= 12.0 bold=False | sampai dengan paling lambat 14 (empat belas)
+   901→  L120 p 3 fs= 12.0 bold=False | hari sebelum hari pertama jadual pelaksanaan
+   902→  L121 p 3 fs= 12.0 bold=False | Kampanye Pemilu dalam bentuk rapat umum;
+   903→  L122 p 3 fs= 12.0 bold=False | c.
+   904→  L123 p 3 fs= 12.0 bold=False | jumlah penerimaan dan pengeluaran Dana
+   905→  L124 p 3 fs= 12.0 bold=False | Kampanye
+   906→  L125 p 3 fs= 12.0 bold=False | sebagaimana
+   907→  L126 p 3 fs= 12.0 bold=False | tercatat
+   908→  L127 p 3 fs= 12.0 bold=False | dalam
+   909→  L128 p 3 fs= 12.0 bold=False | Rekening Khusus Dana Kampanye dari bank
+   910→  L129 p 3 fs= 12.0 bold=False | sejak dibuka sampai dengan paling lambat 14
+   911→  L130 p 3 fs= 12.0 bold=False | (empat belas) hari sebelum hari pertama jadual
+   912→  L131 p 3 fs= 12.0 bold=False | pelaksanaan Kampanye Pemilu dalam bentuk
+   913→  L132 p 3 fs= 12.0 bold=False | rapat umum.
+   914→  L133 p 3 fs= 12.0 bold=False | (2)
+   915→  L134 p 3 fs= 12.0 bold=False | Lingkup waktu laporan awal Dana Kampanye
+   916→  L135 p 3 fs= 12.0 bold=False | terhitung dari sejak pembukaan Rekening Khusus
+   917→  L136 p 3 fs= 12.0 bold=False | Dana Kampanye dan pembukuan penerimaan dan
+   918→  L137 p 3 fs= 12.0 bold=False | pengeluaran Dana Kampanye sampai dengan paling
+   919→  L138 p 3 fs= 12.0 bold=False | lambat 14 (empat belas) hari sebelum hari pertama
+   920→  L139 p 3 fs= 12.0 bold=False | jadual pelaksanaan Kampanye Pemilu dalam bentuk
+   921→  L140 p 3 fs= 12.0 bold=False | rapat umum.
+   922→  L141 p 3 fs= 12.0 bold=False | (3) Laporan …
+   923→  L142 p 4 fs= 12.0 bold=False | - 4 -
+   924→  L143 p 4 fs= 12.0 bold=False | (3)
+   925→  L144 p 4 fs= 12.0 bold=False | Laporan awal Dana Kampanye yang tidak mencakup
+   926→  L145 p 4 fs= 12.0 bold=False | semua informasi/data sebagaimana dimaksud pada
+   927→  L146 p 4 fs= 12.0 bold=False | ayat (1) dikembalikan kepada Peserta Pemilu.
+   928→  L147 p 4 fs= 12.0 bold=False | (4)
+   929→  L148 p 4 fs= 12.0 bold=False | Peserta Pemilu wajib menyampaikan laporan hasil
+   930→  L149 p 4 fs= 12.0 bold=False | perbaikan kepada KPU, KPU Provinsi, dan KPU
+   931→  L150 p 4 fs= 12.0 bold=False | Kabupaten/Kota paling lambat 5 (lima) hari sejak
+   932→  L151 p 4 fs= 12.0 bold=False | diterima
+   933→  L152 p 4 fs= 12.0 bold=False | dari
+   934→  L153 p 4 fs= 12.0 bold=False | KPU,
+   935→  L154 p 4 fs= 12.0 bold=False | KPU
+   936→  L155 p 4 fs= 12.0 bold=False | Provinsi
+   937→  L156 p 4 fs= 12.0 bold=False | dan
+   938→  L157 p 4 fs= 12.0 bold=False | KPU
+   939→  L158 p 4 fs= 12.0 bold=False | Kabupaten/Kota.
+   940→  L159 p 4 fs= 12.0 bold=False | (5)
+   941→  L160 p 4 fs= 12.0 bold=False | Dalam hal Peserta Pemilu tidak menyampaikan
+   942→  L161 p 4 fs= 12.0 bold=False | laporan hasil perbaikan sebagaimana dimaksud
+   943→  L162 p 4 fs= 12.0 bold=False | pada ayat (4), KPU, KPU Provinsi dan KPU
+   944→  L163 p 4 fs= 12.0 bold=False | Kabupaten/Kota
+   945→  L164 p 4 fs= 12.0 bold=False | mengumumkan
+   946→  L165 p 4 fs= 12.0 bold=False | kepada
+   947→  L166 p 4 fs= 12.0 bold=False | masyarakat melalui papan pengumuman dan/atau
+   948→  L167 p 4 fs= 12.0 bold=False | website
+   949→  L168 p 4 fs= 12.0 bold=False | KPU,
+   950→  L169 p 4 fs= 12.0 bold=False | KPU
+   951→  L170 p 4 fs= 12.0 bold=False | Provinsi
+   952→  L171 p 4 fs= 12.0 bold=False | dan
+   953→  L172 p 4 fs= 12.0 bold=False | KPU
+   954→  L173 p 4 fs= 12.0 bold=False | Kabupaten/Kota paling lambat 3 (tiga) hari setelah
+   955→  L174 p 4 fs= 12.0 bold=False | batas waktu Peserta Pemilu tidak menyampaikan
+   956→  L175 p 4 fs= 12.0 bold=False | laporan hasil perbaikan.”
+   957→  L176 p 4 fs= 12.0 bold=False | 3.
+   958→  L177 p 4 fs= 12.0 bold=False | Ketentuan Pasal 22 ayat (4) diubah, sehingga berbunyi
+   959→  L178 p 4 fs= 12.0 bold=False | sebagai berikut:
+   960→  L179 p 4 fs= 12.0 bold=False | “Pasal 22
+   961→  L180 p 4 fs= 12.0 bold=False | (1)
+   962→  L181 p 4 fs= 12.0 bold=False | Pengurus Partai Politik Peserta Pemilu pada setiap
+   963→  L182 p 4 fs= 12.0 bold=False | tingkatan
+   964→  L183 p 4 fs= 12.0 bold=False | wajib
+   965→  L184 p 4 fs= 12.0 bold=False | melaporkan
+   966→  L185 p 4 fs= 12.0 bold=False | sumbangan
+   967→  L186 p 4 fs= 12.0 bold=False | sebagaimana dimaksud dalam Pasal 19 kepada KPU,
+   968→  L187 p 4 fs= 12.0 bold=False | KPU Provinsi dan KPU Kabupaten/Kota.
+   969→  L188 p 4 fs= 12.0 bold=False | (2)
+   970→  L189 p 4 fs= 12.0 bold=False | Calon Anggota DPD wajib melaporkan sumbangan
+   971→  L190 p 4 fs= 12.0 bold=False | sebagaimana dimaksud dalam Pasal 19 kepada KPU
+   972→  L191 p 4 fs= 12.0 bold=False | melalui KPU Provinsi.
+   973→  L192 p 4 fs= 12.0 bold=False | (3)
+   974→  L193 p 4 fs= 12.0 bold=False | Laporan
+   975→  L194 p 4 fs= 12.0 bold=False | penerimaan
+   976→  L195 p 4 fs= 12.0 bold=False | sumbangan
+   977→  L196 p 4 fs= 12.0 bold=False | mencakup
+   978→  L197 p 4 fs= 12.0 bold=False | informasi sebagaimana dimaksud dalam Pasal 19
+   979→  L198 p 4 fs= 12.0 bold=False | ayat (2), ayat (3) dan ayat (4).
+   980→  L199 p 4 fs= 12.0 bold=False | (4)
+   981→
+   982→================================================================================
+   983→FILE: /home/z/my-project/download/skeletons/perpres_skeleton.json
+   984→================================================================================
+   985→Folder: perpres
+   986→Filename: perpres-no-127-tahun-2024.pdf
+   987→Total lines: 191
+   988→Most common font size: 12.5
+   989→Font sizes: [7.0, 7.5, 8.0, 9.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5, 16.0, 16.5, 17.0, 17.5, 18.0, 18.5, 19.0, 19.5, 22.5]
+   990→Sections: []
+   991→Numbering patterns: ['letter_a.', 'pasal_arabic']
+   992→
+   993→--- FULL TEXT (191 lines) ---
+   994→  L000 p 1 fs= 22.5 bold=False | SALINAN
+   995→  L001 p 1 fs= 11.5 bold=False | PRESIDEN
+   996→  L002 p 1 fs= 12.0 bold=False | REPUBLIK INDONESIA
+   997→  L003 p 1 fs= 12.5 bold=False | PERATURAN PRESIDEN REPUBLIK INDONESIA
+   998→  L004 p 1 fs= 14.0 bold=False | NOMOR I27 TAHUN 2024
+   999→  L005 p 1 fs= 12.0 bold=False | TENTANG
+  1000→  L006 p 1 fs= 12.5 bold=False | TUNJANGAN JABATAN FUNGSIONAL
+  1001→  L007 p 1 fs= 12.5 bold=False | KURATOR KOLEKSI HAYATI
+  1002→  L008 p 1 fs= 13.0 bold=False | DENGAN RAHMATTUHAN YANG MAHA ESA
+  1003→  L009 p 1 fs= 12.5 bold=False | PRESIDEN REPUBLIK INDONESIA,
+  1004→  L010 p 1 fs= 13.0 bold=False | Menimbang
+  1005→  L011 p 1 fs= 11.5 bold=False | a.
+  1006→  L012 p 1 fs= 13.0 bold=False | Mengingat
+  1007→  L013 p 1 fs= 11.5 bold=False | 2
+  1008→  L014 p 1 fs=  8.0 bold=False | 1
+  1009→  L015 p 1 fs= 12.5 bold=False | b
+  1010→  L016 p 1 fs= 14.5 bold=False | bahwa untuk meningkatkan mutu, prestasi, pengabdian,
+  1011→  L017 p 1 fs= 16.0 bold=False | dan produktivitas kinerja pegawai Negeri Sipil yang
+  1012→  L018 p 1 fs= 14.0 bold=False | diangkat dan ditugaskan secara penuh dalam Jabatan
+  1013→  L019 p 1 fs= 16.0 bold=False | Fungsional Kurator Koleksi Hayati, perlu diberikan
+  1014→  L020 p 1 fs= 14.5 bold=False | Tunjangan Jabatan Fungsional Kurator Koleksi Hayati
+  1015→  L021 p 1 fs= 14.0 bold=False | sesuai dengan beban kerja, tanggung jawab, dan risiko
+  1016→  L022 p 1 fs= 13.0 bold=False | pekerjaan;
+  1017→  L023 p 1 fs= 18.0 bold=False | bahwa berdasarkan pertimbangan sebagaimana
+  1018→  L024 p 1 fs= 15.0 bold=False | dimaksud dalam huruf a, perlu menetapkan peraturan
+  1019→  L025 p 1 fs= 13.5 bold=False | Presiden tentang Tunjangan Jabatan Fungsional Kurator
+  1020→  L026 p 1 fs= 13.0 bold=False | Koleksi Hayati;
+  1021→  L027 p 1 fs= 13.5 bold=False | Pasal 4 ayat (1) Undang-Undang Dasar Negara Republik
+  1022→  L028 p 1 fs= 13.5 bold=False | Indonesia Tahun 1945;
+  1023→  L029 p 1 fs= 13.5 bold=False | Undang-Undang Nomor 2O Tahun 2O23 tentang Aparatur
+  1024→  L030 p 1 fs= 17.0 bold=False | Sioil Negara (Lembaran Negara Republik lndonesia
+  1025→  L031 p 1 fs= 14.5 bold=False | Tahun 2023 Nomor 141, Tambahan Lembaran Negara
+  1026→  L032 p 1 fs= 13.5 bold=False | Republik Indonesia Nomor 6897);
+  1027→  L033 p 1 fs= 18.0 bold=False | Peraturan Pemerintah Nomor 7 Tahun lgZZ terrtang
+  1028→  L034 p 1 fs= 15.5 bold=False | leraturan Gaji Pegawai Negeri Sipil (kmbaran Negari
+  1029→  L035 p 1 fs= 19.5 bold=False | Republik Indonesia Tahun 1977 Nomor ll, Tambahan
+  1030→  L036 p 1 fs= 15.5 bold=False | lembaran Negara Republik Indonesia Nomor 3O9g)
+  1031→  L037 p 1 fs= 13.5 bold=False | sebagaimana telah beberapa kali diubah, terakhir dengan
+  1032→  L038 p 1 fs= 16.0 bold=False | Peraturan Pemerintah Nomor S Tahun 2024 tentang
+  1033→  L039 p 1 fs= 13.5 bold=False | Perubahan Kesembilan Belas atas peraturan pemerintah
+  1034→  L040 p 1 fs= 15.5 bold=False | Nomor 7 Tahun 1977 tentang peraturan Gaji pegawai
+  1035→  L041 p 1 fs= 17.5 bold=False | Negeri Sipil (Lembaran Negara Republik -Indonesia
+  1036→  L042 p 1 fs= 13.5 bold=False | Tahun 2O24 Nomor 15);
+  1037→  L043 p 1 fs= 12.0 bold=False | 3
+  1038→  L044 p 1 fs= 13.5 bold=False | SK No243676A
+  1039→  L045 p 1 fs= 13.5 bold=False | 4. Peraturan . . .
+  1040→  L046 p 2 fs= 11.5 bold=False | PRESIDEN
+  1041→  L047 p 2 fs= 12.5 bold=False | REPUBLIK I{DONESIA
+  1042→  L048 p 2 fs= 13.5 bold=False | -z-
+  1043→  L049 p 2 fs= 18.0 bold=False | 4. Peraturan Pemerintah Nomor 1l Tahun 2Ol7 tentang
+  1044→  L050 p 2 fs= 16.5 bold=False | Manajemen Pegawai Negeri Sipil (kmbaran Negara
+  1045→  L051 p 2 fs= 14.0 bold=False | Republik Indonesia Tahun 2017 Nomor 63, Tambahan
+  1046→  L052 p 2 fs= 15.5 bold=False | lembaran Negara Republik Indonesia Nomor 6037)
+  1047→  L053 p 2 fs= 13.5 bold=False | sslagaimana telah diubah dengan Peraturan Pemerintah
+  1048→  L054 p 2 fs= 13.0 bold=False | Nomor 17 Tahun 2O2O tentangPerubahan atas Peraturan
+  1049→  L055 p 2 fs= 14.0 bold=False | Pemerintah Nomor 11 Tahun 2OL7 ter,ltang Manajemen
+  1050→  L056 p 2 fs= 18.0 bold=False | Pegawai Negeri Sipil (Lembaran Negara Republik
+  1051→  L057 p 2 fs= 13.5 bold=False | Indonesia Tahun 2020 Nomor 68, Tambahan Lembaran
+  1052→  L058 p 2 fs= 13.0 bold=False | Negara Republik Indonesia Nomor 6477);
+  1053→  L059 p 2 fs= 18.0 bold=False | 5. Keputusan Presiden Nomor 87 Tahun 1999 tentang
+  1054→  L060 p 2 fs= 15.5 bold=False | Rumpun Jabatan F\rngsional Pegawai Negeri Sipil
+  1055→  L061 p 2 fs= 13.5 bold=False | sebagaimana telah beberapa kali diubah, terakhir dengan
+  1056→  L062 p 2 fs= 15.0 bold=False | Peraturan Presiden Nomor 116 Tahun 2014 tentang
+  1057→  L063 p 2 fs= 14.0 bold=False | Perubahan Kedua atas Keputusan Presiden Nomor 87
+  1058→  L064 p 2 fs= 16.5 bold=False | Tahun 1999 tentang Rumpun Jabatan Fungsional
+  1059→  L065 p 2 fs= 18.0 bold=False | Pegawai Negeri Sipil (Lembaran Negara Republik
+  1060→  L066 p 2 fs= 13.5 bold=False | Indonesia Tahun 2014 Nomor 240);
+  1061→  L067 p 2 fs= 12.5 bold=False | MEMUTUSKAN:
+  1062→  L068 p 2 fs= 12.5 bold=False | PERATURAN PRESIDEN TENTANG TUNJANGAN JABATAN
+  1063→  L069 p 2 fs= 12.5 bold=False | FUNGSIONAL KURATOR KOLEKSI HAYATI.
+  1064→  L070 p 2 fs= 12.5 bold=False | Pasal 1
+  1065→  L071 p 2 fs= 18.0 bold=False | Dalam Peraturan Presiden ini yang dimaksud dengan
+  1066→  L072 p 2 fs= 13.5 bold=False | Tunjangan Jabatan Fungsional Kurator Koleksi Hayati yang
+  1067→  L073 p 2 fs= 15.5 bold=False | selanjutnya disebut Tunjangan Kurator Koleksi Hayati
+  1068→  L074 p 2 fs= 14.0 bold=False | adalah tunjangan jabatan yang diberikan kepada Pegawai
+  1069→  L075 p 2 fs= 15.0 bold=False | Negeri Sipil yang diangkat dan ditugaskan secara penuh
+  1070→  L076 p 2 fs= 14.5 bold=False | dalam Jabatan Fungsional Kurator Koleksi Hayati sesuai
+  1071→  L077 p 2 fs= 13.5 bold=False | dengan ketentuan peraturan perundang-undangan.
+  1072→  L078 p 2 fs= 12.0 bold=False | Pasal 2
+  1073→  L079 p 2 fs= 14.0 bold=False | Pegawai Negeri Sipil yang diangkat dan ditugaskan secara
+  1074→  L080 p 2 fs= 14.5 bold=False | penuh dalam Jabatan Fungsional Kurator Koleksi Hayati
+  1075→  L081 p 2 fs= 13.5 bold=False | diberikan 'I\rnjangan Kurator Koleksi Hayati setiap bulan.
+  1076→  L082 p 2 fs= 18.0 bold=False | Pasal 3
+  1077→  L083 p 2 fs= 14.0 bold=False | SK No 211339A
+  1078→  L084 p 3 fs= 11.5 bold=False | FRESIDEN
+  1079→  L085 p 3 fs= 12.0 bold=False | REPUBL]K INDONESIA
+  1080→  L086 p 3 fs= 19.0 bold=False | -3-
+  1081→  L087 p 3 fs= 15.0 bold=False | Besaran T\rnjangan Kurator Koleksi Hayati sebagaimana
+  1082→  L088 p 3 fs= 15.5 bold=False | dimaksud dalam Pasal 2 tercantum dalam Lampiran yang
+  1083→  L089 p 3 fs= 18.5 bold=False | merupakan bagran tidak terpisahkan dari Peraturan
+  1084→  L090 p 3 fs= 14.0 bold=False | Presiden ini.
+  1085→  L091 p 3 fs= 12.0 bold=False | Pasal 3
+  1086→  L092 p 3 fs= 12.5 bold=False | Pasal 4
+  1087→  L093 p 3 fs= 15.5 bold=False | Peraturan Presiden ini
+  1088→  L094 p 3 fs= 13.5 bold=False | diundangkan.
+  1089→  L095 p 3 fs= 17.5 bold=False | mulai berlaku pada tanggal
+  1090→  L096 p 3 fs= 13.5 bold=False | Pemberian Ttrnjangan Kurator Koleksi Hayati bagi:
+  1091→  L097 p 3 fs= 19.0 bold=False | a. Pegawai Negeri Sipil yang bekerja pada instansi pusat
+  1092→  L098 p 3 fs= 17.0 bold=False | bersumber dari Anggaran Pendapatan dan Belanja
+  1093→  L099 p 3 fs= 13.0 bold=False | Negara; dan
+  1094→  L100 p 3 fs= 18.0 bold=False | b. Pegawai Negeri Sipil yang bekerja pada instansi daerah
+  1095→  L101 p 3 fs= 17.0 bold=False | bersumber dari Anggaran Pendapatan dan Belanja
+  1096→  L102 p 3 fs= 12.5 bold=False | Daerah.
+  1097→  L103 p 3 fs= 12.0 bold=False | Pasal 5
+  1098→  L104 p 3 fs= 14.5 bold=False | Pemberian T\rnjangan Kurator Koleksi Hayati dihentikan
+  1099→  L105 p 3 fs= 14.0 bold=False | apabila Pegawai Negeri Sipil sglagaimana dimaksud dalam
+  1100→  L106 p 3 fs= 18.0 bold=False | Pasal 2 diangkat dalam jabatan struktural, jabatan
+  1101→  L107 p 3 fs= 15.0 bold=False | fungsional lain, atau karena hal lain yang mengakibatkan
+  1102→  L108 p 3 fs= 14.5 bold=False | pemberian Tunjangan Kurator Koleksi Hayati dihentikan
+  1103→  L109 p 3 fs= 13.5 bold=False | sesuai dengan ketentuan peraturan perundang-undangan.
+  1104→  L110 p 3 fs= 12.5 bold=False | Pasal 6
+  1105→  L111 p 3 fs= 17.5 bold=False | Tata cara pembayaran dan penghentian pembayaran
+  1106→  L112 p 3 fs= 15.5 bold=False | Tfrnjangan Kurator Koleksi Hayati dilaksanakan sesuai
+  1107→  L113 p 3 fs= 13.5 bold=False | dengan ketentuan peraturan perundang-undangan.
+  1108→  L114 p 3 fs= 12.0 bold=False | Pasal 7
+  1109→  L115 p 3 fs= 14.0 bold=False | SK No2l1340A
+  1110→  L116 p 3 fs= 12.5 bold=False | Agar
+  1111→  L117 p 4 fs= 15.5 bold=False | I
+  1112→  L118 p 4 fs= 11.0 bold=False | PRESTDEN
+  1113→  L119 p 4 fs= 12.5 bold=False | REPUBUK INDONESIA
+  1114→  L120 p 4 fs= 18.0 bold=False | -4-
+  1115→  L121 p 4 fs= 18.0 bold=False | Agar setiap
+  1116→  L122 p 4 fs= 13.0 bold=False | pengundangan
+  1117→  L123 p 4 fs= 13.0 bold=False | penempatannya
+  1118→  L124 p 4 fs= 13.0 bold=False | Indonesia.
+  1119→  L125 p 4 fs= 18.0 bold=False | orang mengetahuinya, memerintahkan
+  1120→  L126 p 4 fs= 18.0 bold=False | Peraturan presiden ini
+  1121→  L127 p 4 fs= 12.5 bold=False | dengan
+  1122→  L128 p 4 fs= 18.0 bold=False | dalam kmbaran Negara nepuStik
+  1123→  L129 p 4 fs= 14.0 bold=False | Ditetapkan di Jakarta
+  1124→  L130 p 4 fs= 13.5 bold=False | pada tanggal 17 Oktober 2024
+  1125→  L131 p 4 fs= 12.5 bold=False | PRESIDEN REPUBLIK INDONESIA,
+  1126→  L132 p 4 fs= 14.5 bold=False | ttd
+  1127→  L133 p 4 fs= 12.5 bold=False | JOKO WIDODO
+  1128→  L134 p 4 fs= 14.0 bold=False | Diundangkan di Jakarta
+  1129→  L135 p 4 fs= 13.5 bold=False | pada tanggal LT Oktober 2024
+  1130→  L136 p 4 fs= 12.5 bold=False | MENTERI SEKRETARIS NEGARA
+  1131→  L137 p 4 fs= 12.5 bold=False | REPUBLIK INDONESIA,
+  1132→  L138 p 4 fs= 13.5 bold=False | ttd.
+  1133→  L139 p 4 fs= 12.0 bold=False | PRATIKNO
+  1134→  L140 p 4 fs= 13.0 bold=False | LEMBARAN NEGARA REPUBLIK INDONESIA TAHUN 2024 NOMOR 234
+  1135→  L141 p 4 fs= 13.0 bold=False | Salinan sesuai dengan aslinya
+  1136→  L142 p 4 fs= 12.5 bold=False | KEMENTERIAN SEKRETARIAT NEGARA
+  1137→  L143 p 4 fs= 12.5 bold=False | REPUBLIK INDONESIA
+  1138→  L144 p 4 fs= 13.0 bold=False | dang Perundang-undangan
+  1139→  L145 p 4 fs= 14.0 bold=False | strasi Hukum
+  1140→  L146 p 4 fs= 14.0 bold=False | SK No243677A
+  1141→  L147 p 4 fs= 13.5 bold=False | ilvanna Djaman
+  1142→  L148 p 5 fs= 11.5 bold=False | PRESIDEN
+  1143→  L149 p 5 fs= 12.0 bold=False | REPUBLIK INDONESTA
+  1144→  L150 p 5 fs= 12.5 bold=False | TUNJANGAN JABATAN FUNGSIONAL
+  1145→  L151 p 5 fs= 12.5 bold=False | KURATOR KOLEKSI HAYATI
+  1146→  L152 p 5 fs= 12.0 bold=False | LAMPIRAN
+  1147→  L153 p 5 fs= 12.5 bold=False | PERATURAN PRESIDEN REPUBLIK INDONESIA
+  1148→  L154 p 5 fs= 14.0 bold=False | NOMOR I27 TAHUN 2024
+  1149→  L155 p 5 fs= 12.0 bold=False | TENTANG
+  1150→  L156 p 5 fs= 19.5 bold=False | TUNJANGAN JABATAN FUNGSIONAL
+  1151→  L157 p 5 fs= 12.5 bold=False | KURATOR KOLEKSI HAYATI
+  1152→  L158 p 5 fs= 11.5 bold=False | NO
+  1153→  L159 p 5 fs= 12.5 bold=False | JABATAN FUNGSIONAL
+  1154→  L160 p 5 fs= 12.0 bold=False | BESARAN
+  1155→  L161 p 5 fs= 12.5 bold=False | TUNJANGAN
+  1156→  L162 p 5 fs= 13.5 bold=False | Jenjang Jabatan Fungsional Keahlian
+  1157→  L163 p 5 fs=  7.5 bold=False | 1
+  1158→  L164 p 5 fs= 14.0 bold=False | Kurator Koleksi Hayati Ahli Utama
+  1159→  L165 p 5 fs= 13.0 bold=False | Rp2.025.000,00
+  1160→  L166 p 5 fs= 12.0 bold=False | 2
+  1161→  L167 p 5 fs= 14.0 bold=False | Kurator Koleksi Hayati Ahli Madya
+  1162→  L168 p 5 fs= 12.0 bold=False | Rp1.38O.OO0,0o
+  1163→  L169 p 5 fs= 12.0 bold=False | 3
+  1164→  L170 p 5 fs= 14.0 bold=False | Kurator Koleksi Hayati Ahli Muda
+  1165→  L171 p 5 fs= 13.0 bold=False | Rp1.100.000,00
+  1166→  L172 p 5 fs= 12.5 bold=False | 4
+  1167→  L173 p 5 fs= 14.0 bold=False | Kurator Koleksi Hayati Ahli Pertama
+  1168→  L174 p 5 fs= 12.0 bold=False | Rp5a0.O00,O0
+  1169→  L175 p 5 fs= 12.5 bold=False | PRESIDEN REPUBLIK INDONESIA,
+  1170→  L176 p 5 fs= 12.5 bold=False | JOKO WIDODO
+  1171→  L177 p 5 fs= 14.5 bold=False | ttd
+  1172→  L178 p 5 fs= 13.5 bold=False | Salinan sesuai dengan aslinya
+  1173→  L179 p 5 fs= 12.5 bold=False | KEMENTERIAN SEKRETARI.AT NEGARA
+  1174→  L180 p 5 fs= 12.5 bold=False | REPUBLIK INDONESIA
+  1175→  L181 p 5 fs= 15.0 bold=False | Bidalg Perundang-undangan
+  1176→  L182 p 5 fs= 13.5 bold=False | strasi Hukum,
+  1177→  L183 p 5 fs=  8.0 bold=False | SEKR
+  1178→  L184 p 5 fs= 12.0 bold=False | E
+  1179→  L185 p 5 fs= 15.0 bold=False | rrrY*
+  1180→  L186 p 5 fs=  8.0 bold=False | D
+  1181→  L187 p 5 fs=  9.5 bold=False | tK
+  1182→  L188 p 5 fs=  7.0 bold=False | N
+  1183→  L189 p 5 fs= 13.5 bold=False | SK No243678A
+  1184→  L190 p 5 fs= 13.0 bold=False | anna Djaman

@@ -1,0 +1,664 @@
+===== uu_skeleton.json =====
+  total_lines field: 1717
+  full_text_lines count: 200
+  closing_lines count: 50
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 11.0, 'is_bold': False, 'text': 'PRESIOEN'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 11.5, 'is_bold': False, 'text': 'R EPLJBLIK INDONESIA'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 12.5, 'is_bold': False, 'text': 'UNDANG-UNDANG REPUBLIK INDONESIA'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 12.5, 'is_bold': False, 'text': 'NOMOR 41 TAHUN 2014'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'TENTANG'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [49] {'line_idx': 49, 'page': 2, 'font_size': 18.0, 'is_bold': False, 'text': 'Menetapkan : UNDANG-UNDANGTENTANG'}
+    [60] {'line_idx': 60, 'page': 2, 'font_size': 18.0, 'is_bold': False, 'text': '1. Ketentuan Pasal 1 angka 1, angka 2, angka 12, angka'}
+    [69] {'line_idx': 69, 'page': 2, 'font_size': 13.5, 'is_bold': False, 'text': 'sehingga Pasal 1 berbunyi sebagai berikut:'}
+    [70] {'line_idx': 70, 'page': 2, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 1'}
+  --- Last 20 lines ---
+    [180] {'line_idx': 180, 'page': 4, 'font_size': 14.5, 'is_bold': False, 'text': '19. Pemuliaan'}
+    [181] {'line_idx': 181, 'page': 5, 'font_size': 11.0, 'is_bold': False, 'text': '19.'}
+    [182] {'line_idx': 182, 'page': 5, 'font_size': 11.0, 'is_bold': False, 'text': 'PRESIDEN'}
+    [183] {'line_idx': 183, 'page': 5, 'font_size': 14.5, 'is_bold': False, 'text': 'R EFI.IBI," IK INDONESIA'}
+    [184] {'line_idx': 184, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': '-5-'}
+    [185] {'line_idx': 185, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'Pemuliaan Ternak yang selanjutnya disebut'}
+    [186] {'line_idx': 186, 'page': 5, 'font_size': 17.0, 'is_bold': False, 'text': 'Pemuliaan adalah rangkaian kegiatan untuk'}
+    [187] {'line_idx': 187, 'page': 5, 'font_size': 16.5, 'is_bold': False, 'text': 'mengubah komposisi genetik pada sekelompok'}
+    [188] {'line_idx': 188, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'Ternak dari suatu rumpun atau galur guna'}
+    [189] {'line_idx': 189, 'page': 5, 'font_size': 14.0, 'is_bold': False, 'text': 'mencapai tujuan tertentu.'}
+    [190] {'line_idx': 190, 'page': 5, 'font_size': 13.0, 'is_bold': False, 'text': 'Dihapus.'}
+    [191] {'line_idx': 191, 'page': 5, 'font_size': 15.5, 'is_bold': False, 'text': 'Usaha di bidang Kesehatan Hewan adalah kegiatan'}
+    [192] {'line_idx': 192, 'page': 5, 'font_size': 16.5, 'is_bold': False, 'text': 'yang menghasilkan produk dan/atau jasa yang'}
+    [193] {'line_idx': 193, 'page': 5, 'font_size': 15.0, 'is_bold': False, 'text': 'menunjang upaya dalam mewujudkan Kesehatan'}
+    [194] {'line_idx': 194, 'page': 5, 'font_size': 12.5, 'is_bold': False, 'text': 'Hewan.'}
+    [195] {'line_idx': 195, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'Pakan adalah bahan makanan tunggal atau'}
+    [196] {'line_idx': 196, 'page': 5, 'font_size': 15.5, 'is_bold': False, 'text': 'campuran, baik yang diolah maupun yang tidak'}
+    [197] {'line_idx': 197, 'page': 5, 'font_size': 17.5, 'is_bold': False, 'text': 'diolah, yang diberikan kepada hewan untuk'}
+    [198] {'line_idx': 198, 'page': 5, 'font_size': 14.5, 'is_bold': False, 'text': 'kelangsungan hidup, berproduksi, dan berkembang'}
+    [199] {'line_idx': 199, 'page': 5, 'font_size': 12.5, 'is_bold': False, 'text': 'biak.'}
+  --- Closing lines ---
+    [0] {'line_idx': 1667, 'page': 41, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [1] {'line_idx': 1668, 'page': 41, 'font_size': 13.5, 'is_bold': False, 'text': 'Angka 17'}
+    [2] {'line_idx': 1669, 'page': 41, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 65'}
+    [3] {'line_idx': 1670, 'page': 41, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [4] {'line_idx': 1671, 'page': 41, 'font_size': 13.5, 'is_bold': False, 'text': 'Angka 18'}
+    [5] {'line_idx': 1672, 'page': 41, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 66A'}
+    [6] {'line_idx': 1673, 'page': 41, 'font_size': 13.5, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [7] {'line_idx': 1674, 'page': 41, 'font_size': 13.5, 'is_bold': False, 'text': 'Angka 19'}
+    [8] {'line_idx': 1675, 'page': 41, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 68'}
+    [9] {'line_idx': 1676, 'page': 41, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [10] {'line_idx': 1677, 'page': 41, 'font_size': 13.0, 'is_bold': False, 'text': 'Angka 20'}
+    [11] {'line_idx': 1678, 'page': 42, 'font_size': 11.0, 'is_bold': False, 'text': 'PRESIDEN'}
+    [12] {'line_idx': 1679, 'page': 42, 'font_size': 11.5, 'is_bold': False, 'text': 'REPI.-IBLIK INDONESIA'}
+    [13] {'line_idx': 1680, 'page': 42, 'font_size': 14.5, 'is_bold': False, 'text': '13-'}
+    [14] {'line_idx': 1681, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Angka 20'}
+    [15] {'line_idx': 1682, 'page': 42, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 68A'}
+    [16] {'line_idx': 1683, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [17] {'line_idx': 1684, 'page': 42, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 68E}'}
+    [18] {'line_idx': 1685, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [19] {'line_idx': 1686, 'page': 42, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 68C'}
+    [20] {'line_idx': 1687, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [21] {'line_idx': 1688, 'page': 42, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 68D'}
+    [22] {'line_idx': 1689, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [23] {'line_idx': 1690, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Pasal 68E'}
+    [24] {'line_idx': 1691, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [25] {'line_idx': 1692, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Angka 21'}
+    [26] {'line_idx': 1693, 'page': 42, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 85'}
+    [27] {'line_idx': 1694, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [28] {'line_idx': 1695, 'page': 42, 'font_size': 13.5, 'is_bold': False, 'text': 'Angka22'}
+    [29] {'line_idx': 1696, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Pasal 86'}
+    [30] {'line_idx': 1697, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [31] {'line_idx': 1698, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Angka 23'}
+    [32] {'line_idx': 1699, 'page': 42, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 9 1A'}
+    [33] {'line_idx': 1700, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [34] {'line_idx': 1701, 'page': 42, 'font_size': 13.5, 'is_bold': False, 'text': 'Pasal 918'}
+    [35] {'line_idx': 1702, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [36] {'line_idx': 1703, 'page': 42, 'font_size': 12.5, 'is_bold': False, 'text': 'Angka 24'}
+    [37] {'line_idx': 1704, 'page': 42, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [38] {'line_idx': 1705, 'page': 42, 'font_size': 13.5, 'is_bold': False, 'text': 'Angka 25'}
+    [39] {'line_idx': 1706, 'page': 43, 'font_size': 48.5, 'is_bold': False, 'text': 'g).)'}
+    [40] {'line_idx': 1707, 'page': 43, 'font_size': 26.0, 'is_bold': False, 'text': '-ap*4'}
+    [41] {'line_idx': 1708, 'page': 43, 'font_size': 11.0, 'is_bold': False, 'text': 'PRESIDEN'}
+    [42] {'line_idx': 1709, 'page': 43, 'font_size': 13.5, 'is_bold': False, 'text': 'R EPL]BL IK INDONESIA'}
+    [43] {'line_idx': 1710, 'page': 43, 'font_size': 17.0, 'is_bold': False, 'text': '-14-'}
+    [44] {'line_idx': 1711, 'page': 43, 'font_size': 13.0, 'is_bold': False, 'text': 'Angka 25'}
+    [45] {'line_idx': 1712, 'page': 43, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 96A'}
+    [46] {'line_idx': 1713, 'page': 43, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [47] {'line_idx': 1714, 'page': 43, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal II'}
+    [48] {'line_idx': 1715, 'page': 43, 'font_size': 13.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [49] {'line_idx': 1716, 'page': 43, 'font_size': 12.5, 'is_bold': False, 'text': 'TAMBAHAN LEMBARAN NEGARA REPUBLIK INDONESIA NOMOR 5619'}
+
+===== perppu_skeleton.json =====
+  total_lines field: 2042
+  full_text_lines count: 200
+  closing_lines count: 50
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 22.5, 'is_bold': False, 'text': 'SALINAN'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'Menimbang'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 12.5, 'is_bold': False, 'text': 'Mengingat'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'Menetapkan'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 11.5, 'is_bold': False, 'text': 'PRESIDEN'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'Menetapkan'}
+    [12] {'line_idx': 12, 'page': 1, 'font_size': 18.0, 'is_bold': False, 'text': 'bahwa untuk melaksanakan ketentuan Pasal 11'}
+    [17] {'line_idx': 17, 'page': 1, 'font_size': 13.5, 'is_bold': False, 'text': 'Kementerian Negara, perlu menetapkan Peraturan Presiden'}
+    [19] {'line_idx': 19, 'page': 1, 'font_size': 18.0, 'is_bold': False, 'text': '1. Pasal 4 ayat (1) dan Pasal 17 Undang-Undang Dasar'}
+    [39] {'line_idx': 39, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'BAB I'}
+    [43] {'line_idx': 43, 'page': 2, 'font_size': 12.5, 'is_bold': False, 'text': 'BAB I'}
+    [45] {'line_idx': 45, 'page': 2, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 1'}
+    [53] {'line_idx': 53, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'BAB II'}
+    [188] {'line_idx': 188, 'page': 5, 'font_size': 13.5, 'is_bold': False, 'text': 'BAB III'}
+  --- Last 20 lines ---
+    [180] {'line_idx': 180, 'page': 5, 'font_size': 16.5, 'is_bold': False, 'text': 'teknik antara Pemerintah Indonesia dengan mitra'}
+    [181] {'line_idx': 181, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'pembangunan, dan penanganan administrasi'}
+    [182] {'line_idx': 182, 'page': 5, 'font_size': 14.0, 'is_bold': False, 'text': 'perjalanan dinas luar negeri;'}
+    [183] {'line_idx': 183, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'p. pengawasan atas pelaksanaan tugas di lingkungan'}
+    [184] {'line_idx': 184, 'page': 5, 'font_size': 13.0, 'is_bold': False, 'text': 'Kementerian; dan'}
+    [185] {'line_idx': 185, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'q. pelaksanaan fungsi lain yang diberikan oleh Presiden'}
+    [186] {'line_idx': 186, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'dan Wakil Presiden serta oleh peraturan'}
+    [187] {'line_idx': 187, 'page': 5, 'font_size': 13.0, 'is_bold': False, 'text': 'perundang-undangan.'}
+    [188] {'line_idx': 188, 'page': 5, 'font_size': 13.5, 'is_bold': False, 'text': 'BAB III'}
+    [189] {'line_idx': 189, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'ORGANISASI'}
+    [190] {'line_idx': 190, 'page': 5, 'font_size': 13.0, 'is_bold': False, 'text': 'Bagian Kesatu'}
+    [191] {'line_idx': 191, 'page': 5, 'font_size': 13.0, 'is_bold': False, 'text': 'Susunan Organisasi'}
+    [192] {'line_idx': 192, 'page': 5, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 7'}
+    [193] {'line_idx': 193, 'page': 5, 'font_size': 14.0, 'is_bold': False, 'text': 'Susunan organisasi Kementerian terdiri atas:'}
+    [194] {'line_idx': 194, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'a. Sekretariat Kementerian;'}
+    [195] {'line_idx': 195, 'page': 5, 'font_size': 18.0, 'is_bold': False, 'text': 'b. Sekretariat Presiden;'}
+    [196] {'line_idx': 196, 'page': 5, 'font_size': 15.5, 'is_bold': False, 'text': 'c.Sekretariat'}
+    [197] {'line_idx': 197, 'page': 5, 'font_size': 14.0, 'is_bold': False, 'text': 'SK No 247645 A'}
+    [198] {'line_idx': 198, 'page': 6, 'font_size': 11.5, 'is_bold': False, 'text': 'PRESIDEN'}
+    [199] {'line_idx': 199, 'page': 6, 'font_size': 12.5, 'is_bold': False, 'text': 'REPUBLIK INDONESIA'}
+  --- Closing lines ---
+    [0] {'line_idx': 1992, 'page': 49, 'font_size': 13.5, 'is_bold': False, 'text': 'Indonesia Tahun 2O2O Nomor 95),'}
+    [1] {'line_idx': 1993, 'page': 49, 'font_size': 18.0, 'is_bold': False, 'text': 'dinyatakan masih tetap berlaku sepanjang tidak'}
+    [2] {'line_idx': 1994, 'page': 49, 'font_size': 13.5, 'is_bold': False, 'text': 'bertentangan dengan ketentuan dalam Peraturan Presiden'}
+    [3] {'line_idx': 1995, 'page': 49, 'font_size': 13.5, 'is_bold': False, 'text': 'ini.'}
+    [4] {'line_idx': 1996, 'page': 49, 'font_size': 12.5, 'is_bold': False, 'text': 'Pasal 129'}
+    [5] {'line_idx': 1997, 'page': 49, 'font_size': 14.5, 'is_bold': False, 'text': 'Pada saat Peraturan Presiden ini mulai berlaku:'}
+    [6] {'line_idx': 1998, 'page': 49, 'font_size': 18.0, 'is_bold': False, 'text': 'a. Peraturan Presiden Nomor 31 Tahun 2O2O tentang'}
+    [7] {'line_idx': 1999, 'page': 49, 'font_size': 14.5, 'is_bold': False, 'text': 'Kementerian Sekretariat Negara (Lembaran Negara'}
+    [8] {'line_idx': 2000, 'page': 49, 'font_size': 13.5, 'is_bold': False, 'text': 'Republik Indonesia Tahun 2O2O Nomor 45);'}
+    [9] {'line_idx': 2001, 'page': 49, 'font_size': 18.0, 'is_bold': False, 'text': 'b. Peraturan Presiden Nomor 55 Tahun 2O2O tentang'}
+    [10] {'line_idx': 2002, 'page': 49, 'font_size': 16.5, 'is_bold': False, 'text': 'Sekretariat Kabinet (Lembaran Negara Republik'}
+    [11] {'line_idx': 2003, 'page': 49, 'font_size': 13.5, 'is_bold': False, 'text': 'Indonesia Tahun 2O2O Nomor 95); dan'}
+    [12] {'line_idx': 2004, 'page': 49, 'font_size': 18.0, 'is_bold': False, 'text': 'c. Peraturan Presiden Nomor 68 Tahun 2O2l tentang'}
+    [13] {'line_idx': 2005, 'page': 49, 'font_size': 13.5, 'is_bold': False, 'text': 'Pemberian Persetujuan Presiden Terhadap Rancangan'}
+    [14] {'line_idx': 2006, 'page': 49, 'font_size': 13.5, 'is_bold': False, 'text': 'Peraturan Menteri/Kepala Lembaga (Lembaran Negara'}
+    [15] {'line_idx': 2007, 'page': 49, 'font_size': 14.0, 'is_bold': False, 'text': 'Republik Indonesia Tahun 2O2l Nomor 1731,'}
+    [16] {'line_idx': 2008, 'page': 49, 'font_size': 14.0, 'is_bold': False, 'text': 'dicabut dan dinyatakan tidak berlaku.'}
+    [17] {'line_idx': 2009, 'page': 49, 'font_size': 13.0, 'is_bold': False, 'text': 'Pasal 130'}
+    [18] {'line_idx': 2010, 'page': 49, 'font_size': 15.0, 'is_bold': False, 'text': 'Peraturan Presiden'}
+    [19] {'line_idx': 2011, 'page': 49, 'font_size': 13.0, 'is_bold': False, 'text': 'diundangkan.'}
+    [20] {'line_idx': 2012, 'page': 49, 'font_size': 18.0, 'is_bold': False, 'text': 'ini mulai berlaku pada tanggal'}
+    [21] {'line_idx': 2013, 'page': 49, 'font_size': 14.0, 'is_bold': False, 'text': 'SK No 247689 A'}
+    [22] {'line_idx': 2014, 'page': 49, 'font_size': 12.5, 'is_bold': False, 'text': 'Agar'}
+    [23] {'line_idx': 2015, 'page': 50, 'font_size': 11.5, 'is_bold': False, 'text': 'PRESIDEN'}
+    [24] {'line_idx': 2016, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'REPUBUK INDONESIA'}
+    [25] {'line_idx': 2017, 'page': 50, 'font_size': 17.0, 'is_bold': False, 'text': '-50-'}
+    [26] {'line_idx': 2018, 'page': 50, 'font_size': 18.0, 'is_bold': False, 'text': 'Agar setiap orang mengetahuinya, memerintahkan'}
+    [27] {'line_idx': 2019, 'page': 50, 'font_size': 18.0, 'is_bold': False, 'text': 'pengundangan Peraturan Presiden ini'}
+    [28] {'line_idx': 2020, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'dengan'}
+    [29] {'line_idx': 2021, 'page': 50, 'font_size': 17.5, 'is_bold': False, 'text': 'penempatannya dalam Lembaran Negara Republik'}
+    [30] {'line_idx': 2022, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'Indonesia.'}
+    [31] {'line_idx': 2023, 'page': 50, 'font_size': 13.5, 'is_bold': False, 'text': 'Ditetapkan di Jakarta'}
+    [32] {'line_idx': 2024, 'page': 50, 'font_size': 13.0, 'is_bold': False, 'text': 'pada tanggal 5 November 2024'}
+    [33] {'line_idx': 2025, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'PRESIDEN REPUBLIK INDONESIA,'}
+    [34] {'line_idx': 2026, 'page': 50, 'font_size': 14.0, 'is_bold': False, 'text': 'ttd'}
+    [35] {'line_idx': 2027, 'page': 50, 'font_size': 12.0, 'is_bold': False, 'text': 'PRABOWO SUBIANTO'}
+    [36] {'line_idx': 2028, 'page': 50, 'font_size': 13.5, 'is_bold': False, 'text': 'Diundangkan di Jakarta'}
+    [37] {'line_idx': 2029, 'page': 50, 'font_size': 13.0, 'is_bold': False, 'text': 'pada tanggal 5 November 2024'}
+    [38] {'line_idx': 2030, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'MENTERI SEKRETARIS NEGARA'}
+    [39] {'line_idx': 2031, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'REPUBLIK INDONESIA,'}
+    [40] {'line_idx': 2032, 'page': 50, 'font_size': 13.5, 'is_bold': False, 'text': 'ttd.'}
+    [41] {'line_idx': 2033, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'PRASETYO HADI'}
+    [42] {'line_idx': 2034, 'page': 50, 'font_size': 13.0, 'is_bold': False, 'text': 'LEMBARAN NEGARA REPUBLIK INDONESIA TAHUN 2024 NOMOR 344'}
+    [43] {'line_idx': 2035, 'page': 50, 'font_size': 13.0, 'is_bold': False, 'text': 'Salinan sesuai dengan aslinya'}
+    [44] {'line_idx': 2036, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'KEMENTERIAN SEKRETARIAT NEGARA'}
+    [45] {'line_idx': 2037, 'page': 50, 'font_size': 12.5, 'is_bold': False, 'text': 'REPUBLIK INDONESIA'}
+    [46] {'line_idx': 2038, 'page': 50, 'font_size': 14.5, 'is_bold': False, 'text': 'ti Bidang Perundang-undangan'}
+    [47] {'line_idx': 2039, 'page': 50, 'font_size': 13.5, 'is_bold': False, 'text': 'Administrasi Hukum,'}
+    [48] {'line_idx': 2040, 'page': 50, 'font_size': 14.0, 'is_bold': False, 'text': 'SK No 247592 A'}
+    [49] {'line_idx': 2041, 'page': 50, 'font_size': 13.0, 'is_bold': False, 'text': 'Djaman'}
+
+===== pp_skeleton.json =====
+  total_lines field: 738
+  full_text_lines count: 200
+  closing_lines count: 50
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 10.0, 'is_bold': False, 'text': 'PRESIDEN'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 10.0, 'is_bold': False, 'text': 'REPUBLIK INDONESIA'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 12.0, 'is_bold': True, 'text': 'PERATURAN PEMERINTAH REPUBLIK INDONESIA'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 12.0, 'is_bold': True, 'text': 'NOMOR 70 TAHUN 1991'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 12.0, 'is_bold': True, 'text': 'TENTANG'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [18] {'line_idx': 18, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'Menetapkan : PERATURAN'}
+    [25] {'line_idx': 25, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB I'}
+    [27] {'line_idx': 27, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 1'}
+    [75] {'line_idx': 75, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB II'}
+    [172] {'line_idx': 172, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB III'}
+    [199] {'line_idx': 199, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 10'}
+  --- Last 20 lines ---
+    [180] {'line_idx': 180, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Perpustakaan Nasional dan sebuah kepada Perpustakaan Daerah'}
+    [181] {'line_idx': 181, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'yang bersangkutan.'}
+    [182] {'line_idx': 182, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '(2)'}
+    [183] {'line_idx': 183, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Penyerahan hasil karya rekam tersebut selambat-lambatnya 90'}
+    [184] {'line_idx': 184, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '(sembilan puluh) hari sejak disebarluaskan atau dipasarkan.'}
+    [185] {'line_idx': 185, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 9'}
+    [186] {'line_idx': 186, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '(1)'}
+    [187] {'line_idx': 187, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Setiap orang yang memasukkan karya rekam mengenai Indonesia'}
+    [188] {'line_idx': 188, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'yang jumlahnya:'}
+    [189] {'line_idx': 189, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'a. lebih dari 10 (sepuluh) buah setiap judulnya, atau'}
+    [190] {'line_idx': 190, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'b. kurang dari 10 (sepuluh) buah setiap judul, tetapi dalam'}
+    [191] {'line_idx': 191, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'jangka waktu dua tahun memasukkan lagi karya rekam yang'}
+    [192] {'line_idx': 192, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'sama sehingga jumlahnya melebihi 10 (sepuluh) buah; wajib'}
+    [193] {'line_idx': 193, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'menyerahkan sebuah setiap judulnya kepada Perpustakaan'}
+    [194] {'line_idx': 194, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Nasional.'}
+    [195] {'line_idx': 195, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '(2)'}
+    [196] {'line_idx': 196, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Penyerahan karya rekam sebagaimana dimaksud dalam ayat (l)'}
+    [197] {'line_idx': 197, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'selambat-lambatnya 30 (tiga puluh) hari sejak dikeluarkan dari'}
+    [198] {'line_idx': 198, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'pabean.'}
+    [199] {'line_idx': 199, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 10'}
+  --- Closing lines ---
+    [0] {'line_idx': 688, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+    [1] {'line_idx': 689, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (2)'}
+    [2] {'line_idx': 690, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+    [3] {'line_idx': 691, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (3)'}
+    [4] {'line_idx': 692, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+    [5] {'line_idx': 693, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 20'}
+    [6] {'line_idx': 694, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (1)'}
+    [7] {'line_idx': 695, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+    [8] {'line_idx': 696, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (2)'}
+    [9] {'line_idx': 697, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Karya cetak dan karya rekam yang diserah-simpankan kepada'}
+    [10] {'line_idx': 698, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Perpustakaan'}
+    [11] {'line_idx': 699, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Nasional'}
+    [12] {'line_idx': 700, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'atau'}
+    [13] {'line_idx': 701, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Perpustakaan'}
+    [14] {'line_idx': 702, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Daerah,'}
+    [15] {'line_idx': 703, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'pada'}
+    [16] {'line_idx': 704, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'hakekatnya bukan semata-mata untuk disimpan. Namun agar'}
+    [17] {'line_idx': 705, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'berguna bagi pemakainya, maka karya cetak dan karya rekam'}
+    [18] {'line_idx': 706, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'tersebut dapat didayagunakan oleh masyarakat baik untuk'}
+    [19] {'line_idx': 707, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'pengembangan ilmu pengetahuan, kebudayaan, maupun kegiatan'}
+    [20] {'line_idx': 708, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'lain yang bermanfaat. Untuk itu pendayagunaan dapat dilakukan'}
+    [21] {'line_idx': 709, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'dengan cara dipinjamkan misalnya untuk penelitian dengan'}
+    [22] {'line_idx': 710, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'dibaca, dipelajari, dilihat sesuai dengan ketentuan yang berlaku.'}
+    [23] {'line_idx': 711, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Pendayagunaan yang dilakukan oleh Perpustakaan Nasional atau'}
+    [24] {'line_idx': 712, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Perpustakaan'}
+    [25] {'line_idx': 713, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'Daerah,'}
+    [26] {'line_idx': 714, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'bukan'}
+    [27] {'line_idx': 715, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'dalam'}
+    [28] {'line_idx': 716, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'pengertian'}
+    [29] {'line_idx': 717, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'yang'}
+    [30] {'line_idx': 718, 'page': 21, 'font_size': 12.0, 'is_bold': False, 'text': 'seluas-luasnya, misalnya untuk dijual, diperbanyak, atau di'}
+    [31] {'line_idx': 719, 'page': 22, 'font_size': 10.0, 'is_bold': False, 'text': 'PRESIDEN'}
+    [32] {'line_idx': 720, 'page': 22, 'font_size': 10.0, 'is_bold': False, 'text': 'REPUBLIK INDONESIA'}
+    [33] {'line_idx': 721, 'page': 22, 'font_size': 10.0, 'is_bold': False, 'text': '- 22 -'}
+    [34] {'line_idx': 722, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'pertunjukkan di muka umum dengan memungut biaya, tetapi'}
+    [35] {'line_idx': 723, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'harus tetap memperhatikan ketentuan perundang-undangan yang'}
+    [36] {'line_idx': 724, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'berlaku, dalam hal ini,misalnya Undang-undang Hak Cipta,'}
+    [37] {'line_idx': 725, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Undang-undang'}
+    [38] {'line_idx': 726, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Pengawasan'}
+    [39] {'line_idx': 727, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Barang'}
+    [40] {'line_idx': 728, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Cetakan'}
+    [41] {'line_idx': 729, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'yang'}
+    [42] {'line_idx': 730, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'dapat'}
+    [43] {'line_idx': 731, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'membahayakan ketertiban umum.'}
+    [44] {'line_idx': 732, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 21'}
+    [45] {'line_idx': 733, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+    [46] {'line_idx': 734, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 22'}
+    [47] {'line_idx': 735, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+    [48] {'line_idx': 736, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 23'}
+    [49] {'line_idx': 737, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+
+===== perda_skeleton.json =====
+  total_lines field: 1061
+  full_text_lines count: 200
+  closing_lines count: 50
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'BUPATI SUKOHARJO'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PROVINSI JAWA TENGAH'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PERATURAN DAERAH KABUPATEN SUKOHARJO'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'NOMOR 1 TAHUN 2025'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'TENTANG'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [27] {'line_idx': 27, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'perlu menetapkan Peraturan Daerah tentang'}
+    [30] {'line_idx': 30, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': ': 1. Pasal 18 ayat (6) Undang-Undang Dasar Negara'}
+    [50] {'line_idx': 50, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'Menetapkan'}
+    [53] {'line_idx': 53, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB I'}
+    [55] {'line_idx': 55, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 1'}
+  --- Last 20 lines ---
+    [180] {'line_idx': 180, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': '17. Badan adalah sekumpulan orang dan/atau modal yang'}
+    [181] {'line_idx': 181, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'merupakan kesatuan, baik yang melakukan usaha'}
+    [182] {'line_idx': 182, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'maupun yang tidak melakukan usaha yang meliputi'}
+    [183] {'line_idx': 183, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'perseroan terbatas, perseroan komanditer, perseroan'}
+    [184] {'line_idx': 184, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'lainnya, badan usaha milik negara, badan usaha milik'}
+    [185] {'line_idx': 185, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Daerah, atau badan usaha milik desa, dengan nama'}
+    [186] {'line_idx': 186, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'dan dalam bentuk apapun, firma, kongsi, koperasi,'}
+    [187] {'line_idx': 187, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'dana pensiun, persekutuan, perkumpulan, yayasan,'}
+    [188] {'line_idx': 188, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'organisasi massa, organisasi sosial politik, atau'}
+    [189] {'line_idx': 189, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'organisasi lainnya, lembaga dan bentuk badan lainnya,'}
+    [190] {'line_idx': 190, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'termasuk kontrak investasi kolektif dan bentuk usaha'}
+    [191] {'line_idx': 191, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'tetap.'}
+    [192] {'line_idx': 192, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 2'}
+    [193] {'line_idx': 193, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Peraturan Daerah ini berdasarkan atas asas:'}
+    [194] {'line_idx': 194, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'a. kepentingan kualitas Kesehatan manusia;'}
+    [195] {'line_idx': 195, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'b. keseimbangan;'}
+    [196] {'line_idx': 196, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'c. kemanfaatan;'}
+    [197] {'line_idx': 197, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'd. keterpaduan;'}
+    [198] {'line_idx': 198, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'e. keserasian;'}
+    [199] {'line_idx': 199, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'f.'}
+  --- Closing lines ---
+    [0] {'line_idx': 1011, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf c'}
+    [1] {'line_idx': 1012, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [2] {'line_idx': 1013, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf d'}
+    [3] {'line_idx': 1014, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Yang'}
+    [4] {'line_idx': 1015, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'dimaksud'}
+    [5] {'line_idx': 1016, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'dengan'}
+    [6] {'line_idx': 1017, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': '“mengingatkan”'}
+    [7] {'line_idx': 1018, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'yaitu'}
+    [8] {'line_idx': 1019, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'memberi pengetahuan kepada setiap orang yang'}
+    [9] {'line_idx': 1020, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'melakukan pelanggaran secara persuasif atau secara'}
+    [10] {'line_idx': 1021, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'baik, dengan nada ramah dan informatif.'}
+    [11] {'line_idx': 1022, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf e'}
+    [12] {'line_idx': 1023, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas'}
+    [13] {'line_idx': 1024, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (2)'}
+    [14] {'line_idx': 1025, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [15] {'line_idx': 1026, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (3)'}
+    [16] {'line_idx': 1027, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [17] {'line_idx': 1028, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (4)'}
+    [18] {'line_idx': 1029, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [19] {'line_idx': 1030, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (5)'}
+    [20] {'line_idx': 1031, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [21] {'line_idx': 1032, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (6)'}
+    [22] {'line_idx': 1033, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [23] {'line_idx': 1034, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 16'}
+    [24] {'line_idx': 1035, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (1)'}
+    [25] {'line_idx': 1036, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Yang dimaksud dengan “unsur terkait lainnya” terdiri atas:'}
+    [26] {'line_idx': 1037, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'a. Kementerian Agama Kabupaten Sukoharjo;'}
+    [27] {'line_idx': 1038, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'b. Kejaksaan Negeri Sukoharjo;'}
+    [28] {'line_idx': 1039, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'c. Kepolisian Resor Sukoharjo; dan'}
+    [29] {'line_idx': 1040, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'd. Komando Distrik Militer 0726 Sukoharjo.'}
+    [30] {'line_idx': 1041, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (2)'}
+    [31] {'line_idx': 1042, 'page': 17, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [32] {'line_idx': 1043, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': '18'}
+    [33] {'line_idx': 1044, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (3)'}
+    [34] {'line_idx': 1045, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [35] {'line_idx': 1046, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (4)'}
+    [36] {'line_idx': 1047, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [37] {'line_idx': 1048, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 17'}
+    [38] {'line_idx': 1049, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [39] {'line_idx': 1050, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 18'}
+    [40] {'line_idx': 1051, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [41] {'line_idx': 1052, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 19'}
+    [42] {'line_idx': 1053, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [43] {'line_idx': 1054, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 20'}
+    [44] {'line_idx': 1055, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [45] {'line_idx': 1056, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 21'}
+    [46] {'line_idx': 1057, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [47] {'line_idx': 1058, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 22'}
+    [48] {'line_idx': 1059, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [49] {'line_idx': 1060, 'page': 18, 'font_size': 12.0, 'is_bold': False, 'text': 'TAMBAHAN LEMBARAN DAERAH KABUPATEN SUKOHARJO NOMOR 330'}
+
+===== JDIH_Kemenkeu_skeleton.json =====
+  total_lines field: 290
+  full_text_lines count: 200
+  closing_lines count: 50
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PERATURAN MENTERI KEUANGAN REPUBLIK INDONESIA'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'NOMOR 9 TAHUN 2025'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'TENTANG'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PENGENAAN BEA MASUK ANTIDUMPING'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'TERHADAP IMPOR PRODUK HOT ROLLED PLATE'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [70] {'line_idx': 70, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'menetapkan'}
+    [78] {'line_idx': 78, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 17 ayat (3) Undang-Undang Dasar Negara Republik'}
+    [140] {'line_idx': 140, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'Menetapkan : PERATURAN MENTERI KEUANGAN TENTANG PENGENAAN'}
+    [150] {'line_idx': 150, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 1'}
+    [178] {'line_idx': 178, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Masuk Antidumping sebagaimana tercantum dalam Lampiran'}
+    [184] {'line_idx': 184, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Lampiran yang merupakan bagian tidak terpisahkan dari'}
+  --- Last 20 lines ---
+    [180] {'line_idx': 180, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Menteri ini.'}
+    [181] {'line_idx': 181, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 4'}
+    [182] {'line_idx': 182, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Negara asal yang dikenakan Bea Masuk Antidumping'}
+    [183] {'line_idx': 183, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'sebagaimana dimaksud dalam Pasal 2 tercantum dalam'}
+    [184] {'line_idx': 184, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Lampiran yang merupakan bagian tidak terpisahkan dari'}
+    [185] {'line_idx': 185, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Peraturan Menteri ini.'}
+    [186] {'line_idx': 186, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 5'}
+    [187] {'line_idx': 187, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': '(1)'}
+    [188] {'line_idx': 188, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Pengenaan'}
+    [189] {'line_idx': 189, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Bea'}
+    [190] {'line_idx': 190, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Masuk'}
+    [191] {'line_idx': 191, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Antidumping'}
+    [192] {'line_idx': 192, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'sebagaimana'}
+    [193] {'line_idx': 193, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'dimaksud dalam Pasal 2 merupakan tambahan dari:'}
+    [194] {'line_idx': 194, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'a.'}
+    [195] {'line_idx': 195, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'bea masuk umum (most favoured nation); atau'}
+    [196] {'line_idx': 196, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'b.'}
+    [197] {'line_idx': 197, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'bea masuk preferensi berdasarkan perjanjian atau'}
+    [198] {'line_idx': 198, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'kesepakatan internasional,'}
+    [199] {'line_idx': 199, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'yang telah dikenakan.'}
+  --- Closing lines ---
+    [0] {'line_idx': 240, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 8'}
+    [1] {'line_idx': 241, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Peraturan Menteri ini mulai berlaku setelah 10 (sepuluh) hari'}
+    [2] {'line_idx': 242, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'kerja terhitung sejak tanggal diundangkan.'}
+    [3] {'line_idx': 243, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': '- 5 -'}
+    [4] {'line_idx': 244, 'page': 5, 'font_size': 8.0, 'is_bold': False, 'text': 'Ditandatangani secara elektronik'}
+    [5] {'line_idx': 245, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'Agar'}
+    [6] {'line_idx': 246, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'setiap'}
+    [7] {'line_idx': 247, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'orang'}
+    [8] {'line_idx': 248, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'mengetahuinya,'}
+    [9] {'line_idx': 249, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'memerintahkan'}
+    [10] {'line_idx': 250, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'pengundangan Peraturan Menteri ini dengan penempatannya'}
+    [11] {'line_idx': 251, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'dalam Berita Negara Republik Indonesia.'}
+    [12] {'line_idx': 252, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'Ditetapkan di Jakarta'}
+    [13] {'line_idx': 253, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'pada tanggal 24 Januari 2025'}
+    [14] {'line_idx': 254, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'MENTERI KEUANGAN REPUBLIK INDONESIA,'}
+    [15] {'line_idx': 255, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'SRI MULYANI INDRAWATI'}
+    [16] {'line_idx': 256, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'Diundangkan di Jakarta'}
+    [17] {'line_idx': 257, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'pada tanggal Д'}
+    [18] {'line_idx': 258, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'DIREKTUR JENDERAL'}
+    [19] {'line_idx': 259, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'PERATURAN PERUNDANG-UNDANGAN'}
+    [20] {'line_idx': 260, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'KEMENTERIAN HUKUM REPUBLIK INDONESIA,'}
+    [21] {'line_idx': 261, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'Ѽ'}
+    [22] {'line_idx': 262, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'DHAHANA PUTRA'}
+    [23] {'line_idx': 263, 'page': 5, 'font_size': 12.0, 'is_bold': False, 'text': 'BERITA NEGARA REPUBLIK INDONESIA TAHUN 2025 NOMOR Ж'}
+    [24] {'line_idx': 264, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '- 6 -'}
+    [25] {'line_idx': 265, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'LAMPIRAN'}
+    [26] {'line_idx': 266, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'PERATURAN MENTERI KEUANGAN REPUBLIK INDONESIA'}
+    [27] {'line_idx': 267, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'NOMOR 9 TAHUN 2025'}
+    [28] {'line_idx': 268, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'TENTANG'}
+    [29] {'line_idx': 269, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'PENGENAAN BEA MASUK ANTIDUMPING TERHADAP IMPOR'}
+    [30] {'line_idx': 270, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'PRODUK HOT ROLLED PLATE DARI REPUBLIK RAKYAT'}
+    [31] {'line_idx': 271, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'TIONGKOK, SINGAPURA, DAN UKRAINA'}
+    [32] {'line_idx': 272, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'NEGARA ASAL DAN BESARAN BEA MASUK ANTIDUMPING'}
+    [33] {'line_idx': 273, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'No.'}
+    [34] {'line_idx': 274, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Negara'}
+    [35] {'line_idx': 275, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Besaran Bea Masuk'}
+    [36] {'line_idx': 276, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Antidumping dalam Persentase'}
+    [37] {'line_idx': 277, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '(%)'}
+    [38] {'line_idx': 278, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '1.'}
+    [39] {'line_idx': 279, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Republik Rakyat Tiongkok'}
+    [40] {'line_idx': 280, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '10,47'}
+    [41] {'line_idx': 281, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '2.'}
+    [42] {'line_idx': 282, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Singapura'}
+    [43] {'line_idx': 283, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '12,50'}
+    [44] {'line_idx': 284, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '3.'}
+    [45] {'line_idx': 285, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'Ukraina'}
+    [46] {'line_idx': 286, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': '12,33'}
+    [47] {'line_idx': 287, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'MENTERI KEUANGAN REPUBLIK INDONESIA,'}
+    [48] {'line_idx': 288, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'ttd.'}
+    [49] {'line_idx': 289, 'page': 6, 'font_size': 12.0, 'is_bold': False, 'text': 'SRI MULYANI INDRAWATI'}
+
+===== JDIH_Komdigi_skeleton.json =====
+  total_lines field: 1889
+  full_text_lines count: 200
+  closing_lines count: 50
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'REPUBLIK INDONESIA'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'NOMOR 5 TAHUN 2024'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'TENTANG'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PENETAPAN BALAI UJI ALAT TELEKOMUNIKASI DAN/ATAU'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [61] {'line_idx': 61, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'menetapkan'}
+    [75] {'line_idx': 75, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': ': 1. Pasal 17 ayat (3) Undang-Undang Dasar Negara Republik'}
+    [143] {'line_idx': 143, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'Menetapkan : PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA'}
+    [146] {'line_idx': 146, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB I'}
+    [148] {'line_idx': 148, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 1'}
+  --- Last 20 lines ---
+    [180] {'line_idx': 180, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Uji'}
+    [181] {'line_idx': 181, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'yang'}
+    [182] {'line_idx': 182, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'berkedudukan di wilayah Negara Kesatuan Republik'}
+    [183] {'line_idx': 183, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Indonesia.'}
+    [184] {'line_idx': 184, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': '5.'}
+    [185] {'line_idx': 185, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Balai Uji Luar Negeri adalah Balai Uji yang berkedudukan'}
+    [186] {'line_idx': 186, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'di luar wilayah Negara Kesatuan Republik Indonesia.'}
+    [187] {'line_idx': 187, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': '6.'}
+    [188] {'line_idx': 188, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Perjanjian'}
+    [189] {'line_idx': 189, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Saling'}
+    [190] {'line_idx': 190, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Pengakuan'}
+    [191] {'line_idx': 191, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': '(Mutual'}
+    [192] {'line_idx': 192, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Recognition'}
+    [193] {'line_idx': 193, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'Agreement)'}
+    [194] {'line_idx': 194, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'yang selanjutnya disebut'}
+    [195] {'line_idx': 195, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'MRA adalah'}
+    [196] {'line_idx': 196, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'pengaturan atau perjanjian yang memuat kesepakatan'}
+    [197] {'line_idx': 197, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'antara Negara Republik Indonesia dengan negara lain'}
+    [198] {'line_idx': 198, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'untuk saling mengakui laboratorium uji dan saling'}
+    [199] {'line_idx': 199, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'keberterimaan Laporan Hasil Uji antar negara MRA'}
+  --- Closing lines ---
+    [0] {'line_idx': 1839, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'ditolak sebagaimana dimaksud dalam Pasal 27 ayat (3),'}
+    [1] {'line_idx': 1840, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'tetap diakui sebagai Balai Uji Luar Negeri sampai dengan'}
+    [2] {'line_idx': 1841, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'tanggal 31 Desember 2024.'}
+    [3] {'line_idx': 1842, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB VII'}
+    [4] {'line_idx': 1843, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'KETENTUAN PENUTUP'}
+    [5] {'line_idx': 1844, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 43'}
+    [6] {'line_idx': 1845, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Pada saat Peraturan Menteri ini mulai berlaku:'}
+    [7] {'line_idx': 1846, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'a. Peraturan Menteri Komunikasi dan Informatika Nomor 15'}
+    [8] {'line_idx': 1847, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Tahun 2012 tentang Petunjuk Pelaksanaan Penetapan'}
+    [9] {'line_idx': 1848, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Balai Uji Dalam Negeri (Berita Negara Republik Indonesia'}
+    [10] {'line_idx': 1849, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Tahun 2012 Nomor 577); dan'}
+    [11] {'line_idx': 1850, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'b. Peraturan Menteri Komunikasi dan Informatika Nomor 16'}
+    [12] {'line_idx': 1851, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Tahun 2012 tentang Petunjuk Pelaksanaan Pengakuan'}
+    [13] {'line_idx': 1852, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Balai Uji Negara Asing (Berita Negara Republik Indonesia'}
+    [14] {'line_idx': 1853, 'page': 22, 'font_size': 12.0, 'is_bold': False, 'text': 'Tahun 2012 Nomor 578),'}
+    [15] {'line_idx': 1854, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': '- 23 -'}
+    [16] {'line_idx': 1855, 'page': 23, 'font_size': 12.0, 'is_bold': True, 'text': 'dicabut dan dinyatakan tidak berlaku.'}
+    [17] {'line_idx': 1856, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 44'}
+    [18] {'line_idx': 1857, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Peraturan'}
+    [19] {'line_idx': 1858, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Menteri'}
+    [20] {'line_idx': 1859, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'ini'}
+    [21] {'line_idx': 1860, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'mulai'}
+    [22] {'line_idx': 1861, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'berlaku'}
+    [23] {'line_idx': 1862, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'pada'}
+    [24] {'line_idx': 1863, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'tanggal'}
+    [25] {'line_idx': 1864, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'diundangkan.'}
+    [26] {'line_idx': 1865, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Agar'}
+    [27] {'line_idx': 1866, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'setiap'}
+    [28] {'line_idx': 1867, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'orang'}
+    [29] {'line_idx': 1868, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'mengetahuinya,'}
+    [30] {'line_idx': 1869, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'memerintahkan'}
+    [31] {'line_idx': 1870, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'pengundangan Peraturan Menteri ini dengan penempatannya'}
+    [32] {'line_idx': 1871, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'dalam Berita Negara Republik Indonesia.'}
+    [33] {'line_idx': 1872, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Ditetapkan di Jakarta'}
+    [34] {'line_idx': 1873, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'pada tanggal 12 September 2024'}
+    [35] {'line_idx': 1874, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'MENTERI KOMUNIKASI DAN INFORMATIKA'}
+    [36] {'line_idx': 1875, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'REPUBLIK INDONESIA,'}
+    [37] {'line_idx': 1876, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Œ'}
+    [38] {'line_idx': 1877, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'BUDI ARIE SETIADI'}
+    [39] {'line_idx': 1878, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Diundangkan di Jakarta'}
+    [40] {'line_idx': 1879, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'pada tanggal'}
+    [41] {'line_idx': 1880, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Д'}
+    [42] {'line_idx': 1881, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'PLT. DIREKTUR JENDERAL'}
+    [43] {'line_idx': 1882, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'PERATURAN PERUNDANG-UNDANGAN'}
+    [44] {'line_idx': 1883, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'KEMENTERIAN HUKUM DAN HAK ASASI MANUSIA'}
+    [45] {'line_idx': 1884, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'REPUBLIK INDONESIA,'}
+    [46] {'line_idx': 1885, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Ѽ'}
+    [47] {'line_idx': 1886, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'ASEP N. MULYANA'}
+    [48] {'line_idx': 1887, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'BERITA NEGARA REPUBLIK INDONESIA TAHUN 2024 NOMOR'}
+    [49] {'line_idx': 1888, 'page': 23, 'font_size': 12.0, 'is_bold': False, 'text': 'Ж'}
+
+===== JDIH_Kemnaker_skeleton.json =====
+  total_lines field: 2619
+  full_text_lines count: 200
+  closing_lines count: 50
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PERATURAN PEMERINTAH REPUBLIK INDONESIA'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'NOMOR 99 TAHUN 2013'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'TENTANG'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'PENGELOLAAN ASET JAMINAN SOSIAL KETENAGAKERJAAN'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'DENGAN RAHMAT TUHAN YANG MAHA ESA'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [22] {'line_idx': 22, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'menetapkan'}
+    [46] {'line_idx': 46, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'Menetapkan : PERATURAN'}
+    [51] {'line_idx': 51, 'page': 1, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB I . . .'}
+    [53] {'line_idx': 53, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'BAB I'}
+    [55] {'line_idx': 55, 'page': 2, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 1'}
+  --- Last 20 lines ---
+    [180] {'line_idx': 180, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'di'}
+    [181] {'line_idx': 181, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'luar'}
+    [182] {'line_idx': 182, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': 'pengadilan.'}
+    [183] {'line_idx': 183, 'page': 3, 'font_size': 12.0, 'is_bold': False, 'text': '14. Bank . . .'}
+    [184] {'line_idx': 184, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': '- 4 -'}
+    [185] {'line_idx': 185, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': '14. Bank Kustodian yang selanjutnya disebut Bank adalah'}
+    [186] {'line_idx': 186, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Bank Badan Usaha Milik Negara yang telah mendapat izin'}
+    [187] {'line_idx': 187, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'dari pihak yang berwenang untuk memberikan jasa'}
+    [188] {'line_idx': 188, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'penitipan efek dan harta lain yang berkaitan dengan efek'}
+    [189] {'line_idx': 189, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'serta jasa lain, termasuk menerima dividen, bunga, dan'}
+    [190] {'line_idx': 190, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'hak-hak lain, menyelesaikan transaksi efek, dan mewakili'}
+    [191] {'line_idx': 191, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'pemegang rekening yang menjadi nasabahnya.'}
+    [192] {'line_idx': 192, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': '15. Bursa Efek adalah Bursa Efek sebagaimana dimaksud'}
+    [193] {'line_idx': 193, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'dalam Undang-undang tentang Pasar Modal.'}
+    [194] {'line_idx': 194, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': '16. Menteri adalah menteri yang menyelenggarakan urusan'}
+    [195] {'line_idx': 195, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'pemerintahan di bidang keuangan.'}
+    [196] {'line_idx': 196, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 2'}
+    [197] {'line_idx': 197, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'Pengelolaan aset Jaminan Sosial Ketenagakerjaan dilakukan'}
+    [198] {'line_idx': 198, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'secara optimal dengan mempertimbangkan aspek likuiditas,'}
+    [199] {'line_idx': 199, 'page': 4, 'font_size': 12.0, 'is_bold': False, 'text': 'solvabilitas, kehati-hatian, keamanan dana, dan hasil yang'}
+  --- Closing lines ---
+    [0] {'line_idx': 2569, 'page': 53, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 54'}
+    [1] {'line_idx': 2570, 'page': 53, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [2] {'line_idx': 2571, 'page': 53, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 55'}
+    [3] {'line_idx': 2572, 'page': 53, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [4] {'line_idx': 2573, 'page': 53, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 56 . . .'}
+    [5] {'line_idx': 2574, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': '- 14 -'}
+    [6] {'line_idx': 2575, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 56'}
+    [7] {'line_idx': 2576, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [8] {'line_idx': 2577, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 57'}
+    [9] {'line_idx': 2578, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [10] {'line_idx': 2579, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 58'}
+    [11] {'line_idx': 2580, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [12] {'line_idx': 2581, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 59'}
+    [13] {'line_idx': 2582, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [14] {'line_idx': 2583, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 60'}
+    [15] {'line_idx': 2584, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [16] {'line_idx': 2585, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 61'}
+    [17] {'line_idx': 2586, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [18] {'line_idx': 2587, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 62'}
+    [19] {'line_idx': 2588, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (1)'}
+    [20] {'line_idx': 2589, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [21] {'line_idx': 2590, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (2)'}
+    [22] {'line_idx': 2591, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Yang dimaksud dengan ketentuan peraturan perundang-undangan'}
+    [23] {'line_idx': 2592, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'adalah peraturan perundang-undangan di bidang penyelenggaraan'}
+    [24] {'line_idx': 2593, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'program jaminan kecelakaan kerja dan jaminan kematian.'}
+    [25] {'line_idx': 2594, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Ayat (3)'}
+    [26] {'line_idx': 2595, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [27] {'line_idx': 2596, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 63'}
+    [28] {'line_idx': 2597, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [29] {'line_idx': 2598, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 64'}
+    [30] {'line_idx': 2599, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf a'}
+    [31] {'line_idx': 2600, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [32] {'line_idx': 2601, 'page': 54, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf b . . .'}
+    [33] {'line_idx': 2602, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': '- 15 -'}
+    [34] {'line_idx': 2603, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf b'}
+    [35] {'line_idx': 2604, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Yang dimaksud dengan “tanggung jawab sosial dan lingkungan”'}
+    [36] {'line_idx': 2605, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'adalah komitmen BPJS Ketenagakerjaan untuk berperan serta'}
+    [37] {'line_idx': 2606, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'dalam pembangunan ekonomi berkelanjutan guna meningkatkan'}
+    [38] {'line_idx': 2607, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'kualitas kehidupan dan lingkungan yang bermanfaat, baik bagi'}
+    [39] {'line_idx': 2608, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'BPJS Ketenagakerjaan sendiri, komunitas setempat, maupun'}
+    [40] {'line_idx': 2609, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'masyarakat pada umumnya.'}
+    [41] {'line_idx': 2610, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf c'}
+    [42] {'line_idx': 2611, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [43] {'line_idx': 2612, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Huruf d'}
+    [44] {'line_idx': 2613, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [45] {'line_idx': 2614, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 65'}
+    [46] {'line_idx': 2615, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [47] {'line_idx': 2616, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Pasal 66'}
+    [48] {'line_idx': 2617, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'Cukup jelas.'}
+    [49] {'line_idx': 2618, 'page': 55, 'font_size': 12.0, 'is_bold': False, 'text': 'TAMBAHAN LEMBARAN NEGARA REPUBLIK INDONESIA NOMOR 5486'}
+
+===== peraturan_skeleton.json =====
+  total_lines field: 87
+  full_text_lines count: 87
+  closing_lines count: 0
+  --- First 5 full_text_lines ---
+    [0] {'line_idx': 0, 'page': 1, 'font_size': 10.0, 'is_bold': False, 'text': 'PRESIDEN'}
+    [1] {'line_idx': 1, 'page': 1, 'font_size': 10.0, 'is_bold': False, 'text': 'REPUBLIK INDONESIA'}
+    [2] {'line_idx': 2, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'PERATURAN PEMERINTAH REPUBLIK INDONESIA'}
+    [3] {'line_idx': 3, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'NOMOR 20 TAHUN 1962'}
+    [4] {'line_idx': 4, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'TENTANG'}
+  --- Lines around body start (look for Pasal 1 / BAB I / Menetapkan) ---
+    [9] {'line_idx': 9, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'perlu menetapkan lafal sumpah/janji apoteker: teker;'}
+    [23] {'line_idx': 23, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'Menetapkan'}
+    [26] {'line_idx': 26, 'page': 1, 'font_size': 13.0, 'is_bold': False, 'text': 'Pasal 1.'}
+  --- Last 20 lines ---
+    [67] {'line_idx': 67, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'Agar'}
+    [68] {'line_idx': 68, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'supaya'}
+    [69] {'line_idx': 69, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'setiap'}
+    [70] {'line_idx': 70, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'orang'}
+    [71] {'line_idx': 71, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'dapat'}
+    [72] {'line_idx': 72, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'mengetahunya'}
+    [73] {'line_idx': 73, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'memerintahkan'}
+    [74] {'line_idx': 74, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'pengundangan Peraturan Pemerintah ini dengan penempatan dalam'}
+    [75] {'line_idx': 75, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'Lembaran-Negara Republik Indonesia.'}
+    [76] {'line_idx': 76, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'Ditetapkan di Jakarta.'}
+    [77] {'line_idx': 77, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'pada tanggal 20 September 1962.'}
+    [78] {'line_idx': 78, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'Presiden Republik Indonesia.'}
+    [79] {'line_idx': 79, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'ttd'}
+    [80] {'line_idx': 80, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'SUKARNO.'}
+    [81] {'line_idx': 81, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'Diundangkan di Jakarta'}
+    [82] {'line_idx': 82, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'pada tanggal 20 September 1962.'}
+    [83] {'line_idx': 83, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'Sekretaris Negara,'}
+    [84] {'line_idx': 84, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'ttd'}
+    [85] {'line_idx': 85, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'MOHD. ICHSAN.'}
+    [86] {'line_idx': 86, 'page': 2, 'font_size': 13.0, 'is_bold': False, 'text': 'LEMBARAN NEGARA TAHUN 1962 NOMOR 69'}
+  --- Closing lines ---

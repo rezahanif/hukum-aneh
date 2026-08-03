@@ -1,0 +1,1922 @@
+     1→{
+     2→  "folder": "inpres",
+     3→  "filename": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
+     4→  "total_lines": 232,
+     5→  "font_sizes": [
+     6→    10.0,
+     7→    10.5,
+     8→    11.0,
+     9→    11.5,
+    10→    12.0,
+    11→    12.5,
+    12→    13.0,
+    13→    13.5,
+    14→    14.0,
+    15→    14.5,
+    16→    15.0,
+    17→    15.5,
+    18→    16.0,
+    19→    16.5,
+    20→    17.0,
+    21→    17.5,
+    22→    18.0,
+    23→    22.5
+    24→  ],
+    25→  "most_common_size": 18.0,
+    26→  "sections": [],
+    27→  "numbering_patterns": [
+    28→    "letter_a."
+    29→  ],
+    30→  "key_anchors": [
+    31→    {
+    32→      "line_idx": 1,
+    33→      "page": 1,
+    34→      "text": "PRESIDEN",
+    35→      "keyword": "presiden",
+    36→      "font_size": 11.5,
+    37→      "is_bold": false
+    38→    },
+    39→    {
+    40→      "line_idx": 3,
+    41→      "page": 1,
+    42→      "text": "INSTRUKSI PRESIDEN REPUBLIK INDONESIA",
+    43→      "keyword": "instruksi",
+    44→      "font_size": 12.5,
+    45→      "is_bold": false
+    46→    },
+    47→    {
+    48→      "line_idx": 7,
+    49→      "page": 1,
+    50→      "text": "PRESIDEN REPUBLIK INDONESIA,",
+    51→      "keyword": "presiden",
+    52→      "font_size": 12.5,
+    53→      "is_bold": false
+    54→    },
+    55→    {
+    56→      "line_idx": 36,
+    57→      "page": 2,
+    58→      "text": "PRESIDEN",
+    59→      "keyword": "presiden",
+    60→      "font_size": 11.5,
+    61→      "is_bold": false
+    62→    },
+    63→    {
+    64→      "line_idx": 67,
+    65→      "page": 2,
+    66→      "text": "Menteri Pekerjaan Umum dan Perumahan Rakyat;",
+    67→      "keyword": "menteri",
+    68→      "font_size": 13.0,
+    69→      "is_bold": false
+    70→    },
+    71→    {
+    72→      "line_idx": 82,
+    73→      "page": 3,
+    74→      "text": "PRESIDEN",
+    75→      "keyword": "presiden",
+    76→      "font_size": 11.5,
+    77→      "is_bold": false
+    78→    },
+    79→    {
+    80→      "line_idx": 85,
+    81→      "page": 3,
+    82→      "text": "menetapkan daftar kegiatan percepatan peningkatan",
+    83→      "keyword": "menetapkan",
+    84→      "font_size": 13.5,
+    85→      "is_bold": false
+    86→    },
+    87→    {
+    88→      "line_idx": 92,
+    89→      "page": 3,
+    90→      "text": "menetapkan pedoman pelaksanaan kegiatan",
+    91→      "keyword": "menetapkan",
+    92→      "font_size": 16.5,
+    93→      "is_bold": false
+    94→    },
+    95→    {
+    96→      "line_idx": 99,
+    97→      "page": 3,
+    98→      "text": "Menteri Pekerjaan Umum dan Perumahan Ralryat untuk:",
+    99→      "keyword": "menteri",
+   100→      "font_size": 14.0,
+   101→      "is_bold": false
+   102→    },
+   103→    {
+   104→      "line_idx": 104,
+   105→      "page": 3,
+   106→      "text": "Menteri Perencanaan Pembangunan Nasional/",
+   107→      "keyword": "menteri",
+   108→      "font_size": 16.5,
+   109→      "is_bold": false
+   110→    },
+   111→    {
+   112→      "line_idx": 127,
+   113→      "page": 4,
+   114→      "text": "PRESIDEN",
+   115→      "keyword": "presiden",
+   116→      "font_size": 11.5,
+   117→      "is_bold": false
+   118→    },
+   119→    {
+   120→      "line_idx": 152,
+   121→      "page": 4,
+   122→      "text": "Menteri Keuangan untuk:",
+   123→      "keyword": "menteri",
+   124→      "font_size": 14.0,
+   125→      "is_bold": false
+   126→    },
+   127→    {
+   128→      "line_idx": 170,
+   129→      "page": 5,
+   130→      "text": "PRESiDEN",
+   131→      "keyword": "presiden",
+   132→      "font_size": 11.5,
+   133→      "is_bold": false
+   134→    },
+   135→    {
+   136→      "line_idx": 173,
+   137→      "page": 5,
+   138→      "text": "Menteri Dalam Negeri untuk:",
+   139→      "keyword": "menteri",
+   140→      "font_size": 14.0,
+   141→      "is_bold": false
+   142→    },
+   143→    {
+   144→      "line_idx": 209,
+   145→      "page": 6,
+   146→      "text": "PRESIDEN",
+   147→      "keyword": "presiden",
+   148→      "font_size": 11.5,
+   149→      "is_bold": false
+   150→    },
+   151→    {
+   152→      "line_idx": 217,
+   153→      "page": 6,
+   154→      "text": "Instruksi Presiden ini mulai berlaku pada tanggal dikeluarkan.",
+   155→      "keyword": "instruksi",
+   156→      "font_size": 14.5,
+   157→      "is_bold": false
+   158→    },
+   159→    {
+   160→      "line_idx": 220,
+   161→      "page": 6,
+   162→      "text": "PRESIDEN REPUBLIK INDONESIA,",
+   163→      "keyword": "presiden",
+   164→      "font_size": 12.5,
+   165→      "is_bold": false
+   166→    }
+   167→  ],
+   168→  "full_text_lines": [
+   169→    {
+   170→      "line_idx": 0,
+   171→      "page": 1,
+   172→      "font_size": 22.5,
+   173→      "is_bold": false,
+   174→      "text": "SALINAN"
+   175→    },
+   176→    {
+   177→      "line_idx": 1,
+   178→      "page": 1,
+   179→      "font_size": 11.5,
+   180→      "is_bold": false,
+   181→      "text": "PRESIDEN"
+   182→    },
+   183→    {
+   184→      "line_idx": 2,
+   185→      "page": 1,
+   186→      "font_size": 12.0,
+   187→      "is_bold": false,
+   188→      "text": "REPUBLIK INDONESIA"
+   189→    },
+   190→    {
+   191→      "line_idx": 3,
+   192→      "page": 1,
+   193→      "font_size": 12.5,
+   194→      "is_bold": false,
+   195→      "text": "INSTRUKSI PRESIDEN REPUBLIK INDONESIA"
+   196→    },
+   197→    {
+   198→      "line_idx": 4,
+   199→      "page": 1,
+   200→      "font_size": 13.5,
+   201→      "is_bold": false,
+   202→      "text": "NOMOR 3 TAHUN 2023"
+   203→    },
+   204→    {
+   205→      "line_idx": 5,
+   206→      "page": 1,
+   207→      "font_size": 12.0,
+   208→      "is_bold": false,
+   209→      "text": "TENTANG"
+   210→    },
+   211→    {
+   212→      "line_idx": 6,
+   213→      "page": 1,
+   214→      "font_size": 13.0,
+   215→      "is_bold": false,
+   216→      "text": "PERCEPATAN PENINGKATAN KONEKTIVITAS JALAN DAERAH"
+   217→    },
+   218→    {
+   219→      "line_idx": 7,
+   220→      "page": 1,
+   221→      "font_size": 12.5,
+   222→      "is_bold": false,
+   223→      "text": "PRESIDEN REPUBLIK INDONESIA,"
+   224→    },
+   225→    {
+   226→      "line_idx": 8,
+   227→      "page": 1,
+   228→      "font_size": 17.0,
+   229→      "is_bold": false,
+   230→      "text": "Dalam rangka percepatan peningkatan konektivitas jalan daerah untuk"
+   231→    },
+   232→    {
+   233→      "line_idx": 9,
+   234→      "page": 1,
+   235→      "font_size": 14.5,
+   236→      "is_bold": false,
+   237→      "text": "memberikan manfaat maksimal dalam mendorong perekonomian nasional"
+   238→    },
+   239→    {
+   240→      "line_idx": 10,
+   241→      "page": 1,
+   242→      "font_size": 14.5,
+   243→      "is_bold": false,
+   244→      "text": "maupun daerah, menurunkan biaya logistik nasional, menghubungkan dan"
+   245→    },
+   246→    {
+   247→      "line_idx": 11,
+   248→      "page": 1,
+   249→      "font_size": 14.0,
+   250→      "is_bold": false,
+   251→      "text": "mengintegrasikan dengan sentra-sentra ekonomi, dan membantu pemerataan"
+   252→    },
+   253→    {
+   254→      "line_idx": 12,
+   255→      "page": 1,
+   256→      "font_size": 15.5,
+   257→      "is_bold": false,
+   258→      "text": "kondisi jalan yang mantap, sebagai upaya mendukung pencapaian target"
+   259→    },
+   260→    {
+   261→      "line_idx": 13,
+   262→      "page": 1,
+   263→      "font_size": 13.5,
+   264→      "is_bold": false,
+   265→      "text": "Rencana Pembangunan Jangka Menengah Nasional Tahun 2O2O-2O24, dengan"
+   266→    },
+   267→    {
+   268→      "line_idx": 14,
+   269→      "page": 1,
+   270→      "font_size": 14.0,
+   271→      "is_bold": false,
+   272→      "text": "ini menginstruksikan:"
+   273→    },
+   274→    {
+   275→      "line_idx": 15,
+   276→      "page": 1,
+   277→      "font_size": 12.0,
+   278→      "is_bold": false,
+   279→      "text": "Kepada"
+   280→    },
+   281→    {
+   282→      "line_idx": 16,
+   283→      "page": 1,
+   284→      "font_size": 18.0,
+   285→      "is_bold": false,
+   286→      "text": "1. Menteri Perencanaan Pembangunan Nasional/"
+   287→    },
+   288→    {
+   289→      "line_idx": 17,
+   290→      "page": 1,
+   291→      "font_size": 13.0,
+   292→      "is_bold": false,
+   293→      "text": "Kepala Badan Perencanaan Pembangunan Nasional;"
+   294→    },
+   295→    {
+   296→      "line_idx": 18,
+   297→      "page": 1,
+   298→      "font_size": 18.0,
+   299→      "is_bold": false,
+   300→      "text": "2. Menteri Pekerjaan Umum dan Perumahan Ralryat;"
+   301→    },
+   302→    {
+   303→      "line_idx": 19,
+   304→      "page": 1,
+   305→      "font_size": 18.0,
+   306→      "is_bold": false,
+   307→      "text": "3. Menteri Keuangan;"
+   308→    },
+   309→    {
+   310→      "line_idx": 20,
+   311→      "page": 1,
+   312→      "font_size": 18.0,
+   313→      "is_bold": false,
+   314→      "text": "4. Menteri Dalam Negeri;"
+   315→    },
+   316→    {
+   317→      "line_idx": 21,
+   318→      "page": 1,
+   319→      "font_size": 18.0,
+   320→      "is_bold": false,
+   321→      "text": "5. Para Gubernur; dan"
+   322→    },
+   323→    {
+   324→      "line_idx": 22,
+   325→      "page": 1,
+   326→      "font_size": 18.0,
+   327→      "is_bold": false,
+   328→      "text": "6. Para Bupati/Wali Kota."
+   329→    },
+   330→    {
+   331→      "line_idx": 23,
+   332→      "page": 1,
+   333→      "font_size": 14.0,
+   334→      "is_bold": false,
+   335→      "text": "Untuk"
+   336→    },
+   337→    {
+   338→      "line_idx": 24,
+   339→      "page": 1,
+   340→      "font_size": 12.0,
+   341→      "is_bold": false,
+   342→      "text": "KESATU"
+   343→    },
+   344→    {
+   345→      "line_idx": 25,
+   346→      "page": 1,
+   347→      "font_size": 18.0,
+   348→      "is_bold": false,
+   349→      "text": "Mengambil langkah-langkah yang terkoordinasi dan"
+   350→    },
+   351→    {
+   352→      "line_idx": 26,
+   353→      "page": 1,
+   354→      "font_size": 15.0,
+   355→      "is_bold": false,
+   356→      "text": "terintegrasi sesuai tugas, fungsi, dan kewenangan masing-"
+   357→    },
+   358→    {
+   359→      "line_idx": 27,
+   360→      "page": 1,
+   361→      "font_size": 14.0,
+   362→      "is_bold": false,
+   363→      "text": "masing untuk:"
+   364→    },
+   365→    {
+   366→      "line_idx": 28,
+   367→      "page": 1,
+   368→      "font_size": 18.0,
+   369→      "is_bold": false,
+   370→      "text": "1. melaksanakan kegiatan pembangunan jalan daerah yang"
+   371→    },
+   372→    {
+   373→      "line_idx": 29,
+   374→      "page": 1,
+   375→      "font_size": 14.5,
+   376→      "is_bold": false,
+   377→      "text": "terhubung dan terintegrasi, utamanya untuk mendukung"
+   378→    },
+   379→    {
+   380→      "line_idx": 30,
+   381→      "page": 1,
+   382→      "font_size": 16.0,
+   383→      "is_bold": false,
+   384→      "text": "produktivitas kawasan industri, kawasan pariwisata,"
+   385→    },
+   386→    {
+   387→      "line_idx": 31,
+   388→      "page": 1,
+   389→      "font_size": 14.0,
+   390→      "is_bold": false,
+   391→      "text": "kawasan perkebunan, kawasan pertanian, dan kawasan"
+   392→    },
+   393→    {
+   394→      "line_idx": 32,
+   395→      "page": 1,
+   396→      "font_size": 14.0,
+   397→      "is_bold": false,
+   398→      "text": "produktif lainnya;"
+   399→    },
+   400→    {
+   401→      "line_idx": 33,
+   402→      "page": 1,
+   403→      "font_size": 14.0,
+   404→      "is_bold": false,
+   405→      "text": "SK No 145524A"
+   406→    },
+   407→    {
+   408→      "line_idx": 34,
+   409→      "page": 1,
+   410→      "font_size": 15.0,
+   411→      "is_bold": false,
+   412→      "text": "2.melaksanakan"
+   413→    },
+   414→    {
+   415→      "line_idx": 35,
+   416→      "page": 2,
+   417→      "font_size": 11.5,
+   418→      "is_bold": false,
+   419→      "text": "2"
+   420→    },
+   421→    {
+   422→      "line_idx": 36,
+   423→      "page": 2,
+   424→      "font_size": 11.5,
+   425→      "is_bold": false,
+   426→      "text": "PRESIDEN"
+   427→    },
+   428→    {
+   429→      "line_idx": 37,
+   430→      "page": 2,
+   431→      "font_size": 12.0,
+   432→      "is_bold": false,
+   433→      "text": "REPUBLIK INDONESIA"
+   434→    },
+   435→    {
+   436→      "line_idx": 38,
+   437→      "page": 2,
+   438→      "font_size": 15.5,
+   439→      "is_bold": false,
+   440→      "text": "2-"
+   441→    },
+   442→    {
+   443→      "line_idx": 39,
+   444→      "page": 2,
+   445→      "font_size": 14.5,
+   446→      "is_bold": false,
+   447→      "text": "melaksanakan kegiatan pembangunan jalan daerah dan"
+   448→    },
+   449→    {
+   450→      "line_idx": 40,
+   451→      "page": 2,
+   452→      "font_size": 14.0,
+   453→      "is_bold": false,
+   454→      "text": "membantu meningkatkan kemantapan jalan, utamanya:"
+   455→    },
+   456→    {
+   457→      "line_idx": 41,
+   458→      "page": 2,
+   459→      "font_size": 18.0,
+   460→      "is_bold": false,
+   461→      "text": "a. di sekitar kawasan industri strategis, antara lain"
+   462→    },
+   463→    {
+   464→      "line_idx": 42,
+   465→      "page": 2,
+   466→      "font_size": 15.0,
+   467→      "is_bold": false,
+   468→      "text": "Morowali, Konawe, Weda Bay, dan Tanjung Selor"
+   469→    },
+   470→    {
+   471→      "line_idx": 43,
+   472→      "page": 2,
+   473→      "font_size": 18.0,
+   474→      "is_bold": false,
+   475→      "text": "untuk mengantisipasi pertumbuhan kawasan"
+   476→    },
+   477→    {
+   478→      "line_idx": 44,
+   479→      "page": 2,
+   480→      "font_size": 14.0,
+   481→      "is_bold": false,
+   482→      "text": "kumuh; dan"
+   483→    },
+   484→    {
+   485→      "line_idx": 45,
+   486→      "page": 2,
+   487→      "font_size": 18.0,
+   488→      "is_bold": false,
+   489→      "text": "b. kondisi jalan daerah yang belum mantap;"
+   490→    },
+   491→    {
+   492→      "line_idx": 46,
+   493→      "page": 2,
+   494→      "font_size": 13.5,
+   495→      "is_bold": false,
+   496→      "text": "melaksanakan pembangunan jalan di sekitar kawasan Ibu"
+   497→    },
+   498→    {
+   499→      "line_idx": 47,
+   500→      "page": 2,
+   501→      "font_size": 14.5,
+   502→      "is_bold": false,
+   503→      "text": "Kota Nusantara dengan melakukan pelebaran jalan untuk"
+   504→    },
+   505→    {
+   506→      "line_idx": 48,
+   507→      "page": 2,
+   508→      "font_size": 13.0,
+   509→      "is_bold": false,
+   510→      "text": "mengantisipasi kemacetan;"
+   511→    },
+   512→    {
+   513→      "line_idx": 49,
+   514→      "page": 2,
+   515→      "font_size": 18.0,
+   516→      "is_bold": false,
+   517→      "text": "merencanakan dan"
+   518→    },
+   519→    {
+   520→      "line_idx": 50,
+   521→      "page": 2,
+   522→      "font_size": 17.5,
+   523→      "is_bold": false,
+   524→      "text": "menyediakan anggaran,"
+   525→    },
+   526→    {
+   527→      "line_idx": 51,
+   528→      "page": 2,
+   529→      "font_size": 17.0,
+   530→      "is_bold": false,
+   531→      "text": "melaksanakan, memantau, mengevaluasi serta"
+   532→    },
+   533→    {
+   534→      "line_idx": 52,
+   535→      "page": 2,
+   536→      "font_size": 17.0,
+   537→      "is_bold": false,
+   538→      "text": "mengendalikan kegiatan percepatan peningkatan"
+   539→    },
+   540→    {
+   541→      "line_idx": 53,
+   542→      "page": 2,
+   543→      "font_size": 14.0,
+   544→      "is_bold": false,
+   545→      "text": "konektivitas jalan daerah; dan"
+   546→    },
+   547→    {
+   548→      "line_idx": 54,
+   549→      "page": 2,
+   550→      "font_size": 15.0,
+   551→      "is_bold": false,
+   552→      "text": "mengatasi kendala dan hambatan dalam pelaksanaan"
+   553→    },
+   554→    {
+   555→      "line_idx": 55,
+   556→      "page": 2,
+   557→      "font_size": 15.0,
+   558→      "is_bold": false,
+   559→      "text": "kegiatan percepatan peningkatan konektivitas jalan"
+   560→    },
+   561→    {
+   562→      "line_idx": 56,
+   563→      "page": 2,
+   564→      "font_size": 12.5,
+   565→      "is_bold": false,
+   566→      "text": "daerah."
+   567→    },
+   568→    {
+   569→      "line_idx": 57,
+   570→      "page": 2,
+   571→      "font_size": 13.0,
+   572→      "is_bold": false,
+   573→      "text": "Khusus kepada:"
+   574→    },
+   575→    {
+   576→      "line_idx": 58,
+   577→      "page": 2,
+   578→      "font_size": 18.0,
+   579→      "is_bold": false,
+   580→      "text": "1. Menteri Perencanaan Perribangunan Nasional/"
+   581→    },
+   582→    {
+   583→      "line_idx": 59,
+   584→      "page": 2,
+   585→      "font_size": 15.5,
+   586→      "is_bold": false,
+   587→      "text": "Kepala Badan Perencanaan Pembangunan Nasional"
+   588→    },
+   589→    {
+   590→      "line_idx": 60,
+   591→      "page": 2,
+   592→      "font_size": 14.0,
+   593→      "is_bold": false,
+   594→      "text": "untuk:"
+   595→    },
+   596→    {
+   597→      "line_idx": 61,
+   598→      "page": 2,
+   599→      "font_size": 18.0,
+   600→      "is_bold": false,
+   601→      "text": "a. mengoordinasikan kegiatan percepatan peningkatan"
+   602→    },
+   603→    {
+   604→      "line_idx": 62,
+   605→      "page": 2,
+   606→      "font_size": 14.0,
+   607→      "is_bold": false,
+   608→      "text": "konektivitas jalan daerah;"
+   609→    },
+   610→    {
+   611→      "line_idx": 63,
+   612→      "page": 2,
+   613→      "font_size": 18.0,
+   614→      "is_bold": false,
+   615→      "text": "b. merumuskan kriteria pemilihan ruas dan"
+   616→    },
+   617→    {
+   618→      "line_idx": 64,
+   619→      "page": 2,
+   620→      "font_size": 15.0,
+   621→      "is_bold": false,
+   622→      "text": "pemanfaatannya serta men5rusun indikasi lokasi,"
+   623→    },
+   624→    {
+   625→      "line_idx": 65,
+   626→      "page": 2,
+   627→      "font_size": 17.5,
+   628→      "is_bold": false,
+   629→      "text": "ruas, dan volume dalam kegiatan percepatan"
+   630→    },
+   631→    {
+   632→      "line_idx": 66,
+   633→      "page": 2,
+   634→      "font_size": 17.5,
+   635→      "is_bold": false,
+   636→      "text": "peningkatan konektivitas jalan daerah bersama"
+   637→    },
+   638→    {
+   639→      "line_idx": 67,
+   640→      "page": 2,
+   641→      "font_size": 13.0,
+   642→      "is_bold": false,
+   643→      "text": "Menteri Pekerjaan Umum dan Perumahan Rakyat;"
+   644→    },
+   645→    {
+   646→      "line_idx": 68,
+   647→      "page": 2,
+   648→      "font_size": 18.0,
+   649→      "is_bold": false,
+   650→      "text": "c. melakukan verifikasi dan penilaian sebagai dasar"
+   651→    },
+   652→    {
+   653→      "line_idx": 69,
+   654→      "page": 2,
+   655→      "font_size": 18.0,
+   656→      "is_bold": false,
+   657→      "text": "penentuan ruas dan jenis penanganan serta"
+   658→    },
+   659→    {
+   660→      "line_idx": 70,
+   661→      "page": 2,
+   662→      "font_size": 15.0,
+   663→      "is_bold": false,
+   664→      "text": "memastikan tidak ada tumpang tindih penanganan"
+   665→    },
+   666→    {
+   667→      "line_idx": 71,
+   668→      "page": 2,
+   669→      "font_size": 15.0,
+   670→      "is_bold": false,
+   671→      "text": "kegiatan jalan daerah yang dikerjakan daerah dan"
+   672→    },
+   673→    {
+   674→      "line_idx": 72,
+   675→      "page": 2,
+   676→      "font_size": 16.5,
+   677→      "is_bold": false,
+   678→      "text": "pusat bersama Menteri Pekerjaan Umum dan"
+   679→    },
+   680→    {
+   681→      "line_idx": 73,
+   682→      "page": 2,
+   683→      "font_size": 13.0,
+   684→      "is_bold": false,
+   685→      "text": "Perumahan Ralryat;"
+   686→    },
+   687→    {
+   688→      "line_idx": 74,
+   689→      "page": 2,
+   690→      "font_size": 11.5,
+   691→      "is_bold": false,
+   692→      "text": "3"
+   693→    },
+   694→    {
+   695→      "line_idx": 75,
+   696→      "page": 2,
+   697→      "font_size": 12.0,
+   698→      "is_bold": false,
+   699→      "text": "4"
+   700→    },
+   701→    {
+   702→      "line_idx": 76,
+   703→      "page": 2,
+   704→      "font_size": 12.0,
+   705→      "is_bold": false,
+   706→      "text": "5"
+   707→    },
+   708→    {
+   709→      "line_idx": 77,
+   710→      "page": 2,
+   711→      "font_size": 12.5,
+   712→      "is_bold": false,
+   713→      "text": "KEDUA"
+   714→    },
+   715→    {
+   716→      "line_idx": 78,
+   717→      "page": 2,
+   718→      "font_size": 14.0,
+   719→      "is_bold": false,
+   720→      "text": "SK No 145509 A"
+   721→    },
+   722→    {
+   723→      "line_idx": 79,
+   724→      "page": 2,
+   725→      "font_size": 13.0,
+   726→      "is_bold": false,
+   727→      "text": "d. menetapkan"
+   728→    },
+   729→    {
+   730→      "line_idx": 80,
+   731→      "page": 3,
+   732→      "font_size": 12.0,
+   733→      "is_bold": false,
+   734→      "text": "d"
+   735→    },
+   736→    {
+   737→      "line_idx": 81,
+   738→      "page": 3,
+   739→      "font_size": 10.0,
+   740→      "is_bold": false,
+   741→      "text": "e"
+   742→    },
+   743→    {
+   744→      "line_idx": 82,
+   745→      "page": 3,
+   746→      "font_size": 11.5,
+   747→      "is_bold": false,
+   748→      "text": "PRESIDEN"
+   749→    },
+   750→    {
+   751→      "line_idx": 83,
+   752→      "page": 3,
+   753→      "font_size": 12.0,
+   754→      "is_bold": false,
+   755→      "text": "REPUBLIK INDONESIA"
+   756→    },
+   757→    {
+   758→      "line_idx": 84,
+   759→      "page": 3,
+   760→      "font_size": 11.5,
+   761→      "is_bold": false,
+   762→      "text": "3"
+   763→    },
+   764→    {
+   765→      "line_idx": 85,
+   766→      "page": 3,
+   767→      "font_size": 13.5,
+   768→      "is_bold": false,
+   769→      "text": "menetapkan daftar kegiatan percepatan peningkatan"
+   770→    },
+   771→    {
+   772→      "line_idx": 86,
+   773→      "page": 3,
+   774→      "font_size": 14.0,
+   775→      "is_bold": false,
+   776→      "text": "konektivitas jalan daerah bersama Menteri Pekerjaan"
+   777→    },
+   778→    {
+   779→      "line_idx": 87,
+   780→      "page": 3,
+   781→      "font_size": 13.0,
+   782→      "is_bold": false,
+   783→      "text": "Umum dan Perumahan Ralryat;"
+   784→    },
+   785→    {
+   786→      "line_idx": 88,
+   787→      "page": 3,
+   788→      "font_size": 13.5,
+   789→      "is_bold": false,
+   790→      "text": "melakukan pemantauan, evaluasi, dan pengendalian"
+   791→    },
+   792→    {
+   793→      "line_idx": 89,
+   794→      "page": 3,
+   795→      "font_size": 16.0,
+   796→      "is_bold": false,
+   797→      "text": "pelaksanaan kegiatan percepatan peningkatan"
+   798→    },
+   799→    {
+   800→      "line_idx": 90,
+   801→      "page": 3,
+   802→      "font_size": 14.0,
+   803→      "is_bold": false,
+   804→      "text": "konektivitas jalan daerah bersama Menteri Pekerjaan"
+   805→    },
+   806→    {
+   807→      "line_idx": 91,
+   808→      "page": 3,
+   809→      "font_size": 13.0,
+   810→      "is_bold": false,
+   811→      "text": "Umum dan Perumahan Rakyat;"
+   812→    },
+   813→    {
+   814→      "line_idx": 92,
+   815→      "page": 3,
+   816→      "font_size": 16.5,
+   817→      "is_bold": false,
+   818→      "text": "menetapkan pedoman pelaksanaan kegiatan"
+   819→    },
+   820→    {
+   821→      "line_idx": 93,
+   822→      "page": 3,
+   823→      "font_size": 13.0,
+   824→      "is_bold": false,
+   825→      "text": "percepatan peningkatan konektivitas j alan daerah;"
+   826→    },
+   827→    {
+   828→      "line_idx": 94,
+   829→      "page": 3,
+   830→      "font_size": 17.0,
+   831→      "is_bold": false,
+   832→      "text": "mengoordinasikan penyelesaian kendala dan"
+   833→    },
+   834→    {
+   835→      "line_idx": 95,
+   836→      "page": 3,
+   837→      "font_size": 14.0,
+   838→      "is_bold": false,
+   839→      "text": "hambatan dalam pelaksanaan kegiatan percepatan"
+   840→    },
+   841→    {
+   842→      "line_idx": 96,
+   843→      "page": 3,
+   844→      "font_size": 14.0,
+   845→      "is_bold": false,
+   846→      "text": "peningkatan konektivitas jalan daerah; dan"
+   847→    },
+   848→    {
+   849→      "line_idx": 97,
+   850→      "page": 3,
+   851→      "font_size": 14.5,
+   852→      "is_bold": false,
+   853→      "text": "melaporkan hasil pelaksanaan Instrrrksi Presiden ini"
+   854→    },
+   855→    {
+   856→      "line_idx": 98,
+   857→      "page": 3,
+   858→      "font_size": 12.5,
+   859→      "is_bold": false,
+   860→      "text": "kepada Presiden."
+   861→    },
+   862→    {
+   863→      "line_idx": 99,
+   864→      "page": 3,
+   865→      "font_size": 14.0,
+   866→      "is_bold": false,
+   867→      "text": "Menteri Pekerjaan Umum dan Perumahan Ralryat untuk:"
+   868→    },
+   869→    {
+   870→      "line_idx": 100,
+   871→      "page": 3,
+   872→      "font_size": 18.0,
+   873→      "is_bold": false,
+   874→      "text": "a. merumuskan kriteria pemilihan ruas dan"
+   875→    },
+   876→    {
+   877→      "line_idx": 101,
+   878→      "page": 3,
+   879→      "font_size": 15.0,
+   880→      "is_bold": false,
+   881→      "text": "pemanfaatannya serta men)rusun indikasi lokasi,"
+   882→    },
+   883→    {
+   884→      "line_idx": 102,
+   885→      "page": 3,
+   886→      "font_size": 17.5,
+   887→      "is_bold": false,
+   888→      "text": "nras, dan volume dalam kegiatan percepatan"
+   889→    },
+   890→    {
+   891→      "line_idx": 103,
+   892→      "page": 3,
+   893→      "font_size": 17.5,
+   894→      "is_bold": false,
+   895→      "text": "peningkatan konektivitas jalan daerah bersama"
+   896→    },
+   897→    {
+   898→      "line_idx": 104,
+   899→      "page": 3,
+   900→      "font_size": 16.5,
+   901→      "is_bold": false,
+   902→      "text": "Menteri Perencanaan Pembangunan Nasional/"
+   903→    },
+   904→    {
+   905→      "line_idx": 105,
+   906→      "page": 3,
+   907→      "font_size": 13.0,
+   908→      "is_bold": false,
+   909→      "text": "Kepala Badan Perencanaan Pembangunan Nasional;"
+   910→    },
+   911→    {
+   912→      "line_idx": 106,
+   913→      "page": 3,
+   914→      "font_size": 18.0,
+   915→      "is_bold": false,
+   916→      "text": "b. menentukan kriteria teknis sebagai dasar verifikasi"
+   917→    },
+   918→    {
+   919→      "line_idx": 107,
+   920→      "page": 3,
+   921→      "font_size": 18.0,
+   922→      "is_bold": false,
+   923→      "text": "dan penilaian dalam kegiatan percepatan"
+   924→    },
+   925→    {
+   926→      "line_idx": 108,
+   927→      "page": 3,
+   928→      "font_size": 14.0,
+   929→      "is_bold": false,
+   930→      "text": "peningkatan konektivitas jalan daerah;"
+   931→    },
+   932→    {
+   933→      "line_idx": 109,
+   934→      "page": 3,
+   935→      "font_size": 18.0,
+   936→      "is_bold": false,
+   937→      "text": "c. melakukan verifikasi dan penilaian sebagai dasar"
+   938→    },
+   939→    {
+   940→      "line_idx": 110,
+   941→      "page": 3,
+   942→      "font_size": 18.0,
+   943→      "is_bold": false,
+   944→      "text": "penentuan ruas dan jenis penanganan serta"
+   945→    },
+   946→    {
+   947→      "line_idx": 111,
+   948→      "page": 3,
+   949→      "font_size": 14.5,
+   950→      "is_bold": false,
+   951→      "text": "memastikan tidak ada tumpang tindih penanganan"
+   952→    },
+   953→    {
+   954→      "line_idx": 112,
+   955→      "page": 3,
+   956→      "font_size": 15.0,
+   957→      "is_bold": false,
+   958→      "text": "kegiatan jalan daerah yang dikerjakan daerah dan"
+   959→    },
+   960→    {
+   961→      "line_idx": 113,
+   962→      "page": 3,
+   963→      "font_size": 14.0,
+   964→      "is_bold": false,
+   965→      "text": "pusat bersama Menteri Perencanaan Pembangunan"
+   966→    },
+   967→    {
+   968→      "line_idx": 114,
+   969→      "page": 3,
+   970→      "font_size": 13.0,
+   971→      "is_bold": false,
+   972→      "text": "Nasional/Kepala Badan Perencanaan Pembangunan"
+   973→    },
+   974→    {
+   975→      "line_idx": 115,
+   976→      "page": 3,
+   977→      "font_size": 12.5,
+   978→      "is_bold": false,
+   979→      "text": "Nasional;"
+   980→    },
+   981→    {
+   982→      "line_idx": 116,
+   983→      "page": 3,
+   984→      "font_size": 18.0,
+   985→      "is_bold": false,
+   986→      "text": "d. menJrusun besaran pagu pada setiap ruas jalan yang"
+   987→    },
+   988→    {
+   989→      "line_idx": 117,
+   990→      "page": 3,
+   991→      "font_size": 16.0,
+   992→      "is_bold": false,
+   993→      "text": "direncanakan berdasarkan kriteria teknis, jenis"
+   994→    },
+   995→    {
+   996→      "line_idx": 118,
+   997→      "page": 3,
+   998→      "font_size": 13.0,
+   999→      "is_bold": false,
+  1000→      "text": "penanganan, dan volume dalam kegiatan percepatan"
+  1001→    },
+  1002→    {
+  1003→      "line_idx": 119,
+  1004→      "page": 3,
+  1005→      "font_size": 14.0,
+  1006→      "is_bold": false,
+  1007→      "text": "peningkatan konektivitas jalan daerah;"
+  1008→    },
+  1009→    {
+  1010→      "line_idx": 120,
+  1011→      "page": 3,
+  1012→      "font_size": 11.0,
+  1013→      "is_bold": false,
+  1014→      "text": "f."
+  1015→    },
+  1016→    {
+  1017→      "line_idx": 121,
+  1018→      "page": 3,
+  1019→      "font_size": 10.5,
+  1020→      "is_bold": false,
+  1021→      "text": "ob"
+  1022→    },
+  1023→    {
+  1024→      "line_idx": 122,
+  1025→      "page": 3,
+  1026→      "font_size": 13.0,
+  1027→      "is_bold": false,
+  1028→      "text": "h"
+  1029→    },
+  1030→    {
+  1031→      "line_idx": 123,
+  1032→      "page": 3,
+  1033→      "font_size": 11.0,
+  1034→      "is_bold": false,
+  1035→      "text": "2"
+  1036→    },
+  1037→    {
+  1038→      "line_idx": 124,
+  1039→      "page": 3,
+  1040→      "font_size": 14.0,
+  1041→      "is_bold": false,
+  1042→      "text": "SK No 145510 A"
+  1043→    },
+  1044→    {
+  1045→      "line_idx": 125,
+  1046→      "page": 3,
+  1047→      "font_size": 14.0,
+  1048→      "is_bold": false,
+  1049→      "text": "e. menetapkan. . ."
+  1050→    },
+  1051→    {
+  1052→      "line_idx": 126,
+  1053→      "page": 4,
+  1054→      "font_size": 11.5,
+  1055→      "is_bold": false,
+  1056→      "text": "3"
+  1057→    },
+  1058→    {
+  1059→      "line_idx": 127,
+  1060→      "page": 4,
+  1061→      "font_size": 11.5,
+  1062→      "is_bold": false,
+  1063→      "text": "PRESIDEN"
+  1064→    },
+  1065→    {
+  1066→      "line_idx": 128,
+  1067→      "page": 4,
+  1068→      "font_size": 12.0,
+  1069→      "is_bold": false,
+  1070→      "text": "REPUBLIK INDONESIA"
+  1071→    },
+  1072→    {
+  1073→      "line_idx": 129,
+  1074→      "page": 4,
+  1075→      "font_size": 14.0,
+  1076→      "is_bold": false,
+  1077→      "text": "-4 -"
+  1078→    },
+  1079→    {
+  1080→      "line_idx": 130,
+  1081→      "page": 4,
+  1082→      "font_size": 18.0,
+  1083→      "is_bold": false,
+  1084→      "text": "e. menetapkan daftar kegiatan percepatan peningkatan"
+  1085→    },
+  1086→    {
+  1087→      "line_idx": 131,
+  1088→      "page": 4,
+  1089→      "font_size": 18.0,
+  1090→      "is_bold": false,
+  1091→      "text": "konektivitas jalan daerah bersama Menteri"
+  1092→    },
+  1093→    {
+  1094→      "line_idx": 132,
+  1095→      "page": 4,
+  1096→      "font_size": 13.0,
+  1097→      "is_bold": false,
+  1098→      "text": "Perencanaan Pembangunan Nasional/Kepala Badan"
+  1099→    },
+  1100→    {
+  1101→      "line_idx": 133,
+  1102→      "page": 4,
+  1103→      "font_size": 12.5,
+  1104→      "is_bold": false,
+  1105→      "text": "Perencanaan Pembangunan Nasional;"
+  1106→    },
+  1107→    {
+  1108→      "line_idx": 134,
+  1109→      "page": 4,
+  1110→      "font_size": 18.0,
+  1111→      "is_bold": false,
+  1112→      "text": "f."
+  1113→    },
+  1114→    {
+  1115→      "line_idx": 135,
+  1116→      "page": 4,
+  1117→      "font_size": 14.0,
+  1118→      "is_bold": false,
+  1119→      "text": "memastikan rincian lokasi, mas, volume, dan pagu"
+  1120→    },
+  1121→    {
+  1122→      "line_idx": 136,
+  1123→      "page": 4,
+  1124→      "font_size": 15.5,
+  1125→      "is_bold": false,
+  1126→      "text": "setiap ruas jalan dalam Daftar Isian Pelaksanaan"
+  1127→    },
+  1128→    {
+  1129→      "line_idx": 137,
+  1130→      "page": 4,
+  1131→      "font_size": 17.0,
+  1132→      "is_bold": false,
+  1133→      "text": "Anggaran Kementerian Pekerjaan Umum dan"
+  1134→    },
+  1135→    {
+  1136→      "line_idx": 138,
+  1137→      "page": 4,
+  1138→      "font_size": 13.0,
+  1139→      "is_bold": false,
+  1140→      "text": "Perumahan Rakyat;"
+  1141→    },
+  1142→    {
+  1143→      "line_idx": 139,
+  1144→      "page": 4,
+  1145→      "font_size": 18.0,
+  1146→      "is_bold": false,
+  1147→      "text": "g. melaksanakan kegiatan percepatan peningkatan"
+  1148→    },
+  1149→    {
+  1150→      "line_idx": 140,
+  1151→      "page": 4,
+  1152→      "font_size": 16.0,
+  1153→      "is_bold": false,
+  1154→      "text": "konektivitas jalan daerah yang dapat melibatkan"
+  1155→    },
+  1156→    {
+  1157→      "line_idx": 141,
+  1158→      "page": 4,
+  1159→      "font_size": 13.5,
+  1160→      "is_bold": false,
+  1161→      "text": "perangkat daerah terkait;"
+  1162→    },
+  1163→    {
+  1164→      "line_idx": 142,
+  1165→      "page": 4,
+  1166→      "font_size": 18.0,
+  1167→      "is_bold": false,
+  1168→      "text": "h. melakukan pemantauan, evaluasi, dan pengendalian"
+  1169→    },
+  1170→    {
+  1171→      "line_idx": 143,
+  1172→      "page": 4,
+  1173→      "font_size": 16.0,
+  1174→      "is_bold": false,
+  1175→      "text": "pelaksanaan kegiatan percepatan peningkatan"
+  1176→    },
+  1177→    {
+  1178→      "line_idx": 144,
+  1179→      "page": 4,
+  1180→      "font_size": 18.0,
+  1181→      "is_bold": false,
+  1182→      "text": "konektivitas jalan daerah bersama Menteri"
+  1183→    },
+  1184→    {
+  1185→      "line_idx": 145,
+  1186→      "page": 4,
+  1187→      "font_size": 13.0,
+  1188→      "is_bold": false,
+  1189→      "text": "Perencanaan Pembangunan Nasional I Kepala Badan"
+  1190→    },
+  1191→    {
+  1192→      "line_idx": 146,
+  1193→      "page": 4,
+  1194→      "font_size": 13.0,
+  1195→      "is_bold": false,
+  1196→      "text": "Perencanaan Pembangunan Nasional; dan"
+  1197→    },
+  1198→    {
+  1199→      "line_idx": 147,
+  1200→      "page": 4,
+  1201→      "font_size": 18.0,
+  1202→      "is_bold": false,
+  1203→      "text": "i."
+  1204→    },
+  1205→    {
+  1206→      "line_idx": 148,
+  1207→      "page": 4,
+  1208→      "font_size": 14.5,
+  1209→      "is_bold": false,
+  1210→      "text": "melakukan serah terima hasil kegiatan percepatan"
+  1211→    },
+  1212→    {
+  1213→      "line_idx": 149,
+  1214→      "page": 4,
+  1215→      "font_size": 18.0,
+  1216→      "is_bold": false,
+  1217→      "text": "peningkatan konektivitas jalan daerah kepada"
+  1218→    },
+  1219→    {
+  1220→      "line_idx": 150,
+  1221→      "page": 4,
+  1222→      "font_size": 16.0,
+  1223→      "is_bold": false,
+  1224→      "text": "pemerintah daerah dalam bentuk hibah sesuai"
+  1225→    },
+  1226→    {
+  1227→      "line_idx": 151,
+  1228→      "page": 4,
+  1229→      "font_size": 13.5,
+  1230→      "is_bold": false,
+  1231→      "text": "dengan ketentuan peraturan perundang-undangan."
+  1232→    },
+  1233→    {
+  1234→      "line_idx": 152,
+  1235→      "page": 4,
+  1236→      "font_size": 14.0,
+  1237→      "is_bold": false,
+  1238→      "text": "Menteri Keuangan untuk:"
+  1239→    },
+  1240→    {
+  1241→      "line_idx": 153,
+  1242→      "page": 4,
+  1243→      "font_size": 18.0,
+  1244→      "is_bold": false,
+  1245→      "text": "a. menyiapkan anggaran untuk pelaksanaan kegiatan"
+  1246→    },
+  1247→    {
+  1248→      "line_idx": 154,
+  1249→      "page": 4,
+  1250→      "font_size": 15.5,
+  1251→      "is_bold": false,
+  1252→      "text": "percepatan peningkatan konektivitas jalan daerah"
+  1253→    },
+  1254→    {
+  1255→      "line_idx": 155,
+  1256→      "page": 4,
+  1257→      "font_size": 14.0,
+  1258→      "is_bold": false,
+  1259→      "text": "pada tahun 2023 dan tahun 2024;"
+  1260→    },
+  1261→    {
+  1262→      "line_idx": 156,
+  1263→      "page": 4,
+  1264→      "font_size": 18.0,
+  1265→      "is_bold": false,
+  1266→      "text": "b. menyiapkan tambahan anggaran yang bersumber"
+  1267→    },
+  1268→    {
+  1269→      "line_idx": 157,
+  1270→      "page": 4,
+  1271→      "font_size": 17.0,
+  1272→      "is_bold": false,
+  1273→      "text": "dari Anggaran Pendapatan dan Belanja Negara"
+  1274→    },
+  1275→    {
+  1276→      "line_idx": 158,
+  1277→      "page": 4,
+  1278→      "font_size": 15.0,
+  1279→      "is_bold": false,
+  1280→      "text": "Tahun Anggaran 2023 untuk pelaksanaan kegiatan"
+  1281→    },
+  1282→    {
+  1283→      "line_idx": 159,
+  1284→      "page": 4,
+  1285→      "font_size": 16.0,
+  1286→      "is_bold": false,
+  1287→      "text": "percepatan peningkatan konektivitas jalan daerah"
+  1288→    },
+  1289→    {
+  1290→      "line_idx": 160,
+  1291→      "page": 4,
+  1292→      "font_size": 15.5,
+  1293→      "is_bold": false,
+  1294→      "text": "dengan menggunakan mekanisme kontrak tahun"
+  1295→    },
+  1296→    {
+  1297→      "line_idx": 161,
+  1298→      "page": 4,
+  1299→      "font_size": 14.0,
+  1300→      "is_bold": false,
+  1301→      "text": "tunggal dan/atau kontrak tahun jamak; dan"
+  1302→    },
+  1303→    {
+  1304→      "line_idx": 162,
+  1305→      "page": 4,
+  1306→      "font_size": 18.0,
+  1307→      "is_bold": false,
+  1308→      "text": "c. memfasilitasi untuk melakukan percepatan proses"
+  1309→    },
+  1310→    {
+  1311→      "line_idx": 163,
+  1312→      "page": 4,
+  1313→      "font_size": 18.0,
+  1314→      "is_bold": false,
+  1315→      "text": "hibah hasil kegiatan percepatan peningkatan"
+  1316→    },
+  1317→    {
+  1318→      "line_idx": 164,
+  1319→      "page": 4,
+  1320→      "font_size": 16.5,
+  1321→      "is_bold": false,
+  1322→      "text": "konektivitas jalan daerah dari Menteri Pekerjaan"
+  1323→    },
+  1324→    {
+  1325→      "line_idx": 165,
+  1326→      "page": 4,
+  1327→      "font_size": 14.5,
+  1328→      "is_bold": false,
+  1329→      "text": "Umum dan Perumahan Ralryat kepada pemerintah"
+  1330→    },
+  1331→    {
+  1332→      "line_idx": 166,
+  1333→      "page": 4,
+  1334→      "font_size": 13.0,
+  1335→      "is_bold": false,
+  1336→      "text": "daerah, bersama Menteri Dalam Negeri."
+  1337→    },
+  1338→    {
+  1339→      "line_idx": 167,
+  1340→      "page": 4,
+  1341→      "font_size": 14.0,
+  1342→      "is_bold": false,
+  1343→      "text": "SK No 145526 A"
+  1344→    },
+  1345→    {
+  1346→      "line_idx": 168,
+  1347→      "page": 4,
+  1348→      "font_size": 13.5,
+  1349→      "is_bold": false,
+  1350→      "text": "4. Menteri"
+  1351→    },
+  1352→    {
+  1353→      "line_idx": 169,
+  1354→      "page": 5,
+  1355→      "font_size": 12.0,
+  1356→      "is_bold": false,
+  1357→      "text": "4"
+  1358→    },
+  1359→    {
+  1360→      "line_idx": 170,
+  1361→      "page": 5,
+  1362→      "font_size": 11.5,
+  1363→      "is_bold": false,
+  1364→      "text": "PRESiDEN"
+  1365→    },
+  1366→    {
+  1367→      "line_idx": 171,
+  1368→      "page": 5,
+  1369→      "font_size": 11.5,
+  1370→      "is_bold": false,
+  1371→      "text": "REPUBLTK INDONESIA"
+  1372→    },
+  1373→    {
+  1374→      "line_idx": 172,
+  1375→      "page": 5,
+  1376→      "font_size": 14.0,
+  1377→      "is_bold": false,
+  1378→      "text": "-5"
+  1379→    },
+  1380→    {
+  1381→      "line_idx": 173,
+  1382→      "page": 5,
+  1383→      "font_size": 14.0,
+  1384→      "is_bold": false,
+  1385→      "text": "Menteri Dalam Negeri untuk:"
+  1386→    },
+  1387→    {
+  1388→      "line_idx": 174,
+  1389→      "page": 5,
+  1390→      "font_size": 18.0,
+  1391→      "is_bold": false,
+  1392→      "text": "a. memberikan sosialisasi kepada Gubernur dan"
+  1393→    },
+  1394→    {
+  1395→      "line_idx": 175,
+  1396→      "page": 5,
+  1397→      "font_size": 14.5,
+  1398→      "is_bold": false,
+  1399→      "text": "Bupati/Wali Kota mengenai pelaksanaan kebijakan"
+  1400→    },
+  1401→    {
+  1402→      "line_idx": 176,
+  1403→      "page": 5,
+  1404→      "font_size": 14.0,
+  1405→      "is_bold": false,
+  1406→      "text": "percepatan peningkatan konektivitas jalan daerah;"
+  1407→    },
+  1408→    {
+  1409→      "line_idx": 177,
+  1410→      "page": 5,
+  1411→      "font_size": 18.0,
+  1412→      "is_bold": false,
+  1413→      "text": "b. menyiapkan dukungan kebijakan yang dibutuhkan"
+  1414→    },
+  1415→    {
+  1416→      "line_idx": 178,
+  1417→      "page": 5,
+  1418→      "font_size": 16.0,
+  1419→      "is_bold": false,
+  1420→      "text": "pemerintah daerah dalam kegiatan percepatan"
+  1421→    },
+  1422→    {
+  1423→      "line_idx": 179,
+  1424→      "page": 5,
+  1425→      "font_size": 14.0,
+  1426→      "is_bold": false,
+  1427→      "text": "peningkatan konektivitas jalan daerah;"
+  1428→    },
+  1429→    {
+  1430→      "line_idx": 180,
+  1431→      "page": 5,
+  1432→      "font_size": 18.0,
+  1433→      "is_bold": false,
+  1434→      "text": "c. melaksanakan pembinaan dan pengawasan dalam"
+  1435→    },
+  1436→    {
+  1437→      "line_idx": 181,
+  1438→      "page": 5,
+  1439→      "font_size": 16.0,
+  1440→      "is_bold": false,
+  1441→      "text": "pelaksanaan kegiatan percepatan peningkatan"
+  1442→    },
+  1443→    {
+  1444→      "line_idx": 182,
+  1445→      "page": 5,
+  1446→      "font_size": 14.5,
+  1447→      "is_bold": false,
+  1448→      "text": "konektivitas jalan daerah yang menjadi kewenangan"
+  1449→    },
+  1450→    {
+  1451→      "line_idx": 183,
+  1452→      "page": 5,
+  1453→      "font_size": 13.0,
+  1454→      "is_bold": false,
+  1455→      "text": "pemerintah daerah; dan"
+  1456→    },
+  1457→    {
+  1458→      "line_idx": 184,
+  1459→      "page": 5,
+  1460→      "font_size": 18.0,
+  1461→      "is_bold": false,
+  1462→      "text": "d. memfasilitasi untuk melakukan percepatan proses"
+  1463→    },
+  1464→    {
+  1465→      "line_idx": 185,
+  1466→      "page": 5,
+  1467→      "font_size": 18.0,
+  1468→      "is_bold": false,
+  1469→      "text": "hibah hasil kegiatan percepatan peningkatan"
+  1470→    },
+  1471→    {
+  1472→      "line_idx": 186,
+  1473→      "page": 5,
+  1474→      "font_size": 16.5,
+  1475→      "is_bold": false,
+  1476→      "text": "konektivitas jalan daerah dari Menteri Pekerjaan"
+  1477→    },
+  1478→    {
+  1479→      "line_idx": 187,
+  1480→      "page": 5,
+  1481→      "font_size": 14.5,
+  1482→      "is_bold": false,
+  1483→      "text": "Umum dan Perumahan Ralryat kepada pemerintah"
+  1484→    },
+  1485→    {
+  1486→      "line_idx": 188,
+  1487→      "page": 5,
+  1488→      "font_size": 13.0,
+  1489→      "is_bold": false,
+  1490→      "text": "daerah, bersama Menteri Keuangan."
+  1491→    },
+  1492→    {
+  1493→      "line_idx": 189,
+  1494→      "page": 5,
+  1495→      "font_size": 14.0,
+  1496→      "is_bold": false,
+  1497→      "text": "Gubernur dan Bupati/Wali Kota untuk:"
+  1498→    },
+  1499→    {
+  1500→      "line_idx": 190,
+  1501→      "page": 5,
+  1502→      "font_size": 18.0,
+  1503→      "is_bold": false,
+  1504→      "text": "a. menyediakan dukungan program dan anggaran"
+  1505→    },
+  1506→    {
+  1507→      "line_idx": 191,
+  1508→      "page": 5,
+  1509→      "font_size": 16.5,
+  1510→      "is_bold": false,
+  1511→      "text": "dalam rangka menyiapkan dokumen kesiapan"
+  1512→    },
+  1513→    {
+  1514→      "line_idx": 192,
+  1515→      "page": 5,
+  1516→      "font_size": 16.0,
+  1517→      "is_bold": false,
+  1518→      "text": "pelaksanaan kegiatan percepatan peningkatan"
+  1519→    },
+  1520→    {
+  1521→      "line_idx": 193,
+  1522→      "page": 5,
+  1523→      "font_size": 14.0,
+  1524→      "is_bold": false,
+  1525→      "text": "konektivitas jalan daerah;"
+  1526→    },
+  1527→    {
+  1528→      "line_idx": 194,
+  1529→      "page": 5,
+  1530→      "font_size": 18.0,
+  1531→      "is_bold": false,
+  1532→      "text": "b. men5rusun dokumen perencanaan dan kelengkapan"
+  1533→    },
+  1534→    {
+  1535→      "line_idx": 195,
+  1536→      "page": 5,
+  1537→      "font_size": 15.0,
+  1538→      "is_bold": false,
+  1539→      "text": "perizinan sesuai dengan kewenangannya untuk"
+  1540→    },
+  1541→    {
+  1542→      "line_idx": 196,
+  1543→      "page": 5,
+  1544→      "font_size": 14.0,
+  1545→      "is_bold": false,
+  1546→      "text": "kegiatan percepatan peningkatan konektivitas jalan"
+  1547→    },
+  1548→    {
+  1549→      "line_idx": 197,
+  1550→      "page": 5,
+  1551→      "font_size": 12.5,
+  1552→      "is_bold": false,
+  1553→      "text": "daerah;"
+  1554→    },
+  1555→    {
+  1556→      "line_idx": 198,
+  1557→      "page": 5,
+  1558→      "font_size": 18.0,
+  1559→      "is_bold": false,
+  1560→      "text": "c. menyediakan dukungan lahan siap bangun dalam"
+  1561→    },
+  1562→    {
+  1563→      "line_idx": 199,
+  1564→      "page": 5,
+  1565→      "font_size": 18.0,
+  1566→      "is_bold": false,
+  1567→      "text": "rangka pelaksanaan kegiatan percepatan"
+  1568→    }
+  1569→  ],
+  1570→  "closing_lines": [
+  1571→    {
+  1572→      "line_idx": 182,
+  1573→      "page": 5,
+  1574→      "font_size": 14.5,
+  1575→      "is_bold": false,
+  1576→      "text": "konektivitas jalan daerah yang menjadi kewenangan"
+  1577→    },
+  1578→    {
+  1579→      "line_idx": 183,
+  1580→      "page": 5,
+  1581→      "font_size": 13.0,
+  1582→      "is_bold": false,
+  1583→      "text": "pemerintah daerah; dan"
+  1584→    },
+  1585→    {
+  1586→      "line_idx": 184,
+  1587→      "page": 5,
+  1588→      "font_size": 18.0,
+  1589→      "is_bold": false,
+  1590→      "text": "d. memfasilitasi untuk melakukan percepatan proses"
+  1591→    },
+  1592→    {
+  1593→      "line_idx": 185,
+  1594→      "page": 5,
+  1595→      "font_size": 18.0,
+  1596→      "is_bold": false,
+  1597→      "text": "hibah hasil kegiatan percepatan peningkatan"
+  1598→    },
+  1599→    {
+  1600→      "line_idx": 186,
+  1601→      "page": 5,
+  1602→      "font_size": 16.5,
+  1603→      "is_bold": false,
+  1604→      "text": "konektivitas jalan daerah dari Menteri Pekerjaan"
+  1605→    },
+  1606→    {
+  1607→      "line_idx": 187,
+  1608→      "page": 5,
+  1609→      "font_size": 14.5,
+  1610→      "is_bold": false,
+  1611→      "text": "Umum dan Perumahan Ralryat kepada pemerintah"
+  1612→    },
+  1613→    {
+  1614→      "line_idx": 188,
+  1615→      "page": 5,
+  1616→      "font_size": 13.0,
+  1617→      "is_bold": false,
+  1618→      "text": "daerah, bersama Menteri Keuangan."
+  1619→    },
+  1620→    {
+  1621→      "line_idx": 189,
+  1622→      "page": 5,
+  1623→      "font_size": 14.0,
+  1624→      "is_bold": false,
+  1625→      "text": "Gubernur dan Bupati/Wali Kota untuk:"
+  1626→    },
+  1627→    {
+  1628→      "line_idx": 190,
+  1629→      "page": 5,
+  1630→      "font_size": 18.0,
+  1631→      "is_bold": false,
+  1632→      "text": "a. menyediakan dukungan program dan anggaran"
+  1633→    },
+  1634→    {
+  1635→      "line_idx": 191,
+  1636→      "page": 5,
+  1637→      "font_size": 16.5,
+  1638→      "is_bold": false,
+  1639→      "text": "dalam rangka menyiapkan dokumen kesiapan"
+  1640→    },
+  1641→    {
+  1642→      "line_idx": 192,
+  1643→      "page": 5,
+  1644→      "font_size": 16.0,
+  1645→      "is_bold": false,
+  1646→      "text": "pelaksanaan kegiatan percepatan peningkatan"
+  1647→    },
+  1648→    {
+  1649→      "line_idx": 193,
+  1650→      "page": 5,
+  1651→      "font_size": 14.0,
+  1652→      "is_bold": false,
+  1653→      "text": "konektivitas jalan daerah;"
+  1654→    },
+  1655→    {
+  1656→      "line_idx": 194,
+  1657→      "page": 5,
+  1658→      "font_size": 18.0,
+  1659→      "is_bold": false,
+  1660→      "text": "b. men5rusun dokumen perencanaan dan kelengkapan"
+  1661→    },
+  1662→    {
+  1663→      "line_idx": 195,
+  1664→      "page": 5,
+  1665→      "font_size": 15.0,
+  1666→      "is_bold": false,
+  1667→      "text": "perizinan sesuai dengan kewenangannya untuk"
+  1668→    },
+  1669→    {
+  1670→      "line_idx": 196,
+  1671→      "page": 5,
+  1672→      "font_size": 14.0,
+  1673→      "is_bold": false,
+  1674→      "text": "kegiatan percepatan peningkatan konektivitas jalan"
+  1675→    },
+  1676→    {
+  1677→      "line_idx": 197,
+  1678→      "page": 5,
+  1679→      "font_size": 12.5,
+  1680→      "is_bold": false,
+  1681→      "text": "daerah;"
+  1682→    },
+  1683→    {
+  1684→      "line_idx": 198,
+  1685→      "page": 5,
+  1686→      "font_size": 18.0,
+  1687→      "is_bold": false,
+  1688→      "text": "c. menyediakan dukungan lahan siap bangun dalam"
+  1689→    },
+  1690→    {
+  1691→      "line_idx": 199,
+  1692→      "page": 5,
+  1693→      "font_size": 18.0,
+  1694→      "is_bold": false,
+  1695→      "text": "rangka pelaksanaan kegiatan percepatan"
+  1696→    },
+  1697→    {
+  1698→      "line_idx": 200,
+  1699→      "page": 5,
+  1700→      "font_size": 14.0,
+  1701→      "is_bold": false,
+  1702→      "text": "peningkatan konektivitas jalan daerah; dan"
+  1703→    },
+  1704→    {
+  1705→      "line_idx": 201,
+  1706→      "page": 5,
+  1707→      "font_size": 18.0,
+  1708→      "is_bold": false,
+  1709→      "text": "d. mengoperasikan dan melakukan pemeliharaan jalan"
+  1710→    },
+  1711→    {
+  1712→      "line_idx": 202,
+  1713→      "page": 5,
+  1714→      "font_size": 14.5,
+  1715→      "is_bold": false,
+  1716→      "text": "daerah yang telah diserahterimakan dalam bentuk"
+  1717→    },
+  1718→    {
+  1719→      "line_idx": 203,
+  1720→      "page": 5,
+  1721→      "font_size": 18.0,
+  1722→      "is_bold": false,
+  1723→      "text": "hibah hasil kegiatan percepatan peningkatan"
+  1724→    },
+  1725→    {
+  1726→      "line_idx": 204,
+  1727→      "page": 5,
+  1728→      "font_size": 16.5,
+  1729→      "is_bold": false,
+  1730→      "text": "konektivitas jalan daerah dari Menteri Pekerjaan"
+  1731→    },
+  1732→    {
+  1733→      "line_idx": 205,
+  1734→      "page": 5,
+  1735→      "font_size": 13.0,
+  1736→      "is_bold": false,
+  1737→      "text": "Umum dan Perumahan Rakyat."
+  1738→    },
+  1739→    {
+  1740→      "line_idx": 206,
+  1741→      "page": 5,
+  1742→      "font_size": 11.5,
+  1743→      "is_bold": false,
+  1744→      "text": "5"
+  1745→    },
+  1746→    {
+  1747→      "line_idx": 207,
+  1748→      "page": 5,
+  1749→      "font_size": 14.0,
+  1750→      "is_bold": false,
+  1751→      "text": "SK No 145520 A"
+  1752→    },
+  1753→    {
+  1754→      "line_idx": 208,
+  1755→      "page": 5,
+  1756→      "font_size": 12.5,
+  1757→      "is_bold": false,
+  1758→      "text": "KETIGA"
+  1759→    },
+  1760→    {
+  1761→      "line_idx": 209,
+  1762→      "page": 6,
+  1763→      "font_size": 11.5,
+  1764→      "is_bold": false,
+  1765→      "text": "PRESIDEN"
+  1766→    },
+  1767→    {
+  1768→      "line_idx": 210,
+  1769→      "page": 6,
+  1770→      "font_size": 11.5,
+  1771→      "is_bold": false,
+  1772→      "text": "REPUBLTK INDONESIA"
+  1773→    },
+  1774→    {
+  1775→      "line_idx": 211,
+  1776→      "page": 6,
+  1777→      "font_size": 15.5,
+  1778→      "is_bold": false,
+  1779→      "text": "6-"
+  1780→    },
+  1781→    {
+  1782→      "line_idx": 212,
+  1783→      "page": 6,
+  1784→      "font_size": 18.0,
+  1785→      "is_bold": false,
+  1786→      "text": ": Mendukung secara penuh tanggung jawab dan bersinergi"
+  1787→    },
+  1788→    {
+  1789→      "line_idx": 213,
+  1790→      "page": 6,
+  1791→      "font_size": 14.0,
+  1792→      "is_bold": false,
+  1793→      "text": "dalam melaksanakan Instruksi Presiden ini."
+  1794→    },
+  1795→    {
+  1796→      "line_idx": 214,
+  1797→      "page": 6,
+  1798→      "font_size": 14.5,
+  1799→      "is_bold": false,
+  1800→      "text": "Pendanaan pelaksanaan Instruksi Presiden ini bersumber dari"
+  1801→    },
+  1802→    {
+  1803→      "line_idx": 215,
+  1804→      "page": 6,
+  1805→      "font_size": 16.0,
+  1806→      "is_bold": false,
+  1807→      "text": "Anggaran Pendapatan dan Belanja Negara dan Anggaran"
+  1808→    },
+  1809→    {
+  1810→      "line_idx": 216,
+  1811→      "page": 6,
+  1812→      "font_size": 13.0,
+  1813→      "is_bold": false,
+  1814→      "text": "Pendapatan dan Belanja Daerah."
+  1815→    },
+  1816→    {
+  1817→      "line_idx": 217,
+  1818→      "page": 6,
+  1819→      "font_size": 14.5,
+  1820→      "is_bold": false,
+  1821→      "text": "Instruksi Presiden ini mulai berlaku pada tanggal dikeluarkan."
+  1822→    },
+  1823→    {
+  1824→      "line_idx": 218,
+  1825→      "page": 6,
+  1826→      "font_size": 13.5,
+  1827→      "is_bold": false,
+  1828→      "text": "Dikeluarkan di Jakarta"
+  1829→    },
+  1830→    {
+  1831→      "line_idx": 219,
+  1832→      "page": 6,
+  1833→      "font_size": 13.5,
+  1834→      "is_bold": false,
+  1835→      "text": "pada tanggal 16 Maret 2023"
+  1836→    },
+  1837→    {
+  1838→      "line_idx": 220,
+  1839→      "page": 6,
+  1840→      "font_size": 12.5,
+  1841→      "is_bold": false,
+  1842→      "text": "PRESIDEN REPUBLIK INDONESIA,"
+  1843→    },
+  1844→    {
+  1845→      "line_idx": 221,
+  1846→      "page": 6,
+  1847→      "font_size": 12.5,
+  1848→      "is_bold": false,
+  1849→      "text": "JOKO WIDODO"
+  1850→    },
+  1851→    {
+  1852→      "line_idx": 222,
+  1853→      "page": 6,
+  1854→      "font_size": 13.0,
+  1855→      "is_bold": false,
+  1856→      "text": "Salinan sesuai dengan aslinya"
+  1857→    },
+  1858→    {
+  1859→      "line_idx": 223,
+  1860→      "page": 6,
+  1861→      "font_size": 12.5,
+  1862→      "is_bold": false,
+  1863→      "text": "KEMENTERIAN SEKRETARIAT NEGARA"
+  1864→    },
+  1865→    {
+  1866→      "line_idx": 224,
+  1867→      "page": 6,
+  1868→      "font_size": 12.5,
+  1869→      "is_bold": false,
+  1870→      "text": "REPUBLIK INDONESIA"
+  1871→    },
+  1872→    {
+  1873→      "line_idx": 225,
+  1874→      "page": 6,
+  1875→      "font_size": 13.0,
+  1876→      "is_bold": false,
+  1877→      "text": "Perundang-undangan dan"
+  1878→    },
+  1879→    {
+  1880→      "line_idx": 226,
+  1881→      "page": 6,
+  1882→      "font_size": 15.0,
+  1883→      "is_bold": false,
+  1884→      "text": "Hukunl"
+  1885→    },
+  1886→    {
+  1887→      "line_idx": 227,
+  1888→      "page": 6,
+  1889→      "font_size": 13.0,
+  1890→      "is_bold": false,
+  1891→      "text": "Djaman"
+  1892→    },
+  1893→    {
+  1894→      "line_idx": 228,
+  1895→      "page": 6,
+  1896→      "font_size": 12.0,
+  1897→      "is_bold": false,
+  1898→      "text": "KETIGA"
+  1899→    },
+  1900→    {
+  1901→      "line_idx": 229,
+  1902→      "page": 6,
+  1903→      "font_size": 12.0,
+  1904→      "is_bold": false,
+  1905→      "text": "KEEMPAT"
+  1906→    },
+  1907→    {
+  1908→      "line_idx": 230,
+  1909→      "page": 6,
+  1910→      "font_size": 13.5,
+  1911→      "is_bold": false,
+  1912→      "text": "ttd."
+  1913→    },
+  1914→    {
+  1915→      "line_idx": 231,
+  1916→      "page": 6,
+  1917→      "font_size": 14.0,
+  1918→      "is_bold": false,
+  1919→      "text": "SK No 145525 A"
+  1920→    }
+  1921→  ]
+  1922→}

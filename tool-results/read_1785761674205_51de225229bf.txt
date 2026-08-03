@@ -1,0 +1,2002 @@
+     1→{
+     2→  "folder": "uu",
+     3→  "filename": "uunomor41tahun2014.pdf",
+     4→  "total_lines": 1717,
+     5→  "font_sizes": [
+     6→    8.5,
+     7→    9.0,
+     8→    10.0,
+     9→    10.5,
+    10→    11.0,
+    11→    11.5,
+    12→    12.0,
+    13→    12.5,
+    14→    13.0,
+    15→    13.5,
+    16→    14.0,
+    17→    14.5,
+    18→    15.0,
+    19→    15.5,
+    20→    16.0,
+    21→    16.5,
+    22→    17.0,
+    23→    17.5,
+    24→    18.0,
+    25→    19.5,
+    26→    22.0,
+    27→    26.0,
+    28→    38.5,
+    29→    40.0,
+    30→    44.0,
+    31→    47.5,
+    32→    48.5,
+    33→    49.0
+    34→  ],
+    35→  "most_common_size": 13.0,
+    36→  "sections": [],
+    37→  "numbering_patterns": [
+    38→    "ayat_(N)",
+    39→    "letter_a.",
+    40→    "number_1)",
+    41→    "pasal_arabic",
+    42→    "pasal_roman"
+    43→  ],
+    44→  "key_anchors": [
+    45→    {
+    46→      "line_idx": 7,
+    47→      "page": 1,
+    48→      "text": "DENGAN RAHMAT TUHAN YANG MAHA ESA",
+    49→      "keyword": "dengan rahmat",
+    50→      "font_size": 12.5,
+    51→      "is_bold": false
+    52→    },
+    53→    {
+    54→      "line_idx": 8,
+    55→      "page": 1,
+    56→      "text": "PRESIDEN REPUBLIK INDONESIA,",
+    57→      "keyword": "presiden",
+    58→      "font_size": 12.5,
+    59→      "is_bold": false
+    60→    },
+    61→    {
+    62→      "line_idx": 9,
+    63→      "page": 1,
+    64→      "text": "Menimbang : a. bahwa negara bertanggung jawab untuk melindungi",
+    65→      "keyword": "menimbang",
+    66→      "font_size": 18.0,
+    67→      "is_bold": false
+    68→    },
+    69→    {
+    70→      "line_idx": 38,
+    71→      "page": 1,
+    72→      "text": "Mengingat",
+    73→      "keyword": "mengingat",
+    74→      "font_size": 13.5,
+    75→      "is_bold": false
+    76→    },
+    77→    {
+    78→      "line_idx": 42,
+    79→      "page": 2,
+    80→      "text": "Mengingat : Pasal 20 dan Pasal 21 Undang-Undang Dasar Negara",
+    81→      "keyword": "mengingat",
+    82→      "font_size": 18.0,
+    83→      "is_bold": false
+    84→    },
+    85→    {
+    86→      "line_idx": 47,
+    87→      "page": 2,
+    88→      "text": "PRESIDEN REPUBLIK INDONESIA",
+    89→      "keyword": "presiden",
+    90→      "font_size": 12.5,
+    91→      "is_bold": false
+    92→    },
+    93→    {
+    94→      "line_idx": 49,
+    95→      "page": 2,
+    96→      "text": "Menetapkan : UNDANG-UNDANGTENTANG",
+    97→      "keyword": "menetapkan",
+    98→      "font_size": 18.0,
+    99→      "is_bold": false
+   100→    },
+   101→    {
+   102→      "line_idx": 54,
+   103→      "page": 2,
+   104→      "text": "Pasal I",
+   105→      "keyword": "pasal",
+   106→      "font_size": 12.5,
+   107→      "is_bold": false
+   108→    },
+   109→    {
+   110→      "line_idx": 70,
+   111→      "page": 2,
+   112→      "text": "Pasal 1",
+   113→      "keyword": "pasal",
+   114→      "font_size": 12.5,
+   115→      "is_bold": false
+   116→    },
+   117→    {
+   118→      "line_idx": 137,
+   119→      "page": 4,
+   120→      "text": "PRESIDEN",
+   121→      "keyword": "presiden",
+   122→      "font_size": 11.0,
+   123→      "is_bold": false
+   124→    },
+   125→    {
+   126→      "line_idx": 182,
+   127→      "page": 5,
+   128→      "text": "PRESIDEN",
+   129→      "keyword": "presiden",
+   130→      "font_size": 11.0,
+   131→      "is_bold": false
+   132→    },
+   133→    {
+   134→      "line_idx": 235,
+   135→      "page": 6,
+   136→      "text": "PRESIDEN",
+   137→      "keyword": "presiden",
+   138→      "font_size": 11.0,
+   139→      "is_bold": false
+   140→    },
+   141→    {
+   142→      "line_idx": 275,
+   143→      "page": 7,
+   144→      "text": "PRESIDEN",
+   145→      "keyword": "presiden",
+   146→      "font_size": 11.0,
+   147→      "is_bold": false
+   148→    },
+   149→    {
+   150→      "line_idx": 322,
+   151→      "page": 8,
+   152→      "text": "PRESIDEN",
+   153→      "keyword": "presiden",
+   154→      "font_size": 11.0,
+   155→      "is_bold": false
+   156→    },
+   157→    {
+   158→      "line_idx": 347,
+   159→      "page": 8,
+   160→      "text": "penjelasannya tentang uinseminasi buatan\" dihapus",
+   161→      "keyword": "penjelasan",
+   162→      "font_size": 15.5,
+   163→      "is_bold": false
+   164→    },
+   165→    {
+   166→      "line_idx": 351,
+   167→      "page": 8,
+   168→      "text": "Pasal Angka 2 Undang-undang ini.",
+   169→      "keyword": "pasal",
+   170→      "font_size": 13.5,
+   171→      "is_bold": false
+   172→    },
+   173→    {
+   174→      "line_idx": 354,
+   175→      "page": 8,
+   176→      "text": "Bagian Kesatu",
+   177→      "keyword": "bagian",
+   178→      "font_size": 13.0,
+   179→      "is_bold": false
+   180→    },
+   181→    {
+   182→      "line_idx": 358,
+   183→      "page": 8,
+   184→      "text": "Pasal 13",
+   185→      "keyword": "pasal",
+   186→      "font_size": 14.0,
+   187→      "is_bold": false
+   188→    },
+   189→    {
+   190→      "line_idx": 362,
+   191→      "page": 9,
+   192→      "text": "Pasal 13",
+   193→      "keyword": "pasal",
+   194→      "font_size": 12.5,
+   195→      "is_bold": false
+   196→    },
+   197→    {
+   198→      "line_idx": 372,
+   199→      "page": 9,
+   200→      "text": "Kewajiban Pemerintah dan/atau Pemerintah Daerah",
+   201→      "keyword": "kewajiban",
+   202→      "font_size": 14.5,
+   203→      "is_bold": false
+   204→    },
+   205→    {
+   206→      "line_idx": 406,
+   207→      "page": 9,
+   208→      "text": "Pasal 15",
+   209→      "keyword": "pasal",
+   210→      "font_size": 14.0,
+   211→      "is_bold": false
+   212→    },
+   213→    {
+   214→      "line_idx": 407,
+   215→      "page": 10,
+   216→      "text": "PRESIDEN",
+   217→      "keyword": "presiden",
+   218→      "font_size": 11.0,
+   219→      "is_bold": false
+   220→    },
+   221→    {
+   222→      "line_idx": 410,
+   223→      "page": 10,
+   224→      "text": "Pasal 15",
+   225→      "keyword": "pasal",
+   226→      "font_size": 12.5,
+   227→      "is_bold": false
+   228→    },
+   229→    {
+   230→      "line_idx": 442,
+   231→      "page": 10,
+   232→      "text": "Pasal 16",
+   233→      "keyword": "pasal",
+   234→      "font_size": 12.5,
+   235→      "is_bold": false
+   236→    },
+   237→    {
+   238→      "line_idx": 452,
+   239→      "page": 11,
+   240→      "text": "PRESIDEN",
+   241→      "keyword": "presiden",
+   242→      "font_size": 11.0,
+   243→      "is_bold": false
+   244→    },
+   245→    {
+   246→      "line_idx": 460,
+   247→      "page": 11,
+   248→      "text": "Menteri.",
+   249→      "keyword": "menteri",
+   250→      "font_size": 13.0,
+   251→      "is_bold": false
+   252→    },
+   253→    {
+   254→      "line_idx": 463,
+   255→      "page": 11,
+   256→      "text": "Pasal 18",
+   257→      "keyword": "pasal",
+   258→      "font_size": 12.5,
+   259→      "is_bold": false
+   260→    },
+   261→    {
+   262→      "line_idx": 482,
+   263→      "page": 11,
+   264→      "text": "Larangan sebagaimana dimaksud pada ayat (4)",
+   265→      "keyword": "larangan",
+   266→      "font_size": 16.5,
+   267→      "is_bold": false
+   268→    },
+   269→    {
+   270→      "line_idx": 497,
+   271→      "page": 12,
+   272→      "text": "PRESIDEN",
+   273→      "keyword": "presiden",
+   274→      "font_size": 11.0,
+   275→      "is_bold": false
+   276→    },
+   277→    {
+   278→      "line_idx": 512,
+   279→      "page": 12,
+   280→      "text": "Pasal 3 1",
+   281→      "keyword": "pasal",
+   282→      "font_size": 12.0,
+   283→      "is_bold": false
+   284→    },
+   285→    {
+   286→      "line_idx": 537,
+   287→      "page": 13,
+   288→      "text": "PRESIDEN",
+   289→      "keyword": "presiden",
+   290→      "font_size": 11.0,
+   291→      "is_bold": false
+   292→    },
+   293→    {
+   294→      "line_idx": 547,
+   295→      "page": 13,
+   296→      "text": "Pasal 32",
+   297→      "keyword": "pasal",
+   298→      "font_size": 12.0,
+   299→      "is_bold": false
+   300→    },
+   301→    {
+   302→      "line_idx": 564,
+   303→      "page": 13,
+   304→      "text": "Pasal 36",
+   305→      "keyword": "pasal",
+   306→      "font_size": 12.5,
+   307→      "is_bold": false
+   308→    },
+   309→    {
+   310→      "line_idx": 589,
+   311→      "page": 14,
+   312→      "text": "Pasal 36E sehingga berbunyi sebagai berikut:",
+   313→      "keyword": "pasal",
+   314→      "font_size": 13.5,
+   315→      "is_bold": false
+   316→    },
+   317→    {
+   318→      "line_idx": 590,
+   319→      "page": 14,
+   320→      "text": "Pasal 36A",
+   321→      "keyword": "pasal",
+   322→      "font_size": 12.5,
+   323→      "is_bold": false
+   324→    },
+   325→    {
+   326→      "line_idx": 596,
+   327→      "page": 14,
+   328→      "text": "Pasal 368",
+   329→      "keyword": "pasal",
+   330→      "font_size": 13.5,
+   331→      "is_bold": false
+   332→    },
+   333→    {
+   334→      "line_idx": 626,
+   335→      "page": 15,
+   336→      "text": "PRESIDEN",
+   337→      "keyword": "presiden",
+   338→      "font_size": 11.0,
+   339→      "is_bold": false
+   340→    },
+   341→    {
+   342→      "line_idx": 645,
+   343→      "page": 15,
+   344→      "text": "Pasal 36C",
+   345→      "keyword": "pasal",
+   346→      "font_size": 12.0,
+   347→      "is_bold": false
+   348→    },
+   349→    {
+   350→      "line_idx": 667,
+   351→      "page": 16,
+   352→      "text": "PRESIDEN",
+   353→      "keyword": "presiden",
+   354→      "font_size": 11.0,
+   355→      "is_bold": false
+   356→    },
+   357→    {
+   358→      "line_idx": 680,
+   359→      "page": 16,
+   360→      "text": "Pasal 36D",
+   361→      "keyword": "pasal",
+   362→      "font_size": 12.5,
+   363→      "is_bold": false
+   364→    },
+   365→    {
+   366→      "line_idx": 683,
+   367→      "page": 16,
+   368→      "text": "Pasal 36C harus ditempatkan di pulau karantina",
+   369→      "keyword": "pasal",
+   370→      "font_size": 18.0,
+   371→      "is_bold": false
+   372→    },
+   373→    {
+   374→      "line_idx": 688,
+   375→      "page": 16,
+   376→      "text": "Pasal 36E",
+   377→      "keyword": "pasal",
+   378→      "font_size": 12.5,
+   379→      "is_bold": false
+   380→    },
+   381→    {
+   382→      "line_idx": 698,
+   383→      "page": 16,
+   384→      "text": "Pasal 37",
+   385→      "keyword": "pasal",
+   386→      "font_size": 12.5,
+   387→      "is_bold": false
+   388→    },
+   389→    {
+   390→      "line_idx": 735,
+   391→      "page": 17,
+   392→      "text": "Pasal 4 1",
+   393→      "keyword": "pasal",
+   394→      "font_size": 12.0,
+   395→      "is_bold": false
+   396→    },
+   397→    {
+   398→      "line_idx": 751,
+   399→      "page": 18,
+   400→      "text": "PRESIDEN",
+   401→      "keyword": "presiden",
+   402→      "font_size": 11.0,
+   403→      "is_bold": false
+   404→    },
+   405→    {
+   406→      "line_idx": 761,
+   407→      "page": 18,
+   408→      "text": "Pasal 41A",
+   409→      "keyword": "pasal",
+   410→      "font_size": 12.5,
+   411→      "is_bold": false
+   412→    },
+   413→    {
+   414→      "line_idx": 782,
+   415→      "page": 18,
+   416→      "text": "Pasal 4 1B",
+   417→      "keyword": "pasal",
+   418→      "font_size": 12.0,
+   419→      "is_bold": false
+   420→    },
+   421→    {
+   422→      "line_idx": 798,
+   423→      "page": 19,
+   424→      "text": "PRESIDEN",
+   425→      "keyword": "presiden",
+   426→      "font_size": 11.0,
+   427→      "is_bold": false
+   428→    },
+   429→    {
+   430→      "line_idx": 831,
+   431→      "page": 19,
+   432→      "text": "Pasal 58",
+   433→      "keyword": "pasal",
+   434→      "font_size": 12.0,
+   435→      "is_bold": false
+   436→    },
+   437→    {
+   438→      "line_idx": 836,
+   439→      "page": 19,
+   440→      "text": "pengawasan, pemeriksaan, pengujian, standardisasi,",
+   441→      "keyword": "pengawasan",
+   442→      "font_size": 13.5,
+   443→      "is_bold": false
+   444→    },
+   445→    {
+   446→      "line_idx": 846,
+   447→      "page": 20,
+   448→      "text": "PRESIDEN",
+   449→      "keyword": "presiden",
+   450→      "font_size": 11.0,
+   451→      "is_bold": false
+   452→    },
+   453→    {
+   454→      "line_idx": 883,
+   455→      "page": 20,
+   456→      "text": "Pasal 59",
+   457→      "keyword": "pasal",
+   458→      "font_size": 12.0,
+   459→      "is_bold": false
+   460→    },
+   461→    {
+   462→      "line_idx": 887,
+   463→      "page": 20,
+   464→      "text": "menteri",
+   465→      "keyword": "menteri",
+   466→      "font_size": 18.0,
+   467→      "is_bold": false
+   468→    },
+   469→    {
+   470→      "line_idx": 897,
+   471→      "page": 21,
+   472→      "text": "PRESIDEN",
+   473→      "keyword": "presiden",
+   474→      "font_size": 11.0,
+   475→      "is_bold": false
+   476→    },
+   477→    {
+   478→      "line_idx": 930,
+   479→      "page": 21,
+   480→      "text": "Pasal 65",
+   481→      "keyword": "pasal",
+   482→      "font_size": 12.5,
+   483→      "is_bold": false
+   484→    },
+   485→    {
+   486→      "line_idx": 936,
+   487→      "page": 21,
+   488→      "text": "Pasal 66A",
+   489→      "keyword": "pasal",
+   490→      "font_size": 13.0,
+   491→      "is_bold": false
+   492→    },
+   493→    {
+   494→      "line_idx": 937,
+   495→      "page": 22,
+   496→      "text": "PRESIDEN",
+   497→      "keyword": "presiden",
+   498→      "font_size": 11.0,
+   499→      "is_bold": false
+   500→    },
+   501→    {
+   502→      "line_idx": 940,
+   503→      "page": 22,
+   504→      "text": "Pasal 66A",
+   505→      "keyword": "pasal",
+   506→      "font_size": 12.5,
+   507→      "is_bold": false
+   508→    },
+   509→    {
+   510→      "line_idx": 949,
+   511→      "page": 22,
+   512→      "text": "Pasal 68",
+   513→      "keyword": "pasal",
+   514→      "font_size": 12.5,
+   515→      "is_bold": false
+   516→    },
+   517→    {
+   518→      "line_idx": 968,
+   519→      "page": 22,
+   520→      "text": "Pasal 68E sehingga berbunyi sebagai berikut:",
+   521→      "keyword": "pasal",
+   522→      "font_size": 13.5,
+   523→      "is_bold": false
+   524→    },
+   525→    {
+   526→      "line_idx": 969,
+   527→      "page": 22,
+   528→      "text": "Pasal 68A",
+   529→      "keyword": "pasal",
+   530→      "font_size": 12.5,
+   531→      "is_bold": false
+   532→    },
+   533→    {
+   534→      "line_idx": 994,
+   535→      "page": 23,
+   536→      "text": "Pasal 68E}",
+   537→      "keyword": "pasal",
+   538→      "font_size": 12.0,
+   539→      "is_bold": false
+   540→    },
+   541→    {
+   542→      "line_idx": 1011,
+   543→      "page": 23,
+   544→      "text": "Pasal 68C",
+   545→      "keyword": "pasal",
+   546→      "font_size": 12.5,
+   547→      "is_bold": false
+   548→    },
+   549→    {
+   550→      "line_idx": 1013,
+   551→      "page": 23,
+   552→      "text": "Pasal 68 mempunyai fungsi:",
+   553→      "keyword": "pasal",
+   554→      "font_size": 13.0,
+   555→      "is_bold": false
+   556→    },
+   557→    {
+   558→      "line_idx": 1027,
+   559→      "page": 24,
+   560→      "text": "PRESIDEN",
+   561→      "keyword": "presiden",
+   562→      "font_size": 11.0,
+   563→      "is_bold": false
+   564→    },
+   565→    {
+   566→      "line_idx": 1063,
+   567→      "page": 24,
+   568→      "text": "Pasal 68D",
+   569→      "keyword": "pasal",
+   570→      "font_size": 12.5,
+   571→      "is_bold": false
+   572→    },
+   573→    {
+   574→      "line_idx": 1074,
+   575→      "page": 25,
+   576→      "text": "PRESIDEN",
+   577→      "keyword": "presiden",
+   578→      "font_size": 11.0,
+   579→      "is_bold": false
+   580→    },
+   581→    {
+   582→      "line_idx": 1116,
+   583→      "page": 25,
+   584→      "text": "Pasal 68E",
+   585→      "keyword": "pasal",
+   586→      "font_size": 13.0,
+   587→      "is_bold": false
+   588→    },
+   589→    {
+   590→      "line_idx": 1117,
+   591→      "page": 26,
+   592→      "text": "PRESIDEN",
+   593→      "keyword": "presiden",
+   594→      "font_size": 11.0,
+   595→      "is_bold": false
+   596→    },
+   597→    {
+   598→      "line_idx": 1120,
+   599→      "page": 26,
+   600→      "text": "Pasal 68E",
+   601→      "keyword": "pasal",
+   602→      "font_size": 12.5,
+   603→      "is_bold": false
+   604→    },
+   605→    {
+   606→      "line_idx": 1123,
+   607→      "page": 26,
+   608→      "text": "Pasal 68A, Pasal 68E}, Pasal 68C, dan Pasal 68D diatur",
+   609→      "keyword": "pasal",
+   610→      "font_size": 14.0,
+   611→      "is_bold": false
+   612→    },
+   613→    {
+   614→      "line_idx": 1127,
+   615→      "page": 26,
+   616→      "text": "pasal 85",
+   617→      "keyword": "pasal",
+   618→      "font_size": 12.5,
+   619→      "is_bold": false
+   620→    },
+   621→    {
+   622→      "line_idx": 1135,
+   623→      "page": 26,
+   624→      "text": "Pasal 42 ayat (5), Pasal 43 ayat (4), Pasal 45 ayat (1),",
+   625→      "keyword": "pasal",
+   626→      "font_size": 13.5,
+   627→      "is_bold": false
+   628→    },
+   629→    {
+   630→      "line_idx": 1136,
+   631→      "page": 26,
+   632→      "text": "Pasal 47 ayat (2), Pasal 47 ayat (3), Pasal 50 ayat (1),",
+   633→      "keyword": "pasal",
+   634→      "font_size": 14.5,
+   635→      "is_bold": false
+   636→    },
+   637→    {
+   638→      "line_idx": 1137,
+   639→      "page": 26,
+   640→      "text": "Pasal 50 ayat (3), Pasal 51 ayat (2), Pasal 52 ayat (1),",
+   641→      "keyword": "pasal",
+   642→      "font_size": 14.5,
+   643→      "is_bold": false
+   644→    },
+   645→    {
+   646→      "line_idx": 1138,
+   647→      "page": 26,
+   648→      "text": "Pasal 54 ayat (3), Pasal 55 ayat (3), Pasal 58 ayat (5),",
+   649→      "keyword": "pasal",
+   650→      "font_size": 13.5,
+   651→      "is_bold": false
+   652→    },
+   653→    {
+   654→      "line_idx": 1139,
+   655→      "page": 26,
+   656→      "text": "Pasal 59 ayat (1), Pasal 60 ayat (1), Pasal 61 ayat (1),",
+   657→      "keyword": "pasal",
+   658→      "font_size": 13.5,
+   659→      "is_bold": false
+   660→    },
+   661→    {
+   662→      "line_idx": 1140,
+   663→      "page": 26,
+   664→      "text": "Pasal 61 ayat (21, Pasal 62 ayat (21, Pasai 62 ayat (3),",
+   665→      "keyword": "pasal",
+   666→      "font_size": 14.5,
+   667→      "is_bold": false
+   668→    },
+   669→    {
+   670→      "line_idx": 1141,
+   671→      "page": 26,
+   672→      "text": "Pasal 69 ayat l2l, Pasal 72 ayat (1), atau Pasal 80",
+   673→      "keyword": "pasal",
+   674→      "font_size": 15.5,
+   675→      "is_bold": false
+   676→    },
+   677→    {
+   678→      "line_idx": 1143,
+   679→      "page": 26,
+   680→      "text": "Sanksi administratif sebagaimana dimaksud pada",
+   681→      "keyword": "sanksi",
+   682→      "font_size": 14.5,
+   683→      "is_bold": false
+   684→    },
+   685→    {
+   686→      "line_idx": 1163,
+   687→      "page": 27,
+   688→      "text": "PRESIDEN",
+   689→      "keyword": "presiden",
+   690→      "font_size": 11.0,
+   691→      "is_bold": false
+   692→    },
+   693→    {
+   694→      "line_idx": 1168,
+   695→      "page": 27,
+   696→      "text": "Pasal 86",
+   697→      "keyword": "pasal",
+   698→      "font_size": 12.5,
+   699→      "is_bold": false
+   700→    },
+   701→    {
+   702→      "line_idx": 1187,
+   703→      "page": 27,
+   704→      "text": "Pasal 91A",
+   705→      "keyword": "pasal",
+   706→      "font_size": 12.5,
+   707→      "is_bold": false
+   708→    },
+   709→    {
+   710→      "line_idx": 1195,
+   711→      "page": 27,
+   712→      "text": "Pasal 9lE}",
+   713→      "keyword": "pasal",
+   714→      "font_size": 13.5,
+   715→      "is_bold": false
+   716→    },
+   717→    {
+   718→      "line_idx": 1198,
+   719→      "page": 28,
+   720→      "text": "PRESIDEN",
+   721→      "keyword": "presiden",
+   722→      "font_size": 11.0,
+   723→      "is_bold": false
+   724→    },
+   725→    {
+   726→      "line_idx": 1201,
+   727→      "page": 28,
+   728→      "text": "Pasal 9 18",
+   729→      "keyword": "pasal",
+   730→      "font_size": 12.5,
+   731→      "is_bold": false
+   732→    },
+   733→    {
+   734→      "line_idx": 1221,
+   735→      "page": 28,
+   736→      "text": "Pasal 96A",
+   737→      "keyword": "pasal",
+   738→      "font_size": 12.5,
+   739→      "is_bold": false
+   740→    },
+   741→    {
+   742→      "line_idx": 1228,
+   743→      "page": 28,
+   744→      "text": "Pasal 68E harus telah ditetapkan paling lama 2 (dua)",
+   745→      "keyword": "pasal",
+   746→      "font_size": 14.0,
+   747→      "is_bold": false
+   748→    },
+   749→    {
+   750→      "line_idx": 1233,
+   751→      "page": 28,
+   752→      "text": "Pasal II",
+   753→      "keyword": "pasal",
+   754→      "font_size": 12.5,
+   755→      "is_bold": false
+   756→    },
+   757→    {
+   758→      "line_idx": 1240,
+   759→      "page": 29,
+   760→      "text": "PRESIDEN",
+   761→      "keyword": "presiden",
+   762→      "font_size": 11.0,
+   763→      "is_bold": false
+   764→    },
+   765→    {
+   766→      "line_idx": 1248,
+   767→      "page": 29,
+   768→      "text": "PRESIDEN REPUBLIK INDONESIA,",
+   769→      "keyword": "presiden",
+   770→      "font_size": 12.5,
+   771→      "is_bold": false
+   772→    },
+   773→    {
+   774→      "line_idx": 1253,
+   775→      "page": 29,
+   776→      "text": "MENTERI HUKUM DAN HAK ASASI MANUSIA",
+   777→      "keyword": "menteri",
+   778→      "font_size": 13.0,
+   779→      "is_bold": false
+   780→    },
+   781→    {
+   782→      "line_idx": 1266,
+   783→      "page": 30,
+   784→      "text": "PENJELASAN",
+   785→      "keyword": "penjelasan",
+   786→      "font_size": 12.0,
+   787→      "is_bold": false
+   788→    },
+   789→    {
+   790→      "line_idx": 1287,
+   791→      "page": 30,
+   792→      "text": "putusannya, Mahkamah Konstitusi membatalkan beberapa pasal yang",
+   793→      "keyword": "putusan",
+   794→      "font_size": 14.5,
+   795→      "is_bold": false
+   796→    },
+   797→    {
+   798→      "line_idx": 1294,
+   799→      "page": 31,
+   800→      "text": "PRESIDEN",
+   801→      "keyword": "presiden",
+   802→      "font_size": 11.0,
+   803→      "is_bold": false
+   804→    },
+   805→    {
+   806→      "line_idx": 1322,
+   807→      "page": 31,
+   808→      "text": "Pasal I",
+   809→      "keyword": "pasal",
+   810→      "font_size": 12.0,
+   811→      "is_bold": false
+   812→    },
+   813→    {
+   814→      "line_idx": 1324,
+   815→      "page": 31,
+   816→      "text": "Pasal I",
+   817→      "keyword": "pasal",
+   818→      "font_size": 15.5,
+   819→      "is_bold": false
+   820→    },
+   821→    {
+   822→      "line_idx": 1327,
+   823→      "page": 31,
+   824→      "text": "Pasal 6",
+   825→      "keyword": "pasal",
+   826→      "font_size": 12.5,
+   827→      "is_bold": false
+   828→    },
+   829→    {
+   830→      "line_idx": 1362,
+   831→      "page": 32,
+   832→      "text": "Pasal 13",
+   833→      "keyword": "pasal",
+   834→      "font_size": 12.5,
+   835→      "is_bold": false
+   836→    },
+   837→    {
+   838→      "line_idx": 1390,
+   839→      "page": 33,
+   840→      "text": "Pasal 15",
+   841→      "keyword": "pasal",
+   842→      "font_size": 12.5,
+   843→      "is_bold": false
+   844→    },
+   845→    {
+   846→      "line_idx": 1422,
+   847→      "page": 34,
+   848→      "text": "Pasal 16",
+   849→      "keyword": "pasal",
+   850→      "font_size": 13.0,
+   851→      "is_bold": false
+   852→    },
+   853→    {
+   854→      "line_idx": 1436,
+   855→      "page": 34,
+   856→      "text": "Pasal 18",
+   857→      "keyword": "pasal",
+   858→      "font_size": 13.0,
+   859→      "is_bold": false
+   860→    },
+   861→    {
+   862→      "line_idx": 1463,
+   863→      "page": 35,
+   864→      "text": "Pasal 3 1",
+   865→      "keyword": "pasal",
+   866→      "font_size": 12.5,
+   867→      "is_bold": false
+   868→    },
+   869→    {
+   870→      "line_idx": 1490,
+   871→      "page": 36,
+   872→      "text": "Pasal 32",
+   873→      "keyword": "pasal",
+   874→      "font_size": 12.5,
+   875→      "is_bold": false
+   876→    },
+   877→    {
+   878→      "line_idx": 1503,
+   879→      "page": 36,
+   880→      "text": "Pasal 36",
+   881→      "keyword": "pasal",
+   882→      "font_size": 12.5,
+   883→      "is_bold": false
+   884→    },
+   885→    {
+   886→      "line_idx": 1518,
+   887→      "page": 37,
+   888→      "text": "Pasal 36A",
+   889→      "keyword": "pasal",
+   890→      "font_size": 12.5,
+   891→      "is_bold": false
+   892→    },
+   893→    {
+   894→      "line_idx": 1522,
+   895→      "page": 37,
+   896→      "text": "Pasal 36E}",
+   897→      "keyword": "pasal",
+   898→      "font_size": 12.0,
+   899→      "is_bold": false
+   900→    },
+   901→    {
+   902→      "line_idx": 1540,
+   903→      "page": 37,
+   904→      "text": "Pasal 36C",
+   905→      "keyword": "pasal",
+   906→      "font_size": 12.5,
+   907→      "is_bold": false
+   908→    },
+   909→    {
+   910→      "line_idx": 1543,
+   911→      "page": 37,
+   912→      "text": "bagian dari suatu negara yang mempunyai batas alam,",
+   913→      "keyword": "bagian",
+   914→      "font_size": 16.5,
+   915→      "is_bold": false
+   916→    },
+   917→    {
+   918→      "line_idx": 1557,
+   919→      "page": 38,
+   920→      "text": "Pasal 36D",
+   921→      "keyword": "pasal",
+   922→      "font_size": 12.5,
+   923→      "is_bold": false
+   924→    },
+   925→    {
+   926→      "line_idx": 1573,
+   927→      "page": 38,
+   928→      "text": "Pasal 36E",
+   929→      "keyword": "pasal",
+   930→      "font_size": 12.5,
+   931→      "is_bold": false
+   932→    },
+   933→    {
+   934→      "line_idx": 1584,
+   935→      "page": 39,
+   936→      "text": "Pasal 37",
+   937→      "keyword": "pasal",
+   938→      "font_size": 12.5,
+   939→      "is_bold": false
+   940→    },
+   941→    {
+   942→      "line_idx": 1599,
+   943→      "page": 39,
+   944→      "text": "Pasal 4 1",
+   945→      "keyword": "pasal",
+   946→      "font_size": 12.0,
+   947→      "is_bold": false
+   948→    },
+   949→    {
+   950→      "line_idx": 1602,
+   951→      "page": 39,
+   952→      "text": "Pasal 41A",
+   953→      "keyword": "pasal",
+   954→      "font_size": 12.5,
+   955→      "is_bold": false
+   956→    },
+   957→    {
+   958→      "line_idx": 1618,
+   959→      "page": 40,
+   960→      "text": "PRESiDEN",
+   961→      "keyword": "presiden",
+   962→      "font_size": 11.0,
+   963→      "is_bold": false
+   964→    },
+   965→    {
+   966→      "line_idx": 1623,
+   967→      "page": 40,
+   968→      "text": "Pasal 4 1B",
+   969→      "keyword": "pasal",
+   970→      "font_size": 12.0,
+   971→      "is_bold": false
+   972→    },
+   973→    {
+   974→      "line_idx": 1637,
+   975→      "page": 40,
+   976→      "text": "Pasal 58",
+   977→      "keyword": "pasal",
+   978→      "font_size": 12.5,
+   979→      "is_bold": false
+   980→    },
+   981→    {
+   982→      "line_idx": 1666,
+   983→      "page": 41,
+   984→      "text": "Pasal 59",
+   985→      "keyword": "pasal",
+   986→      "font_size": 12.5,
+   987→      "is_bold": false
+   988→    },
+   989→    {
+   990→      "line_idx": 1669,
+   991→      "page": 41,
+   992→      "text": "Pasal 65",
+   993→      "keyword": "pasal",
+   994→      "font_size": 12.5,
+   995→      "is_bold": false
+   996→    },
+   997→    {
+   998→      "line_idx": 1672,
+   999→      "page": 41,
+  1000→      "text": "Pasal 66A",
+  1001→      "keyword": "pasal",
+  1002→      "font_size": 12.5,
+  1003→      "is_bold": false
+  1004→    },
+  1005→    {
+  1006→      "line_idx": 1675,
+  1007→      "page": 41,
+  1008→      "text": "Pasal 68",
+  1009→      "keyword": "pasal",
+  1010→      "font_size": 12.5,
+  1011→      "is_bold": false
+  1012→    },
+  1013→    {
+  1014→      "line_idx": 1678,
+  1015→      "page": 42,
+  1016→      "text": "PRESIDEN",
+  1017→      "keyword": "presiden",
+  1018→      "font_size": 11.0,
+  1019→      "is_bold": false
+  1020→    },
+  1021→    {
+  1022→      "line_idx": 1682,
+  1023→      "page": 42,
+  1024→      "text": "Pasal 68A",
+  1025→      "keyword": "pasal",
+  1026→      "font_size": 12.5,
+  1027→      "is_bold": false
+  1028→    },
+  1029→    {
+  1030→      "line_idx": 1684,
+  1031→      "page": 42,
+  1032→      "text": "Pasal 68E}",
+  1033→      "keyword": "pasal",
+  1034→      "font_size": 12.0,
+  1035→      "is_bold": false
+  1036→    },
+  1037→    {
+  1038→      "line_idx": 1686,
+  1039→      "page": 42,
+  1040→      "text": "Pasal 68C",
+  1041→      "keyword": "pasal",
+  1042→      "font_size": 12.5,
+  1043→      "is_bold": false
+  1044→    },
+  1045→    {
+  1046→      "line_idx": 1688,
+  1047→      "page": 42,
+  1048→      "text": "Pasal 68D",
+  1049→      "keyword": "pasal",
+  1050→      "font_size": 12.5,
+  1051→      "is_bold": false
+  1052→    },
+  1053→    {
+  1054→      "line_idx": 1690,
+  1055→      "page": 42,
+  1056→      "text": "Pasal 68E",
+  1057→      "keyword": "pasal",
+  1058→      "font_size": 13.0,
+  1059→      "is_bold": false
+  1060→    },
+  1061→    {
+  1062→      "line_idx": 1693,
+  1063→      "page": 42,
+  1064→      "text": "Pasal 85",
+  1065→      "keyword": "pasal",
+  1066→      "font_size": 12.5,
+  1067→      "is_bold": false
+  1068→    },
+  1069→    {
+  1070→      "line_idx": 1696,
+  1071→      "page": 42,
+  1072→      "text": "Pasal 86",
+  1073→      "keyword": "pasal",
+  1074→      "font_size": 13.0,
+  1075→      "is_bold": false
+  1076→    },
+  1077→    {
+  1078→      "line_idx": 1699,
+  1079→      "page": 42,
+  1080→      "text": "Pasal 9 1A",
+  1081→      "keyword": "pasal",
+  1082→      "font_size": 12.0,
+  1083→      "is_bold": false
+  1084→    },
+  1085→    {
+  1086→      "line_idx": 1701,
+  1087→      "page": 42,
+  1088→      "text": "Pasal 918",
+  1089→      "keyword": "pasal",
+  1090→      "font_size": 13.5,
+  1091→      "is_bold": false
+  1092→    },
+  1093→    {
+  1094→      "line_idx": 1708,
+  1095→      "page": 43,
+  1096→      "text": "PRESIDEN",
+  1097→      "keyword": "presiden",
+  1098→      "font_size": 11.0,
+  1099→      "is_bold": false
+  1100→    },
+  1101→    {
+  1102→      "line_idx": 1712,
+  1103→      "page": 43,
+  1104→      "text": "Pasal 96A",
+  1105→      "keyword": "pasal",
+  1106→      "font_size": 12.5,
+  1107→      "is_bold": false
+  1108→    },
+  1109→    {
+  1110→      "line_idx": 1714,
+  1111→      "page": 43,
+  1112→      "text": "Pasal II",
+  1113→      "keyword": "pasal",
+  1114→      "font_size": 12.5,
+  1115→      "is_bold": false
+  1116→    }
+  1117→  ],
+  1118→  "full_text_lines": [
+  1119→    {
+  1120→      "line_idx": 0,
+  1121→      "page": 1,
+  1122→      "font_size": 11.0,
+  1123→      "is_bold": false,
+  1124→      "text": "PRESIOEN"
+  1125→    },
+  1126→    {
+  1127→      "line_idx": 1,
+  1128→      "page": 1,
+  1129→      "font_size": 11.5,
+  1130→      "is_bold": false,
+  1131→      "text": "R EPLJBLIK INDONESIA"
+  1132→    },
+  1133→    {
+  1134→      "line_idx": 2,
+  1135→      "page": 1,
+  1136→      "font_size": 12.5,
+  1137→      "is_bold": false,
+  1138→      "text": "UNDANG-UNDANG REPUBLIK INDONESIA"
+  1139→    },
+  1140→    {
+  1141→      "line_idx": 3,
+  1142→      "page": 1,
+  1143→      "font_size": 12.5,
+  1144→      "is_bold": false,
+  1145→      "text": "NOMOR 41 TAHUN 2014"
+  1146→    },
+  1147→    {
+  1148→      "line_idx": 4,
+  1149→      "page": 1,
+  1150→      "font_size": 12.0,
+  1151→      "is_bold": false,
+  1152→      "text": "TENTANG"
+  1153→    },
+  1154→    {
+  1155→      "line_idx": 5,
+  1156→      "page": 1,
+  1157→      "font_size": 12.5,
+  1158→      "is_bold": false,
+  1159→      "text": "PERUBAHAN ATAS UNDANG-UNDANG NOMOR 18 TAHUN 2OO9"
+  1160→    },
+  1161→    {
+  1162→      "line_idx": 6,
+  1163→      "page": 1,
+  1164→      "font_size": 12.5,
+  1165→      "is_bold": false,
+  1166→      "text": "TENTANG PETERNAKAN DAN KESEHATAN HEWAN"
+  1167→    },
+  1168→    {
+  1169→      "line_idx": 7,
+  1170→      "page": 1,
+  1171→      "font_size": 12.5,
+  1172→      "is_bold": false,
+  1173→      "text": "DENGAN RAHMAT TUHAN YANG MAHA ESA"
+  1174→    },
+  1175→    {
+  1176→      "line_idx": 8,
+  1177→      "page": 1,
+  1178→      "font_size": 12.5,
+  1179→      "is_bold": false,
+  1180→      "text": "PRESIDEN REPUBLIK INDONESIA,"
+  1181→    },
+  1182→    {
+  1183→      "line_idx": 9,
+  1184→      "page": 1,
+  1185→      "font_size": 18.0,
+  1186→      "is_bold": false,
+  1187→      "text": "Menimbang : a. bahwa negara bertanggung jawab untuk melindungi"
+  1188→    },
+  1189→    {
+  1190→      "line_idx": 10,
+  1191→      "page": 1,
+  1192→      "font_size": 15.5,
+  1193→      "is_bold": false,
+  1194→      "text": "segenap bangsa Indonesia dan seluruh tumpah Carah"
+  1195→    },
+  1196→    {
+  1197→      "line_idx": 11,
+  1198→      "page": 1,
+  1199→      "font_size": 16.5,
+  1200→      "is_bold": false,
+  1201→      "text": "Indonesia melalui penyelenggaraan peternakan dan"
+  1202→    },
+  1203→    {
+  1204→      "line_idx": 12,
+  1205→      "page": 1,
+  1206→      "font_size": 14.5,
+  1207→      "is_bold": false,
+  1208→      "text": "kesehatan hewan dengan mengamankal dan menjamin"
+  1209→    },
+  1210→    {
+  1211→      "line_idx": 13,
+  1212→      "page": 1,
+  1213→      "font_size": 15.0,
+  1214→      "is_bold": false,
+  1215→      "text": "pemanfaatan dan pelestarian hewan untuk mewujudkan"
+  1216→    },
+  1217→    {
+  1218→      "line_idx": 14,
+  1219→      "page": 1,
+  1220→      "font_size": 13.5,
+  1221→      "is_bold": false,
+  1222→      "text": "kedaulatan, kemandirian, serta ketahanan pangan dalam"
+  1223→    },
+  1224→    {
+  1225→      "line_idx": 15,
+  1226→      "page": 1,
+  1227→      "font_size": 17.0,
+  1228→      "is_bold": false,
+  1229→      "text": "rangka menciptakan kesejahteraan dan kemakmuran"
+  1230→    },
+  1231→    {
+  1232→      "line_idx": 16,
+  1233→      "page": 1,
+  1234→      "font_size": 14.0,
+  1235→      "is_bold": false,
+  1236→      "text": "seluruh ralgrat Indonesia sesuai dengan amanat Undang-"
+  1237→    },
+  1238→    {
+  1239→      "line_idx": 17,
+  1240→      "page": 1,
+  1241→      "font_size": 14.0,
+  1242→      "is_bold": false,
+  1243→      "text": "Undang Dasar Negara Republik Indonesia Tahun 1945;"
+  1244→    },
+  1245→    {
+  1246→      "line_idx": 18,
+  1247→      "page": 1,
+  1248→      "font_size": 18.0,
+  1249→      "is_bold": false,
+  1250→      "text": "b. bahwa dalam penyelenggaraan petemakan dan kesehatan"
+  1251→    },
+  1252→    {
+  1253→      "line_idx": 19,
+  1254→      "page": 1,
+  1255→      "font_size": 18.0,
+  1256→      "is_bold": false,
+  1257→      "text": "hewan, upaya pengamanan maksimal terhadap"
+  1258→    },
+  1259→    {
+  1260→      "line_idx": 20,
+  1261→      "page": 1,
+  1262→      "font_size": 14.0,
+  1263→      "is_bold": false,
+  1264→      "text": "pemasukan dan pengeluaran ternak, hewan, dan produk"
+  1265→    },
+  1266→    {
+  1267→      "line_idx": 21,
+  1268→      "page": 1,
+  1269→      "font_size": 18.0,
+  1270→      "is_bold": false,
+  1271→      "text": "hewan, pencegahan penyakit hewan dan zoonosis,"
+  1272→    },
+  1273→    {
+  1274→      "line_idx": 22,
+  1275→      "page": 1,
+  1276→      "font_size": 16.5,
+  1277→      "is_bold": false,
+  1278→      "text": "penguatan otoritas veteriner, persyaratan halal bagi"
+  1279→    },
+  1280→    {
+  1281→      "line_idx": 23,
+  1282→      "page": 1,
+  1283→      "font_size": 15.5,
+  1284→      "is_bold": false,
+  1285→      "text": "produk hewan yang dipersyaratkan, serta penegakan"
+  1286→    },
+  1287→    {
+  1288→      "line_idx": 24,
+  1289→      "page": 1,
+  1290→      "font_size": 14.0,
+  1291→      "is_bold": false,
+  1292→      "text": "hukum terhadap pelanggaran kesejahteraan hewan, perlu"
+  1293→    },
+  1294→    {
+  1295→      "line_idx": 25,
+  1296→      "page": 1,
+  1297→      "font_size": 18.0,
+  1298→      "is_bold": false,
+  1299→      "text": "disesuaikan dengan perkembangan dan kebutuhan"
+  1300→    },
+  1301→    {
+  1302→      "line_idx": 26,
+  1303→      "page": 1,
+  1304→      "font_size": 13.0,
+  1305→      "is_bold": false,
+  1306→      "text": "masyarakat;"
+  1307→    },
+  1308→    {
+  1309→      "line_idx": 27,
+  1310→      "page": 1,
+  1311→      "font_size": 14.5,
+  1312→      "is_bold": false,
+  1313→      "text": "bahwa Undang-Undang Nomor 18 Tahun 2009 tentang"
+  1314→    },
+  1315→    {
+  1316→      "line_idx": 28,
+  1317→      "page": 1,
+  1318→      "font_size": 14.0,
+  1319→      "is_bold": false,
+  1320→      "text": "Peternakan dan Kesehatan Hewan dipandang tidak sesuai"
+  1321→    },
+  1322→    {
+  1323→      "line_idx": 29,
+  1324→      "page": 1,
+  1325→      "font_size": 15.0,
+  1326→      "is_bold": false,
+  1327→      "text": "lagi dan perlu disempurnakan untuk dijadikan landasan"
+  1328→    },
+  1329→    {
+  1330→      "line_idx": 30,
+  1331→      "page": 1,
+  1332→      "font_size": 14.5,
+  1333→      "is_bold": false,
+  1334→      "text": "hukum bagi penyelenggaraan peternakan dan kesehatan"
+  1335→    },
+  1336→    {
+  1337→      "line_idx": 31,
+  1338→      "page": 1,
+  1339→      "font_size": 12.5,
+  1340→      "is_bold": false,
+  1341→      "text": "hewan;"
+  1342→    },
+  1343→    {
+  1344→      "line_idx": 32,
+  1345→      "page": 1,
+  1346→      "font_size": 18.0,
+  1347→      "is_bold": false,
+  1348→      "text": "bahwa berdasarkan pertimbangan sebagaimana"
+  1349→    },
+  1350→    {
+  1351→      "line_idx": 33,
+  1352→      "page": 1,
+  1353→      "font_size": 17.5,
+  1354→      "is_bold": false,
+  1355→      "text": "dimaksud dalam huruf a, huruf b, dan huruf c perlu"
+  1356→    },
+  1357→    {
+  1358→      "line_idx": 34,
+  1359→      "page": 1,
+  1360→      "font_size": 15.0,
+  1361→      "is_bold": false,
+  1362→      "text": "membcntuk Undang-Undang tentang perubahan Atas"
+  1363→    },
+  1364→    {
+  1365→      "line_idx": 35,
+  1366→      "page": 1,
+  1367→      "font_size": 18.0,
+  1368→      "is_bold": false,
+  1369→      "text": "Undang-Undang Nomor 18 Tahun 2OOg tentang"
+  1370→    },
+  1371→    {
+  1372→      "line_idx": 36,
+  1373→      "page": 1,
+  1374→      "font_size": 13.0,
+  1375→      "is_bold": false,
+  1376→      "text": "Peternakan dan Kesehatan Hewan;"
+  1377→    },
+  1378→    {
+  1379→      "line_idx": 37,
+  1380→      "page": 1,
+  1381→      "font_size": 12.0,
+  1382→      "is_bold": false,
+  1383→      "text": "d."
+  1384→    },
+  1385→    {
+  1386→      "line_idx": 38,
+  1387→      "page": 1,
+  1388→      "font_size": 13.5,
+  1389→      "is_bold": false,
+  1390→      "text": "Mengingat"
+  1391→    },
+  1392→    {
+  1393→      "line_idx": 39,
+  1394→      "page": 2,
+  1395→      "font_size": 11.0,
+  1396→      "is_bold": false,
+  1397→      "text": "PRESIOEN"
+  1398→    },
+  1399→    {
+  1400→      "line_idx": 40,
+  1401→      "page": 2,
+  1402→      "font_size": 14.5,
+  1403→      "is_bold": false,
+  1404→      "text": "R EPI-IEIL IK INOONESIA"
+  1405→    },
+  1406→    {
+  1407→      "line_idx": 41,
+  1408→      "page": 2,
+  1409→      "font_size": 18.0,
+  1410→      "is_bold": false,
+  1411→      "text": "-2-"
+  1412→    },
+  1413→    {
+  1414→      "line_idx": 42,
+  1415→      "page": 2,
+  1416→      "font_size": 18.0,
+  1417→      "is_bold": false,
+  1418→      "text": "Mengingat : Pasal 20 dan Pasal 21 Undang-Undang Dasar Negara"
+  1419→    },
+  1420→    {
+  1421→      "line_idx": 43,
+  1422→      "page": 2,
+  1423→      "font_size": 13.5,
+  1424→      "is_bold": false,
+  1425→      "text": "Republik Indonesia Tahun 1945;"
+  1426→    },
+  1427→    {
+  1428→      "line_idx": 44,
+  1429→      "page": 2,
+  1430→      "font_size": 13.0,
+  1431→      "is_bold": false,
+  1432→      "text": "Dengan Persetujuan Bersama"
+  1433→    },
+  1434→    {
+  1435→      "line_idx": 45,
+  1436→      "page": 2,
+  1437→      "font_size": 12.5,
+  1438→      "is_bold": false,
+  1439→      "text": "DEWAN PERWAKILAN RAKYAT REPUBLIK INDONESIA"
+  1440→    },
+  1441→    {
+  1442→      "line_idx": 46,
+  1443→      "page": 2,
+  1444→      "font_size": 13.0,
+  1445→      "is_bold": false,
+  1446→      "text": "dan"
+  1447→    },
+  1448→    {
+  1449→      "line_idx": 47,
+  1450→      "page": 2,
+  1451→      "font_size": 12.5,
+  1452→      "is_bold": false,
+  1453→      "text": "PRESIDEN REPUBLIK INDONESIA"
+  1454→    },
+  1455→    {
+  1456→      "line_idx": 48,
+  1457→      "page": 2,
+  1458→      "font_size": 12.5,
+  1459→      "is_bold": false,
+  1460→      "text": "MEMUTUSI(AN:"
+  1461→    },
+  1462→    {
+  1463→      "line_idx": 49,
+  1464→      "page": 2,
+  1465→      "font_size": 18.0,
+  1466→      "is_bold": false,
+  1467→      "text": "Menetapkan : UNDANG-UNDANGTENTANG"
+  1468→    },
+  1469→    {
+  1470→      "line_idx": 50,
+  1471→      "page": 2,
+  1472→      "font_size": 13.0,
+  1473→      "is_bold": false,
+  1474→      "text": "UNDANG NOMOR 18 TAHUN"
+  1475→    },
+  1476→    {
+  1477→      "line_idx": 51,
+  1478→      "page": 2,
+  1479→      "font_size": 12.5,
+  1480→      "is_bold": false,
+  1481→      "text": "DAN KESEHATAN HEWAN."
+  1482→    },
+  1483→    {
+  1484→      "line_idx": 52,
+  1485→      "page": 2,
+  1486→      "font_size": 13.0,
+  1487→      "is_bold": false,
+  1488→      "text": "PERUBAHAN ATAS UNDANG-"
+  1489→    },
+  1490→    {
+  1491→      "line_idx": 53,
+  1492→      "page": 2,
+  1493→      "font_size": 12.5,
+  1494→      "is_bold": false,
+  1495→      "text": "2OO9 TENTANG PETERNAKAN"
+  1496→    },
+  1497→    {
+  1498→      "line_idx": 54,
+  1499→      "page": 2,
+  1500→      "font_size": 12.5,
+  1501→      "is_bold": false,
+  1502→      "text": "Pasal I"
+  1503→    },
+  1504→    {
+  1505→      "line_idx": 55,
+  1506→      "page": 2,
+  1507→      "font_size": 13.5,
+  1508→      "is_bold": false,
+  1509→      "text": "Beberapa ketentuan dalam Undang-Undang Nomor 18 Tahun"
+  1510→    },
+  1511→    {
+  1512→      "line_idx": 56,
+  1513→      "page": 2,
+  1514→      "font_size": 14.5,
+  1515→      "is_bold": false,
+  1516→      "text": "2009 tentang Peternakan dan Kesehatan Hewan (Lembaran"
+  1517→    },
+  1518→    {
+  1519→      "line_idx": 57,
+  1520→      "page": 2,
+  1521→      "font_size": 17.0,
+  1522→      "is_bold": false,
+  1523→      "text": "Negara Republik Indonesia Tahun 2OO9 Nomor 84,"
+  1524→    },
+  1525→    {
+  1526→      "line_idx": 58,
+  1527→      "page": 2,
+  1528→      "font_size": 15.0,
+  1529→      "is_bold": false,
+  1530→      "text": "Tambahan Lembaran Negara Republik Indonesia Nomor"
+  1531→    },
+  1532→    {
+  1533→      "line_idx": 59,
+  1534→      "page": 2,
+  1535→      "font_size": 13.5,
+  1536→      "is_bold": false,
+  1537→      "text": "5015), diubah sebagai berikut:"
+  1538→    },
+  1539→    {
+  1540→      "line_idx": 60,
+  1541→      "page": 2,
+  1542→      "font_size": 18.0,
+  1543→      "is_bold": false,
+  1544→      "text": "1. Ketentuan Pasal 1 angka 1, angka 2, angka 12, angka"
+  1545→    },
+  1546→    {
+  1547→      "line_idx": 61,
+  1548→      "page": 2,
+  1549→      "font_size": 14.0,
+  1550→      "is_bold": false,
+  1551→      "text": "14, angka 15, angka 19, angka 21, angka 23, angka 24,"
+  1552→    },
+  1553→    {
+  1554→      "line_idx": 62,
+  1555→      "page": 2,
+  1556→      "font_size": 16.0,
+  1557→      "is_bold": false,
+  1558→      "text": "angka 25, angka 26, angka 28, angka 29, angka 30,"
+  1559→    },
+  1560→    {
+  1561→      "line_idx": 63,
+  1562→      "page": 2,
+  1563→      "font_size": 15.5,
+  1564→      "is_bold": false,
+  1565→      "text": "angka 34, angka 35, angka 36, angka 39, angka 40,"
+  1566→    },
+  1567→    {
+  1568→      "line_idx": 64,
+  1569→      "page": 2,
+  1570→      "font_size": 17.0,
+  1571→      "is_bold": false,
+  1572→      "text": "angka 41, angka 46, dan angka 49 diubah, di antara"
+  1573→    },
+  1574→    {
+  1575→      "line_idx": 65,
+  1576→      "page": 2,
+  1577→      "font_size": 17.5,
+  1578→      "is_bold": false,
+  1579→      "text": "angka 5 dan angka 6 disisipkan 2 (dua) angka yakni"
+  1580→    },
+  1581→    {
+  1582→      "line_idx": 66,
+  1583→      "page": 2,
+  1584→      "font_size": 17.0,
+  1585→      "is_bold": false,
+  1586→      "text": "angka 5a dan 5b, di antara angka 37 dan angka 38"
+  1587→    },
+  1588→    {
+  1589→      "line_idx": 67,
+  1590→      "page": 2,
+  1591→      "font_size": 14.0,
+  1592→      "is_bold": false,
+  1593→      "text": "disisipkan 1 (satu) angka yakni angka 37a, dan angka 9,"
+  1594→    },
+  1595→    {
+  1596→      "line_idx": 68,
+  1597→      "page": 2,
+  1598→      "font_size": 14.0,
+  1599→      "is_bold": false,
+  1600→      "text": "angka 17, angka 20, angka 33, serta angka 44 dihapus,"
+  1601→    },
+  1602→    {
+  1603→      "line_idx": 69,
+  1604→      "page": 2,
+  1605→      "font_size": 13.5,
+  1606→      "is_bold": false,
+  1607→      "text": "sehingga Pasal 1 berbunyi sebagai berikut:"
+  1608→    },
+  1609→    {
+  1610→      "line_idx": 70,
+  1611→      "page": 2,
+  1612→      "font_size": 12.5,
+  1613→      "is_bold": false,
+  1614→      "text": "Pasal 1"
+  1615→    },
+  1616→    {
+  1617→      "line_idx": 71,
+  1618→      "page": 2,
+  1619→      "font_size": 14.0,
+  1620→      "is_bold": false,
+  1621→      "text": "Dalam Undang-Undang ini yang dimaksud dengan:"
+  1622→    },
+  1623→    {
+  1624→      "line_idx": 72,
+  1625→      "page": 2,
+  1626→      "font_size": 18.0,
+  1627→      "is_bold": false,
+  1628→      "text": "l. Peternakan adalah segala urusan yang berkaitan"
+  1629→    },
+  1630→    {
+  1631→      "line_idx": 73,
+  1632→      "page": 2,
+  1633→      "font_size": 16.0,
+  1634→      "is_bold": false,
+  1635→      "text": "dengan sumber daya fisik, Benih, Bibit, Bakalan,"
+  1636→    },
+  1637→    {
+  1638→      "line_idx": 74,
+  1639→      "page": 2,
+  1640→      "font_size": 14.0,
+  1641→      "is_bold": false,
+  1642→      "text": "Ternak Ruminansia Indukan, Pakan, Alat dan Mesin"
+  1643→    },
+  1644→    {
+  1645→      "line_idx": 75,
+  1646→      "page": 2,
+  1647→      "font_size": 14.5,
+  1648→      "is_bold": false,
+  1649→      "text": "Peternakan, budi daya Ternak, panen, pascapanen,"
+  1650→    },
+  1651→    {
+  1652→      "line_idx": 76,
+  1653→      "page": 2,
+  1654→      "font_size": 13.0,
+  1655→      "is_bold": false,
+  1656→      "text": "pengolahan, pemasaran, pengusahaan, pembiayaan,"
+  1657→    },
+  1658→    {
+  1659→      "line_idx": 77,
+  1660→      "page": 2,
+  1661→      "font_size": 13.0,
+  1662→      "is_bold": false,
+  1663→      "text": "serta sarana dan prasarana."
+  1664→    },
+  1665→    {
+  1666→      "line_idx": 78,
+  1667→      "page": 2,
+  1668→      "font_size": 17.0,
+  1669→      "is_bold": false,
+  1670→      "text": "2. Kesehatan"
+  1671→    },
+  1672→    {
+  1673→      "line_idx": 79,
+  1674→      "page": 3,
+  1675→      "font_size": 11.0,
+  1676→      "is_bold": false,
+  1677→      "text": ".)."
+  1678→    },
+  1679→    {
+  1680→      "line_idx": 80,
+  1681→      "page": 3,
+  1682→      "font_size": 11.5,
+  1683→      "is_bold": false,
+  1684→      "text": "FRESIDEN"
+  1685→    },
+  1686→    {
+  1687→      "line_idx": 81,
+  1688→      "page": 3,
+  1689→      "font_size": 11.5,
+  1690→      "is_bold": false,
+  1691→      "text": "REPI,IEILIK INDONESIA"
+  1692→    },
+  1693→    {
+  1694→      "line_idx": 82,
+  1695→      "page": 3,
+  1696→      "font_size": 18.0,
+  1697→      "is_bold": false,
+  1698→      "text": "-3-"
+  1699→    },
+  1700→    {
+  1701→      "line_idx": 83,
+  1702→      "page": 3,
+  1703→      "font_size": 18.0,
+  1704→      "is_bold": false,
+  1705→      "text": "2. Kesehatan Hewan adalah segala urusan yang"
+  1706→    },
+  1707→    {
+  1708→      "line_idx": 84,
+  1709→      "page": 3,
+  1710→      "font_size": 13.5,
+  1711→      "is_bold": false,
+  1712→      "text": "berkaitan dengan pelindungan sumber daya Hewan,"
+  1713→    },
+  1714→    {
+  1715→      "line_idx": 85,
+  1716→      "page": 3,
+  1717→      "font_size": 18.0,
+  1718→      "is_bold": false,
+  1719→      "text": "kesehatan masyarakat, dan lingkungan serta"
+  1720→    },
+  1721→    {
+  1722→      "line_idx": 86,
+  1723→      "page": 3,
+  1724→      "font_size": 18.0,
+  1725→      "is_bold": false,
+  1726→      "text": "penjaminan keamanan"
+  1727→    },
+  1728→    {
+  1729→      "line_idx": 87,
+  1730→      "page": 3,
+  1731→      "font_size": 18.0,
+  1732→      "is_bold": false,
+  1733→      "text": "Produk"
+  1734→    },
+  1735→    {
+  1736→      "line_idx": 88,
+  1737→      "page": 3,
+  1738→      "font_size": 12.5,
+  1739→      "is_bold": false,
+  1740→      "text": "Hewan,"
+  1741→    },
+  1742→    {
+  1743→      "line_idx": 89,
+  1744→      "page": 3,
+  1745→      "font_size": 11.5,
+  1746→      "is_bold": false,
+  1747→      "text": "7."
+  1748→    },
+  1749→    {
+  1750→      "line_idx": 90,
+  1751→      "page": 3,
+  1752→      "font_size": 14.0,
+  1753→      "is_bold": false,
+  1754→      "text": "Kesejahteraan Hewan, dan peningkatan akses pasar"
+  1755→    },
+  1756→    {
+  1757→      "line_idx": 91,
+  1758→      "page": 3,
+  1759→      "font_size": 16.5,
+  1760→      "is_bold": false,
+  1761→      "text": "untuk mendukung kedaulatan, kemandirian, dan"
+  1762→    },
+  1763→    {
+  1764→      "line_idx": 92,
+  1765→      "page": 3,
+  1766→      "font_size": 13.0,
+  1767→      "is_bold": false,
+  1768→      "text": "ketahanan pangan asal Hewan."
+  1769→    },
+  1770→    {
+  1771→      "line_idx": 93,
+  1772→      "page": 3,
+  1773→      "font_size": 15.5,
+  1774→      "is_bold": false,
+  1775→      "text": "Hewan adalah binatang atau satwa yang seluruh"
+  1776→    },
+  1777→    {
+  1778→      "line_idx": 94,
+  1779→      "page": 3,
+  1780→      "font_size": 15.0,
+  1781→      "is_bold": false,
+  1782→      "text": "atau sebagian dari siklus hidupnya berada di darat,"
+  1783→    },
+  1784→    {
+  1785→      "line_idx": 95,
+  1786→      "page": 3,
+  1787→      "font_size": 15.5,
+  1788→      "is_bold": false,
+  1789→      "text": "air, dan/atau udara, baik yang dipelihara maupun"
+  1790→    },
+  1791→    {
+  1792→      "line_idx": 96,
+  1793→      "page": 3,
+  1794→      "font_size": 13.5,
+  1795→      "is_bold": false,
+  1796→      "text": "yang di habitatnya."
+  1797→    },
+  1798→    {
+  1799→      "line_idx": 97,
+  1800→      "page": 3,
+  1801→      "font_size": 13.5,
+  1802→      "is_bold": false,
+  1803→      "text": "Hewan Peliharaan adalah Hewan yang kehidupannya"
+  1804→    },
+  1805→    {
+  1806→      "line_idx": 98,
+  1807→      "page": 3,
+  1808→      "font_size": 16.0,
+  1809→      "is_bold": false,
+  1810→      "text": "untuk sebagian atau seluruhnya bergantung pada"
+  1811→    },
+  1812→    {
+  1813→      "line_idx": 99,
+  1814→      "page": 3,
+  1815→      "font_size": 14.5,
+  1816→      "is_bold": false,
+  1817→      "text": "manusia untuk maksud tertentu."
+  1818→    },
+  1819→    {
+  1820→      "line_idx": 100,
+  1821→      "page": 3,
+  1822→      "font_size": 14.5,
+  1823→      "is_bold": false,
+  1824→      "text": "Ternak adalah Hewan peliharaan yang produknya"
+  1825→    },
+  1826→    {
+  1827→      "line_idx": 101,
+  1828→      "page": 3,
+  1829→      "font_size": 14.0,
+  1830→      "is_bold": false,
+  1831→      "text": "diperuntukan sebagai penghasil pangan, bahan baku"
+  1832→    },
+  1833→    {
+  1834→      "line_idx": 102,
+  1835→      "page": 3,
+  1836→      "font_size": 15.0,
+  1837→      "is_bold": false,
+  1838→      "text": "industri, jasa, dan/atau hasil ikutannya yang terkait"
+  1839→    },
+  1840→    {
+  1841→      "line_idx": 103,
+  1842→      "page": 3,
+  1843→      "font_size": 13.0,
+  1844→      "is_bold": false,
+  1845→      "text": "dengan pertanian."
+  1846→    },
+  1847→    {
+  1848→      "line_idx": 104,
+  1849→      "page": 3,
+  1850→      "font_size": 14.0,
+  1851→      "is_bold": false,
+  1852→      "text": "Ternak Ruminansia Betina Produktif adalah Ternak"
+  1853→    },
+  1854→    {
+  1855→      "line_idx": 105,
+  1856→      "page": 3,
+  1857→      "font_size": 14.0,
+  1858→      "is_bold": false,
+  1859→      "text": "ruminansia betina yang organ reproduksinya masih"
+  1860→    },
+  1861→    {
+  1862→      "line_idx": 106,
+  1863→      "page": 3,
+  1864→      "font_size": 13.5,
+  1865→      "is_bold": false,
+  1866→      "text": "berfungsi secara normal dan dapat beranak."
+  1867→    },
+  1868→    {
+  1869→      "line_idx": 107,
+  1870→      "page": 3,
+  1871→      "font_size": 14.5,
+  1872→      "is_bold": false,
+  1873→      "text": "Ternak Ruminansia Indukan adalah Ternak betina"
+  1874→    },
+  1875→    {
+  1876→      "line_idx": 108,
+  1877→      "page": 3,
+  1878→      "font_size": 14.5,
+  1879→      "is_bold": false,
+  1880→      "text": "bukan bibit yang memiliki organ reproduksi normal"
+  1881→    },
+  1882→    {
+  1883→      "line_idx": 109,
+  1884→      "page": 3,
+  1885→      "font_size": 14.5,
+  1886→      "is_bold": false,
+  1887→      "text": "dan sehat digunakan untuk pengembangbiakan."
+  1888→    },
+  1889→    {
+  1890→      "line_idx": 110,
+  1891→      "page": 3,
+  1892→      "font_size": 15.0,
+  1893→      "is_bold": false,
+  1894→      "text": "Satwa Liar adalah semua binatang yang hidup di"
+  1895→    },
+  1896→    {
+  1897→      "line_idx": 111,
+  1898→      "page": 3,
+  1899→      "font_size": 15.0,
+  1900→      "is_bold": false,
+  1901→      "text": "darat, air, dan/atau udara yang masih mempunyai"
+  1902→    },
+  1903→    {
+  1904→      "line_idx": 112,
+  1905→      "page": 3,
+  1906→      "font_size": 17.0,
+  1907→      "is_bold": false,
+  1908→      "text": "sifat liar, baik yang hidup bebas maupun yang"
+  1909→    },
+  1910→    {
+  1911→      "line_idx": 113,
+  1912→      "page": 3,
+  1913→      "font_size": 13.0,
+  1914→      "is_bold": false,
+  1915→      "text": "dipelihara oleh manusia."
+  1916→    },
+  1917→    {
+  1918→      "line_idx": 114,
+  1919→      "page": 3,
+  1920→      "font_size": 14.5,
+  1921→      "is_bold": false,
+  1922→      "text": "Sumber Daya Genetik adalah material tumbuhan,"
+  1923→    },
+  1924→    {
+  1925→      "line_idx": 115,
+  1926→      "page": 3,
+  1927→      "font_size": 14.5,
+  1928→      "is_bold": false,
+  1929→      "text": "binatang, atau jasad renik yang mengandung unit-"
+  1930→    },
+  1931→    {
+  1932→      "line_idx": 116,
+  1933→      "page": 3,
+  1934→      "font_size": 18.0,
+  1935→      "is_bold": false,
+  1936→      "text": "unit yang berfungsi sebagai pembawa sifat"
+  1937→    },
+  1938→    {
+  1939→      "line_idx": 117,
+  1940→      "page": 3,
+  1941→      "font_size": 17.5,
+  1942→      "is_bold": false,
+  1943→      "text": "keturunan, baik yang bernilai aktual maupun"
+  1944→    },
+  1945→    {
+  1946→      "line_idx": 118,
+  1947→      "page": 3,
+  1948→      "font_size": 15.5,
+  1949→      "is_bold": false,
+  1950→      "text": "potensial untuk menciptakan galur, rumpun, atau"
+  1951→    },
+  1952→    {
+  1953→      "line_idx": 119,
+  1954→      "page": 3,
+  1955→      "font_size": 13.0,
+  1956→      "is_bold": false,
+  1957→      "text": "spesies baru."
+  1958→    },
+  1959→    {
+  1960→      "line_idx": 120,
+  1961→      "page": 3,
+  1962→      "font_size": 13.5,
+  1963→      "is_bold": false,
+  1964→      "text": "Benih Hewan yang selanjutnya disebut Benih adalah"
+  1965→    },
+  1966→    {
+  1967→      "line_idx": 121,
+  1968→      "page": 3,
+  1969→      "font_size": 13.5,
+  1970→      "is_bold": false,
+  1971→      "text": "bahan reproduksi Hewan yang dapat berupa semen,"
+  1972→    },
+  1973→    {
+  1974→      "line_idx": 122,
+  1975→      "page": 3,
+  1976→      "font_size": 13.5,
+  1977→      "is_bold": false,
+  1978→      "text": "sperma, ova, telur tertunas, dan embrio."
+  1979→    },
+  1980→    {
+  1981→      "line_idx": 123,
+  1982→      "page": 3,
+  1983→      "font_size": 13.0,
+  1984→      "is_bold": false,
+  1985→      "text": "Dihapus."
+  1986→    },
+  1987→    {
+  1988→      "line_idx": 124,
+  1989→      "page": 3,
+  1990→      "font_size": 12.0,
+  1991→      "is_bold": false,
+  1992→      "text": "4."
+  1993→    },
+  1994→    {
+  1995→      "line_idx": 125,
+  1996→      "page": 3,
+  1997→      "font_size": 11.5,
+  1998→      "is_bold": false,
+  1999→      "text": "5."
+  2000→    },
+
+[showing lines 1-2000 of 2872; use offset=2001 with limit to continue reading]

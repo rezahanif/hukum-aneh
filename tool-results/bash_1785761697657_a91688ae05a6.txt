@@ -1,0 +1,1078 @@
+===== uu_skeleton.json =====
+total_lines: 1717
+most_common_size: 13.0
+font_sizes: [8.5, 9.0, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5, 16.0, 16.5, 17.0, 17.5, 18.0, 19.5, 22.0, 26.0, 38.5, 40.0, 44.0, 47.5, 48.5, 49.0]
+numbering_patterns: ['ayat_(N)', 'letter_a.', 'number_1)', 'pasal_arabic', 'pasal_roman']
+--- key_anchors ---
+  [7] p1 size=12.5 bold=False dengan rahmat: DENGAN RAHMAT TUHAN YANG MAHA ESA
+  [8] p1 size=12.5 bold=False presiden: PRESIDEN REPUBLIK INDONESIA,
+  [9] p1 size=18.0 bold=False menimbang: Menimbang : a. bahwa negara bertanggung jawab untuk melindungi
+  [38] p1 size=13.5 bold=False mengingat: Mengingat
+  [42] p2 size=18.0 bold=False mengingat: Mengingat : Pasal 20 dan Pasal 21 Undang-Undang Dasar Negara
+  [47] p2 size=12.5 bold=False presiden: PRESIDEN REPUBLIK INDONESIA
+  [49] p2 size=18.0 bold=False menetapkan: Menetapkan : UNDANG-UNDANGTENTANG
+  [54] p2 size=12.5 bold=False pasal: Pasal I
+  [70] p2 size=12.5 bold=False pasal: Pasal 1
+  [137] p4 size=11.0 bold=False presiden: PRESIDEN
+  [182] p5 size=11.0 bold=False presiden: PRESIDEN
+  [235] p6 size=11.0 bold=False presiden: PRESIDEN
+  [275] p7 size=11.0 bold=False presiden: PRESIDEN
+  [322] p8 size=11.0 bold=False presiden: PRESIDEN
+  [347] p8 size=15.5 bold=False penjelasan: penjelasannya tentang uinseminasi buatan" dihapus
+  [351] p8 size=13.5 bold=False pasal: Pasal Angka 2 Undang-undang ini.
+  [354] p8 size=13.0 bold=False bagian: Bagian Kesatu
+  [358] p8 size=14.0 bold=False pasal: Pasal 13
+  [362] p9 size=12.5 bold=False pasal: Pasal 13
+  [372] p9 size=14.5 bold=False kewajiban: Kewajiban Pemerintah dan/atau Pemerintah Daerah
+  [406] p9 size=14.0 bold=False pasal: Pasal 15
+  [407] p10 size=11.0 bold=False presiden: PRESIDEN
+  [410] p10 size=12.5 bold=False pasal: Pasal 15
+  [442] p10 size=12.5 bold=False pasal: Pasal 16
+  [452] p11 size=11.0 bold=False presiden: PRESIDEN
+  [460] p11 size=13.0 bold=False menteri: Menteri.
+  [463] p11 size=12.5 bold=False pasal: Pasal 18
+  [482] p11 size=16.5 bold=False larangan: Larangan sebagaimana dimaksud pada ayat (4)
+  [497] p12 size=11.0 bold=False presiden: PRESIDEN
+  [512] p12 size=12.0 bold=False pasal: Pasal 3 1
+  [537] p13 size=11.0 bold=False presiden: PRESIDEN
+  [547] p13 size=12.0 bold=False pasal: Pasal 32
+  [564] p13 size=12.5 bold=False pasal: Pasal 36
+  [589] p14 size=13.5 bold=False pasal: Pasal 36E sehingga berbunyi sebagai berikut:
+  [590] p14 size=12.5 bold=False pasal: Pasal 36A
+  [596] p14 size=13.5 bold=False pasal: Pasal 368
+  [626] p15 size=11.0 bold=False presiden: PRESIDEN
+  [645] p15 size=12.0 bold=False pasal: Pasal 36C
+  [667] p16 size=11.0 bold=False presiden: PRESIDEN
+  [680] p16 size=12.5 bold=False pasal: Pasal 36D
+  [683] p16 size=18.0 bold=False pasal: Pasal 36C harus ditempatkan di pulau karantina
+  [688] p16 size=12.5 bold=False pasal: Pasal 36E
+  [698] p16 size=12.5 bold=False pasal: Pasal 37
+  [735] p17 size=12.0 bold=False pasal: Pasal 4 1
+  [751] p18 size=11.0 bold=False presiden: PRESIDEN
+  [761] p18 size=12.5 bold=False pasal: Pasal 41A
+  [782] p18 size=12.0 bold=False pasal: Pasal 4 1B
+  [798] p19 size=11.0 bold=False presiden: PRESIDEN
+  [831] p19 size=12.0 bold=False pasal: Pasal 58
+  [836] p19 size=13.5 bold=False pengawasan: pengawasan, pemeriksaan, pengujian, standardisasi,
+  [846] p20 size=11.0 bold=False presiden: PRESIDEN
+  [883] p20 size=12.0 bold=False pasal: Pasal 59
+  [887] p20 size=18.0 bold=False menteri: menteri
+  [897] p21 size=11.0 bold=False presiden: PRESIDEN
+  [930] p21 size=12.5 bold=False pasal: Pasal 65
+  [936] p21 size=13.0 bold=False pasal: Pasal 66A
+  [937] p22 size=11.0 bold=False presiden: PRESIDEN
+  [940] p22 size=12.5 bold=False pasal: Pasal 66A
+  [949] p22 size=12.5 bold=False pasal: Pasal 68
+  [968] p22 size=13.5 bold=False pasal: Pasal 68E sehingga berbunyi sebagai berikut:
+  [969] p22 size=12.5 bold=False pasal: Pasal 68A
+  [994] p23 size=12.0 bold=False pasal: Pasal 68E}
+  [1011] p23 size=12.5 bold=False pasal: Pasal 68C
+  [1013] p23 size=13.0 bold=False pasal: Pasal 68 mempunyai fungsi:
+  [1027] p24 size=11.0 bold=False presiden: PRESIDEN
+  [1063] p24 size=12.5 bold=False pasal: Pasal 68D
+  [1074] p25 size=11.0 bold=False presiden: PRESIDEN
+  [1116] p25 size=13.0 bold=False pasal: Pasal 68E
+  [1117] p26 size=11.0 bold=False presiden: PRESIDEN
+  [1120] p26 size=12.5 bold=False pasal: Pasal 68E
+  [1123] p26 size=14.0 bold=False pasal: Pasal 68A, Pasal 68E}, Pasal 68C, dan Pasal 68D diatur
+  [1127] p26 size=12.5 bold=False pasal: pasal 85
+  [1135] p26 size=13.5 bold=False pasal: Pasal 42 ayat (5), Pasal 43 ayat (4), Pasal 45 ayat (1),
+  [1136] p26 size=14.5 bold=False pasal: Pasal 47 ayat (2), Pasal 47 ayat (3), Pasal 50 ayat (1),
+  [1137] p26 size=14.5 bold=False pasal: Pasal 50 ayat (3), Pasal 51 ayat (2), Pasal 52 ayat (1),
+  [1138] p26 size=13.5 bold=False pasal: Pasal 54 ayat (3), Pasal 55 ayat (3), Pasal 58 ayat (5),
+  [1139] p26 size=13.5 bold=False pasal: Pasal 59 ayat (1), Pasal 60 ayat (1), Pasal 61 ayat (1),
+  [1140] p26 size=14.5 bold=False pasal: Pasal 61 ayat (21, Pasal 62 ayat (21, Pasai 62 ayat (3),
+  [1141] p26 size=15.5 bold=False pasal: Pasal 69 ayat l2l, Pasal 72 ayat (1), atau Pasal 80
+  [1143] p26 size=14.5 bold=False sanksi: Sanksi administratif sebagaimana dimaksud pada
+  [1163] p27 size=11.0 bold=False presiden: PRESIDEN
+  [1168] p27 size=12.5 bold=False pasal: Pasal 86
+  [1187] p27 size=12.5 bold=False pasal: Pasal 91A
+  [1195] p27 size=13.5 bold=False pasal: Pasal 9lE}
+  [1198] p28 size=11.0 bold=False presiden: PRESIDEN
+  [1201] p28 size=12.5 bold=False pasal: Pasal 9 18
+  [1221] p28 size=12.5 bold=False pasal: Pasal 96A
+  [1228] p28 size=14.0 bold=False pasal: Pasal 68E harus telah ditetapkan paling lama 2 (dua)
+  [1233] p28 size=12.5 bold=False pasal: Pasal II
+  [1240] p29 size=11.0 bold=False presiden: PRESIDEN
+  [1248] p29 size=12.5 bold=False presiden: PRESIDEN REPUBLIK INDONESIA,
+  [1253] p29 size=13.0 bold=False menteri: MENTERI HUKUM DAN HAK ASASI MANUSIA
+  [1266] p30 size=12.0 bold=False penjelasan: PENJELASAN
+  [1287] p30 size=14.5 bold=False putusan: putusannya, Mahkamah Konstitusi membatalkan beberapa pasal yang
+  [1294] p31 size=11.0 bold=False presiden: PRESIDEN
+  [1322] p31 size=12.0 bold=False pasal: Pasal I
+  [1324] p31 size=15.5 bold=False pasal: Pasal I
+  [1327] p31 size=12.5 bold=False pasal: Pasal 6
+  [1362] p32 size=12.5 bold=False pasal: Pasal 13
+  [1390] p33 size=12.5 bold=False pasal: Pasal 15
+  [1422] p34 size=13.0 bold=False pasal: Pasal 16
+  [1436] p34 size=13.0 bold=False pasal: Pasal 18
+  [1463] p35 size=12.5 bold=False pasal: Pasal 3 1
+  [1490] p36 size=12.5 bold=False pasal: Pasal 32
+  [1503] p36 size=12.5 bold=False pasal: Pasal 36
+  [1518] p37 size=12.5 bold=False pasal: Pasal 36A
+  [1522] p37 size=12.0 bold=False pasal: Pasal 36E}
+  [1540] p37 size=12.5 bold=False pasal: Pasal 36C
+  [1543] p37 size=16.5 bold=False bagian: bagian dari suatu negara yang mempunyai batas alam,
+  [1557] p38 size=12.5 bold=False pasal: Pasal 36D
+  [1573] p38 size=12.5 bold=False pasal: Pasal 36E
+  [1584] p39 size=12.5 bold=False pasal: Pasal 37
+  [1599] p39 size=12.0 bold=False pasal: Pasal 4 1
+  [1602] p39 size=12.5 bold=False pasal: Pasal 41A
+  [1618] p40 size=11.0 bold=False presiden: PRESiDEN
+  [1623] p40 size=12.0 bold=False pasal: Pasal 4 1B
+  [1637] p40 size=12.5 bold=False pasal: Pasal 58
+  [1666] p41 size=12.5 bold=False pasal: Pasal 59
+  [1669] p41 size=12.5 bold=False pasal: Pasal 65
+  [1672] p41 size=12.5 bold=False pasal: Pasal 66A
+  [1675] p41 size=12.5 bold=False pasal: Pasal 68
+  [1678] p42 size=11.0 bold=False presiden: PRESIDEN
+  [1682] p42 size=12.5 bold=False pasal: Pasal 68A
+  [1684] p42 size=12.0 bold=False pasal: Pasal 68E}
+  [1686] p42 size=12.5 bold=False pasal: Pasal 68C
+  [1688] p42 size=12.5 bold=False pasal: Pasal 68D
+  [1690] p42 size=13.0 bold=False pasal: Pasal 68E
+  [1693] p42 size=12.5 bold=False pasal: Pasal 85
+  [1696] p42 size=13.0 bold=False pasal: Pasal 86
+  [1699] p42 size=12.0 bold=False pasal: Pasal 9 1A
+  [1701] p42 size=13.5 bold=False pasal: Pasal 918
+  [1708] p43 size=11.0 bold=False presiden: PRESIDEN
+  [1712] p43 size=12.5 bold=False pasal: Pasal 96A
+  [1714] p43 size=12.5 bold=False pasal: Pasal II
+--- full_text_lines (first 100) ---
+
+===== perppu_skeleton.json =====
+total_lines: 2042
+most_common_size: 18.0
+font_sizes: [11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5, 16.0, 16.5, 17.0, 17.5, 18.0, 19.0, 19.5, 22.5]
+numbering_patterns: ['ayat_(N)', 'bab', 'letter_a.', 'pasal_arabic']
+--- key_anchors ---
+  [1] p1 size=13.0 bold=False menimbang: Menimbang
+  [2] p1 size=12.5 bold=False mengingat: Mengingat
+  [3] p1 size=13.0 bold=False menetapkan: Menetapkan
+  [4] p1 size=11.5 bold=False presiden: PRESIDEN
+  [10] p1 size=12.5 bold=False dengan rahmat: DENGAN RAHMAT TUHAN YANG MAHA ESA
+  [11] p1 size=12.5 bold=False presiden: PRESIDEN REPUBLIK INDONESIA,
+  [39] p1 size=13.0 bold=False bab : BAB I
+  [40] p2 size=11.5 bold=False presiden: PRESIDEN
+  [43] p2 size=12.5 bold=False bab : BAB I
+  [45] p2 size=12.5 bold=False pasal: Pasal 1
+  [53] p2 size=13.0 bold=False bab : BAB II
+  [55] p2 size=12.5 bold=False pasal: Pasal 2
+  [59] p2 size=12.5 bold=False pasal: Pasal 3
+  [63] p2 size=12.0 bold=False presiden: Presiden.
+  [76] p2 size=16.5 bold=False pasal: Pasal4
+  [78] p3 size=11.5 bold=False presiden: PRESIDEN
+  [81] p3 size=12.0 bold=False pasal: Pasal 4
+  [82] p3 size=14.0 bold=False menteri: Menteri dan wakil menteri merupakan satu kesatuan unsur
+  [84] p3 size=12.5 bold=False pasal: Pasal 5
+  [89] p3 size=13.0 bold=False presiden: Presiden dalam menyelenggarakan pemerintahan negara.
+  [90] p3 size=12.5 bold=False pasal: Pasal 6
+  [92] p3 size=13.0 bold=False pasal: Pasal 5, Kementerian menyelenggarakan fungsi:
+  [99] p3 size=13.0 bold=False presiden: Presiden menyelenggarakan pemerintahan negara;
+  [101] p3 size=13.5 bold=False presiden: Presiden dalam menyelenggarakan kekuasaan tertinggi
+  [113] p4 size=11.5 bold=False presiden: PRESIDEN
+  [120] p4 size=17.0 bold=False presiden: Presiden, dan Rancangan Instruksi Presiden, dan
+  [151] p4 size=16.5 bold=False presiden: Presiden dan/atau Wakil Presiden, dan penyiapan
+  [158] p5 size=11.5 bold=False presiden: PRESIDEN
+  [188] p5 size=13.5 bold=False bab : BAB III
+  [190] p5 size=13.0 bold=False bagian: Bagian Kesatu
+  [192] p5 size=12.5 bold=False pasal: Pasal 7
+  [198] p6 size=11.5 bold=False presiden: PRESIDEN
+  [218] p6 size=13.0 bold=False bagian: Bagian Kedua
+  [220] p6 size=12.0 bold=False pasal: Pasal 8
+  [225] p6 size=12.0 bold=False pasal: Pasal 9
+  [228] p6 size=13.5 bold=False pembinaan: pembinaan, dan pemberian dukungan administrasi kepada
+  [231] p6 size=13.0 bold=False pasal: Pasal 10
+  [235] p7 size=13.0 bold=False pasal: Pasal 10
+  [237] p7 size=13.5 bold=False pasal: Pasal 9, Sekretariat Kementerian menyelenggarakan fungsi:
+  [256] p7 size=13.0 bold=False menteri: Menteri;
+  [266] p7 size=13.0 bold=False pasal: Pasal 1 1
+  [273] p8 size=11.5 bold=False presiden: PRESIDEN
+  [291] p8 size=13.0 bold=False bagian: Bagian Ketiga
+  [293] p8 size=13.0 bold=False pasal: Pasal 12
+  [299] p8 size=13.0 bold=False pasal: Pasal 13
+  [304] p8 size=12.0 bold=False presiden: Presiden.
+  [305] p8 size=13.0 bold=False pasal: Pasal 14
+  [307] p8 size=13.0 bold=False pasal: Pasal 13, Sekretariat Presiden menyelenggarakan fungsi:
+  [314] p9 size=11.5 bold=False presiden: PRESIDEN
+  [318] p9 size=18.0 bold=False presiden: Presiden dan/atau Istri/Suami Presiden di dalam
+  [341] p9 size=13.0 bold=False pasal: Pasal 15
+  [345] p9 size=13.0 bold=False paragraf: Paragraf 1
+  [348] p9 size=13.0 bold=False pasal: Pasal 16
+  [354] p9 size=18.0 bold=False pasal: Pasal 17
+  [356] p10 size=11.5 bold=False presiden: PRESIDEN
+  [359] p10 size=13.0 bold=False pasal: Pasal 17
+  [369] p10 size=13.0 bold=False pasal: Pasal 18
+  [371] p10 size=16.0 bold=False pasal: Pasal 17, Deputi Bidang Administrasi dan Pengelolaan
+  [375] p10 size=12.0 bold=False presiden: Presiden;
+  [379] p10 size=14.5 bold=False presiden: Presiden, Tamu Negara dan kegiatan penting lainnya
+  [398] p10 size=12.0 bold=False presiden: Presiden.
+  [399] p10 size=15.0 bold=False pasal: Pasal 19. . .
+  [401] p11 size=11.5 bold=False presiden: PRESIDEN
+  [404] p11 size=13.0 bold=False pasal: Pasal 19
+  [420] p11 size=12.5 bold=False paragraf: Paragraf 2
+  [422] p11 size=12.5 bold=False pasal: Pasal 20
+  [425] p11 size=12.0 bold=False presiden: Presiden.
+  [428] p11 size=12.5 bold=False pasal: Pasal 21
+  [433] p11 size=12.0 bold=False presiden: Presiden.
+  [435] p11 size=13.5 bold=False pasal: Pasal 22 .
+  [436] p12 size=11.5 bold=False presiden: PRESIDEN
+  [439] p12 size=12.0 bold=False pasal: Pasal 22
+  [441] p12 size=17.5 bold=False pasal: Pasal 21, Deputi Bidang Protokol, Pers, dan Media
+  [445] p12 size=14.5 bold=False presiden: Presiden, Tamu Negara, dan kegiatan penting lainnya
+  [457] p12 size=12.0 bold=False presiden: Presiden.
+  [458] p12 size=12.5 bold=False pasal: Pasal 23
+  [470] p12 size=12.5 bold=False pasal: Pasal 24
+  [476] p12 size=12.5 bold=False bagian: Bagian
+  [480] p13 size=13.0 bold=False bagian: Bagian Keempat
+  [482] p13 size=12.5 bold=False pasal: Pasal 25
+  [488] p13 size=15.0 bold=False presiden: Presiden dapat menerima penugasan langsung dari
+  [490] p13 size=12.5 bold=False pasal: Pasal 26
+  [495] p13 size=13.0 bold=False presiden: Presiden menyelenggarakan pemerintahan negara.
+  [496] p13 size=13.0 bold=False pasal: Pasal2T
+  [498] p13 size=16.0 bold=False pasal: Pasal 26, Sekretariat Wakil Presiden menyelenggarakan
+  [531] p14 size=13.0 bold=False presiden: Presiden dan Menteri.
+  [532] p14 size=12.5 bold=False pasal: Pasal 28
+  [542] p14 size=13.0 bold=False paragraf: Paragraf 1
+  [545] p14 size=12.5 bold=False pasal: Pasal 29
+  [549] p14 size=12.0 bold=False presiden: Presiden.
+  [553] p14 size=16.0 bold=False pasal: Pasal 30. . .
+  [558] p15 size=12.5 bold=False pasal: Pasal 30
+  [567] p15 size=12.5 bold=False pasal: Pasal 31
+  [569] p15 size=18.0 bold=False pasal: Pasal 30, Deputi Bidang Dukungan Kebijakan
+  [575] p15 size=15.0 bold=False presiden: Presiden atau Wakil Presiden, berikut permasalahan
+  [590] p15 size=12.5 bold=False pasal: Pasal 32
+  [607] p16 size=12.5 bold=False paragraf: Paragraf 2
+  [611] p16 size=12.5 bold=False pasal: Pasal 33
+  [619] p16 size=12.5 bold=False pasal: Pasal 34
+  [628] p16 size=12.5 bold=False pasal: Pasal 35
+  [630] p16 size=13.5 bold=False pasal: Pasal 34, Deputi Bidang Dukungan Kebijakan Peningkatan
+  [656] p17 size=12.5 bold=False pasal: Pasal 36
+  [669] p17 size=12.0 bold=False paragraf: Paragraf 3
+  [672] p17 size=12.5 bold=False pasal: Pasal 37
+  [679] p17 size=16.0 bold=False pasal: Pasal 38. . .
+  [680] p18 size=11.5 bold=False presiden: PRESIDEN
+  [683] p18 size=12.0 bold=False pasal: Pasal 38
+  [690] p18 size=13.0 bold=False presiden: Presiden menyelenggarakan pemerintahan negara.
+  [691] p18 size=12.0 bold=False pasal: Pasal 39
+  [693] p18 size=13.5 bold=False pasal: Pasal38, Deputi Bidang Dukungan Kebijakan Pemerintahan
+  [712] p18 size=12.5 bold=False pasal: Pasal 40
+  [729] p19 size=12.0 bold=False paragraf: Paragraf 4
+  [731] p19 size=12.0 bold=False pasal: Pasal 4 1
+  [735] p19 size=12.0 bold=False pasal: Pasal 42
+  [744] p19 size=12.0 bold=False presiden: Presiden.
+  [745] p19 size=12.5 bold=False pasal: Pasal 43
+  [747] p19 size=15.0 bold=False pasal: Pasal 42, Deputi Bidang Administrasi menyelenggarakan
+  [751] p19 size=12.0 bold=False presiden: Presiden;
+  [764] p20 size=11.5 bold=False presiden: PRESIDEN
+  [780] p20 size=12.5 bold=False pasal: Pasal 44
+  [796] p20 size=12.5 bold=False bagian: Bagian Kelima
+  [798] p20 size=12.5 bold=False pasal: Pasal 45
+  [812] p21 size=15.0 bold=False presiden: Presiden dapat menerima penugasan langsung dari
+  [813] p21 size=12.0 bold=False presiden: Presiden.
+  [814] p21 size=12.5 bold=False pasal: Pasal 46
+  [824] p21 size=15.0 bold=False presiden: Presiden dan Wakil Presiden beserta keluarga termasuk
+  [827] p21 size=12.5 bold=False pasal: Pasal 47
+  [829] p21 size=15.5 bold=False pasal: Pasal 46, Sekretariat Militer Presiden menyelenggarakan
+  [839] p21 size=12.0 bold=False presiden: Presiden;
+  [847] p21 size=12.0 bold=False presiden: Presiden;
+  [850] p22 size=11.5 bold=False presiden: PRESIDEN
+  [871] p22 size=13.0 bold=False presiden: Presiden; dan
+  [874] p22 size=12.5 bold=False pasal: Pasal 48
+  [886] p22 size=13.0 bold=False bagian: Bagian Keenam
+  [888] p22 size=12.5 bold=False pasal: Pasal 49
+  [894] p22 size=15.5 bold=False pasal: Pasal 50. .
+  [895] p23 size=11.5 bold=False presiden: PRESIDEN
+  [898] p23 size=12.5 bold=False pasal: Pasal 50
+  [901] p23 size=17.5 bold=False presiden: Presiden dan Wakil Presiden dalam penyelenggaraan
+  [903] p23 size=12.5 bold=False pasal: Pasal 51
+  [905] p23 size=13.5 bold=False pasal: Pasal 50, Sekretariat Dukungan Kabinet menyelenggarakan
+  [932] p23 size=12.5 bold=False pasal: Pasal 52
+  [938] p24 size=11.5 bold=False presiden: PRESIDEN
+  [948] p24 size=13.0 bold=False paragraf: Paragraf 1
+  [951] p24 size=12.5 bold=False pasal: Pasal 53
+  [957] p24 size=12.5 bold=False pasal: Pasal 54
+  [963] p24 size=12.5 bold=False pasal: Pasal 55
+  [965] p24 size=14.5 bold=False pasal: Pasal 54, Deputi Bidang Politik, Hukum, Keamanan, dan
+  [976] p25 size=11.5 bold=False presiden: PRESIDEN
+  [988] p25 size=17.5 bold=False presiden: Presiden dan/atau Wakil Presiden di bidang politik,
+  [992] p25 size=12.5 bold=False pasal: Pasal 56
+  [1004] p25 size=12.5 bold=False paragraf: Paragraf 2
+  [1006] p25 size=12.5 bold=False pasal: Pasal 57
+  [1011] p25 size=12.5 bold=False pasal: Pasal 58
+  [1017] p25 size=16.0 bold=False pasal: Pasal59
+  [1018] p26 size=11.5 bold=False presiden: PRESIDEN
+  [1021] p26 size=12.5 bold=False pasal: Pasal 59
+  [1023] p26 size=14.0 bold=False pasal: Pasal 58, Deputi Bidang Perekonomian menyelenggarakan
+  [1038] p26 size=18.0 bold=False presiden: Presiden dan/atau Wakil Presiden di bidang
+  [1042] p26 size=12.5 bold=False pasal: Pasal 60
+  [1053] p26 size=12.5 bold=False paragraf: Paragraf 3
+  [1056] p26 size=12.0 bold=False pasal: Pasal 61
+  [1063] p27 size=11.5 bold=False presiden: PRESIDEN
+  [1068] p27 size=12.5 bold=False pasal: Pasal 62
+  [1075] p27 size=12.5 bold=False pasal: Pasal 63
+  [1077] p27 size=18.0 bold=False pasal: Pasal 62, Deputi Bidang Pembangunan Manusia,
+  [1098] p27 size=18.0 bold=False presiden: Presiden dan/atau Wakil Presiden di bidang
+  [1104] p27 size=12.5 bold=False pasal: Pasal 64
+  [1105] p28 size=11.5 bold=False presiden: PRESIDEN
+  [1108] p28 size=12.5 bold=False pasal: Pasal 64
+  [1120] p28 size=12.5 bold=False paragraf: Paragraf 4
+  [1123] p28 size=12.5 bold=False pasal: Pasal 65
+  [1130] p28 size=12.5 bold=False pasal: Pasal 66
+  [1136] p28 size=12.5 bold=False pasal: Pasal 67
+  [1138] p28 size=17.5 bold=False pasal: Pasal 66, Deputi Bidang Pangan, Infrastruktur, dan
+  [1149] p29 size=11.5 bold=False presiden: PRESIDEN
+  [1161] p29 size=16.5 bold=False presiden: Presiden dan/atau Wakil Presiden di bidang pangan,
+  [1165] p29 size=12.5 bold=False pasal: Pasal 68
+  [1177] p29 size=12.5 bold=False paragraf: Paragraf 5
+  [1179] p29 size=12.5 bold=False pasal: Pasal 69
+  [1185] p29 size=16.0 bold=False pasal: Pasal70
+  [1190] p30 size=12.5 bold=False pasal: Pasal 70
+  [1202] p30 size=12.5 bold=False pasal: Pasal 71
+  [1204] p30 size=18.0 bold=False pasal: Pasal 70, Deputi Bidang Persidangan Kabinet
+  [1228] p30 size=16.0 bold=False pasal: Pasal72
+  [1230] p31 size=11.5 bold=False presiden: PRESIDEN
+  [1233] p31 size=12.0 bold=False pasal: Pasal 72
+  [1244] p31 size=12.5 bold=False paragraf: Paragraf 6
+  [1246] p31 size=12.5 bold=False pasal: Pasal 73
+  [1251] p31 size=12.5 bold=False pasal: Pasal T4
+  [1256] p31 size=12.5 bold=False pasal: Pasal 75
+  [1258] p31 size=15.0 bold=False pasal: Pasal 74, Deputi Bidang Administrasi menyelenggarakan
+  [1271] p32 size=11.5 bold=False presiden: PRESIDEN
+  [1287] p32 size=12.5 bold=False pasal: Pasal 76
+  [1303] p32 size=13.5 bold=False bagian: Bagian Ketujuh
+  [1306] p32 size=12.5 bold=False pasal: Pasal TT
+  [1309] p32 size=13.0 bold=False menteri: Menteri.
+  [1313] p32 size=12.5 bold=False pasal: Pasal 78
+  [1317] p33 size=12.5 bold=False pasal: Pasal 78
+  [1327] p33 size=17.5 bold=False presiden: Presiden, serta penyelesaian dan penanganan terkait
+  [1334] p33 size=12.5 bold=False pasal: Pasal 79
+  [1336] p33 size=18.0 bold=False pasal: Pasal 78, Deputi Bidang Perundang-undangan dan
+  [1348] p33 size=14.0 bold=False instruksi: Instruksi Presiden;
+  [1355] p33 size=14.0 bold=False instruksi: Instruksi Presiden;
+  [1358] p34 size=11.5 bold=False presiden: PRESIDEN
+  [1372] p34 size=16.5 bold=False presiden: Presiden dan Wakil Presiden, permohonan uji materiil
+  [1384] p34 size=12.5 bold=False pasal: Pasal 80
+  [1397] p34 size=12.5 bold=False bagian: Bagian
+  [1398] p35 size=11.5 bold=False presiden: PRESIDEN
+  [1401] p35 size=13.0 bold=False bagian: Bagian Kedelapan
+  [1404] p35 size=12.0 bold=False pasal: Pasal 81
+  [1410] p35 size=12.5 bold=False pasal: Pasal 82
+  [1419] p35 size=12.5 bold=False pasal: Pasal 83
+  [1421] p35 size=16.0 bold=False pasal: Pasal 82, Deputi Bidang Hubungan Kelembagaan dan
+  [1425] p35 size=15.5 bold=False presiden: Presiden dan/atau Wakil Presiden dengan lembaga
+  [1445] p36 size=15.5 bold=False presiden: Presiden dan/atau Wakil Presiden dengan lembaga
+  [1454] p36 size=12.5 bold=False pasal: Pasal 84
+  [1466] p36 size=13.0 bold=False bagian: Bagian Kesembilan
+  [1468] p36 size=12.5 bold=False pasal: Pasal 85
+  [1473] p36 size=12.5 bold=False pasal: Pasal 86
+  [1480] p36 size=14.5 bold=False pembinaan: pembinaan, penataan, dan pengembangan Aparatur Sipil
+  [1485] p36 size=16.0 bold=False pasal: Pasal87
+  [1487] p37 size=11.5 bold=False presiden: PRESIDEN
+  [1490] p37 size=12.5 bold=False pasal: Pasal 87
+  [1492] p37 size=18.0 bold=False pasal: Pasal 86, Deputi Bidang Administrasi Aparatur
+  [1497] p37 size=13.0 bold=False wewenang: wewenang penetapannya berada pada Presiden;
+  [1501] p37 size=12.5 bold=False presiden: Presiden;
+  [1510] p37 size=12.5 bold=False pasal: Pasal 88
+  [1520] p37 size=13.0 bold=False bagian: Bagian Kesepuluh
+  [1522] p37 size=12.0 bold=False pasal: Pasal 89
+  [1527] p37 size=16.0 bold=False pasal: Pasal90
+  [1529] p38 size=11.5 bold=False presiden: PRESIDEN
+  [1532] p38 size=12.0 bold=False pasal: Pasal 9O
+  [1538] p38 size=12.5 bold=False pasal: Pasal 91
+  [1540] p38 size=18.0 bold=False pasal: Pasal 90, Badan Teknologi, Data, dan Informasi
+  [1554] p38 size=12.5 bold=False pasal: Pasal 92
+  [1563] p38 size=13.0 bold=False bagian: Bagian Kesebelas
+  [1565] p38 size=12.5 bold=False pasal: Pasal 93
+  [1577] p39 size=11.5 bold=False presiden: PRESIDEN
+  [1594] p39 size=13.0 bold=False bagian: Bagian Keduabelas
+  [1596] p39 size=12.5 bold=False pasal: Pasal 94
+  [1600] p39 size=12.5 bold=False pasal: Pasal 95
+  [1602] p39 size=14.0 bold=False pengawasan: pengawasan intern di lingkungan Kementerian.
+  [1603] p39 size=12.5 bold=False pasal: Pasal 96
+  [1605] p39 size=13.5 bold=False pasal: Pasal 95, Inspektorat menyelenggarakan fungsi:
+  [1618] p40 size=11.5 bold=False presiden: PRESIDEN
+  [1623] p40 size=12.5 bold=False pasal: Pasal 97
+  [1631] p40 size=13.0 bold=False bagian: Bagian Ketigabelas
+  [1633] p40 size=12.5 bold=False pasal: Pasal 98
+  [1641] p40 size=12.5 bold=False pasal: Pasal 99
+  [1643] p40 size=13.0 bold=False pasal: Pasal 98 didasarkan pada analisis organisasi dan beban
+  [1648] p40 size=13.5 bold=False bagian: bagian yang menangani fungsi ketatausahaan.
+  [1657] p40 size=13.0 bold=False bagian: Bagian . . .
+  [1659] p41 size=11.5 bold=False presiden: PRESIDEN
+  [1662] p41 size=13.0 bold=False bagian: Bagian Keempatbelas
+  [1664] p41 size=13.0 bold=False pasal: Pasal 100
+  [1669] p41 size=12.5 bold=False bab : BAB IV
+  [1671] p41 size=13.0 bold=False pasal: Pasal 101
+  [1675] p41 size=13.0 bold=False pasal: Pasal 102
+  [1678] p41 size=13.0 bold=False menteri: Menteri.
+  [1682] p41 size=13.0 bold=False pasal: Pasal 103
+  [1692] p41 size=15.5 bold=False keputusan: Keputusan Menteri setelah mendapat persetujuan
+  [1693] p41 size=12.0 bold=False presiden: Presiden.
+  [1694] p41 size=16.0 bold=False pasal: PasallO4
+  [1696] p42 size=11.5 bold=False presiden: PRESIDEN
+  [1699] p42 size=13.0 bold=False pasal: Pasal 104
+  [1701] p42 size=14.5 bold=False pasal: Pasal 103 ayat (1) yang berhenti atau telah berakhir
+  [1707] p42 size=15.0 bold=False pasal: Pasal 103 ayat (1) yang telah mencapai batas usia
+  [1711] p42 size=13.0 bold=False pasal: Pasal 105
+  [1720] p42 size=12.5 bold=False bab : BAB V
+  [1722] p42 size=13.0 bold=False pasal: Pasal 106
+  [1723] p42 size=13.0 bold=False menteri: Menteri dalam memimpin pelaksanaan tugas dan fungsinya
+  [1727] p42 size=13.0 bold=False pasal: Pasal 107
+  [1739] p43 size=11.5 bold=False presiden: PRESIDEN
+  [1745] p43 size=13.0 bold=False pasal: Pasal 108
+  [1746] p43 size=13.5 bold=False menteri: Menteri menyampaikan laporan kepada Presiden mengenai
+  [1750] p43 size=13.0 bold=False pasal: Pasal 109
+  [1754] p43 size=13.0 bold=False pasal: Pasal 1 10
+  [1764] p43 size=13.0 bold=False pasal: Pasal 1 1 1
+  [1768] p43 size=13.0 bold=False pasal: Pasal 1 12
+  [1776] p44 size=11.5 bold=False presiden: PRESIDEN
+  [1784] p44 size=13.0 bold=False pasal: Pasal 1 13
+  [1788] p44 size=12.5 bold=False bab : BAB VI
+  [1790] p44 size=13.0 bold=False pasal: Pasal 1 14
+  [1791] p44 size=18.0 bold=False pembinaan: Pembinaan dan pengelolaan sumber daya manusia,
+  [1796] p44 size=13.0 bold=False pasal: Pasal 1 15
+  [1800] p44 size=13.0 bold=False bab : BAB VII
+  [1802] p44 size=13.0 bold=False pasal: Pasal 1 16
+  [1815] p45 size=11.5 bold=False presiden: PRESIDEN
+  [1823] p45 size=13.0 bold=False pasal: Pasal 1 17
+  [1832] p45 size=13.0 bold=False bab : BAB VIII
+  [1834] p45 size=13.0 bold=False pasal: Pasal 1 18
+  [1855] p45 size=14.5 bold=False pasal: Pasal 119. . .
+  [1857] p46 size=11.5 bold=False presiden: PRESIDEN
+  [1860] p46 size=13.0 bold=False pasal: Pasal 1 19
+  [1877] p46 size=13.0 bold=False pasal: Pasal 120
+  [1887] p46 size=12.0 bold=False presiden: Presiden.
+  [1893] p46 size=13.0 bold=False bab : BAB IX
+  [1895] p46 size=13.0 bold=False pasal: Pasal 121
+  [1901] p47 size=11.5 bold=False presiden: PRESIDEN
+  [1909] p47 size=13.0 bold=False bab : BAB X
+  [1911] p47 size=13.0 bold=False pasal: Pasal 122
+  [1921] p47 size=13.0 bold=False bab : BAB XI
+  [1923] p47 size=12.5 bold=False pasal: Pasal 123
+  [1928] p47 size=12.5 bold=False pasal: Pasal 124
+  [1946] p48 size=13.0 bold=False bab : BAB XII
+  [1947] p48 size=12.0 bold=False ketentuan peralihan: KETENTUAN PERALIHAN
+  [1948] p48 size=12.5 bold=False pasal: Pasal 125
+  [1960] p48 size=12.5 bold=False pasal: Pasal 126
+  [1966] p48 size=13.0 bold=False bab : BAB XIII
+  [1967] p48 size=12.0 bold=False ketentuan penutup: KETENTUAN PENUTUP
+  [1968] p48 size=12.5 bold=False pasal: Pasal 127
+  [1972] p48 size=13.5 bold=False presiden: Presiden Nomor 139 Tahun 2024 tentang Penataan T\:gas
+  [1976] p48 size=18.0 bold=False tugas: tugas dan fungsi Sekretariat Dukungan Kabinet
+  [1979] p48 size=13.0 bold=False pasal: Pasal 128
+  [1980] p49 size=11.5 bold=False presiden: PRESIDEN
+  [1983] p49 size=12.5 bold=False pasal: Pasal 128
+  [1996] p49 size=12.5 bold=False pasal: Pasal 129
+  [2009] p49 size=13.0 bold=False pasal: Pasal 130
+  [2015] p50 size=11.5 bold=False presiden: PRESIDEN
+  [2025] p50 size=12.5 bold=False presiden: PRESIDEN REPUBLIK INDONESIA,
+  [2030] p50 size=12.5 bold=False menteri: MENTERI SEKRETARIS NEGARA
+--- full_text_lines (first 100) ---
+
+===== pp_skeleton.json =====
+total_lines: 738
+most_common_size: 12.0
+font_sizes: [10.0, 12.0]
+numbering_patterns: ['ayat_(N)', 'bab', 'letter_a.', 'pasal_arabic', 'pasal_roman']
+--- key_anchors ---
+  [0] p1 size=10.0 bold=False presiden: PRESIDEN
+  [7] p1 size=12.0 bold=True presiden: PRESIDEN REPUBLIK INDONESIA,
+  [8] p1 size=12.0 bold=False menimbang: Menimbang : bahwa untuk melaksanakan ketentuan Undang-undang Nomor 4 Tahun
+  [12] p1 size=12.0 bold=False mengingat: Mengingat
+  [17] p1 size=12.0 bold=False memutuskan: MEMUTUSKAN :
+  [18] p1 size=12.0 bold=False menetapkan: Menetapkan : PERATURAN
+  [25] p1 size=12.0 bold=False bab : BAB I
+  [27] p1 size=12.0 bold=False pasal: Pasal 1
+  [33] p2 size=10.0 bold=False presiden: PRESIDEN
+  [58] p2 size=12.0 bold=False pasal: Pasal 2
+  [63] p3 size=10.0 bold=False presiden: PRESIDEN
+  [75] p3 size=12.0 bold=False bab : BAB II
+  [77] p3 size=12.0 bold=False pasal: Pasal 3
+  [92] p3 size=12.0 bold=False pasal: Pasal 4
+  [102] p4 size=10.0 bold=False presiden: PRESIDEN
+  [116] p4 size=12.0 bold=False pasal: Pasal 5
+  [134] p5 size=10.0 bold=False presiden: PRESIDEN
+  [139] p5 size=12.0 bold=False pasal: Pasal 6
+  [146] p5 size=12.0 bold=False pasal: Pasal 7
+  [169] p6 size=10.0 bold=False presiden: PRESIDEN
+  [172] p6 size=12.0 bold=False bab : BAB III
+  [174] p6 size=12.0 bold=False pasal: Pasal 8
+  [185] p6 size=12.0 bold=False pasal: Pasal 9
+  [199] p6 size=12.0 bold=False pasal: Pasal 10
+  [203] p7 size=10.0 bold=False presiden: PRESIDEN
+  [214] p7 size=12.0 bold=False pasal: Pasal 11
+  [217] p7 size=12.0 bold=False pasal: Pasal 12
+  [233] p8 size=10.0 bold=False presiden: PRESIDEN
+  [236] p8 size=12.0 bold=False bab : BAB IV
+  [238] p8 size=12.0 bold=False pasal: Pasal 13
+  [275] p8 size=12.0 bold=False pasal: Pasal 14
+  [282] p9 size=10.0 bold=False presiden: PRESIDEN
+  [304] p9 size=12.0 bold=False bab : BAB V
+  [307] p9 size=12.0 bold=False pasal: Pasal 15
+  [334] p9 size=12.0 bold=False pengawasan: pengawasan atas pelaksanaan serah simpan karya cetak dan
+  [336] p10 size=10.0 bold=False presiden: PRESIDEN
+  [339] p10 size=12.0 bold=False pasal: Pasal 16
+  [349] p10 size=12.0 bold=False pasal: Pasal 3, Pasal 8 atau Pasal 11.
+  [382] p10 size=12.0 bold=False pasal: Pasal 17
+  [402] p11 size=10.0 bold=False presiden: PRESIDEN
+  [406] p11 size=12.0 bold=False pasal: Pasal 18
+  [411] p11 size=12.0 bold=False pasal: Pasal 19
+  [426] p11 size=12.0 bold=False pasal: Pasal 20
+  [439] p12 size=10.0 bold=False presiden: PRESIDEN
+  [453] p12 size=12.0 bold=False bab : BAB VI
+  [454] p12 size=12.0 bold=False ketentuan peralihan: KETENTUAN PERALIHAN
+  [455] p12 size=12.0 bold=False pasal: Pasal 21
+  [460] p12 size=12.0 bold=False bab : BAB VII
+  [461] p12 size=12.0 bold=False ketentuan penutup: KETENTUAN PENUTUP
+  [462] p12 size=12.0 bold=False pasal: Pasal 22
+  [465] p12 size=12.0 bold=False pasal: Pasal 23
+  [470] p13 size=10.0 bold=False presiden: PRESIDEN
+  [475] p13 size=12.0 bold=False presiden: PRESIDEN REPUBLIK INDONESIA
+  [480] p13 size=12.0 bold=False menteri: MENTERI/SEKRETARIS NEGARA
+  [484] p14 size=10.0 bold=False presiden: PRESIDEN
+  [487] p14 size=12.0 bold=False penjelasan: PENJELASAN
+  [513] p14 size=12.0 bold=False pasal: PASAL DEMI PASAL
+  [514] p15 size=10.0 bold=False presiden: PRESIDEN
+  [517] p15 size=12.0 bold=False pasal: Pasal 1
+  [519] p15 size=12.0 bold=False pasal: Pasal 2
+  [524] p15 size=12.0 bold=False pasal: Pasal 3
+  [526] p15 size=12.0 bold=False kewajiban: Kewajiban bagi penerbit untuk menyerahkan karya cetak kepada
+  [535] p15 size=12.0 bold=False pasal: Pasal 4
+  [540] p16 size=10.0 bold=False presiden: PRESIDEN
+  [543] p16 size=12.0 bold=False pasal: Pasal 5
+  [562] p16 size=12.0 bold=False penutup: penutup dinding, kertas bungkus dan yang sejenis, dan lain-lain
+  [566] p16 size=12.0 bold=False pasal: Pasal 6
+  [573] p16 size=12.0 bold=False pasal: Pasal 7
+  [577] p17 size=10.0 bold=False presiden: PRESIDEN
+  [580] p17 size=12.0 bold=False kewajiban: Kewajiban bagi pengusaha rekaman dan warga negara Indonesia
+  [589] p17 size=12.0 bold=False pasal: Pasal 8
+  [594] p17 size=12.0 bold=False pasal: Pasal 9
+  [599] p17 size=12.0 bold=False pasal: Pasal 10
+  [603] p18 size=10.0 bold=False presiden: PRESIDEN
+  [620] p18 size=12.0 bold=False pasal: Pasal 11
+  [626] p18 size=12.0 bold=False pasal: Pasal 12
+  [632] p19 size=10.0 bold=False presiden: PRESIDEN
+  [638] p19 size=12.0 bold=False pasal: Pasal 13
+  [647] p19 size=12.0 bold=False pasal: Pasal 14
+  [656] p20 size=10.0 bold=False presiden: PRESIDEN
+  [659] p20 size=12.0 bold=False pasal: Pasal 15
+  [666] p20 size=12.0 bold=False pasal: Pasal 16
+  [673] p20 size=12.0 bold=False pasal: Pasal 17
+  [681] p21 size=10.0 bold=False presiden: PRESIDEN
+  [684] p21 size=12.0 bold=False pasal: Pasal 18
+  [686] p21 size=12.0 bold=False pasal: Pasal 19
+  [693] p21 size=12.0 bold=False pasal: Pasal 20
+  [719] p22 size=10.0 bold=False presiden: PRESIDEN
+  [726] p22 size=12.0 bold=False pengawasan: Pengawasan
+  [732] p22 size=12.0 bold=False pasal: Pasal 21
+  [734] p22 size=12.0 bold=False pasal: Pasal 22
+  [736] p22 size=12.0 bold=False pasal: Pasal 23
+--- full_text_lines (first 100) ---
+
+===== perda_skeleton.json =====
+total_lines: 1061
+most_common_size: 12.0
+font_sizes: [11.0, 12.0]
+numbering_patterns: ['ayat_(N)', 'bab', 'letter_a.', 'number_1)', 'pasal_arabic']
+--- key_anchors ---
+  [6] p1 size=12.0 bold=False dengan rahmat: DENGAN RAHMAT TUHAN YANG MAHA ESA
+  [8] p1 size=12.0 bold=False menimbang: Menimbang
+  [29] p1 size=12.0 bold=False mengingat: Mengingat
+  [49] p2 size=12.0 bold=False memutuskan: MEMUTUSKAN:
+  [50] p2 size=12.0 bold=False menetapkan: Menetapkan
+  [53] p2 size=12.0 bold=False bab : BAB I
+  [55] p2 size=12.0 bold=False pasal: Pasal 1
+  [192] p4 size=12.0 bold=False pasal: Pasal 2
+  [203] p4 size=12.0 bold=False pasal: Pasal 3
+  [206] p4 size=12.0 bold=False menetapkan: menetapkan KTR;
+  [214] p4 size=12.0 bold=False pasal: Pasal 4
+  [215] p4 size=12.0 bold=False ruang lingkup: Ruang lingkup pengaturan dalam Peraturan Daerah ini
+  [220] p4 size=12.0 bold=False kewajiban: kewajiban,
+  [221] p4 size=12.0 bold=False larangan: larangan
+  [230] p5 size=12.0 bold=False bab : BAB II
+  [232] p5 size=12.0 bold=False pasal: Pasal 5
+  [242] p5 size=12.0 bold=False pasal: Pasal 6
+  [255] p5 size=12.0 bold=False pasal: Pasal 7
+  [295] p6 size=12.0 bold=False sanksi: sanksi administratif sebagaimana dimaksud pada ayat
+  [297] p6 size=12.0 bold=False pasal: Pasal 8
+  [312] p6 size=12.0 bold=False bab : BAB III
+  [315] p6 size=12.0 bold=False bagian: Bagian Kesatu
+  [317] p6 size=12.0 bold=False pasal: Pasal 9
+  [341] p7 size=12.0 bold=False bagian: Bagian Kedua
+  [342] p7 size=12.0 bold=False kewajiban: Kewajiban
+  [343] p7 size=12.0 bold=False pasal: Pasal 10
+  [372] p7 size=12.0 bold=False pengawasan: pengawasan internal, membiarkan orang Merokok,
+  [381] p7 size=12.0 bold=False bagian: Bagian Ketiga
+  [382] p7 size=12.0 bold=False larangan: Larangan dan Pengendalian
+  [383] p7 size=12.0 bold=False pasal: Pasal 11
+  [429] p8 size=12.0 bold=False pasal: Pasal 12
+  [472] p8 size=12.0 bold=False pasal: Pasal 13
+  [483] p9 size=12.0 bold=False pasal: Pasal 14
+  [490] p9 size=12.0 bold=False kewajiban: kewajiban,
+  [491] p9 size=12.0 bold=False larangan: larangan
+  [498] p9 size=12.0 bold=False bab : BAB IV
+  [500] p9 size=12.0 bold=False pasal: Pasal 15
+  [571] p10 size=12.0 bold=False bab : BAB V
+  [573] p10 size=12.0 bold=False pasal: Pasal 16
+  [607] p10 size=12.0 bold=False pengawasan: pengawasan,
+  [609] p10 size=12.0 bold=False pembinaan: pembinaan, dan evaluasi terhadap KTR;
+  [696] p12 size=12.0 bold=False bab : BAB VI
+  [697] p12 size=12.0 bold=False pembinaan: PEMBINAAN DAN PENGAWASAN
+  [698] p12 size=12.0 bold=False bagian: Bagian Kesatu
+  [699] p12 size=12.0 bold=False pembinaan: Pembinaan
+  [700] p12 size=12.0 bold=False pasal: Pasal 17
+  [718] p12 size=12.0 bold=False bagian: Bagian Kedua
+  [719] p12 size=12.0 bold=False pengawasan: Pengawasan
+  [720] p12 size=12.0 bold=False pasal: Pasal 18
+  [729] p12 size=12.0 bold=False bab : BAB VII
+  [731] p12 size=12.0 bold=False pasal: Pasal 19
+  [745] p13 size=12.0 bold=False bab : BAB VIII
+  [746] p13 size=12.0 bold=False ketentuan penutup: KETENTUAN PENUTUP
+  [747] p13 size=12.0 bold=False pasal: Pasal 20
+  [750] p13 size=12.0 bold=False pasal: Pasal 10 sampai dengan Pasal 14 dalam Peraturan Daerah
+  [767] p13 size=12.0 bold=False pasal: Pasal 21
+  [771] p13 size=12.0 bold=False pasal: Pasal 22
+  [807] p14 size=12.0 bold=False penjelasan: PENJELASAN
+  [849] p14 size=12.0 bold=False menetapkan: menetapkan
+  [877] p15 size=12.0 bold=False pasal: Pasal 1
+  [879] p15 size=12.0 bold=False pasal: Pasal 2
+  [950] p15 size=12.0 bold=False pasal: Pasal 3
+  [952] p15 size=12.0 bold=False pasal: Pasal 4
+  [955] p16 size=12.0 bold=False pasal: Pasal 5
+  [957] p16 size=12.0 bold=False pasal: Pasal 6
+  [959] p16 size=12.0 bold=False pasal: Pasal 7
+  [973] p16 size=12.0 bold=False pasal: Pasal 8
+  [975] p16 size=12.0 bold=False pasal: Pasal 9
+  [977] p16 size=12.0 bold=False pasal: Pasal 10
+  [979] p16 size=12.0 bold=False pasal: Pasal 11
+  [981] p16 size=12.0 bold=False pasal: Pasal 12
+  [983] p16 size=12.0 bold=False pasal: Pasal 13
+  [985] p16 size=12.0 bold=False pasal: Pasal 14
+  [987] p16 size=12.0 bold=False pasal: Pasal 15
+  [1034] p17 size=12.0 bold=False pasal: Pasal 16
+  [1048] p18 size=12.0 bold=False pasal: Pasal 17
+  [1050] p18 size=12.0 bold=False pasal: Pasal 18
+  [1052] p18 size=12.0 bold=False pasal: Pasal 19
+  [1054] p18 size=12.0 bold=False pasal: Pasal 20
+  [1056] p18 size=12.0 bold=False pasal: Pasal 21
+  [1058] p18 size=12.0 bold=False pasal: Pasal 22
+--- full_text_lines (first 100) ---
+
+===== JDIH_Kemenkeu_skeleton.json =====
+total_lines: 290
+most_common_size: 12.0
+font_sizes: [8.0, 12.0, 14.0]
+numbering_patterns: ['ayat_(N)', 'letter_a.', 'number_1)', 'pasal_arabic']
+--- key_anchors ---
+  [6] p1 size=12.0 bold=False dengan rahmat: DENGAN RAHMAT TUHAN YANG MAHA ESA
+  [7] p1 size=12.0 bold=False menteri: MENTERI KEUANGAN REPUBLIK INDONESIA,
+  [8] p1 size=12.0 bold=False menimbang: Menimbang
+  [49] p1 size=12.0 bold=False menteri: Menteri
+  [70] p2 size=12.0 bold=False menetapkan: menetapkan
+  [72] p2 size=12.0 bold=False menteri: Menteri
+  [76] p2 size=12.0 bold=False mengingat: Mengingat
+  [78] p2 size=12.0 bold=False pasal: Pasal 17 ayat (3) Undang-Undang Dasar Negara Republik
+  [139] p2 size=12.0 bold=False memutuskan: MEMUTUSKAN:
+  [140] p2 size=12.0 bold=False menetapkan: Menetapkan : PERATURAN MENTERI KEUANGAN TENTANG PENGENAAN
+  [150] p3 size=12.0 bold=False pasal: Pasal 1
+  [154] p3 size=12.0 bold=False pasal: Pasal 2
+  [175] p3 size=12.0 bold=False pasal: Pasal 3
+  [180] p3 size=12.0 bold=False menteri: Menteri ini.
+  [181] p3 size=12.0 bold=False pasal: Pasal 4
+  [186] p3 size=12.0 bold=False pasal: Pasal 5
+  [212] p4 size=12.0 bold=False pasal: Pasal 6
+  [237] p4 size=12.0 bold=False pasal: Pasal 7
+  [240] p4 size=12.0 bold=False pasal: Pasal 8
+  [254] p5 size=12.0 bold=False menteri: MENTERI KEUANGAN REPUBLIK INDONESIA,
+  [287] p6 size=12.0 bold=False menteri: MENTERI KEUANGAN REPUBLIK INDONESIA,
+--- full_text_lines (first 100) ---
+
+===== JDIH_Komdigi_skeleton.json =====
+total_lines: 1889
+most_common_size: 12.0
+font_sizes: [12.0]
+numbering_patterns: ['ayat_(N)', 'bab', 'letter_a.', 'number_1)', 'pasal_arabic']
+--- key_anchors ---
+  [6] p1 size=12.0 bold=False dengan rahmat: DENGAN RAHMAT TUHAN YANG MAHA ESA
+  [7] p1 size=12.0 bold=False menteri: MENTERI KOMUNIKASI DAN INFORMATIKA REPUBLIK INDONESIA,
+  [8] p1 size=12.0 bold=False menimbang: Menimbang : a.
+  [35] p1 size=12.0 bold=False menteri: Menteri Komunikasi dan Informatika sebagai balai uji alat
+  [61] p1 size=12.0 bold=False menetapkan: menetapkan
+  [63] p1 size=12.0 bold=False menteri: Menteri
+  [74] p2 size=12.0 bold=False mengingat: Mengingat
+  [142] p2 size=12.0 bold=False memutuskan: MEMUTUSKAN:
+  [143] p2 size=12.0 bold=False menetapkan: Menetapkan : PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA
+  [146] p2 size=12.0 bold=False bab : BAB I
+  [148] p2 size=12.0 bold=False pasal: Pasal 1
+  [201] p3 size=12.0 bold=False tujuan: tujuan.
+  [251] p3 size=12.0 bold=False pasal: Pasal 2
+  [274] p4 size=12.0 bold=False pasal: Pasal 3
+  [281] p4 size=12.0 bold=False bab : BAB II
+  [283] p4 size=12.0 bold=False pasal: Pasal 4
+  [329] p4 size=12.0 bold=False ruang lingkup: ruang lingkup laboratorium uji sesuai dengan
+  [415] p5 size=12.0 bold=False instruksi: instruksi kerja yang digunakan untuk menguji Alat
+  [436] p5 size=12.0 bold=False ruang lingkup: ruang lingkup pengujian yang dimohonkan.
+  [437] p5 size=12.0 bold=False pasal: Pasal 5
+  [466] p6 size=12.0 bold=False pasal: Pasal 6
+  [486] p6 size=12.0 bold=False pasal: Pasal 7
+  [490] p6 size=12.0 bold=False pasal: Pasal 8
+  [494] p6 size=12.0 bold=False menteri: Menteri.
+  [572] p7 size=12.0 bold=False instruksi: instruksi kerja yang digunakan untuk menguji Alat
+  [589] p7 size=12.0 bold=False ruang lingkup: ruang lingkup pengujian yang dimohonkan.
+  [596] p7 size=12.0 bold=False pasal: Pasal 9
+  [627] p8 size=12.0 bold=False pasal: Pasal 10
+  [657] p8 size=12.0 bold=False pasal: Pasal 11
+  [726] p9 size=12.0 bold=False instruksi: instruksi kerja yang digunakan untuk menguji Alat
+  [737] p9 size=12.0 bold=False ruang lingkup: ruang lingkup pengujian yang akan ditambahkan.
+  [758] p9 size=12.0 bold=False pasal: Pasal 12
+  [784] p10 size=12.0 bold=False pasal: Pasal 13
+  [806] p10 size=12.0 bold=False ruang lingkup: ruang lingkup pengujian Balai Uji Dalam Negeri
+  [817] p10 size=12.0 bold=False pasal: Pasal 14
+  [820] p10 size=12.0 bold=False pasal: Pasal 11 ayat (4) wajib menyampaikan salinan sertifikat
+  [870] p11 size=12.0 bold=False pasal: Pasal 15
+  [881] p11 size=12.0 bold=False pasal: Pasal 16
+  [920] p11 size=12.0 bold=False bab : BAB III
+  [922] p11 size=12.0 bold=False pasal: Pasal 17
+  [924] p11 size=12.0 bold=False menteri: Menteri dapat melakukan saling pengakuan Laporan
+  [933] p11 size=12.0 bold=False pasal: Pasal 18
+  [951] p11 size=12.0 bold=False ruang lingkup: ruang lingkup MRA;
+  [975] p12 size=12.0 bold=False pasal: Pasal 19
+  [1002] p12 size=12.0 bold=False pasal: Pasal 20
+  [1027] p12 size=12.0 bold=False pasal: Pasal 21
+  [1047] p13 size=12.0 bold=False pasal: Pasal 22
+  [1063] p13 size=12.0 bold=False pasal: Pasal 23
+  [1091] p13 size=12.0 bold=False pasal: Pasal 24
+  [1093] p13 size=12.0 bold=False menteri: Menteri dapat melakukan pengakhiran MRA sebagaimana
+  [1110] p13 size=12.0 bold=False pasal: Pasal 25
+  [1174] p14 size=12.0 bold=False instruksi: instruksi kerja yang digunakan untuk menguji Alat
+  [1236] p15 size=12.0 bold=False ruang lingkup: ruang lingkup pengujian yang dimohonkan.
+  [1249] p15 size=12.0 bold=False pasal: Pasal 26
+  [1277] p15 size=12.0 bold=False pasal: Pasal 27
+  [1301] p16 size=12.0 bold=False pasal: Pasal 28
+  [1349] p16 size=12.0 bold=False bab : BAB IV
+  [1350] p16 size=12.0 bold=False pengawasan: PENGAWASAN DAN PENGENDALIAN
+  [1351] p16 size=12.0 bold=False pasal: Pasal 29
+  [1356] p16 size=12.0 bold=False pengawasan: pengawasan
+  [1361] p16 size=12.0 bold=False pengawasan: Pengawasan sebagaimana dimaksud pada ayat (1)
+  [1367] p16 size=12.0 bold=False pasal: Pasal 30
+  [1369] p16 size=12.0 bold=False pengawasan: Pengawasan terhadap Balai Uji Dalam Negeri secara rutin
+  [1374] p16 size=12.0 bold=False pengawasan: Pengawasan sebagaimana dimaksud pada ayat (1)
+  [1408] p17 size=12.0 bold=False pasal: Pasal 31
+  [1412] p17 size=12.0 bold=False pasal: Pasal
+  [1421] p17 size=12.0 bold=False kewajiban: kewajiban sebagaimana dimaksud dalam Pasal 16;
+  [1461] p17 size=12.0 bold=False pasal: Pasal 32
+  [1463] p17 size=12.0 bold=False pengawasan: Pengawasan terhadap Balai Uji Luar Negeri secara rutin
+  [1470] p18 size=12.0 bold=False pengawasan: Pengawasan rutin terhadap Balai Uji Luar Negeri yang
+  [1495] p18 size=12.0 bold=False pengawasan: Pengawasan rutin terhadap Balai Uji Luar Negeri yang
+  [1512] p18 size=12.0 bold=False pengawasan: Pengawasan terhadap Balai Uji Luar Negeri secara
+  [1539] p18 size=12.0 bold=False pasal: Pasal 33
+  [1543] p18 size=12.0 bold=False pasal: Pasal
+  [1564] p19 size=12.0 bold=False kewajiban: kewajiban sebagaimana dimaksud dalam Pasal 28
+  [1578] p19 size=12.0 bold=False pasal: Pasal
+  [1592] p19 size=12.0 bold=False kewajiban: kewajiban sebagaimana dimaksud dalam Pasal 28
+  [1605] p19 size=12.0 bold=False pasal: Pasal 18 yang berlaku di negara di mana Balai Uji
+  [1653] p20 size=12.0 bold=False pasal: Pasal 34
+  [1674] p20 size=12.0 bold=False pasal: Pasal 35
+  [1697] p20 size=12.0 bold=False pasal: Pasal 36
+  [1701] p20 size=12.0 bold=False pengawasan: pengawasan
+  [1706] p20 size=12.0 bold=False bab : BAB V
+  [1708] p20 size=12.0 bold=False pasal: Pasal 37
+  [1734] p21 size=12.0 bold=False ruang lingkup: Ruang lingkup pengujian Balai Uji Dalam Negeri yang
+  [1748] p21 size=12.0 bold=False pasal: Pasal 38
+  [1768] p21 size=12.0 bold=False pasal: Pasal 39
+  [1792] p21 size=12.0 bold=False pasal: Pasal 40
+  [1799] p22 size=12.0 bold=False pasal: Pasal 33 ayat (3).
+  [1812] p22 size=12.0 bold=False pasal: Pasal 41
+  [1827] p22 size=12.0 bold=False bab : BAB VI
+  [1828] p22 size=12.0 bold=False ketentuan peralihan: KETENTUAN PERALIHAN
+  [1829] p22 size=12.0 bold=False pasal: Pasal 42
+  [1831] p22 size=12.0 bold=False menteri: Menteri ini mulai berlaku dan memenuhi ketentuan sebagai
+  [1842] p22 size=12.0 bold=False bab : BAB VII
+  [1843] p22 size=12.0 bold=False ketentuan penutup: KETENTUAN PENUTUP
+  [1844] p22 size=12.0 bold=False pasal: Pasal 43
+  [1856] p23 size=12.0 bold=False pasal: Pasal 44
+  [1858] p23 size=12.0 bold=False menteri: Menteri
+  [1874] p23 size=12.0 bold=False menteri: MENTERI KOMUNIKASI DAN INFORMATIKA
+--- full_text_lines (first 100) ---
+
+===== JDIH_Kemnaker_skeleton.json =====
+total_lines: 2619
+most_common_size: 12.0
+font_sizes: [12.0, 12.1, 12.2]
+numbering_patterns: ['ayat_(N)', 'bab', 'letter_a.', 'number_1)', 'pasal_arabic', 'pasal_roman']
+--- key_anchors ---
+  [4] p1 size=12.0 bold=False dengan rahmat: DENGAN RAHMAT TUHAN YANG MAHA ESA
+  [5] p1 size=12.0 bold=False presiden: PRESIDEN REPUBLIK INDONESIA,
+  [6] p1 size=12.0 bold=False menimbang: Menimbang
+  [22] p1 size=12.0 bold=False menetapkan: menetapkan
+  [25] p1 size=12.0 bold=False mengingat: Mengingat
+  [45] p1 size=12.0 bold=False memutuskan: MEMUTUSKAN:
+  [46] p1 size=12.0 bold=False menetapkan: Menetapkan : PERATURAN
+  [51] p1 size=12.0 bold=False bab : BAB I . . .
+  [53] p2 size=12.0 bold=False bab : BAB I
+  [55] p2 size=12.0 bold=False pasal: Pasal 1
+  [196] p4 size=12.0 bold=False pasal: Pasal 2
+  [201] p4 size=12.0 bold=False pasal: Pasal 3
+  [218] p4 size=12.0 bold=False bab : BAB II . . .
+  [220] p5 size=12.0 bold=False bab : BAB II
+  [223] p5 size=12.0 bold=False bagian: Bagian Kesatu
+  [225] p5 size=12.0 bold=False pasal: Pasal 4
+  [239] p5 size=12.0 bold=False bagian: Bagian Kedua
+  [242] p5 size=12.0 bold=False pasal: Pasal 5
+  [257] p5 size=12.0 bold=False bagian: Bagian . . .
+  [259] p6 size=12.0 bold=False bagian: Bagian Ketiga
+  [262] p6 size=12.0 bold=False paragraf: Paragraf 1
+  [264] p6 size=12.0 bold=False pasal: Pasal 6
+  [275] p6 size=12.0 bold=False pasal: Pasal 7
+  [286] p6 size=12.0 bold=False paragraf: Paragraf 2
+  [288] p6 size=12.0 bold=False pasal: Pasal 8
+  [320] p7 size=12.0 bold=False paragraf: Paragraf 3
+  [322] p7 size=12.0 bold=False pasal: Pasal 9
+  [346] p7 size=12.0 bold=False bab : BAB III
+  [349] p7 size=12.0 bold=False bagian: Bagian Kesatu
+  [351] p7 size=12.0 bold=False pasal: Pasal 10
+  [363] p8 size=12.0 bold=False bagian: Bagian Kedua
+  [365] p8 size=12.0 bold=False paragraf: Paragraf 1
+  [367] p8 size=12.0 bold=False pasal: Pasal 11
+  [377] p8 size=12.0 bold=False paragraf: Paragraf 2
+  [379] p8 size=12.0 bold=False pasal: Pasal 12
+  [455] p9 size=12.0 bold=False pasal: Pasal 11 huruf a wajib dinilai sesuai dengan standar
+  [457] p9 size=12.0 bold=False pasal: Pasal 13 . . .
+  [459] p10 size=12.0 bold=False pasal: Pasal 13
+  [462] p10 size=12.0 bold=False pasal: Pasal 12 ayat (5) ditetapkan paling tinggi:
+  [473] p10 size=12.0 bold=False menteri: Menteri setelah berkoordinasi dengan menteri yang
+  [480] p10 size=12.0 bold=False pasal: Pasal 14
+  [502] p10 size=12.0 bold=False menteri: Menteri paling lambat 31 Desember 2013.
+  [503] p10 size=12.0 bold=False paragraf: Paragraf 3
+  [505] p10 size=12.0 bold=False pasal: Pasal 15
+  [616] p12 size=12.0 bold=False bagian: Bagian Ketiga
+  [618] p12 size=12.0 bold=False paragraf: Paragraf 1
+  [620] p12 size=12.0 bold=False pasal: Pasal 16
+  [625] p12 size=12.0 bold=False paragraf: Paragraf 2
+  [627] p12 size=12.0 bold=False pasal: Pasal 17
+  [635] p12 size=12.0 bold=False paragraf: Paragraf 3 . . .
+  [637] p13 size=12.0 bold=False paragraf: Paragraf 3
+  [639] p13 size=12.0 bold=False pasal: Pasal 18
+  [673] p13 size=12.0 bold=False pasal: Pasal 19 . . .
+  [675] p14 size=12.0 bold=False pasal: Pasal 19
+  [684] p14 size=12.0 bold=False pasal: Pasal 18 dipisahkan untuk masing-masing program Jaminan
+  [686] p14 size=12.0 bold=False pasal: Pasal 20
+  [702] p14 size=12.0 bold=False pasal: Pasal 21
+  [705] p14 size=12.0 bold=False bagian: bagian dari cadangan teknis sebagaimana dimaksud
+  [716] p14 size=12.0 bold=False bagian: Bagian . . .
+  [718] p15 size=12.0 bold=False bagian: Bagian Keempat
+  [720] p15 size=12.0 bold=False paragraf: Paragraf 1
+  [722] p15 size=12.0 bold=False pasal: Pasal 22
+  [727] p15 size=12.0 bold=False paragraf: Paragraf 2
+  [729] p15 size=12.0 bold=False pasal: Pasal 23
+  [774] p16 size=12.0 bold=False paragraf: Paragraf 3
+  [776] p16 size=12.0 bold=False pasal: Pasal 24
+  [825] p16 size=12.0 bold=False bagian: Bagian . . .
+  [827] p17 size=12.0 bold=False bagian: Bagian Kelima
+  [829] p17 size=12.0 bold=False paragraf: Paragraf 1
+  [831] p17 size=12.0 bold=False pasal: Pasal 25
+  [841] p17 size=12.0 bold=False paragraf: Paragraf 2
+  [843] p17 size=12.0 bold=False pasal: Pasal 26
+  [878] p18 size=12.0 bold=False pasal: Pasal 27
+  [894] p18 size=12.0 bold=False pasal: Pasal 28
+  [910] p18 size=12.0 bold=False pasal: Pasal 26 ayat (2) huruf f merupakan produk reksadana
+  [980] p19 size=12.0 bold=False kewajiban: kewajiban
+  [1006] p20 size=12.0 bold=False pasal: Pasal 29
+  [1067] p21 size=12.0 bold=False pasal: Pasal 30
+  [1078] p21 size=12.0 bold=False pasal: Pasal 31
+  [1090] p21 size=12.0 bold=False pasal: Pasal 32 . . .
+  [1092] p22 size=12.0 bold=False pasal: Pasal 32
+  [1099] p22 size=12.0 bold=False pasal: Pasal 33
+  [1105] p22 size=12.0 bold=False paragraf: Paragraf 3
+  [1107] p22 size=12.0 bold=False pasal: Pasal 34
+  [1120] p22 size=12.0 bold=False pasal: Pasal 35
+  [1152] p23 size=12.0 bold=False pasal: Pasal 36
+  [1261] p25 size=12.0 bold=False pasal: Pasal 37
+  [1325] p26 size=12.0 bold=False pasal: Pasal 38
+  [1373] p27 size=12.0 bold=False pasal: Pasal 39
+  [1390] p27 size=12.0 bold=False pasal: Pasal 38 ayat (1) huruf f merupakan produk reksadana
+  [1438] p28 size=12.0 bold=False pasal: Pasal 40
+  [1493] p29 size=12.0 bold=False pasal: Pasal 41
+  [1500] p29 size=12.0 bold=False bagian: Bagian . . .
+  [1502] p30 size=12.0 bold=False bagian: Bagian Keenam
+  [1504] p30 size=12.0 bold=False paragraf: Paragraf 1
+  [1506] p30 size=12.0 bold=False pasal: Pasal 42
+  [1511] p30 size=12.0 bold=False pasal: Pasal 43
+  [1517] p30 size=12.0 bold=False paragraf: Paragraf 2
+  [1519] p30 size=12.0 bold=False pasal: Pasal 44
+  [1548] p30 size=12.0 bold=False pasal: Pasal 45 . . .
+  [1550] p31 size=12.0 bold=False pasal: Pasal 45
+  [1553] p31 size=12.0 bold=False paragraf: Paragraf 3
+  [1555] p31 size=12.0 bold=False pasal: Pasal 46
+  [1573] p31 size=12.0 bold=False pasal: Pasal 47
+  [1575] p31 size=12.0 bold=False pasal: Pasal 46, untuk Dana Jaminan Sosial Jaminan kecelakaan
+  [1611] p32 size=12.0 bold=False pasal: Pasal 48
+  [1617] p32 size=12.0 bold=False pasal: Pasal
+  [1639] p32 size=12.0 bold=False pasal: Pasal 49
+  [1660] p32 size=12.0 bold=False bagian: Bagian . . .
+  [1662] p33 size=12.0 bold=False bagian: Bagian Ketujuh
+  [1664] p33 size=12.0 bold=False pasal: Pasal 50
+  [1698] p33 size=12.0 bold=False pasal: Pasal 51
+  [1714] p33 size=12.0 bold=False menteri: Menteri,
+  [1715] p33 size=12.0 bold=False menteri: menteri
+  [1728] p33 size=12.0 bold=False pasal: Pasal 52 . . .
+  [1730] p34 size=12.0 bold=False pasal: Pasal 52
+  [1740] p34 size=12.0 bold=False pasal: Pasal 53
+  [1761] p34 size=12.0 bold=False pasal: Pasal 54
+  [1773] p34 size=12.0 bold=False bab : BAB IV . . .
+  [1775] p35 size=12.0 bold=False bab : BAB IV
+  [1776] p35 size=12.0 bold=False pengawasan: PENGAWASAN PENGELOLAAN
+  [1778] p35 size=12.0 bold=False pasal: Pasal 55
+  [1779] p35 size=12.0 bold=False pengawasan: Pengawasan
+  [1788] p35 size=12.0 bold=False pasal: Pasal 56
+  [1789] p35 size=12.0 bold=False pengawasan: Pengawasan internal terhadap penyelenggaraan program
+  [1793] p35 size=12.0 bold=False pasal: Pasal 57
+  [1796] p35 size=12.0 bold=False pasal: Pasal 55 huruf b dilakukan oleh DJSN dan lembaga
+  [1814] p35 size=12.0 bold=False pasal: Pasal 58 . . .
+  [1816] p36 size=12.0 bold=False pasal: Pasal 58
+  [1824] p36 size=12.0 bold=False pengawasan: pengawasan
+  [1827] p36 size=12.0 bold=False pengawasan: pengawasan internal terhadap dana Investasi BPJS
+  [1866] p36 size=12.0 bold=False pasal: Pasal 59
+  [1868] p36 size=12.0 bold=False ruang lingkup: ruang lingkup, prinsip-prinsip, dan prosedur pengawasan
+  [1870] p36 size=12.0 bold=False pasal: Pasal 60 . . .
+  [1872] p37 size=12.0 bold=False pasal: Pasal 60
+  [1889] p37 size=12.0 bold=False bab : BAB V
+  [1891] p37 size=12.0 bold=False pasal: Pasal 61
+  [1933] p37 size=12.0 bold=False bab : BAB V . . .
+  [1935] p38 size=12.0 bold=False bab : BAB V
+  [1937] p38 size=12.0 bold=False pasal: Pasal 62
+  [1963] p38 size=12.0 bold=False bab : BAB VI
+  [1964] p38 size=12.0 bold=False ketentuan peralihan: KETENTUAN PERALIHAN
+  [1965] p38 size=12.0 bold=False pasal: Pasal 63
+  [1979] p38 size=12.0 bold=False bab : BAB VII
+  [1980] p38 size=12.0 bold=False ketentuan penutup: KETENTUAN PENUTUP
+  [1981] p38 size=12.0 bold=False pasal: Pasal 64
+  [1997] p39 size=12.0 bold=False bagian: bagian Surplus BPJS Ketenagakerjaan;
+  [2024] p39 size=12.0 bold=False pasal: Pasal 65
+  [2031] p39 size=12.0 bold=False pasal: Pasal 66
+  [2049] p40 size=12.0 bold=False presiden: PRESIDEN REPUBLIK INDONESIA,
+  [2054] p40 size=12.0 bold=False menteri: MENTERI HUKUM DAN HAK ASASI MANUSIA
+  [2059] p41 size=12.0 bold=False penjelasan: PENJELASAN
+  [2151] p42 size=12.0 bold=False pasal: PASAL DEMI PASAL
+  [2152] p42 size=12.0 bold=False pasal: Pasal 1
+  [2154] p42 size=12.0 bold=False pasal: Pasal 2
+  [2165] p42 size=12.0 bold=False kewajiban: kewajiban kepada peserta.
+  [2168] p42 size=12.0 bold=False pasal: Pasal 3
+  [2170] p42 size=12.0 bold=False pasal: Pasal 4 . . .
+  [2172] p43 size=12.0 bold=False pasal: Pasal 4
+  [2174] p43 size=12.0 bold=False pasal: Pasal 5
+  [2176] p43 size=12.0 bold=False pasal: Pasal 6
+  [2178] p43 size=12.0 bold=False pasal: Pasal 7
+  [2180] p43 size=12.0 bold=False pasal: Pasal 8
+  [2182] p43 size=12.0 bold=False pasal: Pasal 9
+  [2184] p43 size=12.0 bold=False pasal: Pasal 10
+  [2186] p43 size=12.0 bold=False pasal: Pasal 11
+  [2188] p43 size=12.0 bold=False pasal: Pasal 12
+  [2190] p43 size=12.0 bold=False pasal: Pasal 13
+  [2192] p43 size=12.0 bold=False pasal: Pasal 14
+  [2194] p43 size=12.0 bold=False pasal: Pasal 15
+  [2207] p44 size=12.0 bold=False kewajiban: kewajiban yang menjadi hak peserta program Jaminan Sosial
+  [2226] p44 size=12.0 bold=False pasal: Pasal 16
+  [2228] p44 size=12.0 bold=False pasal: Pasal 17
+  [2242] p45 size=12.0 bold=False pasal: Pasal 18
+  [2277] p46 size=12.0 bold=False pasal: Pasal 19
+  [2281] p46 size=12.0 bold=False pasal: Pasal 20
+  [2296] p46 size=12.0 bold=False pasal: Pasal 21
+  [2298] p46 size=12.0 bold=False pasal: Pasal 22
+  [2300] p46 size=12.0 bold=False pasal: Pasal 23
+  [2302] p46 size=12.0 bold=False pasal: Pasal 24
+  [2304] p46 size=12.0 bold=False pasal: Pasal 25
+  [2306] p46 size=12.0 bold=False pasal: Pasal 26 . . .
+  [2308] p47 size=12.0 bold=False pasal: Pasal 26
+  [2362] p48 size=12.0 bold=False pasal: Pasal 27
+  [2364] p48 size=12.0 bold=False pasal: Pasal 28
+  [2395] p49 size=12.0 bold=False pasal: Pasal 29
+  [2397] p49 size=12.0 bold=False pasal: Pasal 30
+  [2400] p49 size=12.0 bold=False pasal: Pasal 31
+  [2402] p49 size=12.0 bold=False pasal: Pasal 32
+  [2404] p49 size=12.0 bold=False pasal: Pasal 33
+  [2406] p49 size=12.0 bold=False pasal: Pasal 34
+  [2408] p49 size=12.0 bold=False pasal: Pasal 35
+  [2459] p50 size=12.0 bold=False pasal: Pasal 36 . . .
+  [2461] p51 size=12.0 bold=False pasal: Pasal 36
+  [2463] p51 size=12.0 bold=False pasal: Pasal 37
+  [2465] p51 size=12.0 bold=False pasal: Pasal 38
+  [2521] p52 size=12.0 bold=False pasal: Pasal 39
+  [2523] p52 size=12.0 bold=False pasal: Pasal 40
+  [2525] p52 size=12.0 bold=False pasal: Pasal 41
+  [2527] p52 size=12.0 bold=False pasal: Pasal 42
+  [2529] p52 size=12.0 bold=False pasal: Pasal 43
+  [2531] p52 size=12.0 bold=False pasal: Pasal 44
+  [2533] p52 size=12.0 bold=False pasal: Pasal 45
+  [2535] p52 size=12.0 bold=False pasal: Pasal 46
+  [2537] p52 size=12.0 bold=False pasal: Pasal 47 . . .
+  [2539] p53 size=12.0 bold=False pasal: Pasal 47
+  [2541] p53 size=12.0 bold=False pasal: Pasal 48
+  [2543] p53 size=12.0 bold=False pasal: Pasal 49
+  [2561] p53 size=12.0 bold=False pasal: Pasal 50
+  [2563] p53 size=12.0 bold=False pasal: Pasal 51
+  [2565] p53 size=12.0 bold=False pasal: Pasal 52
+  [2567] p53 size=12.0 bold=False pasal: Pasal 53
+  [2569] p53 size=12.0 bold=False pasal: Pasal 54
+  [2571] p53 size=12.0 bold=False pasal: Pasal 55
+  [2573] p53 size=12.0 bold=False pasal: Pasal 56 . . .
+  [2575] p54 size=12.0 bold=False pasal: Pasal 56
+  [2577] p54 size=12.0 bold=False pasal: Pasal 57
+  [2579] p54 size=12.0 bold=False pasal: Pasal 58
+  [2581] p54 size=12.0 bold=False pasal: Pasal 59
+  [2583] p54 size=12.0 bold=False pasal: Pasal 60
+  [2585] p54 size=12.0 bold=False pasal: Pasal 61
+  [2587] p54 size=12.0 bold=False pasal: Pasal 62
+  [2596] p54 size=12.0 bold=False pasal: Pasal 63
+  [2598] p54 size=12.0 bold=False pasal: Pasal 64
+  [2614] p55 size=12.0 bold=False pasal: Pasal 65
+  [2616] p55 size=12.0 bold=False pasal: Pasal 66
+--- full_text_lines (first 100) ---
+
+===== peraturan_skeleton.json =====
+total_lines: 87
+most_common_size: 13.0
+font_sizes: [10.0, 13.0]
+numbering_patterns: ['ayat_(N)', 'pasal_arabic']
+--- key_anchors ---
+  [0] p1 size=10.0 bold=False presiden: PRESIDEN
+  [6] p1 size=13.0 bold=False presiden: Presiden Republik Indonesia,
+  [7] p1 size=13.0 bold=False menimbang: Menimbang
+  [10] p1 size=13.0 bold=False mengingat: Mengingat
+  [13] p1 size=13.0 bold=False pasal: pasal 5 ayat 2 Undang-undang Dasar:
+  [15] p1 size=13.0 bold=False pasal: pasal
+  [20] p1 size=13.0 bold=False menteri: Menteri Pertama , Wakil Menteri Pertama Bidang Kesejahteraan
+  [22] p1 size=13.0 bold=False memutuskan: Memutuskan :
+  [23] p1 size=13.0 bold=False menetapkan: Menetapkan
+  [26] p1 size=13.0 bold=False pasal: Pasal 1.
+  [51] p2 size=10.0 bold=False presiden: PRESIDEN
+  [65] p2 size=13.0 bold=False pasal: Pasal 2.
+  [78] p2 size=13.0 bold=False presiden: Presiden Republik Indonesia.
+--- full_text_lines (first 100) ---
+
+stderr:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyError: slice(None, 120, None)
