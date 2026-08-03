@@ -1,0 +1,991 @@
+=== EMPTY_PASAL diagnosis (PP_NO_70_TH_1991.pdf) ===
+
+Pasal 1 (BAB I)
+  Ayats: 0
+  Lines after pasal heading (27 to 199):
+    p01 fs= 12.0 B=False | Pasal 1
+    p01 fs= 12.0 B=False | Dalam Peraturan Pemerintah ini yang dimaksud dengan:
+    p01 fs= 12.0 B=False | 1. Karya cetak adalah semua jenis terbitan dari setiap karya
+    p01 fs= 12.0 B=False | intelektual dan/atau artistik yang dicetak dan digandakan dalam
+    p01 fs= 12.0 B=False | bentuk buku, majalah, surat kabar, peta, brosur, dan sejenisnya
+    p01 fs= 12.0 B=False | yang diperuntukkan bagi umum.
+    p02 fs= 10.0 B=False | PRESIDEN
+    p02 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p02 fs= 10.0 B=False | - 2 -
+    p02 fs= 12.0 B=False | 2. Karya rekam adalah semua jenis rekaman dari setiap karya
+    p02 fs= 12.0 B=False | intelektual dan/atau artistik yang direkam dan digandakan dalam
+    p02 fs= 12.0 B=False | bentuk pita, piringan, dan bentuk lain sesuai dengan perkembangan
+    p02 fs= 12.0 B=False | teknologi yang diperuntukkan bagi umum.
+    p02 fs= 12.0 B=False | 3. Perpustakaan Nasional adalah perpustakaan yang berkedudukan di
+    p02 fs= 12.0 B=False | lbukota Negara yang mempunyai tugas untuk menghimpun,
+    p02 fs= 12.0 B=False | menyimpan, melestarikan dan mendayagunakan semua karya cetak
+    p02 fs= 12.0 B=False | dan karya rekam yang dihasilkan di wilayah Negara Republik
+    p02 fs= 12.0 B=False | Indonesia.
+    p02 fs= 12.0 B=False | 4. Perpustakaan Daerah adalah perpustakaan yang berkedudukan di
+    p02 fs= 12.0 B=False | ibukota Propinsi yang diberikan tugas untuk menghimpun,
+    p02 fs= 12.0 B=False | menyimpan, melestarikan dan mendayagunakan semua karya cetak
+    p02 fs= 12.0 B=False | dan karya rekam yang dihasilkan di Daerah.
+    p02 fs= 12.0 B=False | 5. Penerbit adalah setiap orang, persekutuan, badan hukum, baik
+    p02 fs= 12.0 B=False | milik Negara maupun swasta yang menerbitkan karya cetak.
+    p02 fs= 12.0 B=False | 6. Pengusaha rekaman adalah setiap orang, persekutuan, badan
+    p02 fs= 12.0 B=False | hukum, baik milik Negara maupun swasta yang menghasilkan karya
+    p02 fs= 12.0 B=False | rekam.
+    p02 fs= 12.0 B=False | 7. Koleksi adalah kumpulan bahan pustaka, baik tercetak maupun
+    p02 fs= 12.0 B=False | terekam yang disimpan dan dikelola perpustakaan.
+    p02 fs= 12.0 B=False | 8. Bibliografi adalah daftar bahan pustaka, baik tercetak maupun
+    p02 fs= 12.0 B=False | terekam yang disusun menurut sistem tertentu.
+    p02 fs= 12.0 B=False | Pasal 2
+    p02 fs= 12.0 B=False | Untuk kepentingan pendidikan, pengembangan ilmu pengetahuan dan
+    p02 fs= 12.0 B=False | teknologi, penelitian, dan penyebaran informasi serta pelestarian hasil
+    p02 fs= 12.0 B=False | budaya bangsa, setiap:
+    p02 fs= 12.0 B=False | 1. penerbit;
+    p03 fs= 10.0 B=False | PRESIDEN
+    p03 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p03 fs= 10.0 B=False | - 3 -
+    p03 fs= 12.0 B=False | 2. pengusaha rekaman;
+    p03 fs= 12.0 B=False | 3. warga negara Indonesia yang hasil karyanya diterbitkan/direkam di
+    p03 fs= 12.0 B=False | luar negeri;
+    p03 fs= 12.0 B=False | 4. orang atau badan usaha yang memasukkan karya cetak dan/atau
+    p03 fs= 12.0 B=False | karya rekam mengenai Indonesia;
+    p03 fs= 12.0 B=False | wajib menyerahkan hasil karya cetak atau karya rekamnya
+    p03 fs= 12.0 B=False | kepada Perpustakaan Nasional dan/atau Perpustakaan
+    p03 fs= 12.0 B=False | Daerah, atau badan sebagaimana diatur dalam Peraturan
+    p03 fs= 12.0 B=False | Pemerintah ini.
+    p03 fs= 12.0 B=False | BAB II
+    p03 fs= 12.0 B=False | PELAKSANAAN SERAH-SIMPAN KARYA CETAK
+    p03 fs= 12.0 B=False | Pasal 3
+    p03 fs= 12.0 B=False | (1)
+    p03 fs= 12.0 B=False | Setiap penerbit yang berada di wilayah Negara Republik
+    p03 fs= 12.0 B=False | Indonesia yang menghasilkan karya cetak, wajib menyerahkan
+    p03 fs= 12.0 B=False | karya cetaknya sebanyak 2 (dua) buah setiap judulnya kepada
+    p03 fs= 12.0 B=False | Perpustakaan Nasional dan sebuah kepada Perpustakaan Daerah
+    p03 fs= 12.0 B=False | yang bersangkutan.
+    p03 fs= 12.0 B=False | (2)
+    p03 fs= 12.0 B=False | Setiap warga Negara Indonesia yang hasil karyanya diterbitkan di
+    p03 fs= 12.0 B=False | luar negeri, wajib menyerahkan 2 (dua) buah setiap judul kepada
+    p03 fs= 12.0 B=False | Perpustakaan Nasional.
+    p03 fs= 12.0 B=False | (3)
+    p03 fs= 12.0 B=False | Penyerahan hasil karya cetak sebagaimana dimaksud dalam ayat
+    p03 fs= 12.0 B=False | (1) dan ayat (2) selambat-lambatnya 90 (sembilan puluh) hari
+    p03 fs= 12.0 B=False | setelah selesai diterbitkan.
+    p03 fs= 12.0 B=False | Pasal 4
+    p03 fs= 12.0 B=False | (1)
+    p03 fs= 12.0 B=False | Setiap orang atau badan yang memasukkan karya cetak mengenai
+    p03 fs= 12.0 B=False | Indonesia
+    p03 fs= 12.0 B=False | ke
+    p03 fs= 12.0 B=False | dalam
+    p03 fs= 12.0 B=False | wilayah
+    p03 fs= 12.0 B=False | Indonesia
+    p03 fs= 12.0 B=False | dengan
+    p03 fs= 12.0 B=False | maksud
+    p04 fs= 10.0 B=False | PRESIDEN
+    p04 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p04 fs= 10.0 B=False | - 4 -
+    p04 fs= 12.0 B=False | diperdagangkan yang jumlahnya:
+    p04 fs= 12.0 B=False | a. lebih dari 10 (sepuluh) buah setiap judulnya; atau
+    p04 fs= 12.0 B=False | b. kurang dari 10 (sepuluh) buah setiap judul, tetapi dalam
+    p04 fs= 12.0 B=False | jangka waktu dua tahun memasukkan lagi karya yang sama
+    p04 fs= 12.0 B=False | sehingga jumlahnya melebihi 10 (sepuluh) buah; wajib
+    p04 fs= 12.0 B=False | menyerahkan sebuah setiap judulnya kepada Perpustakaan
+    p04 fs= 12.0 B=False | Nasional.
+    p04 fs= 12.0 B=False | (2)
+    p04 fs= 12.0 B=False | Penyerahan karya cetak sebagaimana dimaksud dalam ayat (1)
+    p04 fs= 12.0 B=False | selambat-lambatnya 30 (tiga puluh) hari sejak dikeluarkan dari
+    p04 fs= 12.0 B=False | pabean.
+    p04 fs= 12.0 B=False | Pasal 5
+    p04 fs= 12.0 B=False | (1)
+    p04 fs= 12.0 B=False | Jenis karya cetak yang wajib diserahkan kepada Perpustakaan
+    p04 fs= 12.0 B=False | Nasional dan/atau Perpustakaan Daerah terdiri dari :
+    p04 fs= 12.0 B=False | a. buku fiksi;
+    p04 fs= 12.0 B=False | b. buku non fiksi;
+    p04 fs= 12.0 B=False | c. buku rujukan;
+    p04 fs= 12.0 B=False | d. karya artistik;
+    p04 fs= 12.0 B=False | e. karya ilmiah yang dipublikasikan;
+    p04 fs= 12.0 B=False | f. majalah;
+    p04 fs= 12.0 B=False | g. surat kabar;
+    p04 fs= 12.0 B=False | h. peta;
+    p04 fs= 12.0 B=False | i. brosur;
+    p04 fs= 12.0 B=False | j. karya cetak lain yang ditetapkan oleh Kepala Perpustakaan
+    p04 fs= 12.0 B=False | Nasional.
+    p04 fs= 12.0 B=False | (2)
+    p04 fs= 12.0 B=False | Selain jenis karya cetak sebagaimana dimaksud dalam ayat (1),
+    p04 fs= 12.0 B=False | yang termasuk wajib diserahkan adalah edisi cetakan kedua,
+    p05 fs= 10.0 B=False | PRESIDEN
+    p05 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p05 fs= 10.0 B=False | - 5 -
+    p05 fs= 12.0 B=False | ketiga dan seterusnya, yang mengalami perubahan isi dan/atau
+    p05 fs= 12.0 B=False | bentuk.
+    p05 fs= 12.0 B=False | Pasal 6
+    p05 fs= 12.0 B=False | (1)
+    p05 fs= 12.0 B=False | Karya cetak yang diserahkan kepada Perpustakaan Nasional
+    p05 fs= 12.0 B=False | dan/atau Perpustakaan Daerah harus memenuhi persyaratan
+    p05 fs= 12.0 B=False | kualitas atau sama dengan yang diedarkan.
+    p05 fs= 12.0 B=False | (2)
+    p05 fs= 12.0 B=False | Karya cetak yang diserahkan tidak dalam bentuk fotokopi.
+    p05 fs= 12.0 B=False | Pasal 7
+    p05 fs= 12.0 B=False | (1)
+    p05 fs= 12.0 B=False | Penyerahan karya cetak dapat dilakukan secara langsung atau
+    p05 fs= 12.0 B=False | dikirimkan melalui Pos tercatat kepada Perpustakaan Nasional
+    p05 fs= 12.0 B=False | dan/atau Perpustakaan Daerah.
+    p05 fs= 12.0 B=False | (2)
+    p05 fs= 12.0 B=False | Pengiriman melalui Pos sebagaimana dimaksud dalam ayat (1)
+    p05 fs= 12.0 B=False | harus dengan cara yang baik dan aman sesuai ketentuan
+    p05 fs= 12.0 B=False | pengiriman karya cetak pada umumnya.
+    p05 fs= 12.0 B=False | (3)
+    p05 fs= 12.0 B=False | Pengiriman dilakukan selambat-lambatnya dalam waktu yang
+    p05 fs= 12.0 B=False | ditentukan dalam Peraturan Pemerintah ini dengan dibuktikan
+    p05 fs= 12.0 B=False | tanggal pengiriman karya cetak tersebut.
+    p05 fs= 12.0 B=False | (4)
+    p05 fs= 12.0 B=False | Karya cetak yang telah diterima, selanjutnya dicatat oleh
+    p05 fs= 12.0 B=False | Perpustakaan
+    p05 fs= 12.0 B=False | Nasional
+    p05 fs= 12.0 B=False | atau
+    p05 fs= 12.0 B=False | Perpustakaan
+    p05 fs= 12.0 B=False | Daerah
+    p05 fs= 12.0 B=False | yang
+    p05 fs= 12.0 B=False | bersangkutan dan kepada pengirim diberikan tanda bukti
+    p05 fs= 12.0 B=False | penerimaan.
+    p06 fs= 10.0 B=False | PRESIDEN
+    p06 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p06 fs= 10.0 B=False | - 6 -
+    p06 fs= 12.0 B=False | BAB III
+    p06 fs= 12.0 B=False | PELAKSANAAN SERAH SIMPAN KARYA REKAM
+    p06 fs= 12.0 B=False | Pasal 8
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Setiap pengusaha rekaman yang berada di wilayah Negara
+    p06 fs= 12.0 B=False | Republik Indonesia yang menghasilkan karya rekam dan setiap
+    p06 fs= 12.0 B=False | Warga Negara Indonesia yang hasil karyanya direkam di luar
+    p06 fs= 12.0 B=False | negeri, wajib menyerahkan sebuah karya rekamnya kepada
+    p06 fs= 12.0 B=False | Perpustakaan Nasional dan sebuah kepada Perpustakaan Daerah
+    p06 fs= 12.0 B=False | yang bersangkutan.
+    p06 fs= 12.0 B=False | (2)
+    p06 fs= 12.0 B=False | Penyerahan hasil karya rekam tersebut selambat-lambatnya 90
+    p06 fs= 12.0 B=False | (sembilan puluh) hari sejak disebarluaskan atau dipasarkan.
+    p06 fs= 12.0 B=False | Pasal 9
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Setiap orang yang memasukkan karya rekam mengenai Indonesia
+    p06 fs= 12.0 B=False | yang jumlahnya:
+    p06 fs= 12.0 B=False | a. lebih dari 10 (sepuluh) buah setiap judulnya, atau
+    p06 fs= 12.0 B=False | b. kurang dari 10 (sepuluh) buah setiap judul, tetapi dalam
+    p06 fs= 12.0 B=False | jangka waktu dua tahun memasukkan lagi karya rekam yang
+    p06 fs= 12.0 B=False | sama sehingga jumlahnya melebihi 10 (sepuluh) buah; wajib
+    p06 fs= 12.0 B=False | menyerahkan sebuah setiap judulnya kepada Perpustakaan
+    p06 fs= 12.0 B=False | Nasional.
+    p06 fs= 12.0 B=False | (2)
+    p06 fs= 12.0 B=False | Penyerahan karya rekam sebagaimana dimaksud dalam ayat (l)
+    p06 fs= 12.0 B=False | selambat-lambatnya 30 (tiga puluh) hari sejak dikeluarkan dari
+    p06 fs= 12.0 B=False | pabean.
+
+Pasal 2 (BAB I)
+  Ayats: 0
+  Lines after pasal heading (58 to 426):
+    p02 fs= 12.0 B=False | Pasal 2
+    p02 fs= 12.0 B=False | Untuk kepentingan pendidikan, pengembangan ilmu pengetahuan dan
+    p02 fs= 12.0 B=False | teknologi, penelitian, dan penyebaran informasi serta pelestarian hasil
+    p02 fs= 12.0 B=False | budaya bangsa, setiap:
+    p02 fs= 12.0 B=False | 1. penerbit;
+    p03 fs= 10.0 B=False | PRESIDEN
+    p03 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p03 fs= 10.0 B=False | - 3 -
+    p03 fs= 12.0 B=False | 2. pengusaha rekaman;
+    p03 fs= 12.0 B=False | 3. warga negara Indonesia yang hasil karyanya diterbitkan/direkam di
+    p03 fs= 12.0 B=False | luar negeri;
+    p03 fs= 12.0 B=False | 4. orang atau badan usaha yang memasukkan karya cetak dan/atau
+    p03 fs= 12.0 B=False | karya rekam mengenai Indonesia;
+    p03 fs= 12.0 B=False | wajib menyerahkan hasil karya cetak atau karya rekamnya
+    p03 fs= 12.0 B=False | kepada Perpustakaan Nasional dan/atau Perpustakaan
+    p03 fs= 12.0 B=False | Daerah, atau badan sebagaimana diatur dalam Peraturan
+    p03 fs= 12.0 B=False | Pemerintah ini.
+    p03 fs= 12.0 B=False | BAB II
+    p03 fs= 12.0 B=False | PELAKSANAAN SERAH-SIMPAN KARYA CETAK
+    p03 fs= 12.0 B=False | Pasal 3
+    p03 fs= 12.0 B=False | (1)
+    p03 fs= 12.0 B=False | Setiap penerbit yang berada di wilayah Negara Republik
+    p03 fs= 12.0 B=False | Indonesia yang menghasilkan karya cetak, wajib menyerahkan
+    p03 fs= 12.0 B=False | karya cetaknya sebanyak 2 (dua) buah setiap judulnya kepada
+    p03 fs= 12.0 B=False | Perpustakaan Nasional dan sebuah kepada Perpustakaan Daerah
+    p03 fs= 12.0 B=False | yang bersangkutan.
+    p03 fs= 12.0 B=False | (2)
+    p03 fs= 12.0 B=False | Setiap warga Negara Indonesia yang hasil karyanya diterbitkan di
+    p03 fs= 12.0 B=False | luar negeri, wajib menyerahkan 2 (dua) buah setiap judul kepada
+    p03 fs= 12.0 B=False | Perpustakaan Nasional.
+    p03 fs= 12.0 B=False | (3)
+    p03 fs= 12.0 B=False | Penyerahan hasil karya cetak sebagaimana dimaksud dalam ayat
+    p03 fs= 12.0 B=False | (1) dan ayat (2) selambat-lambatnya 90 (sembilan puluh) hari
+    p03 fs= 12.0 B=False | setelah selesai diterbitkan.
+    p03 fs= 12.0 B=False | Pasal 4
+    p03 fs= 12.0 B=False | (1)
+    p03 fs= 12.0 B=False | Setiap orang atau badan yang memasukkan karya cetak mengenai
+    p03 fs= 12.0 B=False | Indonesia
+    p03 fs= 12.0 B=False | ke
+    p03 fs= 12.0 B=False | dalam
+    p03 fs= 12.0 B=False | wilayah
+    p03 fs= 12.0 B=False | Indonesia
+    p03 fs= 12.0 B=False | dengan
+    p03 fs= 12.0 B=False | maksud
+    p04 fs= 10.0 B=False | PRESIDEN
+    p04 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p04 fs= 10.0 B=False | - 4 -
+    p04 fs= 12.0 B=False | diperdagangkan yang jumlahnya:
+    p04 fs= 12.0 B=False | a. lebih dari 10 (sepuluh) buah setiap judulnya; atau
+    p04 fs= 12.0 B=False | b. kurang dari 10 (sepuluh) buah setiap judul, tetapi dalam
+    p04 fs= 12.0 B=False | jangka waktu dua tahun memasukkan lagi karya yang sama
+    p04 fs= 12.0 B=False | sehingga jumlahnya melebihi 10 (sepuluh) buah; wajib
+    p04 fs= 12.0 B=False | menyerahkan sebuah setiap judulnya kepada Perpustakaan
+    p04 fs= 12.0 B=False | Nasional.
+    p04 fs= 12.0 B=False | (2)
+    p04 fs= 12.0 B=False | Penyerahan karya cetak sebagaimana dimaksud dalam ayat (1)
+    p04 fs= 12.0 B=False | selambat-lambatnya 30 (tiga puluh) hari sejak dikeluarkan dari
+    p04 fs= 12.0 B=False | pabean.
+    p04 fs= 12.0 B=False | Pasal 5
+    p04 fs= 12.0 B=False | (1)
+    p04 fs= 12.0 B=False | Jenis karya cetak yang wajib diserahkan kepada Perpustakaan
+    p04 fs= 12.0 B=False | Nasional dan/atau Perpustakaan Daerah terdiri dari :
+    p04 fs= 12.0 B=False | a. buku fiksi;
+    p04 fs= 12.0 B=False | b. buku non fiksi;
+    p04 fs= 12.0 B=False | c. buku rujukan;
+    p04 fs= 12.0 B=False | d. karya artistik;
+    p04 fs= 12.0 B=False | e. karya ilmiah yang dipublikasikan;
+    p04 fs= 12.0 B=False | f. majalah;
+    p04 fs= 12.0 B=False | g. surat kabar;
+    p04 fs= 12.0 B=False | h. peta;
+    p04 fs= 12.0 B=False | i. brosur;
+    p04 fs= 12.0 B=False | j. karya cetak lain yang ditetapkan oleh Kepala Perpustakaan
+    p04 fs= 12.0 B=False | Nasional.
+    p04 fs= 12.0 B=False | (2)
+    p04 fs= 12.0 B=False | Selain jenis karya cetak sebagaimana dimaksud dalam ayat (1),
+    p04 fs= 12.0 B=False | yang termasuk wajib diserahkan adalah edisi cetakan kedua,
+    p05 fs= 10.0 B=False | PRESIDEN
+    p05 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p05 fs= 10.0 B=False | - 5 -
+    p05 fs= 12.0 B=False | ketiga dan seterusnya, yang mengalami perubahan isi dan/atau
+    p05 fs= 12.0 B=False | bentuk.
+    p05 fs= 12.0 B=False | Pasal 6
+    p05 fs= 12.0 B=False | (1)
+    p05 fs= 12.0 B=False | Karya cetak yang diserahkan kepada Perpustakaan Nasional
+    p05 fs= 12.0 B=False | dan/atau Perpustakaan Daerah harus memenuhi persyaratan
+    p05 fs= 12.0 B=False | kualitas atau sama dengan yang diedarkan.
+    p05 fs= 12.0 B=False | (2)
+    p05 fs= 12.0 B=False | Karya cetak yang diserahkan tidak dalam bentuk fotokopi.
+    p05 fs= 12.0 B=False | Pasal 7
+    p05 fs= 12.0 B=False | (1)
+    p05 fs= 12.0 B=False | Penyerahan karya cetak dapat dilakukan secara langsung atau
+    p05 fs= 12.0 B=False | dikirimkan melalui Pos tercatat kepada Perpustakaan Nasional
+    p05 fs= 12.0 B=False | dan/atau Perpustakaan Daerah.
+    p05 fs= 12.0 B=False | (2)
+    p05 fs= 12.0 B=False | Pengiriman melalui Pos sebagaimana dimaksud dalam ayat (1)
+    p05 fs= 12.0 B=False | harus dengan cara yang baik dan aman sesuai ketentuan
+    p05 fs= 12.0 B=False | pengiriman karya cetak pada umumnya.
+    p05 fs= 12.0 B=False | (3)
+    p05 fs= 12.0 B=False | Pengiriman dilakukan selambat-lambatnya dalam waktu yang
+    p05 fs= 12.0 B=False | ditentukan dalam Peraturan Pemerintah ini dengan dibuktikan
+    p05 fs= 12.0 B=False | tanggal pengiriman karya cetak tersebut.
+    p05 fs= 12.0 B=False | (4)
+    p05 fs= 12.0 B=False | Karya cetak yang telah diterima, selanjutnya dicatat oleh
+    p05 fs= 12.0 B=False | Perpustakaan
+    p05 fs= 12.0 B=False | Nasional
+    p05 fs= 12.0 B=False | atau
+    p05 fs= 12.0 B=False | Perpustakaan
+    p05 fs= 12.0 B=False | Daerah
+    p05 fs= 12.0 B=False | yang
+    p05 fs= 12.0 B=False | bersangkutan dan kepada pengirim diberikan tanda bukti
+    p05 fs= 12.0 B=False | penerimaan.
+    p06 fs= 10.0 B=False | PRESIDEN
+    p06 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p06 fs= 10.0 B=False | - 6 -
+    p06 fs= 12.0 B=False | BAB III
+    p06 fs= 12.0 B=False | PELAKSANAAN SERAH SIMPAN KARYA REKAM
+    p06 fs= 12.0 B=False | Pasal 8
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Setiap pengusaha rekaman yang berada di wilayah Negara
+    p06 fs= 12.0 B=False | Republik Indonesia yang menghasilkan karya rekam dan setiap
+    p06 fs= 12.0 B=False | Warga Negara Indonesia yang hasil karyanya direkam di luar
+    p06 fs= 12.0 B=False | negeri, wajib menyerahkan sebuah karya rekamnya kepada
+    p06 fs= 12.0 B=False | Perpustakaan Nasional dan sebuah kepada Perpustakaan Daerah
+    p06 fs= 12.0 B=False | yang bersangkutan.
+    p06 fs= 12.0 B=False | (2)
+    p06 fs= 12.0 B=False | Penyerahan hasil karya rekam tersebut selambat-lambatnya 90
+    p06 fs= 12.0 B=False | (sembilan puluh) hari sejak disebarluaskan atau dipasarkan.
+    p06 fs= 12.0 B=False | Pasal 9
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Setiap orang yang memasukkan karya rekam mengenai Indonesia
+    p06 fs= 12.0 B=False | yang jumlahnya:
+    p06 fs= 12.0 B=False | a. lebih dari 10 (sepuluh) buah setiap judulnya, atau
+    p06 fs= 12.0 B=False | b. kurang dari 10 (sepuluh) buah setiap judul, tetapi dalam
+    p06 fs= 12.0 B=False | jangka waktu dua tahun memasukkan lagi karya rekam yang
+    p06 fs= 12.0 B=False | sama sehingga jumlahnya melebihi 10 (sepuluh) buah; wajib
+    p06 fs= 12.0 B=False | menyerahkan sebuah setiap judulnya kepada Perpustakaan
+    p06 fs= 12.0 B=False | Nasional.
+    p06 fs= 12.0 B=False | (2)
+    p06 fs= 12.0 B=False | Penyerahan karya rekam sebagaimana dimaksud dalam ayat (l)
+    p06 fs= 12.0 B=False | selambat-lambatnya 30 (tiga puluh) hari sejak dikeluarkan dari
+    p06 fs= 12.0 B=False | pabean.
+    p06 fs= 12.0 B=False | Pasal 10
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Jenis karya rekam yang wajib diserahkan kepada Perpustakaan
+    p06 fs= 12.0 B=False | Nasional dan/atau Perpustakaan Daerah terdiri atas karya
+    p07 fs= 10.0 B=False | PRESIDEN
+    p07 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p07 fs= 10.0 B=False | - 7 -
+    p07 fs= 12.0 B=False | intelektual dan/ atau artistik yang direkam dan digandakan
+    p07 fs= 12.0 B=False | dalam bentuk pita atau piringan, seperti film, kaset audio, kaset
+    p07 fs= 12.0 B=False | video, video disk, piringan hitam, disket dan bentuk lain sesuai
+    p07 fs= 12.0 B=False | dengan perkembangan teknologi.
+    p07 fs= 12.0 B=False | (2)
+    p07 fs= 12.0 B=False | Penyerahan, penyimpanan dan pengelolaan karya rekam berupa
+    p07 fs= 12.0 B=False | film ceritera atau dokumenter diatur dengan Peraturan
+    p07 fs= 12.0 B=False | Pemerintah tersendiri.
+    p07 fs= 12.0 B=False | Pasal 11
+    p07 fs= 12.0 B=False | Karya rekam yang diserahkan kepada Perpustakaan Nasional dan/atau
+    p07 fs= 12.0 B=False | Perpustakaan Daerah harus memenuhi persyaratan kualitas.
+    p07 fs= 12.0 B=False | Pasal 12
+    p07 fs= 12.0 B=False | (1)
+    p07 fs= 12.0 B=False | Karya rekam yang diserahkan kepada Perpustakaan Nasional
+    p07 fs= 12.0 B=False | dan/atau Perpustakaan Daerah, dapat dilakukan secara langsung
+    p07 fs= 12.0 B=False | atau dapat pula secara tidak langsung melalui Pos tercatat.
+    p07 fs= 12.0 B=False | (2)
+    p07 fs= 12.0 B=False | Pengiriman melalui Pos, harus dilakukan dengan cara yang baik
+    p07 fs= 12.0 B=False | dan aman sesuai dengan ketentuan pengiriman Pos.
+    p07 fs= 12.0 B=False | (3)
+    p07 fs= 12.0 B=False | Pengiriman karya rekam dilakukan selambat-lambatnya dalam
+    p07 fs= 12.0 B=False | waktu yang telah ditentukan dalam Peraturan Pemerintah ini,
+    p07 fs= 12.0 B=False | dengan dibuktikan tanggal pengiriman karya rekam tersebut.
+    p07 fs= 12.0 B=False | (4)
+    p07 fs= 12.0 B=False | Karya rekam yang telah diterima, dicatat oleh Perpustakaan
+    p07 fs= 12.0 B=False | Nasional atau Perpustakaan Daerah, dan pengirim diberikan
+    p07 fs= 12.0 B=False | tanda bukti penerimaan.
+    p08 fs= 10.0 B=False | PRESIDEN
+    p08 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p08 fs= 10.0 B=False | - 8 -
+    p08 fs= 12.0 B=False | BAB IV
+    p08 fs= 12.0 B=False | PENYERAHAN DAFTAR JUDUL KARYA CETAK DAN KARYA REKAM
+    p08 fs= 12.0 B=False | Pasal 13
+    p08 fs= 12.0 B=False | (1)
+    p08 fs= 12.0 B=False | Setiap penerbit di wilayah Negara Republik Indonesia dan setiap
+    p08 fs= 12.0 B=False | orang yang bertanggung jawab memasukkan karya cetak
+    p08 fs= 12.0 B=False | mengenai Indonesia ke dalam wilayah Negara Republik Indonesia,
+    p08 fs= 12.0 B=False | wajib menyerahkan daftar judul karya cetaknya kepada
+    p08 fs= 12.0 B=False | Perpustakaan Nasional atau Perpustakaan Daerah.
+    p08 fs= 12.0 B=False | (2)
+    p08 fs= 12.0 B=False | Daftar judul sebagaimana dimaksud dalam ayat (1) memuat
+    p08 fs= 12.0 B=False | sekurang-kurangnya
+    p08 fs= 12.0 B=False | keterangan
+    p08 fs= 12.0 B=False | judul
+    p08 fs= 12.0 B=False | karya
+    p08 fs= 12.0 B=False | cetak,
+    p08 fs= 12.0 B=False | nama
+    p08 fs= 12.0 B=False | pengarang/penyusun/penerjemah,
+    p08 fs= 12.0 B=False | nomor
+    p08 fs= 12.0 B=False | cetakan,
+    p08 fs= 12.0 B=False | tempat
+    p08 fs= 12.0 B=False | terbit, nama penerbit, tahun terbit, nomor jilid, jumlah
+    p08 fs= 12.0 B=False | halaman, jenis edisi.
+    p08 fs= 12.0 B=False | (3)
+    p08 fs= 12.0 B=False | Daftar judul karya cetak sebagaimana dimaksud dalam ayat (1)
+    p08 fs= 12.0 B=False | disampaikan kepada Perpustakaan Nasional dan Perpustakaan
+    p08 fs= 12.0 B=False | Daerah
+    p08 fs= 12.0 B=False | yang
+    p08 fs= 12.0 B=False | bersangkutan
+    p08 fs= 12.0 B=False | secara
+    p08 fs= 12.0 B=False | berkala
+    p08 fs= 12.0 B=False | dan
+    p08 fs= 12.0 B=False | sekurang-kurangnya 6 (enam) bulan tahun takwim sekali.
+    p08 fs= 12.0 B=False | (4)
+    p08 fs= 12.0 B=False | Daftar judul karya cetak ditandatangani oleh penanggung jawab
+    p08 fs= 12.0 B=False | penerbit atau warga negara Indonesia yang karyanya diterbitkan
+    p08 fs= 12.0 B=False | di luar negeri atau orang yang bertanggungjawab memasukkan
+    p08 fs= 12.0 B=False | karya cetak mengenai Indonesia ke dalam wilayah Negara
+    p08 fs= 12.0 B=False | Republik Indonesia.
+    p08 fs= 12.0 B=False | Pasal 14
+    p08 fs= 12.0 B=False | (1)
+    p08 fs= 12.0 B=False | Setiap pengusaha rekaman di wilayah Negara Republik Indonesia
+    p08 fs= 12.0 B=False | dan orang yang bertanggung jawab memasukkan karya rekam
+    p08 fs= 12.0 B=False | mengenai Indonesia ke dalam wilayah Negara Republik Indonesia
+    p08 fs= 12.0 B=False | wajib menyerahkan daftar judul karya rekamnya kepada
+    p08 fs= 12.0 B=False | Perpustakaan Nasional dan Perpustakaan Daerah.
+    p09 fs= 10.0 B=False | PRESIDEN
+    p09 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p09 fs= 10.0 B=False | - 9 -
+    p09 fs= 12.0 B=False | (2)
+    p09 fs= 12.0 B=False | Daftar judul karya rekam sebagaimana dimaksud dalam ayat (l)
+    p09 fs= 12.0 B=False | memuat
+    p09 fs= 12.0 B=False | sekurang-kurangnya
+    p09 fs= 12.0 B=False | nama
+    p09 fs= 12.0 B=False | pencipta/komposer/pengarang/sutradara, judul karya rekam,
+    p09 fs= 12.0 B=False | tempat perekaman, nama perusahaan rekaman, dan tahun
+    p09 fs= 12.0 B=False | perekaman.
+    p09 fs= 12.0 B=False | (3)
+    p09 fs= 12.0 B=False | Daftar judul karya rekam sebagaimana dimaksud dalam ayat (1)
+    p09 fs= 12.0 B=False | disampaikan kepada Perpustakaan Nasional dan Perpustakaan
+    p09 fs= 12.0 B=False | Daerah secara berkala dan sekurang-kurangnya 6 (enam) bulan
+    p09 fs= 12.0 B=False | tahun takwim sekali.
+    p09 fs= 12.0 B=False | (4)
+    p09 fs= 12.0 B=False | Daftar judul karya rekam sebagaimana dimaksud dalam ayat (1)
+    p09 fs= 12.0 B=False | ditandatangani oleh penanggung jawab rekaman, atau warga
+    p09 fs= 12.0 B=False | negara Indonesia yang karyanya direkam di luar negeri atau orang
+    p09 fs= 12.0 B=False | yang bertanggung jawab memasukkan karya rekam mengenai
+    p09 fs= 12.0 B=False | Indonesia ke dalam wilayah Negara Republik Indonesia.
+    p09 fs= 12.0 B=False | BAB V
+    p09 fs= 12.0 B=False | PENGELOLAAN KARYA CETAK, KARYA REKAM
+    p09 fs= 12.0 B=False | DAN DAFTAR JUDUL KARYA CETAK DAN KARYA REKAM
+    p09 fs= 12.0 B=False | Pasal 15
+    p09 fs= 12.0 B=False | (1)
+    p09 fs= 12.0 B=False | Pengelolaan karya cetak dan karya rekam sebagaimana dimaksud
+    p09 fs= 12.0 B=False | dalam Peraturan Pemerintah ini dilakukan oleh:
+    p09 fs= 12.0 B=False | a. Perpustakaan Nasional;
+    p09 fs= 12.0 B=False | b. Perpustakaan Daerah.
+    p09 fs= 12.0 B=False | (2)
+    p09 fs= 12.0 B=False | Kepala
+    p09 fs= 12.0 B=False | Perpustakaan
+    p09 fs= 12.0 B=False | Nasional
+    p09 fs= 12.0 B=False | bertanggung
+    p09 fs= 12.0 B=False | jawab
+    p09 fs= 12.0 B=False | atas
+    p09 fs= 12.0 B=False | pengelolaan
+    p09 fs= 12.0 B=False | karya
+    p09 fs= 12.0 B=False | cetak
+    p09 fs= 12.0 B=False | dan
+    p09 fs= 12.0 B=False | karya
+    p09 fs= 12.0 B=False | rekam
+    p09 fs= 12.0 B=False | yang
+    p09 fs= 12.0 B=False | diserah-simpankan.
+    p09 fs= 12.0 B=False | (3)
+    p09 fs= 12.0 B=False | Pengelolaan sebagaimana dimaksud dalam ayat (2) meliputi
+    p09 fs= 12.0 B=False | penerimaan,
+    p09 fs= 12.0 B=False | penyimpanan,
+    p09 fs= 12.0 B=False | pendayagunaan,
+    p09 fs= 12.0 B=False | pelestarian,
+    p09 fs= 12.0 B=False | pengawasan atas pelaksanaan serah simpan karya cetak dan
+    p09 fs= 12.0 B=False | karya rekam.
+    p10 fs= 10.0 B=False | PRESIDEN
+    p10 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p10 fs= 10.0 B=False | - 10 -
+    p10 fs= 12.0 B=False | Pasal 16
+    p10 fs= 12.0 B=False | (1)
+    p10 fs= 12.0 B=False | Perpustakaan
+    p10 fs= 12.0 B=False | Nasional
+    p10 fs= 12.0 B=False | dan
+    p10 fs= 12.0 B=False | Perpustakaan
+    p10 fs= 12.0 B=False | Daerah
+    p10 fs= 12.0 B=False | wajib
+    p10 fs= 12.0 B=False | memberikan tanda bukti penerimaan karya cetak atau karya
+    p10 fs= 12.0 B=False | rekam yang memenuhi persyaratan sebagaimana dimaksud dalam
+    p10 fs= 12.0 B=False | Pasal 3, Pasal 8 atau Pasal 11.
+    p10 fs= 12.0 B=False | (2)
+    p10 fs= 12.0 B=False | Tanda bukti penerimaan sebagaimana dimaksud dalam ayat (1)
+    p10 fs= 12.0 B=False | khusus
+    p10 fs= 12.0 B=False | untuk
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | cetak
+    p10 fs= 12.0 B=False | memuat
+    p10 fs= 12.0 B=False | keterangan
+    p10 fs= 12.0 B=False | sekurang-kurangnya
+    p10 fs= 12.0 B=False | judul
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | cetak,
+    p10 fs= 12.0 B=False | nama
+    p10 fs= 12.0 B=False | pengarang/penyusun/penerjemah,
+    p10 fs= 12.0 B=False | nomor
+    p10 fs= 12.0 B=False | cetakan,
+    p10 fs= 12.0 B=False | tempat
+    p10 fs= 12.0 B=False | terbit, nama penerbit, tahun terbit, nomor jilid, jumlah, dan
+    p10 fs= 12.0 B=False | jenis edisi.
+    p10 fs= 12.0 B=False | (3)
+    p10 fs= 12.0 B=False | Tanda bukti penerimaan sebagaimana dimaksud dalam ayat (1)
+    p10 fs= 12.0 B=False | khusus
+    p10 fs= 12.0 B=False | untuk
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | rekam
+    p10 fs= 12.0 B=False | memuat
+    p10 fs= 12.0 B=False | keterangan
+    p10 fs= 12.0 B=False | sekurang-kurangnya
+    p10 fs= 12.0 B=False | nama
+    p10 fs= 12.0 B=False | pencipta/komposer/pengaransir/sutradara, judul karya rekam,
+    p10 fs= 12.0 B=False | jumlah perekaman, nama perusahaan rekaman dan tahun
+    p10 fs= 12.0 B=False | perekaman.
+    p10 fs= 12.0 B=False | Pasal 17
+    p10 fs= 12.0 B=False | (1)
+    p10 fs= 12.0 B=False | Karya cetak dan karya rekam yang diterima oleh Perpustakaan
+    p10 fs= 12.0 B=False | Nasional dan perpustakaan Daerah, dicatat, diolah, disimpan,
+    p10 fs= 12.0 B=False | dilestarikan, dan didayagunakan sesuai dengan ketentuan
+    p10 fs= 12.0 B=False | pengelolaan karya cetak dan karya rekam.
+    p10 fs= 12.0 B=False | (2)
+    p10 fs= 12.0 B=False | Karya cetak dan karya rekam yang karena sifatnya dilarang
+    p10 fs= 12.0 B=False | Pemerintah untuk diedarkan untuk umum, hanya dapat
+    p10 fs= 12.0 B=False | dimanfaatkan untuk kepentingan tertentu setelah mendapat izin
+    p10 fs= 12.0 B=False | khusus dari Kepala Perpustakaan Nasional.
+    p10 fs= 12.0 B=False | (3)
+    p10 fs= 12.0 B=False | Ketentuan
+    p10 fs= 12.0 B=False | pengelolaan
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | cetak
+    p10 fs= 12.0 B=False | dan
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | rekam
+    p10 fs= 12.0 B=False | sebagaimana dimaksud dalam ayat (1) dan ayat (2) diatur lebih
+    p11 fs= 10.0 B=False | PRESIDEN
+    p11 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p11 fs= 10.0 B=False | - 11 -
+    p11 fs= 12.0 B=False | lanjut oleh Kepala Perpustakaan Nasional.
+    p11 fs= 12.0 B=False | Pasal 18
+    p11 fs= 12.0 B=False | Daftar judul karya cetak dan karya rekam yang diserahkan kepada
+    p11 fs= 12.0 B=False | Perpustakaan Nasional, Perpustakaan Daerah, disusun, disimpan, dan
+    p11 fs= 12.0 B=False | digunakan sebagai alat informasi serta sebagai alat pemantau
+    p11 fs= 12.0 B=False | pelaksanaan serah-simpan karya cetak dan karya rekam.
+    p11 fs= 12.0 B=False | Pasal 19
+    p11 fs= 12.0 B=False | (1)
+    p11 fs= 12.0 B=False | Karya cetak dan karya rekam yang telah diserahkan, dimuat
+    p11 fs= 12.0 B=False | dalam Bibliografi Nasional Indonesia yang diterbitkan oleh
+    p11 fs= 12.0 B=False | Perpustakaan Nasional, dan Bibliografi Daerah, yang diterbitkan
+    p11 fs= 12.0 B=False | oleh Perpustakaan Daerah.
+    p11 fs= 12.0 B=False | (2)
+    p11 fs= 12.0 B=False | Bibliografi Nasional Indonesia dan Bibliografi Daerah diterbitkan
+    p11 fs= 12.0 B=False | secara berkala sekurang-kurangnya sekali dalam tiga bulan dan
+    p11 fs= 12.0 B=False | kumulasi tahunan.
+    p11 fs= 12.0 B=False | (3)
+    p11 fs= 12.0 B=False | Bibliografi Nasional Indonesia, Bibliografi Daerah, dan kumulasi
+    p11 fs= 12.0 B=False | tahunan sebagaimana dimaksud dalam ayat (2) disampaikan
+    p11 fs= 12.0 B=False | kepada orang atau badan yang menyerah-simpankan karya cetak
+    p11 fs= 12.0 B=False | dan atau karya rekam,
+
+Pasal 2 (BAB II)
+  Ayats: 0
+  Lines after pasal heading (58 to 426):
+    p02 fs= 12.0 B=False | Pasal 2
+    p02 fs= 12.0 B=False | Untuk kepentingan pendidikan, pengembangan ilmu pengetahuan dan
+    p02 fs= 12.0 B=False | teknologi, penelitian, dan penyebaran informasi serta pelestarian hasil
+    p02 fs= 12.0 B=False | budaya bangsa, setiap:
+    p02 fs= 12.0 B=False | 1. penerbit;
+    p03 fs= 10.0 B=False | PRESIDEN
+    p03 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p03 fs= 10.0 B=False | - 3 -
+    p03 fs= 12.0 B=False | 2. pengusaha rekaman;
+    p03 fs= 12.0 B=False | 3. warga negara Indonesia yang hasil karyanya diterbitkan/direkam di
+    p03 fs= 12.0 B=False | luar negeri;
+    p03 fs= 12.0 B=False | 4. orang atau badan usaha yang memasukkan karya cetak dan/atau
+    p03 fs= 12.0 B=False | karya rekam mengenai Indonesia;
+    p03 fs= 12.0 B=False | wajib menyerahkan hasil karya cetak atau karya rekamnya
+    p03 fs= 12.0 B=False | kepada Perpustakaan Nasional dan/atau Perpustakaan
+    p03 fs= 12.0 B=False | Daerah, atau badan sebagaimana diatur dalam Peraturan
+    p03 fs= 12.0 B=False | Pemerintah ini.
+    p03 fs= 12.0 B=False | BAB II
+    p03 fs= 12.0 B=False | PELAKSANAAN SERAH-SIMPAN KARYA CETAK
+    p03 fs= 12.0 B=False | Pasal 3
+    p03 fs= 12.0 B=False | (1)
+    p03 fs= 12.0 B=False | Setiap penerbit yang berada di wilayah Negara Republik
+    p03 fs= 12.0 B=False | Indonesia yang menghasilkan karya cetak, wajib menyerahkan
+    p03 fs= 12.0 B=False | karya cetaknya sebanyak 2 (dua) buah setiap judulnya kepada
+    p03 fs= 12.0 B=False | Perpustakaan Nasional dan sebuah kepada Perpustakaan Daerah
+    p03 fs= 12.0 B=False | yang bersangkutan.
+    p03 fs= 12.0 B=False | (2)
+    p03 fs= 12.0 B=False | Setiap warga Negara Indonesia yang hasil karyanya diterbitkan di
+    p03 fs= 12.0 B=False | luar negeri, wajib menyerahkan 2 (dua) buah setiap judul kepada
+    p03 fs= 12.0 B=False | Perpustakaan Nasional.
+    p03 fs= 12.0 B=False | (3)
+    p03 fs= 12.0 B=False | Penyerahan hasil karya cetak sebagaimana dimaksud dalam ayat
+    p03 fs= 12.0 B=False | (1) dan ayat (2) selambat-lambatnya 90 (sembilan puluh) hari
+    p03 fs= 12.0 B=False | setelah selesai diterbitkan.
+    p03 fs= 12.0 B=False | Pasal 4
+    p03 fs= 12.0 B=False | (1)
+    p03 fs= 12.0 B=False | Setiap orang atau badan yang memasukkan karya cetak mengenai
+    p03 fs= 12.0 B=False | Indonesia
+    p03 fs= 12.0 B=False | ke
+    p03 fs= 12.0 B=False | dalam
+    p03 fs= 12.0 B=False | wilayah
+    p03 fs= 12.0 B=False | Indonesia
+    p03 fs= 12.0 B=False | dengan
+    p03 fs= 12.0 B=False | maksud
+    p04 fs= 10.0 B=False | PRESIDEN
+    p04 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p04 fs= 10.0 B=False | - 4 -
+    p04 fs= 12.0 B=False | diperdagangkan yang jumlahnya:
+    p04 fs= 12.0 B=False | a. lebih dari 10 (sepuluh) buah setiap judulnya; atau
+    p04 fs= 12.0 B=False | b. kurang dari 10 (sepuluh) buah setiap judul, tetapi dalam
+    p04 fs= 12.0 B=False | jangka waktu dua tahun memasukkan lagi karya yang sama
+    p04 fs= 12.0 B=False | sehingga jumlahnya melebihi 10 (sepuluh) buah; wajib
+    p04 fs= 12.0 B=False | menyerahkan sebuah setiap judulnya kepada Perpustakaan
+    p04 fs= 12.0 B=False | Nasional.
+    p04 fs= 12.0 B=False | (2)
+    p04 fs= 12.0 B=False | Penyerahan karya cetak sebagaimana dimaksud dalam ayat (1)
+    p04 fs= 12.0 B=False | selambat-lambatnya 30 (tiga puluh) hari sejak dikeluarkan dari
+    p04 fs= 12.0 B=False | pabean.
+    p04 fs= 12.0 B=False | Pasal 5
+    p04 fs= 12.0 B=False | (1)
+    p04 fs= 12.0 B=False | Jenis karya cetak yang wajib diserahkan kepada Perpustakaan
+    p04 fs= 12.0 B=False | Nasional dan/atau Perpustakaan Daerah terdiri dari :
+    p04 fs= 12.0 B=False | a. buku fiksi;
+    p04 fs= 12.0 B=False | b. buku non fiksi;
+    p04 fs= 12.0 B=False | c. buku rujukan;
+    p04 fs= 12.0 B=False | d. karya artistik;
+    p04 fs= 12.0 B=False | e. karya ilmiah yang dipublikasikan;
+    p04 fs= 12.0 B=False | f. majalah;
+    p04 fs= 12.0 B=False | g. surat kabar;
+    p04 fs= 12.0 B=False | h. peta;
+    p04 fs= 12.0 B=False | i. brosur;
+    p04 fs= 12.0 B=False | j. karya cetak lain yang ditetapkan oleh Kepala Perpustakaan
+    p04 fs= 12.0 B=False | Nasional.
+    p04 fs= 12.0 B=False | (2)
+    p04 fs= 12.0 B=False | Selain jenis karya cetak sebagaimana dimaksud dalam ayat (1),
+    p04 fs= 12.0 B=False | yang termasuk wajib diserahkan adalah edisi cetakan kedua,
+    p05 fs= 10.0 B=False | PRESIDEN
+    p05 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p05 fs= 10.0 B=False | - 5 -
+    p05 fs= 12.0 B=False | ketiga dan seterusnya, yang mengalami perubahan isi dan/atau
+    p05 fs= 12.0 B=False | bentuk.
+    p05 fs= 12.0 B=False | Pasal 6
+    p05 fs= 12.0 B=False | (1)
+    p05 fs= 12.0 B=False | Karya cetak yang diserahkan kepada Perpustakaan Nasional
+    p05 fs= 12.0 B=False | dan/atau Perpustakaan Daerah harus memenuhi persyaratan
+    p05 fs= 12.0 B=False | kualitas atau sama dengan yang diedarkan.
+    p05 fs= 12.0 B=False | (2)
+    p05 fs= 12.0 B=False | Karya cetak yang diserahkan tidak dalam bentuk fotokopi.
+    p05 fs= 12.0 B=False | Pasal 7
+    p05 fs= 12.0 B=False | (1)
+    p05 fs= 12.0 B=False | Penyerahan karya cetak dapat dilakukan secara langsung atau
+    p05 fs= 12.0 B=False | dikirimkan melalui Pos tercatat kepada Perpustakaan Nasional
+    p05 fs= 12.0 B=False | dan/atau Perpustakaan Daerah.
+    p05 fs= 12.0 B=False | (2)
+    p05 fs= 12.0 B=False | Pengiriman melalui Pos sebagaimana dimaksud dalam ayat (1)
+    p05 fs= 12.0 B=False | harus dengan cara yang baik dan aman sesuai ketentuan
+    p05 fs= 12.0 B=False | pengiriman karya cetak pada umumnya.
+    p05 fs= 12.0 B=False | (3)
+    p05 fs= 12.0 B=False | Pengiriman dilakukan selambat-lambatnya dalam waktu yang
+    p05 fs= 12.0 B=False | ditentukan dalam Peraturan Pemerintah ini dengan dibuktikan
+    p05 fs= 12.0 B=False | tanggal pengiriman karya cetak tersebut.
+    p05 fs= 12.0 B=False | (4)
+    p05 fs= 12.0 B=False | Karya cetak yang telah diterima, selanjutnya dicatat oleh
+    p05 fs= 12.0 B=False | Perpustakaan
+    p05 fs= 12.0 B=False | Nasional
+    p05 fs= 12.0 B=False | atau
+    p05 fs= 12.0 B=False | Perpustakaan
+    p05 fs= 12.0 B=False | Daerah
+    p05 fs= 12.0 B=False | yang
+    p05 fs= 12.0 B=False | bersangkutan dan kepada pengirim diberikan tanda bukti
+    p05 fs= 12.0 B=False | penerimaan.
+    p06 fs= 10.0 B=False | PRESIDEN
+    p06 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p06 fs= 10.0 B=False | - 6 -
+    p06 fs= 12.0 B=False | BAB III
+    p06 fs= 12.0 B=False | PELAKSANAAN SERAH SIMPAN KARYA REKAM
+    p06 fs= 12.0 B=False | Pasal 8
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Setiap pengusaha rekaman yang berada di wilayah Negara
+    p06 fs= 12.0 B=False | Republik Indonesia yang menghasilkan karya rekam dan setiap
+    p06 fs= 12.0 B=False | Warga Negara Indonesia yang hasil karyanya direkam di luar
+    p06 fs= 12.0 B=False | negeri, wajib menyerahkan sebuah karya rekamnya kepada
+    p06 fs= 12.0 B=False | Perpustakaan Nasional dan sebuah kepada Perpustakaan Daerah
+    p06 fs= 12.0 B=False | yang bersangkutan.
+    p06 fs= 12.0 B=False | (2)
+    p06 fs= 12.0 B=False | Penyerahan hasil karya rekam tersebut selambat-lambatnya 90
+    p06 fs= 12.0 B=False | (sembilan puluh) hari sejak disebarluaskan atau dipasarkan.
+    p06 fs= 12.0 B=False | Pasal 9
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Setiap orang yang memasukkan karya rekam mengenai Indonesia
+    p06 fs= 12.0 B=False | yang jumlahnya:
+    p06 fs= 12.0 B=False | a. lebih dari 10 (sepuluh) buah setiap judulnya, atau
+    p06 fs= 12.0 B=False | b. kurang dari 10 (sepuluh) buah setiap judul, tetapi dalam
+    p06 fs= 12.0 B=False | jangka waktu dua tahun memasukkan lagi karya rekam yang
+    p06 fs= 12.0 B=False | sama sehingga jumlahnya melebihi 10 (sepuluh) buah; wajib
+    p06 fs= 12.0 B=False | menyerahkan sebuah setiap judulnya kepada Perpustakaan
+    p06 fs= 12.0 B=False | Nasional.
+    p06 fs= 12.0 B=False | (2)
+    p06 fs= 12.0 B=False | Penyerahan karya rekam sebagaimana dimaksud dalam ayat (l)
+    p06 fs= 12.0 B=False | selambat-lambatnya 30 (tiga puluh) hari sejak dikeluarkan dari
+    p06 fs= 12.0 B=False | pabean.
+    p06 fs= 12.0 B=False | Pasal 10
+    p06 fs= 12.0 B=False | (1)
+    p06 fs= 12.0 B=False | Jenis karya rekam yang wajib diserahkan kepada Perpustakaan
+    p06 fs= 12.0 B=False | Nasional dan/atau Perpustakaan Daerah terdiri atas karya
+    p07 fs= 10.0 B=False | PRESIDEN
+    p07 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p07 fs= 10.0 B=False | - 7 -
+    p07 fs= 12.0 B=False | intelektual dan/ atau artistik yang direkam dan digandakan
+    p07 fs= 12.0 B=False | dalam bentuk pita atau piringan, seperti film, kaset audio, kaset
+    p07 fs= 12.0 B=False | video, video disk, piringan hitam, disket dan bentuk lain sesuai
+    p07 fs= 12.0 B=False | dengan perkembangan teknologi.
+    p07 fs= 12.0 B=False | (2)
+    p07 fs= 12.0 B=False | Penyerahan, penyimpanan dan pengelolaan karya rekam berupa
+    p07 fs= 12.0 B=False | film ceritera atau dokumenter diatur dengan Peraturan
+    p07 fs= 12.0 B=False | Pemerintah tersendiri.
+    p07 fs= 12.0 B=False | Pasal 11
+    p07 fs= 12.0 B=False | Karya rekam yang diserahkan kepada Perpustakaan Nasional dan/atau
+    p07 fs= 12.0 B=False | Perpustakaan Daerah harus memenuhi persyaratan kualitas.
+    p07 fs= 12.0 B=False | Pasal 12
+    p07 fs= 12.0 B=False | (1)
+    p07 fs= 12.0 B=False | Karya rekam yang diserahkan kepada Perpustakaan Nasional
+    p07 fs= 12.0 B=False | dan/atau Perpustakaan Daerah, dapat dilakukan secara langsung
+    p07 fs= 12.0 B=False | atau dapat pula secara tidak langsung melalui Pos tercatat.
+    p07 fs= 12.0 B=False | (2)
+    p07 fs= 12.0 B=False | Pengiriman melalui Pos, harus dilakukan dengan cara yang baik
+    p07 fs= 12.0 B=False | dan aman sesuai dengan ketentuan pengiriman Pos.
+    p07 fs= 12.0 B=False | (3)
+    p07 fs= 12.0 B=False | Pengiriman karya rekam dilakukan selambat-lambatnya dalam
+    p07 fs= 12.0 B=False | waktu yang telah ditentukan dalam Peraturan Pemerintah ini,
+    p07 fs= 12.0 B=False | dengan dibuktikan tanggal pengiriman karya rekam tersebut.
+    p07 fs= 12.0 B=False | (4)
+    p07 fs= 12.0 B=False | Karya rekam yang telah diterima, dicatat oleh Perpustakaan
+    p07 fs= 12.0 B=False | Nasional atau Perpustakaan Daerah, dan pengirim diberikan
+    p07 fs= 12.0 B=False | tanda bukti penerimaan.
+    p08 fs= 10.0 B=False | PRESIDEN
+    p08 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p08 fs= 10.0 B=False | - 8 -
+    p08 fs= 12.0 B=False | BAB IV
+    p08 fs= 12.0 B=False | PENYERAHAN DAFTAR JUDUL KARYA CETAK DAN KARYA REKAM
+    p08 fs= 12.0 B=False | Pasal 13
+    p08 fs= 12.0 B=False | (1)
+    p08 fs= 12.0 B=False | Setiap penerbit di wilayah Negara Republik Indonesia dan setiap
+    p08 fs= 12.0 B=False | orang yang bertanggung jawab memasukkan karya cetak
+    p08 fs= 12.0 B=False | mengenai Indonesia ke dalam wilayah Negara Republik Indonesia,
+    p08 fs= 12.0 B=False | wajib menyerahkan daftar judul karya cetaknya kepada
+    p08 fs= 12.0 B=False | Perpustakaan Nasional atau Perpustakaan Daerah.
+    p08 fs= 12.0 B=False | (2)
+    p08 fs= 12.0 B=False | Daftar judul sebagaimana dimaksud dalam ayat (1) memuat
+    p08 fs= 12.0 B=False | sekurang-kurangnya
+    p08 fs= 12.0 B=False | keterangan
+    p08 fs= 12.0 B=False | judul
+    p08 fs= 12.0 B=False | karya
+    p08 fs= 12.0 B=False | cetak,
+    p08 fs= 12.0 B=False | nama
+    p08 fs= 12.0 B=False | pengarang/penyusun/penerjemah,
+    p08 fs= 12.0 B=False | nomor
+    p08 fs= 12.0 B=False | cetakan,
+    p08 fs= 12.0 B=False | tempat
+    p08 fs= 12.0 B=False | terbit, nama penerbit, tahun terbit, nomor jilid, jumlah
+    p08 fs= 12.0 B=False | halaman, jenis edisi.
+    p08 fs= 12.0 B=False | (3)
+    p08 fs= 12.0 B=False | Daftar judul karya cetak sebagaimana dimaksud dalam ayat (1)
+    p08 fs= 12.0 B=False | disampaikan kepada Perpustakaan Nasional dan Perpustakaan
+    p08 fs= 12.0 B=False | Daerah
+    p08 fs= 12.0 B=False | yang
+    p08 fs= 12.0 B=False | bersangkutan
+    p08 fs= 12.0 B=False | secara
+    p08 fs= 12.0 B=False | berkala
+    p08 fs= 12.0 B=False | dan
+    p08 fs= 12.0 B=False | sekurang-kurangnya 6 (enam) bulan tahun takwim sekali.
+    p08 fs= 12.0 B=False | (4)
+    p08 fs= 12.0 B=False | Daftar judul karya cetak ditandatangani oleh penanggung jawab
+    p08 fs= 12.0 B=False | penerbit atau warga negara Indonesia yang karyanya diterbitkan
+    p08 fs= 12.0 B=False | di luar negeri atau orang yang bertanggungjawab memasukkan
+    p08 fs= 12.0 B=False | karya cetak mengenai Indonesia ke dalam wilayah Negara
+    p08 fs= 12.0 B=False | Republik Indonesia.
+    p08 fs= 12.0 B=False | Pasal 14
+    p08 fs= 12.0 B=False | (1)
+    p08 fs= 12.0 B=False | Setiap pengusaha rekaman di wilayah Negara Republik Indonesia
+    p08 fs= 12.0 B=False | dan orang yang bertanggung jawab memasukkan karya rekam
+    p08 fs= 12.0 B=False | mengenai Indonesia ke dalam wilayah Negara Republik Indonesia
+    p08 fs= 12.0 B=False | wajib menyerahkan daftar judul karya rekamnya kepada
+    p08 fs= 12.0 B=False | Perpustakaan Nasional dan Perpustakaan Daerah.
+    p09 fs= 10.0 B=False | PRESIDEN
+    p09 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p09 fs= 10.0 B=False | - 9 -
+    p09 fs= 12.0 B=False | (2)
+    p09 fs= 12.0 B=False | Daftar judul karya rekam sebagaimana dimaksud dalam ayat (l)
+    p09 fs= 12.0 B=False | memuat
+    p09 fs= 12.0 B=False | sekurang-kurangnya
+    p09 fs= 12.0 B=False | nama
+    p09 fs= 12.0 B=False | pencipta/komposer/pengarang/sutradara, judul karya rekam,
+    p09 fs= 12.0 B=False | tempat perekaman, nama perusahaan rekaman, dan tahun
+    p09 fs= 12.0 B=False | perekaman.
+    p09 fs= 12.0 B=False | (3)
+    p09 fs= 12.0 B=False | Daftar judul karya rekam sebagaimana dimaksud dalam ayat (1)
+    p09 fs= 12.0 B=False | disampaikan kepada Perpustakaan Nasional dan Perpustakaan
+    p09 fs= 12.0 B=False | Daerah secara berkala dan sekurang-kurangnya 6 (enam) bulan
+    p09 fs= 12.0 B=False | tahun takwim sekali.
+    p09 fs= 12.0 B=False | (4)
+    p09 fs= 12.0 B=False | Daftar judul karya rekam sebagaimana dimaksud dalam ayat (1)
+    p09 fs= 12.0 B=False | ditandatangani oleh penanggung jawab rekaman, atau warga
+    p09 fs= 12.0 B=False | negara Indonesia yang karyanya direkam di luar negeri atau orang
+    p09 fs= 12.0 B=False | yang bertanggung jawab memasukkan karya rekam mengenai
+    p09 fs= 12.0 B=False | Indonesia ke dalam wilayah Negara Republik Indonesia.
+    p09 fs= 12.0 B=False | BAB V
+    p09 fs= 12.0 B=False | PENGELOLAAN KARYA CETAK, KARYA REKAM
+    p09 fs= 12.0 B=False | DAN DAFTAR JUDUL KARYA CETAK DAN KARYA REKAM
+    p09 fs= 12.0 B=False | Pasal 15
+    p09 fs= 12.0 B=False | (1)
+    p09 fs= 12.0 B=False | Pengelolaan karya cetak dan karya rekam sebagaimana dimaksud
+    p09 fs= 12.0 B=False | dalam Peraturan Pemerintah ini dilakukan oleh:
+    p09 fs= 12.0 B=False | a. Perpustakaan Nasional;
+    p09 fs= 12.0 B=False | b. Perpustakaan Daerah.
+    p09 fs= 12.0 B=False | (2)
+    p09 fs= 12.0 B=False | Kepala
+    p09 fs= 12.0 B=False | Perpustakaan
+    p09 fs= 12.0 B=False | Nasional
+    p09 fs= 12.0 B=False | bertanggung
+    p09 fs= 12.0 B=False | jawab
+    p09 fs= 12.0 B=False | atas
+    p09 fs= 12.0 B=False | pengelolaan
+    p09 fs= 12.0 B=False | karya
+    p09 fs= 12.0 B=False | cetak
+    p09 fs= 12.0 B=False | dan
+    p09 fs= 12.0 B=False | karya
+    p09 fs= 12.0 B=False | rekam
+    p09 fs= 12.0 B=False | yang
+    p09 fs= 12.0 B=False | diserah-simpankan.
+    p09 fs= 12.0 B=False | (3)
+    p09 fs= 12.0 B=False | Pengelolaan sebagaimana dimaksud dalam ayat (2) meliputi
+    p09 fs= 12.0 B=False | penerimaan,
+    p09 fs= 12.0 B=False | penyimpanan,
+    p09 fs= 12.0 B=False | pendayagunaan,
+    p09 fs= 12.0 B=False | pelestarian,
+    p09 fs= 12.0 B=False | pengawasan atas pelaksanaan serah simpan karya cetak dan
+    p09 fs= 12.0 B=False | karya rekam.
+    p10 fs= 10.0 B=False | PRESIDEN
+    p10 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p10 fs= 10.0 B=False | - 10 -
+    p10 fs= 12.0 B=False | Pasal 16
+    p10 fs= 12.0 B=False | (1)
+    p10 fs= 12.0 B=False | Perpustakaan
+    p10 fs= 12.0 B=False | Nasional
+    p10 fs= 12.0 B=False | dan
+    p10 fs= 12.0 B=False | Perpustakaan
+    p10 fs= 12.0 B=False | Daerah
+    p10 fs= 12.0 B=False | wajib
+    p10 fs= 12.0 B=False | memberikan tanda bukti penerimaan karya cetak atau karya
+    p10 fs= 12.0 B=False | rekam yang memenuhi persyaratan sebagaimana dimaksud dalam
+    p10 fs= 12.0 B=False | Pasal 3, Pasal 8 atau Pasal 11.
+    p10 fs= 12.0 B=False | (2)
+    p10 fs= 12.0 B=False | Tanda bukti penerimaan sebagaimana dimaksud dalam ayat (1)
+    p10 fs= 12.0 B=False | khusus
+    p10 fs= 12.0 B=False | untuk
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | cetak
+    p10 fs= 12.0 B=False | memuat
+    p10 fs= 12.0 B=False | keterangan
+    p10 fs= 12.0 B=False | sekurang-kurangnya
+    p10 fs= 12.0 B=False | judul
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | cetak,
+    p10 fs= 12.0 B=False | nama
+    p10 fs= 12.0 B=False | pengarang/penyusun/penerjemah,
+    p10 fs= 12.0 B=False | nomor
+    p10 fs= 12.0 B=False | cetakan,
+    p10 fs= 12.0 B=False | tempat
+    p10 fs= 12.0 B=False | terbit, nama penerbit, tahun terbit, nomor jilid, jumlah, dan
+    p10 fs= 12.0 B=False | jenis edisi.
+    p10 fs= 12.0 B=False | (3)
+    p10 fs= 12.0 B=False | Tanda bukti penerimaan sebagaimana dimaksud dalam ayat (1)
+    p10 fs= 12.0 B=False | khusus
+    p10 fs= 12.0 B=False | untuk
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | rekam
+    p10 fs= 12.0 B=False | memuat
+    p10 fs= 12.0 B=False | keterangan
+    p10 fs= 12.0 B=False | sekurang-kurangnya
+    p10 fs= 12.0 B=False | nama
+    p10 fs= 12.0 B=False | pencipta/komposer/pengaransir/sutradara, judul karya rekam,
+    p10 fs= 12.0 B=False | jumlah perekaman, nama perusahaan rekaman dan tahun
+    p10 fs= 12.0 B=False | perekaman.
+    p10 fs= 12.0 B=False | Pasal 17
+    p10 fs= 12.0 B=False | (1)
+    p10 fs= 12.0 B=False | Karya cetak dan karya rekam yang diterima oleh Perpustakaan
+    p10 fs= 12.0 B=False | Nasional dan perpustakaan Daerah, dicatat, diolah, disimpan,
+    p10 fs= 12.0 B=False | dilestarikan, dan didayagunakan sesuai dengan ketentuan
+    p10 fs= 12.0 B=False | pengelolaan karya cetak dan karya rekam.
+    p10 fs= 12.0 B=False | (2)
+    p10 fs= 12.0 B=False | Karya cetak dan karya rekam yang karena sifatnya dilarang
+    p10 fs= 12.0 B=False | Pemerintah untuk diedarkan untuk umum, hanya dapat
+    p10 fs= 12.0 B=False | dimanfaatkan untuk kepentingan tertentu setelah mendapat izin
+    p10 fs= 12.0 B=False | khusus dari Kepala Perpustakaan Nasional.
+    p10 fs= 12.0 B=False | (3)
+    p10 fs= 12.0 B=False | Ketentuan
+    p10 fs= 12.0 B=False | pengelolaan
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | cetak
+    p10 fs= 12.0 B=False | dan
+    p10 fs= 12.0 B=False | karya
+    p10 fs= 12.0 B=False | rekam
+    p10 fs= 12.0 B=False | sebagaimana dimaksud dalam ayat (1) dan ayat (2) diatur lebih
+    p11 fs= 10.0 B=False | PRESIDEN
+    p11 fs= 10.0 B=False | REPUBLIK INDONESIA
+    p11 fs= 10.0 B=False | - 11 -
+    p11 fs= 12.0 B=False | lanjut oleh Kepala Perpustakaan Nasional.
+    p11 fs= 12.0 B=False | Pasal 18
+    p11 fs= 12.0 B=False | Daftar judul karya cetak dan karya rekam yang diserahkan kepada
+    p11 fs= 12.0 B=False | Perpustakaan Nasional, Perpustakaan Daerah, disusun, disimpan, dan
+    p11 fs= 12.0 B=False | digunakan sebagai alat informasi serta sebagai alat pemantau
+    p11 fs= 12.0 B=False | pelaksanaan serah-simpan karya cetak dan karya rekam.
+    p11 fs= 12.0 B=False | Pasal 19
+    p11 fs= 12.0 B=False | (1)
+    p11 fs= 12.0 B=False | Karya cetak dan karya rekam yang telah diserahkan, dimuat
+    p11 fs= 12.0 B=False | dalam Bibliografi Nasional Indonesia yang diterbitkan oleh
+    p11 fs= 12.0 B=False | Perpustakaan Nasional, dan Bibliografi Daerah, yang diterbitkan
+    p11 fs= 12.0 B=False | oleh Perpustakaan Daerah.
+    p11 fs= 12.0 B=False | (2)
+    p11 fs= 12.0 B=False | Bibliografi Nasional Indonesia dan Bibliografi Daerah diterbitkan
+    p11 fs= 12.0 B=False | secara berkala sekurang-kurangnya sekali dalam tiga bulan dan
+    p11 fs= 12.0 B=False | kumulasi tahunan.
+    p11 fs= 12.0 B=False | (3)
+    p11 fs= 12.0 B=False | Bibliografi Nasional Indonesia, Bibliografi Daerah, dan kumulasi
+    p11 fs= 12.0 B=False | tahunan sebagaimana dimaksud dalam ayat (2) disampaikan
+    p11 fs= 12.0 B=False | kepada orang atau badan yang menyerah-simpankan karya cetak
+    p11 fs= 12.0 B=False | dan atau karya rekam,
+
+Pasal 3 (BAB II)
+  Ayats: 3
+
+Pasal 4 (BAB II)
+  Ayats: 2
+
+
+=== DUPLICATE_PASAL diagnosis (PP_NO_70_TH_1991.pdf) ===
+  DUP: Pasal 2 in BAB II (prev was BAB I)
+  DUP: Pasal 7 in BAB III (prev was BAB II)
+  DUP: Pasal 12 in BAB IV (prev was BAB III)
+  DUP: Pasal 14 in BAB V (prev was BAB IV)
+  DUP: Pasal 20 in BAB VI (prev was BAB V)
+  DUP: Pasal 21 in BAB VII (prev was BAB VI)
+  DUP: Pasal 1 in BAB VII (prev was BAB I)
+  DUP: Pasal 2 in BAB VII (prev was BAB I)
+  DUP: Pasal 3 in BAB VII (prev was BAB II)
+  DUP: Pasal 4 in BAB VII (prev was BAB II)
+  DUP: Pasal 5 in BAB VII (prev was BAB II)
+  DUP: Pasal 6 in BAB VII (prev was BAB II)
+  DUP: Pasal 7 in BAB VII (prev was BAB II)
+  DUP: Pasal 8 in BAB VII (prev was BAB III)
+  DUP: Pasal 9 in BAB VII (prev was BAB III)
+  DUP: Pasal 10 in BAB VII (prev was BAB III)
+  DUP: Pasal 11 in BAB VII (prev was BAB III)
+  DUP: Pasal 12 in BAB VII (prev was BAB III)
+  DUP: Pasal 13 in BAB VII (prev was BAB IV)
+  DUP: Pasal 14 in BAB VII (prev was BAB IV)
+  DUP: Pasal 15 in BAB VII (prev was BAB V)
+  DUP: Pasal 16 in BAB VII (prev was BAB V)
+  DUP: Pasal 17 in BAB VII (prev was BAB V)
+  DUP: Pasal 18 in BAB VII (prev was BAB V)
+  DUP: Pasal 19 in BAB VII (prev was BAB V)
+  DUP: Pasal 20 in BAB VII (prev was BAB V)
+  DUP: Pasal 21 in BAB VII (prev was BAB VI)
+  DUP: Pasal 22 in BAB VII (prev was BAB VII)
+  DUP: Pasal 23 in BAB VII (prev was BAB VII)
+
+
+=== EMPTY_PASAL diagnosis (Kemnaker) ===
+Total pasals: 159, empty: 99
+  Found "Pasal 1" at line 55
+    p02 fs= 12.0 B=False | Pasal 1
+    p02 fs= 12.0 B=False | Dalam Peraturan Pemerintah ini yang dimaksud dengan:
+    p02 fs= 12.0 B=False | 1. Badan Penyelenggara Jaminan Sosial Ketenagakerjaan
+    p02 fs= 12.0 B=False | yang selanjutnya disingkat BPJS Ketenagakerjaan adalah
+    p02 fs= 12.0 B=False | badan hukum yang dibentuk untuk menyelenggarakan
+    p02 fs= 12.0 B=False | program jaminan kecelakaan kerja, jaminan hari tua,
+    p02 fs= 12.0 B=False | jaminan pensiun, dan jaminan kematian.
+    p02 fs= 12.0 B=False | 2. Dana Jaminan Sosial Ketenagakerjaan adalah Dana
+    p02 fs= 12.0 B=False | Jaminan Sosial Kecelakaan Kerja, Dana Jaminan Sosial
+    p02 fs= 12.0 B=False | Kematian, Dana Jaminan Sosial Hari Tua, dan Dana
+    p02 fs= 12.0 B=False | Jaminan Sosial Pensiun.
+    p02 fs= 12.0 B=False | 3. Dana Jaminan Sosial Kecelakaan Kerja adalah dana
+    p02 fs= 12.0 B=False | amanat milik peserta jaminan kecelakaan kerja yang
+    p02 fs= 12.0 B=False | merupakan himpunan iuran jaminan kecelakaan kerja
+    p02 fs= 12.0 B=False | beserta hasil pengembangannya yang dikelola oleh BPJS
+
+  First ayat (1) at line 202
+    p04 fs= 12.0 B=False | memadai.
+    p04 fs= 12.0 B=False | Pasal 3
+    p04 fs= 12.0 B=False | (1) BPJS Ketenagakerjaan mengelola aset Jaminan Sosial
+    p04 fs= 12.0 B=False | Ketenagakerjaan yang terdiri atas:
+    p04 fs= 12.0 B=False | a. aset BPJS Ketenagakerjaan; dan
+    p04 fs= 12.0 B=False | b. aset Dana Jaminan Sosial Ketenagakerjaan.
+    p04 fs= 12.0 B=False | (2) Aset Dana Jaminan Sosial Ketenagakerjaan sebagaimana
+    p04 fs= 12.0 B=False | dimaksud ayat (1) huruf b terdiri atas aset dana:
+    p04 fs= 12.0 B=False | a. jaminan kecelakaan kerja;
+    p04 fs= 12.0 B=False | b. jaminan kematian;
