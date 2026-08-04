@@ -37,3 +37,23 @@ Stage Summary:
 - Chunk IDs follow convention: {doc_type}:{nomor}:{year}:{pasal}:{ayat}
 - Family B uses ordinal words (KESATU, KEDUA...) for Inpres/Kemendag
 - Key remaining issues: quoted amendment text, glyph corruption, JDIH type mixing
+
+---
+Task ID: 1
+Agent: Main
+Task: Apply v3 QA fixes to chunking pipeline, run tests, prepare results for upload
+
+Work Log:
+- Read and analyzed existing chunker code (parsers.py, clean_extractor.py)
+- Fixed clean_extractor.py: UUD 1945 nomor=None, broader stamp pattern, restricted nomor_year to title block, consistent O-as-0 glyph fixes
+- Fixed parsers.py: doc_type resolution (title block first + broad-type guard), Penjelasan section detection with distinct :penjelasan ID suffix, signature block as hard boundary, parent_section tracking for inpres diktum, relaxed RE_PASAL regex
+- Fixed backspace-char corruption in regex patterns (\x08 instead of \b)
+- Added _flush_penjelasan method to FamilyAParser
+- Added PENJELASAN detection without requiring PENUTUP first
+- Ran full batch test: 16 files, 974 chunks, 5/16 clean
+- Generated v3 test report and QA report
+
+Stage Summary:
+- 3 output files: chunk_results_v3.json (714K), chunk_test_report_v3.json (8.8K), chunk_qa_report_v3.json (8K)
+- Key improvements: pp crash fixed, keppres/JDIH_Kemnaker/JDIH_Komdigi doc_type corrected, 57 penjelasan chunks properly separated
+- No Google Drive credentials available — files in /home/z/my-project/download/
