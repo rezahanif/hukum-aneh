@@ -3,11 +3,10 @@
   "chunk_count": 1,
   "chunks": [
     {
-      "id": "EMPTY:tap_mpr",
-      "text": "No extractable text (possibly scanned PDF)",
+      "id": "ERROR:tap_mpr",
+      "text": "name 'title_block_text' is not defined",
       "metadata": {
-        "error": true,
-        "needs_ocr": true
+        "error": true
       }
     }
   ]

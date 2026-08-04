@@ -1,26 +1,7 @@
 {
   "directory": "inpres",
-  "chunk_count": 41,
+  "chunk_count": 12,
   "chunks": [
-    {
-      "id": "Inpres:3:2023:diktum:1",
-      "text": "Menteri Perencanaan Pembangunan Nasional/ Kepala Badan Perencanaan Pembangunan Nasional;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "1",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum 1",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
     {
       "id": "Inpres:3:2023:diktum:2",
       "text": "Menteri Pekerjaan Umum dan Perumahan Ralryat;",
@@ -80,7 +61,7 @@
     },
     {
       "id": "Inpres:3:2023:diktum:5",
-      "text": "Para Gubernur; dan",
+      "text": "Para Gubernur; dan 6. Para Bupati/Wali Kota. Untuk",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",
@@ -91,25 +72,6 @@
         "diktum": "5",
         "parent": null,
         "path": "MENGINSTRUKSIKAN > Diktum 5",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:6",
-      "text": "Para Bupati/Wali Kota. Untuk",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "6",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum 6",
         "status": "active",
         "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
         "directory": "inpres",
@@ -137,7 +99,7 @@
     },
     {
       "id": "Inpres:3:2023:diktum:1",
-      "text": "melaksanakan kegiatan pembangunan jalan daerah yang terhubung dan terintegrasi, utamanya untuk mendukung produktivitas kawasan industri, kawasan pariwisata, kawasan perkebunan, kawasan pertanian, dan kawasan produktif lainnya; SK No 145524A",
+      "text": "melaksanakan kegiatan pembangunan jalan daerah yang terhubung dan terintegrasi, utamanya untuk mendukung produktivitas kawasan industri, kawasan pariwisata, kawasan perkebunan, kawasan pertanian, dan kawasan produktif lainnya; SK No 145524A 2.melaksanakan... Kota Nusantara dengan melakukan pelebaran jalan untuk mengantisipasi kemacetan; merencanakan dan menyediakan anggaran, melaksanakan, memantau, mengevaluasi serta mengendalikan kegiatan percepatan peningkatan konektivitas jalan daerah; dan mengatasi kendala dan hambatan dalam pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah. Khusus kepada:",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",
@@ -148,63 +110,6 @@
         "diktum": "1",
         "parent": null,
         "path": "MENGINSTRUKSIKAN > Diktum 1",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:2",
-      "text": "melaksanakan... 2- melaksanakan kegiatan pembangunan jalan daerah dan membantu meningkatkan kemantapan jalan, utamanya:",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "2",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum 2",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:a",
-      "text": "di sekitar kawasan industri strategis, antara lain Morowali, Konawe, Weda Bay, dan Tanjung Selor untuk mengantisipasi pertumbuhan kawasan kumuh; dan",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "a",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum a",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:b",
-      "text": "kondisi jalan daerah yang belum mantap; melaksanakan pembangunan jalan di sekitar kawasan Ibu Kota Nusantara dengan melakukan pelebaran jalan untuk mengantisipasi kemacetan; merencanakan dan menyediakan anggaran, melaksanakan, memantau, mengevaluasi serta mengendalikan kegiatan percepatan peningkatan konektivitas jalan daerah; dan mengatasi kendala dan hambatan dalam pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah. Khusus kepada:",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "b",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum b",
         "status": "active",
         "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
         "directory": "inpres",
@@ -213,7 +118,7 @@
     },
     {
       "id": "Inpres:3:2023:diktum:1",
-      "text": "Menteri Perencanaan Perribangunan Nasional/ Kepala Badan Perencanaan Pembangunan Nasional untuk:",
+      "text": "Menteri Perencanaan Perribangunan Nasional/ Kepala Badan Perencanaan Pembangunan Nasional untuk: a. mengoordinasikan kegiatan percepatan peningkatan konektivitas jalan daerah; b. merumuskan kriteria pemilihan ruas dan pemanfaatannya serta men5rusun indikasi lokasi, ruas, dan volume dalam kegiatan percepatan peningkatan konektivitas jalan daerah bersama Menteri Pekerjaan Umum dan Perumahan Rakyat; c. melakukan verifikasi dan penilaian sebagai dasar penentuan ruas dan jenis penanganan serta memastikan tidak ada tumpang tindih penanganan kegiatan jalan daerah yang dikerjakan daerah dan pusat bersama Menteri Pekerjaan Umum dan Perumahan Ralryat; 3 4 5",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",
@@ -231,65 +136,8 @@
       }
     },
     {
-      "id": "Inpres:3:2023:diktum:a",
-      "text": "mengoordinasikan kegiatan percepatan peningkatan konektivitas jalan daerah;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "a",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum a",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:b",
-      "text": "merumuskan kriteria pemilihan ruas dan pemanfaatannya serta men5rusun indikasi lokasi, ruas, dan volume dalam kegiatan percepatan peningkatan konektivitas jalan daerah bersama",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "b",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum b",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:c",
-      "text": "melakukan verifikasi dan penilaian sebagai dasar penentuan ruas dan jenis penanganan serta memastikan tidak ada tumpang tindih penanganan kegiatan jalan daerah yang dikerjakan daerah dan pusat bersama Menteri Pekerjaan Umum dan Perumahan Ralryat;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "c",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum c",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
       "id": "Inpres:3:2023:diktum:KEDUA",
-      "text": "SK No 145509 A",
+      "text": "SK No 145509 A d. menetapkan d e",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",
@@ -307,103 +155,8 @@
       }
     },
     {
-      "id": "Inpres:3:2023:diktum:d",
-      "text": "menetapkan d e menetapkan daftar kegiatan percepatan peningkatan konektivitas jalan daerah bersama Menteri Pekerjaan Umum dan Perumahan Ralryat; melakukan pemantauan, evaluasi, dan pengendalian konektivitas jalan daerah bersama Menteri Pekerjaan Umum dan Perumahan Rakyat; menetapkan pedoman pelaksanaan kegiatan percepatan peningkatan konektivitas j alan daerah; mengoordinasikan penyelesaian kendala dan hambatan dalam pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah; dan melaporkan hasil pelaksanaan Instrrrksi Presiden ini kepada Presiden.",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "d",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum d",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:a",
-      "text": "merumuskan kriteria pemilihan ruas dan pemanfaatannya serta men)rusun indikasi lokasi, nras, dan volume dalam kegiatan percepatan peningkatan konektivitas jalan daerah bersama Kepala Badan Perencanaan Pembangunan Nasional;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "a",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum a",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:b",
-      "text": "menentukan kriteria teknis sebagai dasar verifikasi dan penilaian dalam kegiatan percepatan peningkatan konektivitas jalan daerah;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "b",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum b",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:c",
-      "text": "melakukan verifikasi dan penilaian sebagai dasar penentuan ruas dan jenis penanganan serta memastikan tidak ada tumpang tindih penanganan kegiatan jalan daerah yang dikerjakan daerah dan pusat bersama Menteri Perencanaan Pembangunan Nasional/Kepala Badan Perencanaan Pembangunan Nasional;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "c",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum c",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:d",
-      "text": "menJrusun besaran pagu pada setiap ruas jalan yang direncanakan berdasarkan kriteria teknis, jenis penanganan, dan volume dalam kegiatan percepatan peningkatan konektivitas jalan daerah;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "d",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum d",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
       "id": "Inpres:3:2023:diktum:f",
-      "text": "ob h SK No 145510 A",
+      "text": "ob h 2 SK No 145510 A e. menetapkan. . .",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",
@@ -421,46 +174,8 @@
       }
     },
     {
-      "id": "Inpres:3:2023:diktum:e",
-      "text": "menetapkan. . .",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "e",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum e",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:e",
-      "text": "menetapkan daftar kegiatan percepatan peningkatan konektivitas jalan daerah bersama Menteri Perencanaan Pembangunan Nasional/Kepala Badan Perencanaan Pembangunan Nasional;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "e",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum e",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
       "id": "Inpres:3:2023:diktum:f",
-      "text": "memastikan rincian lokasi, mas, volume, dan pagu setiap ruas jalan dalam Daftar Isian Pelaksanaan Anggaran Kementerian Pekerjaan Umum dan Perumahan Rakyat;",
+      "text": "memastikan rincian lokasi, mas, volume, dan pagu setiap ruas jalan dalam Daftar Isian Pelaksanaan Anggaran Kementerian Pekerjaan Umum dan Perumahan Rakyat; g. melaksanakan kegiatan percepatan peningkatan konektivitas jalan daerah yang dapat melibatkan perangkat daerah terkait; h. melakukan pemantauan, evaluasi, dan pengendalian pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah bersama Menteri Perencanaan Pembangunan Nasional I Kepala Badan Perencanaan Pembangunan Nasional; dan",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",
@@ -471,44 +186,6 @@
         "diktum": "f",
         "parent": null,
         "path": "MENGINSTRUKSIKAN > Diktum f",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:g",
-      "text": "melaksanakan kegiatan percepatan peningkatan konektivitas jalan daerah yang dapat melibatkan perangkat daerah terkait;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "g",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum g",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:h",
-      "text": "melakukan pemantauan, evaluasi, dan pengendalian konektivitas jalan daerah bersama Menteri Perencanaan Pembangunan Nasional I Kepala Badan Perencanaan Pembangunan Nasional; dan",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "h",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum h",
         "status": "active",
         "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
         "directory": "inpres",
@@ -517,7 +194,7 @@
     },
     {
       "id": "Inpres:3:2023:diktum:i",
-      "text": "melakukan serah terima hasil kegiatan percepatan peningkatan konektivitas jalan daerah kepada pemerintah daerah dalam bentuk hibah sesuai dengan ketentuan peraturan perundang-undangan.",
+      "text": "melakukan serah terima hasil kegiatan percepatan peningkatan konektivitas jalan daerah kepada pemerintah daerah dalam bentuk hibah sesuai dengan ketentuan peraturan perundang-undangan. SK No 145526 A 4. Menteri 4 PRESiDEN REPUBLTK INDONESIA -5 Menteri Dalam Negeri untuk: a. memberikan sosialisasi kepada Gubernur dan Bupati/Wali Kota mengenai pelaksanaan kebijakan percepatan peningkatan konektivitas jalan daerah; b. menyiapkan dukungan kebijakan yang dibutuhkan pemerintah daerah dalam kegiatan percepatan peningkatan konektivitas jalan daerah; c. melaksanakan pembinaan dan pengawasan dalam pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah yang menjadi kewenangan pemerintah daerah; dan d. memfasilitasi untuk melakukan percepatan proses hibah hasil kegiatan percepatan peningkatan konektivitas jalan daerah dari Menteri Pekerjaan Umum dan Perumahan Ralryat kepada pemerintah daerah, bersama Menteri Keuangan. Gubernur dan Bupati/Wali Kota untuk: a. menyediakan dukungan program dan anggaran dalam rangka menyiapkan dokumen kesiapan pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah; b. men5rusun dokumen perencanaan dan kelengkapan perizinan sesuai dengan kewenangannya untuk kegiatan percepatan peningkatan konektivitas jalan daerah; c. menyediakan dukungan lahan siap bangun dalam rangka pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah; dan d. mengoperasikan dan melakukan pemeliharaan jalan daerah yang telah diserahterimakan dalam bentuk hibah hasil kegiatan percepatan peningkatan konektivitas jalan daerah dari Menteri Pekerjaan Umum dan Perumahan Rakyat. 5 SK No 145520 A",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",
@@ -535,236 +212,8 @@
       }
     },
     {
-      "id": "Inpres:3:2023:diktum:a",
-      "text": "menyiapkan anggaran untuk pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah pada tahun 2023 dan tahun 2024;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "a",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum a",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:b",
-      "text": "menyiapkan tambahan anggaran yang bersumber dari Anggaran Pendapatan dan Belanja Negara Tahun Anggaran 2023 untuk pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah dengan menggunakan mekanisme kontrak tahun tunggal dan/atau kontrak tahun jamak; dan",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "b",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum b",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:c",
-      "text": "memfasilitasi untuk melakukan percepatan proses hibah hasil kegiatan percepatan peningkatan konektivitas jalan daerah dari Menteri Pekerjaan Umum dan Perumahan Ralryat kepada pemerintah daerah, bersama Menteri Dalam Negeri. SK No 145526 A",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "c",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum c",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:4",
-      "text": "Menteri PRESiDEN REPUBLTK INDONESIA -5",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "4",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum 4",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:a",
-      "text": "memberikan sosialisasi kepada Gubernur dan Bupati/Wali Kota mengenai pelaksanaan kebijakan percepatan peningkatan konektivitas jalan daerah;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "a",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum a",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:b",
-      "text": "menyiapkan dukungan kebijakan yang dibutuhkan pemerintah daerah dalam kegiatan percepatan peningkatan konektivitas jalan daerah;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "b",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum b",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:c",
-      "text": "melaksanakan pembinaan dan pengawasan dalam konektivitas jalan daerah yang menjadi kewenangan pemerintah daerah; dan",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "c",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum c",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:d",
-      "text": "memfasilitasi untuk melakukan percepatan proses hibah hasil kegiatan percepatan peningkatan konektivitas jalan daerah dari Menteri Pekerjaan Umum dan Perumahan Ralryat kepada pemerintah daerah, bersama Menteri Keuangan. Gubernur dan Bupati/Wali Kota untuk:",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "d",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum d",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:a",
-      "text": "menyediakan dukungan program dan anggaran dalam rangka menyiapkan dokumen kesiapan konektivitas jalan daerah;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "a",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum a",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:b",
-      "text": "men5rusun dokumen perencanaan dan kelengkapan perizinan sesuai dengan kewenangannya untuk kegiatan percepatan peningkatan konektivitas jalan daerah;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "b",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum b",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:c",
-      "text": "menyediakan dukungan lahan siap bangun dalam rangka pelaksanaan kegiatan percepatan peningkatan konektivitas jalan daerah; dan",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "c",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum c",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:d",
-      "text": "mengoperasikan dan melakukan pemeliharaan jalan daerah yang telah diserahterimakan dalam bentuk hibah hasil kegiatan percepatan peningkatan konektivitas jalan daerah dari Menteri Pekerjaan Umum dan Perumahan Rakyat. SK No 145520 A",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "d",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum d",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
       "id": "Inpres:3:2023:diktum:KETIGA",
-      "text": "REPUBLTK INDONESIA 6- : Mendukung secara penuh tanggung jawab dan bersinergi dalam melaksanakan Instruksi Presiden ini. Pendanaan pelaksanaan Instruksi Presiden ini bersumber dari Anggaran Pendapatan dan Belanja Negara dan Anggaran Pendapatan dan Belanja Daerah. Instruksi Presiden ini mulai berlaku pada tanggal dikeluarkan. Dikeluarkan di Jakarta pada tanggal 16 Maret 2023 JOKO WIDODO KEMENTERIAN SEKRETARIAT NEGARA Perundang-undangan dan Hukunl Djaman",
+      "text": "Pendanaan pelaksanaan Instruksi Presiden ini bersumber dari Anggaran Pendapatan dan Belanja Negara dan Anggaran Pendapatan dan Belanja Daerah. Instruksi Presiden ini mulai berlaku pada tanggal dikeluarkan. Dikeluarkan di Jakarta pada tanggal 16 Maret 2023 PRESIDEN REPUBLIK INDONESIA, JOKO WIDODO Salinan sesuai dengan aslinya KEMENTERIAN SEKRETARIAT NEGARA REPUBLIK INDONESIA Perundang-undangan dan Hukunl Djaman",
       "metadata": {
         "doc_type": "Inpres",
         "issuer": "Presiden",

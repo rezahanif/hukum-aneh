@@ -1,13 +1,13 @@
 {
   "directory": "JDIH_Kemendag",
-  "chunk_count": 6,
+  "chunk_count": 5,
   "chunks": [
     {
       "id": "Kepmen:123:2025:diktum:KESATU",
       "text": ": Menetapkan Harga Referensi Crude Palm Oil yang dikenakan Bea Keluar dan Tarif Layanan Badan Layanan Umum Badan Pengelola Dana Perkebunan Kelapa Sawit sebesar US$ 955,44/MT.",
       "metadata": {
         "doc_type": "Kepmen",
-        "issuer": "Menteri",
+        "issuer": "Menteri Perdagangan",
         "year": "2025",
         "nomor": "123",
         "section": "keputusan",
@@ -26,7 +26,7 @@
       "text": ": Harga Referensi sebagaimana dimaksud dalam Diktum",
       "metadata": {
         "doc_type": "Kepmen",
-        "issuer": "Menteri",
+        "issuer": "Menteri Perdagangan",
         "year": "2025",
         "nomor": "123",
         "section": "keputusan",
@@ -45,7 +45,7 @@
       "text": "berlaku terhitung sejak tanggal 1 Februari 2025 sampai dengan tanggal 28 Februari 2025.",
       "metadata": {
         "doc_type": "Kepmen",
-        "issuer": "Menteri",
+        "issuer": "Menteri Perdagangan",
         "year": "2025",
         "nomor": "123",
         "section": "keputusan",
@@ -64,7 +64,7 @@
       "text": ": Keputusan Menteri ini mulai berlaku pada tanggal 1 Februari",
       "metadata": {
         "doc_type": "Kepmen",
-        "issuer": "Menteri",
+        "issuer": "Menteri Perdagangan",
         "year": "2025",
         "nomor": "123",
         "section": "keputusan",
@@ -80,10 +80,10 @@
     },
     {
       "id": "Kepmen:123:2025:diktum:2025",
-      "text": "Ditetapkan di Jakarta pada tanggal 31 Januari 2025",
+      "text": "Ditetapkan di Jakarta pada tanggal 31 Januari 2025 a.n. MENTERI PERDAGANGAN REPUBLIK INDONESIA Pit. Direktur Jenderal Perdagangan Luar Negeri, ttd. ISY KARIM Salinan sesuai dengan aslinya Sekretariat Jenderal Kementerian Perdagangan",
       "metadata": {
         "doc_type": "Kepmen",
-        "issuer": "Menteri",
+        "issuer": "Menteri Perdagangan",
         "year": "2025",
         "nomor": "123",
         "section": "keputusan",
@@ -91,25 +91,6 @@
         "diktum": "2025",
         "parent": null,
         "path": "MEMUTUSKAN > Diktum 2025",
-        "status": "active",
-        "source_file": "Kepmendag_No__123_Tahun_2025_download_3142_2.pdf",
-        "directory": "JDIH_Kemendag",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Kepmen:123:2025:diktum:a",
-      "text": "n. MENTERI PERDAGANGAN REPUBLIK INDONESIA Pit. Direktur Jenderal Perdagangan Luar Negeri,",
-      "metadata": {
-        "doc_type": "Kepmen",
-        "issuer": "Menteri",
-        "year": "2025",
-        "nomor": "123",
-        "section": "keputusan",
-        "decision_keyword": "MEMUTUSKAN",
-        "diktum": "a",
-        "parent": null,
-        "path": "MEMUTUSKAN > Diktum a",
         "status": "active",
         "source_file": "Kepmendag_No__123_Tahun_2025_download_3142_2.pdf",
         "directory": "JDIH_Kemendag",

@@ -1,7 +1,26 @@
 {
   "directory": "keppres",
-  "chunk_count": 9,
+  "chunk_count": 12,
   "chunks": [
+    {
+      "id": "Keppres:5:2015:diktum:Pasal 1",
+      "text": "Menetapkan Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur, yang selanjutnya disebut Dewan Kawasan, dengan susunan keanggotaan sebagai berikut: Ketua merangkap : Gubernur Kalimantan Timur; Anggota Wakil Ketua :  Bupati Kutai Timur; merangkap Anggota Anggota : 1. Kepala Kantor Wilayah Badan Pertanahan Nasional Provinsi Kalimantan Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "Pasal 1",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum Pasal 1",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
     {
       "id": "Keppres:5:2015:diktum:2",
       "text": "Kepala Kantor Wilayah Direktorat Jenderal Bea dan Cukai Kalimantan Bagian Timur;",
@@ -99,26 +118,7 @@
     },
     {
       "id": "Keppres:5:2015:diktum:7",
-      "text": "Kepala ...",
-      "metadata": {
-        "doc_type": "Keppres",
-        "issuer": "Presiden",
-        "year": "2015",
-        "nomor": "5",
-        "section": "keputusan",
-        "decision_keyword": "MEMUTUSKAN",
-        "diktum": "7",
-        "parent": null,
-        "path": "MEMUTUSKAN > Diktum 7",
-        "status": "active",
-        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
-        "directory": "keppres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Keppres:5:2015:diktum:7",
-      "text": "Kepala Dinas Pekerjaan Umum Kabupaten Kutai Timur;",
+      "text": "Kepala ... - 4 - 7. Kepala Dinas Pekerjaan Umum Kabupaten Kutai Timur;",
       "metadata": {
         "doc_type": "Keppres",
         "issuer": "Presiden",
@@ -156,7 +156,7 @@
     },
     {
       "id": "Keppres:5:2015:diktum:9",
-      "text": "Kepala Dinas Perindustrian dan Perdagangan Kabupaten Kutai Timur. Pasal 2 Dewan Kawasan bertanggung jawab dan melaporkan hasil pelaksanaan tugasnya kepada Dewan Nasional Kawasan Ekonomi Khusus paling kurang 1 (satu) kali dalam 6 (enam) bulan atau sewaktu-waktu bila diperlukan. Pasal 3 Segala biaya yang diperlukan untuk pelaksanaan tugas Dewan Kawasan dibebankan pada Anggaran Pendapatan dan Belanja Daerah Provinsi Kalimantan Timur dan sumber lain yang tidak bertentangan dengan ketentuan peraturan perundang-undangan. Pasal 4 ... Pasal 4 Keputusan Presiden ini mulai berlaku pada tanggal ditetapkan. Ditetapkan di Jakarta pada tanggal 11 Februari 2015",
+      "text": "Kepala Dinas Perindustrian dan Perdagangan Kabupaten Kutai Timur.",
       "metadata": {
         "doc_type": "Keppres",
         "issuer": "Presiden",
@@ -167,6 +167,63 @@
         "diktum": "9",
         "parent": null,
         "path": "MEMUTUSKAN > Diktum 9",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:Pasal 2",
+      "text": "Dewan Kawasan bertanggung jawab dan melaporkan hasil pelaksanaan tugasnya kepada Dewan Nasional Kawasan Ekonomi Khusus paling kurang 1 (satu) kali dalam 6 (enam) bulan atau sewaktu-waktu bila diperlukan.",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "Pasal 2",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum Pasal 2",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:Pasal 3",
+      "text": "Segala biaya yang diperlukan untuk pelaksanaan tugas Dewan Kawasan dibebankan pada Anggaran Pendapatan dan Belanja Daerah Provinsi Kalimantan Timur dan sumber lain yang tidak bertentangan dengan ketentuan peraturan perundang-undangan. Pasal 4 ...",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "Pasal 3",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum Pasal 3",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:Pasal 4",
+      "text": "Keputusan Presiden ini mulai berlaku pada tanggal ditetapkan. Ditetapkan di Jakarta pada tanggal 11 Februari 2015 PRESIDEN REPUBLIK INDONESIA, ttd. JOKO WIDODO Salinan sesuai dengan aslinya SEKRETARIAT KABINET RI Deputi Bidang Perekonomian, ttd. Ratih Nurdiati",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "Pasal 4",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum Pasal 4",
         "status": "active",
         "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
         "directory": "keppres",
