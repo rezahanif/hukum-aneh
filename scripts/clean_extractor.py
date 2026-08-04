@@ -70,16 +70,33 @@ STRUCTURAL_MARKERS = re.compile(
 # Noise patterns (header stamps, tracking numbers, garbled text)
 RE_SETNEG_STAMP = re.compile(r'^SK\s+No\s+\d+\s*A$', re.IGNORECASE)
 RE_PAGE_NUMBER = re.compile(r'^-\s*\d+\s*-$')
+# FIX #6: Expanded garbled header detection for more glyph corruption variants.
+# Catches: FTRESIDEN, FRESIDEN, IND ONES IA, REPLJBLIK, REPI,IEILIK, scattered letterhead
+# FIX #6: Expanded garbled header detection for more glyph corruption variants.
+# Catches: FTRESIDEN, FRESIDEN, IND ONES IA, REPLJBLIK, REPI,IEILIK, scattered letterhead
 RE_GARBLED_HEADER = re.compile(
-    r'^(?:'
-    r'R\s*E\s*P(?:I|L|1|J)[\s\',\-]*[IL1J][\s\',\-]*(?:K|L|I|E)[\s\',\-]*(?:I|K|L)'
-    r'|FRESIDEN'
-    r'|MEMUTUSI?\s*\(?\s*AN'
-    r')',
+    r"^(?:"
+    r"R\s*E\s*P(?:I|L|1|J)[\s',\-\.]*[IL1J][\s',\-\.]*"
+    r"(?:K|L|I|E)[\s',\-\.]*(?:I|K|L)"
+    r"|[FR]?\s*(?:PRESTDEN|FRESIDEN|PRESIDEN|FTRESIDEN)"
+    r"|IND\s*O\s*N\s*E\s*S\s*I\s*A"
+    r"|MEMUTUSI?\s*\(?\s*AN"
+    r"|REP(?:UB(?:L[\s',\-]*IK|UK|J(?:L|I)K)"
+    r"|I(?:\s*,\s*IEILIK|\s',\-]*L(?:IK|EK|1K)))"
+    r")",
     re.IGNORECASE
 )
 RE_SHORT_NOISE = re.compile(r'^[A-Z]\.?$')  # Single letter like "A." or "b"
 
+
+# Additional garbled patterns for scattered letterhead fragments
+RE_GARBLED_EXTRA = re.compile(
+    r"^(?:"
+    r"R\s*E\s*PI[\s',\-\.]*[FL]I[KL]"
+    r"|REP(?:LJ|UB[^L])"
+    r")",
+    re.IGNORECASE
+)
 
 def fix_glyph_corruption(text: str) -> str:
     """Apply all known glyph substitution fixes."""
@@ -99,9 +116,28 @@ def is_noise_line(text: str) -> bool:
         return True
     if RE_GARBLED_HEADER.match(t):
         return True
+    if RE_GARBLED_EXTRA.match(t):
+        return True
     # Standalone page numbers: just a digit, 1-4 chars
     if re.match(r'^\d{1,4}$', t):
         return True
+    # FIX #6: High garbage ratio heuristic.
+    # If a line is long enough but >50% non-alpha chars (spaces/punct/symbols)
+    # AND it contains at least one known legal-header word fragment, it's garbled noise.
+    # Catches variants we haven't explicitly patterned.
+    if len(t) > 15:
+        alpha_count = sum(1 for c in t if c.isalpha())
+        ratio = alpha_count / len(t)
+        if ratio < 0.55:
+            # Check for any known legal-header word fragments (even partial)
+            t_upper = t.upper()
+            header_fragments = [
+                'REPUBLIK', 'INDONESIA', 'PRESIDEN', 'PRESTDEN', 'FRESIDEN',
+                'FTRESIDEN', 'NEGARA', 'LEMBARAN',
+            ]
+            for frag in header_fragments:
+                if frag in t_upper:
+                    return True
     return False
 
 
@@ -222,20 +258,28 @@ def is_page_number_line(text: str) -> bool:
 
 
 def is_likely_heading_or_preamble(text: str) -> bool:
-    """Lines that are structural markers or letterhead, not body text."""
+    """Lines that are structural markers or letterhead, not body text.
+    
+    Only matches exact full-line matches, NOT prefixes, to avoid
+    stripping body text that happens to start with a header word.
+    """
     t = text.strip().upper()
-    headers = [
+    # Exact full-line matches only (no prefix matching)
+    exact_headers = {
         "PRESIDEN REPUBLIK INDONESIA",
         "REPUBLIK INDONESIA",
-        "MENTERI",
-        "DENGAN RAHMAT TUHAN YANG MAHA ESA",
         "SALINAN",
         "LEMBARAN NEGARA",
         "TAMBAHAN LEMBARAN NEGARA",
-    ]
-    for h in headers:
-        if t == h or (len(t) > 10 and t.startswith(h[:10])):
-            return True
+    }
+    if t in exact_headers:
+        return True
+    # Prefix matches for very long, distinctive full phrases
+    if t.startswith("DENGAN RAHMAT TUHAN YANG MAHA ESA"):
+        return True
+    # Single-word MENTERI only if it's the ENTIRE line (no content after)
+    if t == "MENTERI":
+        return True
     return False
 
 
@@ -331,14 +375,6 @@ def extract_clean(pdf_path: str) -> Tuple[List[Dict], Dict]:
     # Remove boilerplate/noise lines from active parsing set
     active_lines = [l for l in all_lines if not l["is_boilerplate"]]
     
-    # Special case: UUD 1945 has no nomor/year
-    if not nomor and not year:
-        # Check if this is UUD 1945 from title
-        tb_upper = title_block_text.upper()
-        if "UNDANG-UNDANG DASAR" in tb_upper or "UUD 1945" in tb_upper:
-            nomor = "1945"
-            year = "1945"
-    
     # Font stats
     sizes = [l["font_size"] for l in active_lines]
     size_counts = Counter(sizes) if sizes else Counter()
@@ -429,60 +465,51 @@ def extract_title_block(lines: List[Dict], max_first_n=15) -> str:
 
 
 def detect_doc_type_from_title(title_block: str) -> Tuple[str, str]:
-    """
-    Detect document type and issuer from title block text.
+    """Detect document type and issuer from title block text.
+    
+    v3 fix: Only checks the FIRST 200 chars of the title block for instrument-type
+    keywords. Citations of other laws in the preamble (Mengingat section) appear
+    later and must not cause misclassification.
+    
     Order: most specific patterns first to avoid misclassification.
     """
-    t = title_block.upper()
-    if "MAHKAMAH KONSTITUSI" in t:
+    # Only use the start of the title block for type detection.
+    # Preamble citations (Mengingat) appear later and reference other laws.
+    header = title_block.upper()[:500]
+    
+    if "MAHKAMAH KONSTITUSI" in header:
         return "Putusan_MK", "Mahkamah Konstitusi"
-    if "KETETAPAN" in t and "MAJELIS PERMUSYAWARATAN" in t:
+    if "KETETAPAN" in header and "MAJELIS PERMUSYAWARATAN" in header:
         return "Tap_MPR", "MPR"
-    if "PERATURAN PEMERINTAH PENGGANTI" in t:
+    if "PERATURAN PEMERINTAH PENGGANTI" in header:
         return "PerPPU", "Presiden"
-    if "PERATURAN PEMERINTAH" in t:
+    # "PERATURAN PEMERINTAH" must not match "PERATURAN PEMERINTAH DAERAH"
+    if "PERATURAN PEMERINTAH" in header and "DAERAH" not in header:
         return "PP", "Presiden"
-    if "PERATURAN PRESIDEN" in t:
+    if "PERATURAN PRESIDEN" in header:
         return "Perpres", "Presiden"
-    if "PERATURAN DAERAH" in t:
-        return "Perda", "Kepala Daerah"
-    if "KEPUTUSAN PRESIDEN" in t:
-        return "Keppres", "Presiden"
-    if "INSTRUKSI PRESIDEN" in t:
-        return "Inpres", "Presiden"
-    if "UNDANG-UNDANG DASAR" in t or "UUD 1945" in t:
-        return "UUD1945", "BPUPKI/PPKI"
-    if "UNDANG-UNDANG" in t:
-        return "UU", "Presiden/DPR"
-    if "KEPUTUSAN MENTERI" in t:
-        return "Kepmen", "Menteri"
-    if "PERATURAN MENTERI" in t:
+    # Check Permen/Kepmen BEFORE generic PERATURAN
+    if "PERATURAN MENTERI" in header:
         return "Permen", "Menteri"
-    if "PERATURAN KPU" in t or "PKPU" in t:
+    if "KEPUTUSAN MENTERI" in header:
+        return "Kepmen", "Menteri"
+    if "PERATURAN KOMISI" in header or "PERATURAN KPU" in header or "PKPU" in header:
         return "PKPU", "KPU"
-    if "PERATURAN" in t:
+    if "PERATURAN DAERAH" in header:
+        return "Perda", "Kepala Daerah"
+    if "KEPUTUSAN PRESIDEN" in header:
+        return "Keppres", "Presiden"
+    if "INSTRUKSI PRESIDEN" in header:
+        return "Inpres", "Presiden"
+    # UUD check: only match if it looks like the document IS the constitution,
+    # not just citing it. Require "UNDANG-UNDANG DASAR" at the very start.
+    if header.startswith("UNDANG-UNDANG DASAR") or "UUD 1945" in header[:50]:
+        return "UUD1945", "BPUPKI/PPKI"
+    if header.startswith("UNDANG-UNDANG"):
+        return "UU", "Presiden/DPR"
+    # Generic PERATURAN fallback
+    if "PERATURAN" in header:
         return "Peraturan", "Unknown"
     return "Unknown", "Unknown"
 
 
-if __name__ == "__main__":
-    import sys
-    import json
-    
-    path = sys.argv[1] if len(sys.argv) > 1 else "/home/z/my-project/download/samples/uu/uunomor41tahun2014.pdf"
-    lines, meta = extract_clean(path)
-    
-    print(f"File: {meta['file']}")
-    print(f"Pages: {meta['total_pages']}, Raw lines: {meta['total_lines_raw']}, Active: {meta['total_lines_active']}")
-    print(f"Boilerplate removed: {meta['boilerplate_lines_removed']}")
-    print(f"Boilerplate samples: {meta['boilerplate_samples'][:5]}")
-    print(f"Nomor: {meta['nomor']}, Year: {meta['year']}")
-    print(f"Font sizes: {meta['font_sizes']}")
-    print(f"Issues: {meta['extraction_issues']}")
-    
-    title = extract_title_block(lines)
-    doc_type, issuer = detect_doc_type_from_title(title)
-    print(f"Detected: doc_type={doc_type}, issuer={issuer}")
-    print(f"\nFirst 30 active lines:")
-    for l in lines[:30]:
-        print(f"  p{l['page']:02d} fs={l['font_size']:5.1f} B={str(l['is_bold']):5s} | {l['text'][:100]}")
