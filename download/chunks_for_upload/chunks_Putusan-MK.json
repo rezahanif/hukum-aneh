@@ -1,0 +1,66 @@
+{
+  "directory": "Putusan-MK",
+  "chunk_count": 3,
+  "chunks": [
+    {
+      "id": "Putusan_MK:96/PUU-XVI/2018:amar:1",
+      "text": "Mengabulkan penarikan kembali permohonan Pemohon;",
+      "metadata": {
+        "doc_type": "Putusan_MK",
+        "issuer": "Mahkamah Konstitusi",
+        "year": "2018",
+        "nomor_perkara": "96/PUU-XVI/2018",
+        "section": "amar",
+        "decision_keyword": "MENETAPKAN",
+        "amar": "1",
+        "parent": null,
+        "path": "MENETAPKAN > Amar 1",
+        "status": "active",
+        "source_file": "putusan_mkri_5301.pdf",
+        "directory": "Putusan-MK",
+        "family": "C",
+        "nomor": "96/PUU-XVI/2018"
+      }
+    },
+    {
+      "id": "Putusan_MK:96/PUU-XVI/2018:amar:2",
+      "text": "Menyatakan Permohonan Nomor 96/PUU-XVI/2018 ditarik kembali dan Pemohon tidak dapat mengajukan kembali permohonan a quo;",
+      "metadata": {
+        "doc_type": "Putusan_MK",
+        "issuer": "Mahkamah Konstitusi",
+        "year": "2018",
+        "nomor_perkara": "96/PUU-XVI/2018",
+        "section": "amar",
+        "decision_keyword": "MENETAPKAN",
+        "amar": "2",
+        "parent": null,
+        "path": "MENETAPKAN > Amar 2",
+        "status": "active",
+        "source_file": "putusan_mkri_5301.pdf",
+        "directory": "Putusan-MK",
+        "family": "C",
+        "nomor": "96/PUU-XVI/2018"
+      }
+    },
+    {
+      "id": "Putusan_MK:96/PUU-XVI/2018:amar:3",
+      "text": "Memerintahkan kepada Panitera Mahkamah Konstitusi untuk menerbitkan Akta Pembatalan Registrasi Permohonan dan mengembalikan berkas permohonan kepada Pemohon; Demikian diputus dalam Rapat Permusyawaratan Hakim oleh sembilan Hakim Konstitusi, yaitu Anwar Usman, selaku Ketua merangkap Anggota, Aswanto, Arief Hidayat, Suhartoyo, Enny Nurbaningsih, I Dewa Gede Palguna, Manahan M.P. Sitompul, Saldi Isra, dan Wahiduddin Adams, masing-masing sebagai Anggota, pada hari Kamis, tanggal sepuluh, bulan Januari, tahun dua ribu sembilan belas, yang diucapkan dalam Sidang Pleno Mahkamah Konstitusi terbuka untuk umum pada hari Kamis, tanggal dua puluh empat, bulan Januari, tahun dua ribu sembilan belas, selesai diucapkan pukul 11.20 WIB, oleh sembilan Hakim Konstitusi, yaitu Anwar Usman selaku Ketua merangkap Anggota, Aswanto, Arief Hidayat, Suhartoyo, Enny Nurbaningsih, I Dewa Gede Palguna, Manahan M.P. Sitompul, Saldi Isra, dan Wahiduddin Adams, masing-masing sebagai Anggota, dengan dibantu oleh Hani Adhani sebagai Panitera Pengganti, serta dihadiri oleh Presiden atau yang mewakili dan Dewan Perwakilan Rakyat atau yang mewakili serta tanpa dihadiri oleh Pemohon/kuasanya. KETUA,",
+      "metadata": {
+        "doc_type": "Putusan_MK",
+        "issuer": "Mahkamah Konstitusi",
+        "year": "2018",
+        "nomor_perkara": "96/PUU-XVI/2018",
+        "section": "amar",
+        "decision_keyword": "MENETAPKAN",
+        "amar": "3",
+        "parent": null,
+        "path": "MENETAPKAN > Amar 3",
+        "status": "active",
+        "source_file": "putusan_mkri_5301.pdf",
+        "directory": "Putusan-MK",
+        "family": "C",
+        "nomor": "96/PUU-XVI/2018"
+      }
+    }
+  ]
+}

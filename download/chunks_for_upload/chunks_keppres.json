@@ -1,0 +1,177 @@
+{
+  "directory": "keppres",
+  "chunk_count": 9,
+  "chunks": [
+    {
+      "id": "Keppres:5:2015:diktum:2",
+      "text": "Kepala Kantor Wilayah Direktorat Jenderal Bea dan Cukai Kalimantan Bagian Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "2",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 2",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:3",
+      "text": "Kepala Kantor Wilayah Direktorat Jenderal Pajak Kalimantan Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "3",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 3",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:4",
+      "text": "Kepala Badan Perencanaan Pembangunan Daerah Provinsi Kalimantan Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "4",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 4",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:5",
+      "text": "Kepala Dinas Perhubungan Provinsi Kalimantan Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "5",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 5",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:6",
+      "text": "Kepala Dinas Pekerjaan Umum Provinsi Kalimantan Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "6",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 6",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:7",
+      "text": "Kepala ...",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "7",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 7",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:7",
+      "text": "Kepala Dinas Pekerjaan Umum Kabupaten Kutai Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "7",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 7",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:8",
+      "text": "Kepala Dinas Perhubungan, Komunikasi, dan Informatika Kabupaten Kutai Timur;",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "8",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 8",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    },
+    {
+      "id": "Keppres:5:2015:diktum:9",
+      "text": "Kepala Dinas Perindustrian dan Perdagangan Kabupaten Kutai Timur. Pasal 2 Dewan Kawasan bertanggung jawab dan melaporkan hasil pelaksanaan tugasnya kepada Dewan Nasional Kawasan Ekonomi Khusus paling kurang 1 (satu) kali dalam 6 (enam) bulan atau sewaktu-waktu bila diperlukan. Pasal 3 Segala biaya yang diperlukan untuk pelaksanaan tugas Dewan Kawasan dibebankan pada Anggaran Pendapatan dan Belanja Daerah Provinsi Kalimantan Timur dan sumber lain yang tidak bertentangan dengan ketentuan peraturan perundang-undangan. Pasal 4 ... Pasal 4 Keputusan Presiden ini mulai berlaku pada tanggal ditetapkan. Ditetapkan di Jakarta pada tanggal 11 Februari 2015",
+      "metadata": {
+        "doc_type": "Keppres",
+        "issuer": "Presiden",
+        "year": "2015",
+        "nomor": "5",
+        "section": "keputusan",
+        "decision_keyword": "MEMUTUSKAN",
+        "diktum": "9",
+        "parent": null,
+        "path": "MEMUTUSKAN > Diktum 9",
+        "status": "active",
+        "source_file": "keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+        "directory": "keppres",
+        "family": "B"
+      }
+    }
+  ]
+}

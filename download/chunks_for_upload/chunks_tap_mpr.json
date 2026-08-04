@@ -1,0 +1,14 @@
+{
+  "directory": "tap_mpr",
+  "chunk_count": 1,
+  "chunks": [
+    {
+      "id": "EMPTY:tap_mpr",
+      "text": "No extractable text (possibly scanned PDF)",
+      "metadata": {
+        "error": true,
+        "needs_ocr": true
+      }
+    }
+  ]
+}
