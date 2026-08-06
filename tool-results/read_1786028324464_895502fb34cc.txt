@@ -1,0 +1,972 @@
+     1→     1→r"""Family A/B/C parsers for Indonesian legal documents.
+     2→     2→
+     3→     3→v2+v3 fixes (based on QA assessment):
+     4→     4→  - #2: Fixed duplicate BAB label in path builder
+     5→     5→  - #5: FamilyB now recognizes Pasal-based diktum dividers (keppres pattern)
+     6→     6→  - #6: Quoted amendments now chunked with status="quoted_amendment" instead of skipped
+     7→     7→  - Added minimum text length guard (10 chars) to prevent "." or "huruf c." chunks
+     8→     8→  - Capture content between decision keyword and first numbered item as diktum preamble
+     9→     9→
+    10→    10→Family A (Hierarchical Statute): BAB > Bagian > Paragraf > Pasal > Ayat > huruf/angka
+    11→    11→Family B (Decree/Decision): Menimbang > Mengingat > MEMUTUSKAN/MENETAPKAN > Diktum
+    12→    12→Family C (Court Ruling): Duduk Perkara > Menimbang > MENGADILI/MENETAPKAN > Amar
+    13→    13→
+    14→    14→All parsers return a list of chunks in the target JSON format.
+    15→    15→"""
+    16→    16→import re
+    17→    17→import json
+    18→    18→import sys
+    19→    19→import os
+    20→    20→from typing import List, Dict, Optional, Tuple
+    21→    21→
+    22→    22→# Local imports from same package
+    23→    23→from clean_extractor import extract_clean, extract_title_block, detect_doc_type_from_title, fix_glyph_corruption, extract_nomor_year_post_decision
+    24→    24→
+    25→    25→
+    26→    26→# ==========================================================================
+    27→    27→# SHARED UTILITIES
+    28→    28→# ==========================================================================
+    29→    29→
+    30→    30→ROMAN_MAP = {'I':1,'II':2,'III':3,'IV':4,'V':5,'VI':6,'VII':7,'VIII':8,'IX':9,'X':10,
+    31→    31→             'XI':11,'XII':12,'XIII':13,'XIV':14,'XV':15,'XVI':16,'XVII':17,'XVIII':18,
+    32→    32→             'XIX':19,'XX':20}
+    33→    33→
+    34→    34→def roman_to_int(s):
+    35→    35→    return ROMAN_MAP.get(s.upper(), None)
+    36→    36→
+    37→    37→
+    38→    38→# Minimum text length for a chunk to be emitted (prevents "." or "huruf c." chunks)
+    39→    39→MIN_CHUNK_TEXT_LENGTH = 10
+    40→    40→
+    41→    41→
+    42→    42→def build_id(doc_type, nomor, year, **parts):
+    43→    43→    """Build chunk ID. Handles both hierarchical and flat structures."""
+    44→    44→    if doc_type in ("Putusan_MK", "Putusan_MA"):
+    45→    45→        nomor_perkara = parts.get("nomor_perkara", nomor or "?")
+    46→    46→        chunk_type = parts.get("chunk_type", "amar")
+    47→    47→        chunk_num = parts.get("chunk_num", "?")
+    48→    48→        return f"{doc_type}:{nomor_perkara}:{chunk_type}:{chunk_num}"
+    49→    49→    elif parts.get("chunk_type") in ("diktum", "pertimbangan"):
+    50→    50→        return f"{doc_type}:{nomor or '?'}:{year or '?'}:{parts['chunk_type']}:{parts['chunk_num']}"
+    51→    51→    else:
+    52→    52→        pasal = parts.get("pasal", "?")
+    53→    53→        ayat = parts.get("ayat", "?")
+    54→    54→        if ayat and ayat != "?":
+    55→    55→            return f"{doc_type}:{nomor or '?'}:{year or '?'}:{pasal}:{ayat}"
+    56→    56→        return f"{doc_type}:{nomor or '?'}:{year or '?'}:{pasal}"
+    57→    57→
+    58→    58→
+    59→    59→def build_parent_id(doc_type, nomor, year, pasal):
+    60→    60→    """Build parent ID for ayat chunks."""
+    61→    61→    if doc_type in ("Putusan_MK", "Putusan_MA"):
+    62→    62→        return None
+    63→    63→    return f"{doc_type}:{nomor or '?'}:{year or '?'}:{pasal}"
+    64→    64→
+    65→    65→
+    66→    66→def build_path(headings):
+    67→    67→    """Build path string from heading stack. Filters out None and duplicates."""
+    68→    68→    seen = set()
+    69→    69→    parts = []
+    70→    70→    for h in headings:
+    71→    71→        if h and h not in seen:
+    72→    72→            seen.add(h)
+    73→    73→            parts.append(h)
+    74→    74→    return " > ".join(parts) if parts else ""
+    75→    75→
+    76→    76→
+    77→    77→def _make_bab_headings(bab_num, bab_label, bagian_num, bagian_label,
+    78→    78→                       paragraf_num, paragraf_label, pasal_str=None, ayat_str=None):
+    79→    79→    """Build heading list for path, avoiding duplicate BAB labels.
+    80→    80→    
+    81→    81→    Fix for bug #2: when BAB has no descriptive label (e.g., just "BAB I"),
+    82→    82→    the label defaults to "BAB I" which duplicates the number element.
+    83→    83→    Now: if label equals the number element, omit it.
+    84→    84→    """
+    85→    85→    headings = []
+    86→    86→    
+    87→    87→    bab_num_str = f"BAB {bab_num}" if bab_num else None
+    88→    88→    if bab_num_str:
+    89→    89→        headings.append(bab_num_str)
+    90→    90→    # Only add label if it's different from the number element and non-empty
+    91→    91→    if bab_label and bab_label != bab_num_str:
+    92→    92→        headings.append(bab_label)
+    93→    93→    
+    94→    94→    bagian_num_str = f"Bagian {bagian_num}" if bagian_num else None
+    95→    95→    if bagian_num_str:
+    96→    96→        headings.append(bagian_num_str)
+    97→    97→    if bagian_label and bagian_label != bagian_num_str:
+    98→    98→        headings.append(bagian_label)
+    99→    99→    
+   100→   100→    paragraf_num_str = f"Paragraf {paragraf_num}" if paragraf_num else None
+   101→   101→    if paragraf_num_str:
+   102→   102→        headings.append(paragraf_num_str)
+   103→   103→    if paragraf_label and paragraf_label != paragraf_num_str:
+   104→   104→        headings.append(paragraf_label)
+   105→   105→    
+   106→   106→    if pasal_str:
+   107→   107→        headings.append(pasal_str)
+   108→   108→    if ayat_str:
+   109→   109→        headings.append(ayat_str)
+   110→   110→    
+   111→   111→    return headings
+   112→   112→
+   113→   113→
+   114→   114→# ==========================================================================
+   115→   115→# FAMILY A: HIERARCHICAL STATUTE PARSER
+   116→   116→# ==========================================================================
+   117→   117→
+   118→   118→class FamilyAParser:
+   119→   119→    """
+   120→   120→    Parses hierarchical legal documents: BAB > Bagian > Paragraf > Pasal > Ayat.
+   121→   121→    Handles: UU, PP, PerPPU, Perpres, Perda, UUD1945, Permen, PKPU.
+   122→   122→    """
+   123→   123→
+   124→   124→    # Heading patterns (order matters: higher levels first)
+   125→   125→    RE_BAB = re.compile(r'^\s*BAB\s+([IVXLCDM]+)\b', re.IGNORECASE)
+   126→   126→    RE_BAGIAN = re.compile(r'^\s*BAGIAN\s+(\w+)', re.IGNORECASE)
+   127→   127→    RE_PARAGRAF = re.compile(r'^\s*PARAGRAF\s+(\w+)', re.IGNORECASE)
+   128→   128→    RE_PASAL = re.compile(r'^\s*pasal\s+([IVXLCDM]+|\d+(?:\s+\d+)*)', re.IGNORECASE)
+   129→   129→    RE_AYAT = re.compile(r'^\s*\(\s*(\d+[a-zA-Z]?)\s*\)')
+   130→   130→    RE_HURUF = re.compile(r'^\s*([a-z])\s*\.\s')
+   131→   131→    RE_ANGKA = re.compile(r'^\s*(\d+)\s*\.\s')
+   132→   132→
+   133→   133→    # Quoted amendment detection
+   134→   134→    RE_AMENDMENT_TRIGGER = re.compile(
+   135→   135→        r'(?:diubah|diganti|dihapus)\s+sehingga\s+berbunyi\s+(?:sebagai\s+berikut|:\s*")',
+   136→   136→        re.IGNORECASE
+   137→   137→    )
+   138→   138→    RE_QUOTE_START = re.compile(r'^\s*["“]')
+   139→   139→    RE_QUOTE_END = re.compile(r'["”]\s*[.;]?\s*$')
+   140→   140→
+   141→   141→    # Penutup (closing section) marker
+   142→   142→    RE_PENUTUP = re.compile(r'^(?:KETENTUAN\s+PENUTUP|PENUTUP|penutup)\b')
+   143→   143→    # v3: Penjelasan (elucidation) marker — can appear after penutup or directly after last pasal
+   144→   144→    RE_PENJELASAN = re.compile(r'^(?:PENJELASAN|penjelasan)\b')
+   145→   145→
+   146→   146→    def __init__(self, lines, doc_type, nomor, year, issuer):
+   147→   147→        self.lines = lines
+   148→   148→        self.doc_type = doc_type
+   149→   149→        self.nomor = nomor
+   150→   150→        self.year = year
+   151→   151→        self.issuer = issuer
+   152→   152→        self.chunks = []
+   153→   153→
+   154→   154→        # Heading stack
+   155→   155→        self.current_bab = None
+   156→   156→        self.current_bab_label = None
+   157→   157→        self.current_bagian = None
+   158→   158→        self.current_bagian_label = None
+   159→   159→        self.current_paragraf = None
+   160→   160→        self.current_paragraf_label = None
+   161→   161→        self.current_pasal = None
+   162→   162→        self.current_ayat = None
+   163→   163→
+   164→   164→        # State
+   165→   165→        self.in_preamble = True
+   166→   166→        self.in_penutup = False
+   167→   167→        self.in_penjelasan = False  # v3: track elucidation section
+   168→   168→        self.in_quoted_amendment = False
+   169→   169→        self.quoted_amendment_source = None  # tracks which pasal is being amended
+   170→   170→        self.current_ayat_lines = []
+   171→   171→        self.current_pasal_lines = []
+   172→   172→        self.quoted_amendment_lines = []  # accumulate quoted text for chunking
+   173→   173→        self._penjelasan_lines = []  # v3: accumulate Penjelasan text
+   174→   174→        self._penjelasan_pasal = None
+   175→   175→
+   176→   176→    def parse(self) -> List[Dict]:
+   177→   177→        """Main parse loop. Returns list of chunks."""
+   178→   178→        for i, line in enumerate(self.lines):
+   179→   179→            text = line["text"].strip()
+   180→   180→            if not text:
+   181→   181→                continue
+   182→   182→
+   183→   183→            text_upper = text.upper()
+   184→   184→
+   185→   185→            # Detect preamble end / body start
+   186→   186→            if self.in_preamble:
+   187→   187→                if self.RE_BAB.match(text) or self.RE_PASAL.match(text):
+   188→   188→                    self.in_preamble = False
+   189→   189→                elif text_upper.startswith("MENETAPKAN") or text_upper.startswith("MEMUTUSKAN"):
+   190→   190→                    self.in_preamble = False
+   191→   191→                    continue
+   192→   192→                else:
+   193→   193→                    continue
+   194→   194→
+   195→   195→            # Detect penutup
+   196→   196→            if self.RE_PENUTUP.match(text):
+   197→   197→                self._flush_ayat()
+   198→   198→                self._flush_pasal()
+   199→   199→                self._flush_quoted_amendment()
+   200→   200→                self.in_penutup = True
+   201→   201→                continue
+   202→   202→
+   203→   203→            # v3: Detect PENJELASAN even without penutup (many docs go straight to penjelasan)
+   204→   204→            if self.RE_PENJELASAN.match(text) and not self.in_penjelasan:
+   205→   205→                self._flush_ayat()
+   206→   206→                self._flush_pasal()
+   207→   207→                self._flush_quoted_amendment()
+   208→   208→                self.in_penutup = True  # treat as post-operative
+   209→   209→                self.in_penjelasan = True
+   210→   210→                self._penjelasan_pasal = None
+   211→   211→                continue
+   212→   212→
+   213→   213→            if self.in_penutup:
+   214→   214→                # v3: Detect signature block and Penjelasan as hard boundaries
+   215→   215→                text_lower = text.lower()
+   216→   216→                # Signature block: lines like "Ditetapkan di Jakarta", "pada tanggal", or ttd/
+   217→   217→                # Also detect by very short lines after penutup start
+   218→   218→                if (re.search(r'ttd|disahkan|ditetapkan', text_lower) or
+   219→   219→                    (len(text) < 15 and text_upper == text and len(text) > 2)):
+   220→   220→                    self._flush_penjelasan()  # flush any accumulated penjelasan
+   221→   221→                    continue
+   222→   222→                # PENJELASAN section header
+   223→   223→                if text_upper == "PENJELASAN" or text_upper.startswith("PENJELASAN "):
+   224→   224→                    self._flush_penjelasan()
+   225→   225→                    self.in_penjelasan = True
+   226→   226→                    self._penjelasan_pasal = None
+   227→   227→                    continue
+   228→   228→                # Inside Penjelasan: track pasal references for IDs
+   229→   229→                if self.in_penjelasan:
+   230→   230→                    m_pj = re.match(r'^\s*Pasal\s+(\d+[a-zA-Z]?)', text, re.IGNORECASE)
+   231→   231→                    if m_pj:
+   232→   232→                        self._flush_penjelasan()
+   233→   233→                        self._penjelasan_pasal = m_pj.group(1)
+   234→   234→                    else:
+   235→   235→                        self._penjelasan_lines.append(text)
+   236→   236→                continue
+   237→   237→
+   238→   238→            # Check for quoted amendment TRIGGER ("Pasal X diubah sehingga berbunyi:")
+   239→   239→            if not self.in_quoted_amendment:
+   240→   240→                if self.RE_AMENDMENT_TRIGGER.search(text):
+   241→   241→                    # Extract which pasal is being amended
+   242→   242→                    m_pasal = re.search(r'Pasal\s+(\d+|\w+)\s+(?:ayat\s*\(\d+\)\s+)?(?:diubah|diganti|dihapus)',
+   243→   243→                                         text, re.IGNORECASE)
+   244→   244→                    source_pasal = m_pasal.group(1) if m_pasal else "?"
+   245→   245→                    self.in_quoted_amendment = True
+   246→   246→                    self.quoted_amendment_source = source_pasal
+   247→   247→                    self._flush_ayat()
+   248→   248→                    # Store the trigger sentence as context for the quoted chunk
+   249→   249→                    self.quoted_amendment_lines = [text]
+   250→   250→                    continue
+   251→   251→
+   252→   252→            # Inside quoted amendment: accumulate text
+   253→   253→            if self.in_quoted_amendment:
+   254→   254→                self.quoted_amendment_lines.append(text)
+   255→   255→                if self.RE_QUOTE_END.search(text):
+   256→   256→                    self._flush_quoted_amendment()
+   257→   257→                # Also check for end of quoted section without closing quote:
+   258→   258→                # if we hit a new structural marker, the quote ended implicitly
+   259→   259→                if (self.RE_BAB.match(text) or self.RE_PASAL.match(text) or
+   260→   260→                    self.RE_PENUTUP.match(text)):
+   261→   261→                    self._flush_quoted_amendment()
+   262→   262→                    # Don't skip the structural marker - let it be processed below
+   263→   263→                    self.in_quoted_amendment = False
+   264→   264→                elif self.RE_QUOTE_END.search(text):
+   265→   265→                    pass  # already flushed above
+   266→   266→                else:
+   267→   267→                    continue
+   268→   268→
+   269→   269→            # Match structural elements (order: BAB > Bagian > Paragraf > Pasal > Ayat > huruf > angka)
+   270→   270→            m = self.RE_BAB.match(text)
+   271→   271→            if m:
+   272→   272→                self._flush_ayat()
+   273→   273→                self._flush_pasal()
+   274→   274→                self.current_bab = m.group(1)
+   275→   275→                label_match = re.match(r'^\s*BAB\s+[IVXLCDM]+\s+(.*)', text, re.IGNORECASE)
+   276→   276→                raw_label = label_match.group(1).strip().rstrip('.') if label_match else ""
+   277→   277→                # Fix #2: if label is empty or just repeats "BAB X", set to None
+   278→   278→                if raw_label and raw_label.upper() != f"BAB {m.group(1).upper()}":
+   279→   279→                    self.current_bab_label = raw_label
+   280→   280→                else:
+   281→   281→                    self.current_bab_label = None
+   282→   282→                self.current_bagian = None
+   283→   283→                self.current_bagian_label = None
+   284→   284→                self.current_paragraf = None
+   285→   285→                self.current_paragraf_label = None
+   286→   286→                # v4: reset pasal when BAB changes to prevent heading-as-chunk
+   287→   287→                self.current_pasal = None
+   288→   288→                continue
+   289→   289→
+   290→   290→            m = self.RE_BAGIAN.match(text)
+   291→   291→            if m:
+   292→   292→                self._flush_ayat()
+   293→   293→                self._flush_pasal()
+   294→   294→                self.current_bagian = m.group(1)
+   295→   295→                label_match = re.match(r'^\s*BAGIAN\s+\w+\s+(.*)', text, re.IGNORECASE)
+   296→   296→                raw_label = label_match.group(1).strip().rstrip('.') if label_match else ""
+   297→   297→                if raw_label:
+   298→   298→                    self.current_bagian_label = raw_label
+   299→   299→                else:
+   300→   300→                    self.current_bagian_label = None
+   301→   301→                self.current_paragraf = None
+   302→   302→                self.current_paragraf_label = None
+   303→   303→                continue
+   304→   304→
+   305→   305→            m = self.RE_PARAGRAF.match(text)
+   306→   306→            if m:
+   307→   307→                self._flush_ayat()
+   308→   308→                self._flush_pasal()
+   309→   309→                self.current_paragraf = m.group(1)
+   310→   310→                label_match = re.match(r'^\s*PARAGRAF\s+\w+\s+(.*)', text, re.IGNORECASE)
+   311→   311→                raw_label = label_match.group(1).strip().rstrip('.') if label_match else ""
+   312→   312→                if raw_label:
+   313→   313→                    self.current_paragraf_label = raw_label
+   314→   314→                else:
+   315→   315→                    self.current_paragraf_label = None
+   316→   316→                continue
+   317→   317→
+   318→   318→            m = self.RE_PASAL.match(text)
+   319→   319→            if m:
+   320→   320→                self._flush_ayat()
+   321→   321→                self._flush_pasal()
+   322→   322→                raw_num = m.group(1)
+   323→   323→                # v4: normalize space-separated digits ("1 1" -> "11", "1 10" -> "110")
+   324→   324→                self.current_pasal = re.sub(r'\s+', '', raw_num) if re.match(r'^\d', raw_num) else raw_num
+   325→   325→                self.current_ayat = None
+   326→   326→                # v4: capture any remaining text on the same line as pasal heading
+   327→   327→                remaining = text[m.end():].strip().lstrip('.').strip()
+   328→   328→                if remaining and len(remaining) > 5:
+   329→   329→                    self.current_pasal_lines.append(remaining)
+   330→   330→                continue
+   331→   331→
+   332→   332→            m = self.RE_AYAT.match(text)
+   333→   333→            if m and self.current_pasal:
+   334→   334→                self._flush_ayat()
+   335→   335→                self.current_ayat = m.group(1)
+   336→   336→                ayat_text = self.RE_AYAT.sub('', text).strip()
+   337→   337→                if ayat_text:
+   338→   338→                    self.current_ayat_lines.append(ayat_text)
+   339→   339→                continue
+   340→   340→
+   341→   341→            # If we're inside a pasal but no ayat detected, accumulate lines
+   342→   342→            if self.current_pasal:
+   343→   343→                if self.current_ayat:
+   344→   344→                    self.current_ayat_lines.append(text)
+   345→   345→                else:
+   346→   346→                    self.current_pasal_lines.append(text)
+   347→   347→
+   348→   348→        # Flush remaining
+   349→   349→        self._flush_ayat()
+   350→   350→        self._flush_pasal()
+   351→   351→        self._flush_quoted_amendment()
+   352→   352→
+   353→   353→        return self.chunks
+   354→   354→
+   355→   355→    def _flush_ayat(self):
+   356→   356→        """Flush accumulated ayat lines as a chunk."""
+   357→   357→        if not self.current_ayat or not self.current_ayat_lines:
+   358→   358→            self.current_ayat_lines = []
+   359→   359→            return
+   360→   360→
+   361→   361→        text = ' '.join(self.current_ayat_lines).strip()
+   362→   362→        if not text or len(text) < MIN_CHUNK_TEXT_LENGTH:
+   363→   363→            self.current_ayat_lines = []
+   364→   364→            return
+   365→   365→
+   366→   366→        headings = _make_bab_headings(
+   367→   367→            self.current_bab, self.current_bab_label,
+   368→   368→            self.current_bagian, self.current_bagian_label,
+   369→   369→            self.current_paragraf, self.current_paragraf_label,
+   370→   370→            pasal_str=f"Pasal {self.current_pasal}",
+   371→   371→            ayat_str=f"Ayat ({self.current_ayat})"
+   372→   372→        )
+   373→   373→
+   374→   374→        path = build_path(headings)
+   375→   375→        chunk_id = build_id(self.doc_type, self.nomor, self.year,
+   376→   376→                            pasal=self.current_pasal, ayat=self.current_ayat)
+   377→   377→        parent_id = build_parent_id(self.doc_type, self.nomor, self.year, self.current_pasal)
+   378→   378→
+   379→   379→        self.chunks.append({
+   380→   380→            "id": chunk_id,
+   381→   381→            "text": text,
+   382→   382→            "metadata": {
+   383→   383→                "doc_type": self.doc_type,
+   384→   384→                "issuer": self.issuer,
+   385→   385→                "year": self.year,
+   386→   386→                "bab": self.current_bab or None,
+   387→   387→                "pasal": self.current_pasal,
+   388→   388→                "ayat": self.current_ayat,
+   389→   389→                "parent": parent_id,
+   390→   390→                "path": path,
+   391→   391→                "status": "active",
+   392→   392→            }
+   393→   393→        })
+   394→   394→        self.current_ayat_lines = []
+   395→   395→
+   396→   396→    def _flush_pasal(self):
+   397→   397→        """Flush pasal-only content (no ayat detected) as a single chunk."""
+   398→   398→        if not self.current_pasal or not self.current_pasal_lines:
+   399→   399→            self.current_pasal_lines = []
+   400→   400→            return
+   401→   401→
+   402→   402→        text = ' '.join(self.current_pasal_lines).strip()
+   403→   403→        if not text or len(text) < MIN_CHUNK_TEXT_LENGTH:
+   404→   404→            self.current_pasal_lines = []
+   405→   405→            return
+   406→   406→
+   407→   407→        headings = _make_bab_headings(
+   408→   408→            self.current_bab, self.current_bab_label,
+   409→   409→            self.current_bagian, self.current_bagian_label,
+   410→   410→            self.current_paragraf, self.current_paragraf_label,
+   411→   411→            pasal_str=f"Pasal {self.current_pasal}",
+   412→   412→        )
+   413→   413→        path = build_path(headings)
+   414→   414→        chunk_id = build_id(self.doc_type, self.nomor, self.year, pasal=self.current_pasal)
+   415→   415→
+   416→   416→        self.chunks.append({
+   417→   417→            "id": chunk_id,
+   418→   418→            "text": text,
+   419→   419→            "metadata": {
+   420→   420→                "doc_type": self.doc_type,
+   421→   421→                "issuer": self.issuer,
+   422→   422→                "year": self.year,
+   423→   423→                "bab": self.current_bab or None,
+   424→   424→                "pasal": self.current_pasal,
+   425→   425→                "ayat": None,
+   426→   426→                "parent": None,
+   427→   427→                "path": path,
+   428→   428→                "status": "active",
+   429→   429→            }
+   430→   430→        })
+   431→   431→        self.current_pasal_lines = []
+   432→   432→
+   433→   433→    def _flush_quoted_amendment(self):
+   434→   434→        """Flush quoted amendment text as a chunk with status='quoted_amendment'.
+   435→   435→        
+   436→   436→        Fix for bug #6: instead of silently skipping quoted amendments,
+   437→   437→        we now chunk them with a clear status tag so retrieval can
+   438→   438→        distinguish live law from historical amendment pointers.
+   439→   439→        """
+   440→   440→        if not self.quoted_amendment_lines:
+   441→   441→            self.in_quoted_amendment = False
+   442→   442→            self.quoted_amendment_source = None
+   443→   443→            return
+   444→   444→
+   445→   445→        text = ' '.join(self.quoted_amendment_lines).strip()
+   446→   446→        if not text or len(text) < MIN_CHUNK_TEXT_LENGTH:
+   447→   447→            self.quoted_amendment_lines = []
+   448→   448→            self.in_quoted_amendment = False
+   449→   449→            self.quoted_amendment_source = None
+   450→   450→            return
+   451→   451→
+   452→   452→        source = self.quoted_amendment_source or "?"
+   453→   453→        chunk_id = build_id(self.doc_type, self.nomor, self.year,
+   454→   454→                            pasal=source, ayat="quoted")
+   455→   455→
+   456→   456→        self.chunks.append({
+   457→   457→            "id": chunk_id,
+   458→   458→            "text": text,
+   459→   459→            "metadata": {
+   460→   460→                "doc_type": self.doc_type,
+   461→   461→                "issuer": self.issuer,
+   462→   462→                "year": self.year,
+   463→   463→                "bab": self.current_bab or None,
+   464→   464→                "pasal": source,
+   465→   465→                "ayat": "quoted",
+   466→   466→                "parent": None,
+   467→   467→                "path": f"[AMANDEMEN Pasal {source}]",
+   468→   468→                "status": "quoted_amendment",
+   469→   469→                "amends_pasal": source,
+   470→   470→            }
+   471→   471→        })
+   472→   472→        self.quoted_amendment_lines = []
+   473→   473→        self.in_quoted_amendment = False
+   474→   474→        self.quoted_amendment_source = None
+   475→   475→
+   476→   476→    def _flush_penjelasan(self):
+   477→   477→        """Flush accumulated Penjelasan text as chunk(s) with distinct :penjelasan ID suffix.
+   478→   478→        
+   479→   479→        v3 fix: Penjelasan (elucidation) gets distinct ID suffix to prevent
+   480→   480→        collision with operative article IDs.
+   481→   481→        """
+   482→   482→        if not self._penjelasan_lines:
+   483→   483→            return
+   484→   484→
+   485→   485→        text = ' '.join(self._penjelasan_lines).strip()
+   486→   486→        if not text or len(text) < MIN_CHUNK_TEXT_LENGTH:
+   487→   487→            self._penjelasan_lines = []
+   488→   488→            return
+   489→   489→
+   490→   490→        pasal_ref = self._penjelasan_pasal or "umum"
+   491→   491→        chunk_id = build_id(self.doc_type, self.nomor, self.year,
+   492→   492→                            pasal=pasal_ref, ayat="penjelasan")
+   493→   493→
+   494→   494→        self.chunks.append({
+   495→   495→            "id": chunk_id,
+   496→   496→            "text": text,
+   497→   497→            "metadata": {
+   498→   498→                "doc_type": self.doc_type,
+   499→   499→                "issuer": self.issuer,
+   500→   500→                "year": self.year,
+   501→   501→                "bab": self.current_bab or None,
+   502→   502→                "pasal": pasal_ref,
+   503→   503→                "ayat": "penjelasan",
+   504→   504→                "parent": None,
+   505→   505→                "path": f"Penjelasan > Pasal {pasal_ref}",
+   506→   506→                "status": "penjelasan",
+   507→   507→            }
+   508→   508→        })
+   509→   509→        self._penjelasan_lines = []
+   510→   510→        self._penjelasan_pasal = None
+   511→   511→
+   512→   512→
+   513→   513→# ==========================================================================
+   514→   514→# FAMILY B: DECREE/DECISION PARSER
+   515→   515→# ==========================================================================
+   516→   516→
+   517→   517→class FamilyBParser:
+   518→   518→    """
+   519→   519→    Parses decree/decision documents: Menimbang > Mengingat > MEMUTUSKAN/MENETAPKAN > Diktum.
+   520→   520→    Handles: Keppres, Inpres, Tap_MPR, Kepmen.
+   521→   521→    
+   522→   522→    v2 fix: Recognizes "Pasal X" as diktum divider (keppres pattern where
+   523→   523→    diktum items are organized under Pasal headings instead of numbered).
+   524→   524→    """
+   525→   525→
+   526→   526→    RE_MENIMBANG = re.compile(r'^\s*menimbang\s*:?\s*$', re.IGNORECASE)
+   527→   527→    RE_MENGINGAT = re.compile(r'^\s*mengingat\s*:?\s*$', re.IGNORECASE)
+   528→   528→    # Decision keywords: use $ anchor to match at END of line, allowing any prefix
+   529→   529→    RE_MEMUTUSKAN = re.compile(r'memutuskan\s*:?\s*$', re.IGNORECASE)
+   530→   530→    RE_MENETAPKAN = re.compile(r'menetapkan\s*:?\s*$', re.IGNORECASE)
+   531→   531→    RE_MENINSTRUKSIKAN = re.compile(r'menginstruksikan\s*:?\s*$', re.IGNORECASE)
+   532→   532→    RE_ITEM_LETTER = re.compile(r'^\s*([a-z])\s*\.\s*')
+   533→   533→    RE_ITEM_NUMBER = re.compile(r'^\s*(\d+)\s*\.\s*')
+   534→   534→    RE_ORDINAL = re.compile(
+   535→   535→        r'^\s*(KE(?:SATU|DUA|TIGA|EMPAT|LIMA|NAM|TUJUH|DELAPAN|SEMBILAN|SEPULUH|'
+   536→   536→        r'SEBELAS|DUA BELAS|TIGA BELAS|EMPAT BELAS|LIMA BELAS|ENAM BELAS|'
+   537→   537→        r'TUJUH BELAS|DELAPAN BELAS|SEMBILAN BELAS|DUA PULUH))\b',
+   538→   538→        re.IGNORECASE
+   539→   539→    )
+   540→   540→    # Fix #5: recognize "Pasal X" as diktum divider in Family B
+   541→   541→    RE_PASAL_DIKTUM = re.compile(r'^\s*Pasal\s+(\d+[a-zA-Z]?)\s*\.?\s*$', re.IGNORECASE)
+   542→   542→
+   543→   543→    def __init__(self, lines, doc_type, nomor, year, issuer):
+   544→   544→        self.lines = lines
+   545→   545→        self.doc_type = doc_type
+   546→   546→        self.nomor = nomor
+   547→   547→        self.year = year
+   548→   548→        self.issuer = issuer
+   549→   549→        self.chunks = []
+   550→   550→
+   551→   551→        self.section = "pre"  # pre, menimbang, mengingat, keputusan, done
+   552→   552→        self.current_item = None
+   553→   553→        self.current_item_lines = []
+   554→   554→        self.preamble_lines = []
+   555→   555→        self.decision_keyword = None
+   556→   556→        self.parent_section = None  # v3: track parent lettered section for inpres diktum IDs
+   557→   557→
+   558→   558→    def parse(self) -> List[Dict]:
+   559→   559→        for line in self.lines:
+   560→   560→            text = line["text"].strip()
+   561→   561→            if not text:
+   562→   562→                continue
+   563→   563→
+   564→   564→            text_upper = text.upper()
+   565→   565→
+   566→   566→            # Section transitions
+   567→   567→            if self.RE_MENIMBANG.match(text):
+   568→   568→                self._flush_preamble()
+   569→   569→                self.section = "menimbang"
+   570→   570→                self.current_item = None
+   571→   571→                continue
+   572→   572→
+   573→   573→            if self.RE_MENGINGAT.match(text):
+   574→   574→                self._flush_preamble()
+   575→   575→                self.section = "mengingat"
+   576→   576→                self.current_item = None
+   577→   577→                continue
+   578→   578→
+   579→   579→            # Decision keyword triggers (use search() for end-anchored patterns)
+   580→   580→            if self.section not in ("keputusan", "done"):
+   581→   581→                if self.RE_MENINSTRUKSIKAN.search(text):
+   582→   582→                    self._flush_item()
+   583→   583→                    self.section = "keputusan"
+   584→   584→                    self.decision_keyword = "MENGINSTRUKSIKAN"
+   585→   585→                    self.current_item = None
+   586→   586→                    continue
+   587→   587→
+   588→   588→                if self.RE_MEMUTUSKAN.search(text):
+   589→   589→                    self._flush_item()
+   590→   590→                    self.section = "keputusan"
+   591→   591→                    self.decision_keyword = "MEMUTUSKAN"
+   592→   592→                    self.current_item = None
+   593→   593→                    continue
+   594→   594→
+   595→   595→                if self.RE_MENETAPKAN.search(text):
+   596→   596→                    self._flush_item()
+   597→   597→                    self.section = "keputusan"
+   598→   598→                    self.decision_keyword = "MENETAPKAN"
+   599→   599→                    self.current_item = None
+   600→   600→                    continue
+   601→   601→
+   602→   602→            if self.section == "pre":
+   603→   603→                continue
+   604→   604→
+   605→   605→            if self.section == "done":
+   606→   606→                continue
+   607→   607→
+   608→   608→            # v3: Signature block detection (broader)
+   609→   609→            text_lower = text.lower()
+   610→   610→            if ("ttd" in text_lower and len(text) < 30):
+   611→   611→                self._flush_item()
+   612→   612→                self.section = "done"
+   613→   613→                continue
+   614→   614→            # Also stop at formal signing language
+   615→   615→            if re.search(r'ditetapkan\s+di|dilantik\s+di', text_lower):
+   616→   616→                self._flush_item()
+   617→   617→                self.section = "done"
+   618→   618→                continue
+   619→   619→            # Stop at Penjelasan in Family B documents
+   620→   620→            if text_upper == "PENJELASAN":
+   621→   621→                self._flush_item()
+   622→   622→                self.section = "done"
+   623→   623→                continue
+   624→   624→
+   625→   625→            # In keputusan section: check for item markers
+   626→   626→            if self.section == "keputusan":
+   627→   627→                m_letter = self.RE_ITEM_LETTER.match(text)
+   628→   628→                m_number = self.RE_ITEM_NUMBER.match(text)
+   629→   629→                m_ordinal = self.RE_ORDINAL.match(text)
+   630→   630→                m_pasal = self.RE_PASAL_DIKTUM.match(text)
+   631→   631→
+   632→   632→                if m_pasal:
+   633→   633→                    # Fix #5: "Pasal X" acts as a diktum divider in some keppres
+   634→   634→                    self._flush_item()
+   635→   635→                    self.current_item = f"Pasal {m_pasal.group(1)}"
+   636→   636→                    continue
+   637→   637→
+   638→   638→                if m_letter or m_number or m_ordinal:
+   639→   639→                    self._flush_item()
+   640→   640→                    if m_ordinal:
+   641→   641→                        self.current_item = m_ordinal.group(1).upper()
+   642→   642→                    elif m_letter:
+   643→   643→                        self.current_item = m_letter.group(1)
+   644→   644→                    else:
+   645→   645→                        self.current_item = m_number.group(1)
+   646→   646→                    m = m_letter or m_number or m_ordinal
+   647→   647→                    remaining = text[m.end():].strip()
+   648→   648→                    if remaining:
+   649→   649→                        self.current_item_lines.append(remaining)
+   650→   650→                    continue
+   651→   651→
+   652→   652→                # Sub-items: accumulate under current item
+   653→   653→                if self.current_item:
+   654→   654→                    self.current_item_lines.append(text)
+   655→   655→                continue
+   656→   656→
+   657→   657→        self._flush_item()
+   658→   658→        return self.chunks
+   659→   659→
+   660→   660→    def _flush_item(self):
+   661→   661→        if not self.current_item or not self.current_item_lines:
+   662→   662→            self.current_item_lines = []
+   663→   663→            return
+   664→   664→
+   665→   665→        text = ' '.join(self.current_item_lines).strip()
+   666→   666→        if not text or len(text) < MIN_CHUNK_TEXT_LENGTH:
+   667→   667→            self.current_item_lines = []
+   668→   668→            return
+   669→   669→
+   670→   670→        kw = self.decision_keyword or "MEMUTUSKAN"
+   671→   671→        # v3: Include parent section in diktum ID for inpres (prevents numbering collision)
+   672→   672→        diktum_num = self.current_item
+   673→   673→        if self.parent_section and diktum != self.parent_section:
+   674→   674→            diktum_num = f"{self.parent_section}.{diktum_num}"
+   675→   675→        chunk_id = build_id(self.doc_type, self.nomor, self.year,
+   676→   676→                            chunk_type="diktum", chunk_num=diktum_num)
+   677→   677→
+   678→   678→        self.chunks.append({
+   679→   679→            "id": chunk_id,
+   680→   680→            "text": text,
+   681→   681→            "metadata": {
+   682→   682→                "doc_type": self.doc_type,
+   683→   683→                "issuer": self.issuer,
+   684→   684→                "year": self.year,
+   685→   685→                "nomor": self.nomor,
+   686→   686→                "section": "keputusan",
+   687→   687→                "decision_keyword": kw,
+   688→   688→                "diktum": self.current_item,
+   689→   689→                "parent": None,
+   690→   690→                "path": f"{kw} > Diktum {self.current_item}",
+   691→   691→                "status": "active",
+   692→   692→            }
+   693→   693→        })
+   694→   694→        self.current_item_lines = []
+   695→   695→
+   696→   696→    def _flush_preamble(self):
+   697→   697→        self.preamble_lines = []
+   698→   698→
+   699→   699→
+   700→   700→# ==========================================================================
+   701→   701→# FAMILY C: COURT RULING PARSER
+   702→   702→# ==========================================================================
+   703→   703→
+   704→   704→class FamilyCParser:
+   705→   705→    """
+   706→   706→    Parses court rulings: Duduk Perkara > Menimbang > MENGADILI/MENETAPKAN > Amar.
+   707→   707→    Handles: Putusan MK, Putusan MA.
+   708→   708→    """
+   709→   709→
+   710→   710→    RE_MENGADILI = re.compile(r'^\s*mengadili\s*:?\s*$', re.IGNORECASE)
+   711→   711→    RE_MENETAPKAN = re.compile(r'^\s*menetapkan\s*:?\s*$', re.IGNORECASE)
+   712→   712→    RE_AMAR = re.compile(r'^\s*(\d+)\s*\.\s+')
+   713→   713→    RE_PUTUSAN = re.compile(r'^\s*putusan\s*:?\s*$', re.IGNORECASE)
+   714→   714→
+   715→   715→    def __init__(self, lines, doc_type, nomor, year, issuer, nomor_perkara=None):
+   716→   716→        self.lines = lines
+   717→   717→        self.doc_type = doc_type
+   718→   718→        self.nomor = nomor
+   719→   719→        self.year = year
+   720→   720→        self.issuer = issuer
+   721→   721→        self.nomor_perkara = nomor_perkara
+   722→   722→        self.chunks = []
+   723→   723→
+   724→   724→        self.section = "pre"
+   725→   725→        self.current_amar = None
+   726→   726→        self.current_amar_lines = []
+   727→   727→        self.pertimbangan_lines = []
+   728→   728→
+   729→   729→    def parse(self) -> List[Dict]:
+   730→   730→        for line in self.lines:
+   731→   731→            text = line["text"].strip()
+   732→   732→            if not text:
+   733→   733→                continue
+   734→   734→
+   735→   735→            text_upper = text.upper()
+   736→   736→
+   737→   737→            if self.RE_MENGADILI.match(text):
+   738→   738→                self._flush_amar()
+   739→   739→                self.section = "amar"
+   740→   740→                self.decision_keyword = "MENGADILI"
+   741→   741→                continue
+   742→   742→
+   743→   743→            if self.RE_MENETAPKAN.match(text):
+   744→   744→                self._flush_amar()
+   745→   745→                self.section = "amar"
+   746→   746→                self.decision_keyword = "MENETAPKAN"
+   747→   747→                continue
+   748→   748→
+   749→   749→            if self.section == "pre":
+   750→   750→                continue
+   751→   751→
+   752→   752→            if self.section == "done":
+   753→   753→                continue
+   754→   754→
+   755→   755→            if self.section == "amar":
+   756→   756→                m = self.RE_AMAR.match(text)
+   757→   757→                if m:
+   758→   758→                    self._flush_amar()
+   759→   759→                    self.current_amar = m.group(1)
+   760→   760→                    remaining = text[m.end():].strip()
+   761→   761→                    if remaining:
+   762→   762→                        self.current_amar_lines.append(remaining)
+   763→   763→                    continue
+   764→   764→
+   765→   765→                if self.current_amar:
+   766→   766→                    self.current_amar_lines.append(text)
+   767→   767→
+   768→   768→                if re.search(r'\bttd\b|\bHAKIM\b|\bKETUA\b', text_upper) and len(text) < 30:
+   769→   769→                    self._flush_amar()
+   770→   770→                    self.section = "done"
+   771→   771→
+   772→   772→        self._flush_amar()
+   773→   773→        return self.chunks
+   774→   774→
+   775→   775→    def _flush_amar(self):
+   776→   776→        if not self.current_amar or not self.current_amar_lines:
+   777→   777→            self.current_amar_lines = []
+   778→   778→            return
+   779→   779→
+   780→   780→        text = ' '.join(self.current_amar_lines).strip()
+   781→   781→        if not text or len(text) < MIN_CHUNK_TEXT_LENGTH:
+   782→   782→            self.current_amar_lines = []
+   783→   783→            return
+   784→   784→
+   785→   785→        kw = getattr(self, 'decision_keyword', 'MENGADILI')
+   786→   786→        chunk_id = build_id(self.doc_type, self.nomor, self.year,
+   787→   787→                            nomor_perkara=self.nomor_perkara,
+   788→   788→                            chunk_type="amar", chunk_num=self.current_amar)
+   789→   789→
+   790→   790→        self.chunks.append({
+   791→   791→            "id": chunk_id,
+   792→   792→            "text": text,
+   793→   793→            "metadata": {
+   794→   794→                "doc_type": self.doc_type,
+   795→   795→                "issuer": self.issuer,
+   796→   796→                "year": self.year,
+   797→   797→                "nomor_perkara": self.nomor_perkara,
+   798→   798→                "section": "amar",
+   799→   799→                "decision_keyword": kw,
+   800→   800→                "amar": self.current_amar,
+   801→   801→                "parent": None,
+   802→   802→                "path": f"{kw} > Amar {self.current_amar}",
+   803→   803→                "status": "active",
+   804→   804→            }
+   805→   805→        })
+   806→   806→        self.current_amar_lines = []
+   807→   807→
+   808→   808→
+   809→   809→# ==========================================================================
+   810→   810→# UNIFIED CHUNKER
+   811→   811→# ==========================================================================
+   812→   812→
+   813→   813→def extract_nomor_perkara(lines):
+   814→   814→    """Extract case number (e.g. 96/PUU-XVI/2018) from court ruling lines."""
+   815→   815→    for line in lines[:30]:
+   816→   816→        m = re.search(r'(\d+/[A-Z]+-[A-Z]+/\d{4})', line["text"])
+   817→   817→        if m:
+   818→   818→            return m.group(1)
+   819→   819→    return None
+   820→   820→
+   821→   821→
+   822→   822→def chunk_pdf(pdf_path: str, directory: str, family_map: Dict) -> List[Dict]:
+   823→   823→    """
+   824→   824→    Main entry point. Extract + parse a PDF into chunks.
+   825→   825→    Returns list of chunk dicts with id, text, metadata.
+   826→   826→    """
+   827→   827→    dir_config = family_map.get(directory, {})
+   828→   828→    family = dir_config.get("family", "A")
+   829→   829→    default_doc_type = dir_config.get("doc_type", "Unknown")
+   830→   830→    default_issuer = dir_config.get("issuer", "Unknown")
+   831→   831→
+   832→   832→    try:
+   833→   833→        lines, meta = extract_clean(pdf_path)
+   834→   834→    except Exception as e:
+   835→   835→        return [{"id": f"ERROR:{directory}", "text": str(e), "metadata": {"error": True}}]
+   836→   836→
+   837→   837→    if not lines:
+   838→   838→        return [{"id": f"EMPTY:{directory}", "text": "No extractable text (possibly scanned PDF)", "metadata": {"error": True, "needs_ocr": True}}]
+   839→   839→
+   840→   840→    # v4 fix: Detect doc_type from title block FIRST, directory as fallback.
+   841→   841→    # Use page-1-only RAW lines (pre-boilerplate) since boilerplate stripping
+   842→   842→    # removes the actual document title (e.g. "PERATURAN PRESIDEN").
+   843→   843→    # Only page 1 to avoid body citations polluting the detection.
+   844→   844→    page1_raw = [l["text"].strip() for l in lines if l.get("page") == 1]
+   845→   845→    raw_title_block = " ".join(page1_raw[:15]) if page1_raw else ""
+   846→   846→    detected_type, detected_issuer = detect_doc_type_from_title(raw_title_block)
+   847→   847→    
+   848→   848→    # If page 1 was empty (image) or detection failed, try cleaned lines
+   849→   849→    if detected_type == "Unknown":
+   850→   850→        clean_title = extract_title_block(lines, max_first_n=5)
+   851→   851→        detected_type, detected_issuer = detect_doc_type_from_title(clean_title)
+   852→   852→    
+   853→   853→    # Title block wins when it returns a real type; directory is fallback only
+   854→   854→    if detected_type != "Unknown":
+   855→   855→        doc_type = detected_type
+   856→   856→        issuer = detected_issuer
+   857→   857→        if default_doc_type != "Unknown" and detected_type != default_doc_type:
+   858→   858→            print(f"  [WARN] doc_type: title={detected_type} overrides dir={default_doc_type} for {directory}")
+   859→   859→    elif default_doc_type != "Unknown":
+   860→   860→        doc_type = default_doc_type
+   861→   861→        issuer = default_issuer
+   862→   862→    else:
+   863→   863→        doc_type = "Unknown"
+   864→   864→        issuer = "Unknown"
+   865→   865→    nomor = meta.get("nomor")
+   866→   866→    year = meta.get("year")
+   867→   867→
+   868→   868→    # v4: If page 1 was empty (image), always re-extract nomor/year from post-decision text
+   869→   869→    # since the pre-decision text contains citations, not the document's own number.
+   870→   870→    page1_has_text = any(l.get("page") == 1 for l in lines)
+   871→   871→    if not page1_has_text and meta.get("total_pages", 0) > 1:
+   872→   872→        post_nomor, post_year = extract_nomor_year_post_decision(lines)
+   873→   873→        if post_nomor and post_nomor != nomor:
+   874→   874→            nomor = post_nomor
+   875→   875→            if post_year:
+   876→   876→                year = post_year
+   877→   877→            print(f"  [INFO] Post-decision: nomor={nomor}, year={year}")
+   878→   878→        # v4: Filename fallback when page 1 is image and text extraction found wrong number
+   879→   879→        if (not post_nomor) or (nomor == meta.get('nomor') and re.search(r'(\d+)[_.](\d{4})', os.path.basename(pdf_path))):
+   880→   880→            fn = os.path.basename(pdf_path)
+   881→   881→            fn_match = re.search(r'(\d+)[_.](\d{4})', fn)
+   882→   882→            if fn_match:
+   883→   883→                nomor = fn_match.group(1)
+   884→   884→                year = fn_match.group(2)
+   885→   885→                print(f"  [INFO] Filename fallback: nomor={nomor}, year={year}")
+   886→   886→    
+   887→   887→    # Directory-specific overrides for image-cover documents where title can't be read
+   888→   888→    if directory == "JDIH_KPU" and doc_type in ("Peraturan", "Unknown"):
+   889→   889→        doc_type = "PKPU"
+   890→   890→        issuer = "Komisi Pemilihan Umum"
+   891→   891→
+   892→   892→    # Parse based on family
+   893→   893→    if family == "A":
+   894→   894→        parser = FamilyAParser(lines, doc_type, nomor, year, issuer)
+   895→   895→        chunks = parser.parse()
+   896→   896→    elif family == "B":
+   897→   897→        parser = FamilyBParser(lines, doc_type, nomor, year, issuer)
+   898→   898→        chunks = parser.parse()
+   899→   899→    elif family == "C":
+   900→   900→        nomor_perkara = extract_nomor_perkara(lines)
+   901→   901→        parser = FamilyCParser(lines, doc_type, nomor, year, issuer, nomor_perkara)
+   902→   902→        chunks = parser.parse()
+   903→   903→    else:
+   904→   904→        chunks = [{"id": f"UNKNOWN_FAMILY:{directory}", "text": "", "metadata": {"error": True}}]
+   905→   905→
+   906→   906→    # Add extraction metadata to all chunks
+   907→   907→    for chunk in chunks:
+   908→   908→        chunk["metadata"]["source_file"] = meta["file"]
+   909→   909→        chunk["metadata"]["directory"] = directory
+   910→   910→        chunk["metadata"]["family"] = family
+   911→   911→        if nomor:
+   912→   912→            chunk["metadata"]["nomor"] = nomor
+   913→   913→        if year:
+   914→   914→            chunk["metadata"]["year"] = year
+   915→   915→
+   916→   916→    return chunks
+   917→   917→
+   918→   918→
+   919→   919→if __name__ == "__main__":
+   920→   920→    import json as json_lib
+   921→   921→
+   922→   922→    CONFIG_PATH = "/home/z/my-project/config/directory_family_map.json"
+   923→   923→    SAMPLES_DIR = "/home/z/my-project/download/samples"
+   924→   924→
+   925→   925→    SAMPLES = {
+   926→   926→        "uu": "uu/uunomor41tahun2014.pdf",
+   927→   927→        "pp": "pp/PP_NO_70_TH_1991.pdf",
+   928→   928→        "perppu": "perppu/perppu-no-148-tahun-2024.pdf",
+   929→   929→        "perpres": "perpres/perpres-no-127-tahun-2024.pdf",
+   930→   930→        "perda": "perda/perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
+   931→   931→        "keppres": "keppres/keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
+   932→   932→        "inpres": "inpres/inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
+   933→   933→        "tap_mpr": "tap_mpr/Ketetapan Majelis Permusyawaratan Rakyat Republik Indonesia Nomor IIIMPR2002 ten.pdf",
+   934→   934→        "uud-1945": "uud-1945/uud_1945.pdf",
+   935→   935→        "Putusan-MK": "Putusan-MK/putusan_mkri_5301.pdf",
+   936→   936→        "JDIH_Kemnaker": "JDIH_Kemnaker/Permenaker No. 90 Tahun 2013.pdf",
+   937→   937→        "JDIH_Kemenkeu": "JDIH_Kemenkeu/PMK_No__9_Tahun_2025_2024pmkeuangan009.pdf",
+   938→   938→        "JDIH_Kemendag": "JDIH_Kemendag/Kepmendag_No__123_Tahun_2025_download_3142_2.pdf",
+   939→   939→        "JDIH_Komdigi": "JDIH_Komdigi/Permenkominfo No. 5 Tahun 2024.pdf",
+   940→   940→        "JDIH_KPU": "JDIH_KPU/PKPU_8_2026.pdf",
+   941→   941→        "peraturan": "peraturan/PP0201962.pdf",
+   942→   942→    }
+   943→   943→
+   944→   944→    with open(CONFIG_PATH) as f:
+   945→   945→        family_map = json_lib.load(f)
+   946→   946→
+   947→   947→    all_results = {}
+   948→   948→    for folder, rel_path in SAMPLES.items():
+   949→   949→        full_path = os.path.join(SAMPLES_DIR, rel_path)
+   950→   950→        if not os.path.exists(full_path):
+   951→   951→            print(f"SKIP {folder}: file not found")
+   952→   952→            continue
+   953→   953→
+   954→   954→        print(f"\n{'='*60}")
+   955→   955→        print(f"{folder} (Family {family_map.get(folder, {}).get('family', '?')})")
+   956→   956→        print(f"{'='*60}")
+   957→   957→
+   958→   958→        chunks = chunk_pdf(full_path, folder, family_map)
+   959→   959→        all_results[folder] = chunks
+   960→   960→
+   961→   961→        print(f"Chunks produced: {len(chunks)}")
+   962→   962→        for c in chunks[:5]:
+   963→   963→            txt_preview = c['text'][:80] + "..." if len(c['text']) > 80 else c['text']
+   964→   964→            print(f"  [{c['id']}] {txt_preview}")
+   965→   965→        if len(chunks) > 5:
+   966→   966→            print(f"  ... and {len(chunks)-5} more")
+   967→   967→
+   968→   968→    output_path = "/home/z/my-project/download/chunk_results_v2.json"
+   969→   969→    with open(output_path, "w", encoding="utf-8") as f:
+   970→   970→        json_lib.dump(all_results, f, ensure_ascii=False, indent=2)
+   971→   971→    print(f"\nAll results saved to: {output_path}")
+   972→   972→

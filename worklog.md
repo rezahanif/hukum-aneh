@@ -87,3 +87,25 @@ Stage Summary:
 - perda: 18→4 duplicate IDs (BAB reset pasal fixed)
 - perpres: doc_type=Perpres ✅
 - Known remaining: perppu 52 dupes (complex counter issue), JDIH_Komdigi 18 dupes (page-break splits)
+
+---
+Task ID: 1
+Agent: Main
+Task: Apply v5 QA fixes — perpres dedicated pass + uu alpha pasal suffixes
+
+Work Log:
+- Diagnosed perpres Pasal 3 root cause: page number `-3-` ends with hyphen, triggering hyphen-merge rule that swallows Pasal 3 content into garbled header line `FRESIDEN REPUBL]K INDONESIA -3-`, which is then discarded as noise. Fixed by excluding `-.\d+-$` patterns from hyphen-merge.
+- Fixed 5 Tunjangan glyph corruption variants: T/rnjangan (literal backslash-r), T/r/rnjangan (CR char), Ttrnjangan, Tfrnjangan, I/rnjangan. Removed re.I flag that caused [TI] to match lowercase t producing TTunjangan.
+- Fixed Fungsional corruption: R/rngsional, F/rngsional → Fungsional
+- Fixed sebagaimana corruption: sglagaimana, sslagaimana → sebagaimana
+- Fixed stamp noise: broadened RE_SETNEG_STAMP2 to handle SK No2l1340A (no space after No, lowercase l separator). Added GLYPH_FIX pattern to strip stamp prefix when glued to body text.
+- Fixed false Pasal heading: `Pasal 2 diangkat...` (body text reference) no longer matches as heading. Updated STRUCTURAL_MARKERS and RE_PASAL to require heading-like ending (dots, braces, whitespace, or end-of-line after pasal number).
+- Fixed uu alpha pasal suffixes: RE_PASAL now captures [a-zA-Z]? after digits (68A, 68B, etc.). Updated penjelasan pasal detection similarly.
+- Updated FamilyB RE_PASAL_DIKTUM for alpha suffixes.
+- Ran full pipeline: 16 files, 873 chunks, 141 dup chunks
+
+Stage Summary:
+- perpres: Pasal 3 restored (was missing for 3 rounds), all glyph corruption fixed, stamp noise stripped, 0 dup IDs
+- uu: 68A/68C/68D/68E now distinct IDs. 68B missing due to OCR corruption (688 in source PDF — not regex-fixable)
+- perppu: 30 dup chunks (was 115 in v3), worst case 2/ID (was 9)
+- Output: chunk_results_v5.json, chunk_qa_report_v5.json, chunk_test_report_v5.json in /home/z/my-project/download/
