@@ -1,21 +1,21 @@
 {
   "version": "v3-fixed",
-  "timestamp": "2026-08-04T09:31:11.121672",
+  "timestamp": "2026-08-06T14:49:46.653260",
   "files": {
     "uu": {
       "folder": "uu",
       "filename": "uu/uunomor41tahun2014.pdf",
-      "chunks": 127,
+      "chunks": 139,
       "issues": [
         {
           "type": "DUPLICATE_IDS",
           "count": 21,
           "examples": [
+            "UU:41:2014:13",
             "UU:41:2014:16:2",
             "UU:41:2014:18:6",
-            "UU:41:2014:3:1",
-            "UU:41:2014:3:4",
-            "UU:41:2014:36:3"
+            "UU:41:2014:31:1",
+            "UU:41:2014:31:4"
           ]
         }
       ],
@@ -24,17 +24,15 @@
     "pp": {
       "folder": "pp",
       "filename": "pp/PP_NO_70_TH_1991.pdf",
-      "chunks": 63,
+      "chunks": 52,
       "issues": [
         {
           "type": "DUPLICATE_IDS",
-          "count": 7,
+          "count": 3,
           "examples": [
-            "PP:70:1991:2",
             "PP:70:1991:3:1",
-            "PP:70:1991:7:4",
-            "PP:70:1991:12:4",
-            "PP:70:1991:14:4"
+            "PP:70:1991:3:2",
+            "PP:70:1991:3:3"
           ]
         }
       ]
@@ -42,17 +40,17 @@
     "perppu": {
       "folder": "perppu",
       "filename": "perppu/perppu-no-148-tahun-2024.pdf",
-      "chunks": 279,
+      "chunks": 260,
       "issues": [
         {
           "type": "DUPLICATE_IDS",
-          "count": 46,
+          "count": 52,
           "examples": [
-            "PerPPU:148:2024:1",
-            "PerPPU:148:2024:6",
-            "PerPPU:148:2024:7",
-            "PerPPU:148:2024:10",
-            "PerPPU:148:2024:1:1"
+            "Perpres:148:2024:5",
+            "Perpres:148:2024:7",
+            "Perpres:148:2024:9",
+            "Perpres:148:2024:11:6",
+            "Perpres:148:2024:13"
           ]
         }
       ]
@@ -79,17 +77,16 @@
     "perda": {
       "folder": "perda",
       "filename": "perda/perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
-      "chunks": 91,
+      "chunks": 80,
       "issues": [
         {
           "type": "DUPLICATE_IDS",
-          "count": 9,
+          "count": 4,
           "examples": [
-            "Perda:1:2025:4",
             "Perda:1:2025:7:4",
-            "Perda:1:2025:8",
             "Perda:1:2025:10:3",
-            "Perda:1:2025:14:1"
+            "Perda:1:2025:16:1",
+            "Perda:1:2025:17:3"
           ]
         }
       ],
@@ -140,17 +137,17 @@
     "uud-1945": {
       "folder": "uud-1945",
       "filename": "uud-1945/uud_1945.pdf",
-      "chunks": 173,
+      "chunks": 149,
       "issues": [
         {
           "type": "DUPLICATE_IDS",
-          "count": 39,
+          "count": 28,
           "examples": [
             "UUD1945:?:1945:1:1",
-            "UUD1945:?:1945:1:2",
             "UUD1945:?:1945:2:2",
             "UUD1945:?:1945:2:3",
-            "UUD1945:?:1945:2:1"
+            "UUD1945:?:1945:2:1",
+            "UUD1945:?:1945:6:1"
           ]
         }
       ]
@@ -191,17 +188,17 @@
     "JDIH_Komdigi": {
       "folder": "JDIH_Komdigi",
       "filename": "JDIH_Komdigi/Permenkominfo No. 5 Tahun 2024.pdf",
-      "chunks": 160,
+      "chunks": 152,
       "issues": [
         {
           "type": "DUPLICATE_IDS",
-          "count": 24,
+          "count": 18,
           "examples": [
             "Permen:5:2024:2:1",
-            "Permen:5:2024:3",
             "Permen:5:2024:4:2",
             "Permen:5:2024:4:4",
-            "Permen:5:2024:9:1"
+            "Permen:5:2024:9:1",
+            "Permen:5:2024:11:2"
           ]
         }
       ]
@@ -215,11 +212,11 @@
           "type": "DUPLICATE_IDS",
           "count": 5,
           "examples": [
-            "PKPU:07:2012:I:1",
-            "PKPU:07:2012:I:2",
-            "PKPU:07:2012:I:3",
-            "PKPU:07:2012:I:4",
-            "PKPU:07:2012:I:5"
+            "PKPU:8:2026:I:1",
+            "PKPU:8:2026:I:2",
+            "PKPU:8:2026:I:3",
+            "PKPU:8:2026:I:4",
+            "PKPU:8:2026:I:5"
           ]
         }
       ]
@@ -237,33 +234,31 @@
         "folder": "uu",
         "count": 21,
         "examples": [
+          "UU:41:2014:13",
           "UU:41:2014:16:2",
           "UU:41:2014:18:6",
-          "UU:41:2014:3:1",
-          "UU:41:2014:3:4",
-          "UU:41:2014:36:3"
+          "UU:41:2014:31:1",
+          "UU:41:2014:31:4"
         ]
       },
       {
         "folder": "pp",
-        "count": 7,
+        "count": 3,
         "examples": [
-          "PP:70:1991:2",
           "PP:70:1991:3:1",
-          "PP:70:1991:7:4",
-          "PP:70:1991:12:4",
-          "PP:70:1991:14:4"
+          "PP:70:1991:3:2",
+          "PP:70:1991:3:3"
         ]
       },
       {
         "folder": "perppu",
-        "count": 46,
+        "count": 52,
         "examples": [
-          "PerPPU:148:2024:1",
-          "PerPPU:148:2024:6",
-          "PerPPU:148:2024:7",
-          "PerPPU:148:2024:10",
-          "PerPPU:148:2024:1:1"
+          "Perpres:148:2024:5",
+          "Perpres:148:2024:7",
+          "Perpres:148:2024:9",
+          "Perpres:148:2024:11:6",
+          "Perpres:148:2024:13"
         ]
       },
       {
@@ -276,13 +271,12 @@
       },
       {
         "folder": "perda",
-        "count": 9,
+        "count": 4,
         "examples": [
-          "Perda:1:2025:4",
           "Perda:1:2025:7:4",
-          "Perda:1:2025:8",
           "Perda:1:2025:10:3",
-          "Perda:1:2025:14:1"
+          "Perda:1:2025:16:1",
+          "Perda:1:2025:17:3"
         ]
       },
       {
@@ -295,13 +289,13 @@
       },
       {
         "folder": "uud-1945",
-        "count": 39,
+        "count": 28,
         "examples": [
           "UUD1945:?:1945:1:1",
-          "UUD1945:?:1945:1:2",
           "UUD1945:?:1945:2:2",
           "UUD1945:?:1945:2:3",
-          "UUD1945:?:1945:2:1"
+          "UUD1945:?:1945:2:1",
+          "UUD1945:?:1945:6:1"
         ]
       },
       {
@@ -313,24 +307,24 @@
       },
       {
         "folder": "JDIH_Komdigi",
-        "count": 24,
+        "count": 18,
         "examples": [
           "Permen:5:2024:2:1",
-          "Permen:5:2024:3",
           "Permen:5:2024:4:2",
           "Permen:5:2024:4:4",
-          "Permen:5:2024:9:1"
+          "Permen:5:2024:9:1",
+          "Permen:5:2024:11:2"
         ]
       },
       {
         "folder": "JDIH_KPU",
         "count": 5,
         "examples": [
-          "PKPU:07:2012:I:1",
-          "PKPU:07:2012:I:2",
-          "PKPU:07:2012:I:3",
-          "PKPU:07:2012:I:4",
-          "PKPU:07:2012:I:5"
+          "PKPU:8:2026:I:1",
+          "PKPU:8:2026:I:2",
+          "PKPU:8:2026:I:3",
+          "PKPU:8:2026:I:4",
+          "PKPU:8:2026:I:5"
         ]
       }
     ],

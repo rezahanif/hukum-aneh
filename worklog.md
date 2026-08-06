@@ -57,3 +57,33 @@ Stage Summary:
 - 3 output files: chunk_results_v3.json (714K), chunk_test_report_v3.json (8.8K), chunk_qa_report_v3.json (8K)
 - Key improvements: pp crash fixed, keppres/JDIH_Kemnaker/JDIH_Komdigi doc_type corrected, 57 penjelasan chunks properly separated
 - No Google Drive credentials available — files in /home/z/my-project/download/
+
+---
+Task ID: 2
+Agent: Main
+Task: Apply v4 QA fixes, run tests, upload results to Drive
+
+Work Log:
+- Investigated root causes for all 6 v3 QA red flags using debug script
+- Fixed RE_PASAL regex to capture space-separated multi-digit numbers (Pasal 1 10 = Pasal 110)
+- Fixed pasal match to normalize numbers and capture inline text on same line
+- Fixed BAB change to reset current_pasal (fixes pp heading-as-chunk)
+- Reordered detect_doc_type_from_title: Keppres/Kepmen/Perpres/Permen before PP/UUD1945
+- Used page-1-only raw lines for doc_type detection
+- Added filename-based nomor/year fallback for image-cover PDFs (JDIH_KPU: 8/2026)
+- Added post-decision nomor/year extraction for image-cover docs
+- Added KETENTUAN PENUTUP to penutup pattern
+- Added glyph fixes for perpres (Tfrnjangan, PRESTDEN)
+- Broadened stamp pattern for No<digit> variants
+- Generated v4 results: 913 chunks, 0 errors, 136 dupes
+- Uploaded 3 files to Google Drive
+
+Stage Summary:
+- keppres: doc_type correctly Keppres (was PP regression, now fixed)
+- JDIH_Kemnaker: doc_type=PP per title block (user-requested)
+- JDIH_KPU: nomor=8, year=2026 from filename fallback (was 07/2012)
+- JDIH_KPU: doc_type=PKPU via directory override
+- pp: 7→3 duplicate IDs (heading-as-chunk fixed)
+- perda: 18→4 duplicate IDs (BAB reset pasal fixed)
+- perpres: doc_type=Perpres ✅
+- Known remaining: perppu 52 dupes (complex counter issue), JDIH_Komdigi 18 dupes (page-break splits)
