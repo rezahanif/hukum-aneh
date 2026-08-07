@@ -161,3 +161,26 @@ Stage Summary:
 - Files modified: parsers.py (4 changes), clean_extractor.py (none)
 - New script: scripts/run_v7.py
 - Output: chunk_results_v7.json, chunk_qa_report_v7.json
+
+---
+Task ID: v8-fixes
+Agent: Main Agent
+Task: v8 — revert perppu doc_type regression, fix QA self-check, fix quoted amendment pasal extraction
+
+Work Log:
+- Reverted v7 perppu doc_type override: document self-declares as "Peraturan Presiden", title-based detection was correct all along. Directory name was misleading.
+- Added comment explaining why no directory-based override exists for perppu
+- Fixed quoted amendment pasal-number extraction regex to handle two phrasing variants:
+  - Trailing comma: "Pasal 21 ayat (1), diubah" → now extracts "21" (was "?")
+  - huruf insertion: "Pasal 28 ayat (4) huruf d diubah" → now extracts "28" (was "?")
+- Rewrote QA report (run_v8.py) to never hardcode expected doc_type:
+  - perppu check now reports disagreement between directory and document text without asserting CORRECT/WRONG
+  - JDIH_KPU check now verifies all quoted amendments have resolved pasal refs (warns on "?")
+
+Stage Summary:
+- JDIH_KPU: 0 dup IDs (was 1 in v7, 19 in v6), all 6 quoted amendments have resolved pasal refs
+- perppu: doc_type correctly reverted to Perpres (document's own declaration)
+- QA self-check no longer certifies wrong answers
+- Total corpus: 36 dup chunks (was 37 in v7, 165 in v6)
+- Files: parsers.py (3 edits: removed override, fixed regex syntax, fixed pasal extraction)
+- Output: chunk_results_v8.json, chunk_qa_report_v8.json

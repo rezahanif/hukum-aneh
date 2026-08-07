@@ -157,25 +157,6 @@
     },
     {
       "id": "UU:41:2014:16:2",
-      "text": "Pengeluaran ...",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "16",
-        "ayat": "2",
-        "parent": "UU:41:2014:16",
-        "path": "Pasal 16 > Ayat (2)",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:16:2",
       "text": "Pengeluaran sebagaimana dimaksud pada ayat (1) dilarang dilakukan terhadap Benih dan/ atau Bibit yang terbaik di dalam negeri.",
       "metadata": {
         "doc_type": "UU",
@@ -235,25 +216,6 @@
     {
       "id": "UU:41:2014:18:6",
       "text": "Setiap ... Ketentuan lebih lanjut mengenai penyeleksian dan penyingkiran sebagaimana dimaksud pada ayat ( 1), penjaringan Ternak Ruminansia Betina Produktif sebagaimana dimaksud pada ayat (3), dan populasi anakan ternak ruminansia kecil dan anakan ternak ruminansia besar sebagaimana dimaksud pada ayat",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "18",
-        "ayat": "6",
-        "parent": "UU:41:2014:18",
-        "path": "Pasal 18 > Ayat (6)",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:18:6",
-      "text": "diatur dengan Peraturan Menteri.",
       "metadata": {
         "doc_type": "UU",
         "issuer": "Presiden/DPR",
@@ -387,25 +349,6 @@
     },
     {
       "id": "UU:41:2014:31:4",
-      "text": "Pemerintah ...",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "31",
-        "ayat": "4",
-        "parent": "UU:41:2014:31",
-        "path": "Pasal 31 > Ayat (4)",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:31:4",
       "text": "Pemerintah dan Pemerintah Daerah sesuai dengan kewenangannya melakukan pembinaan kemitraan usaha sebagaimana dimaksud pada ayat (21 dengan memerhatikan ketentuan peraturan perundang- undangan di bidang kemitraan usaha.",
       "metadata": {
         "doc_type": "UU",
@@ -522,25 +465,6 @@
     },
     {
       "id": "UU:41:2014:36:3",
-      "text": "Pemerintah ...",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "36",
-        "ayat": "3",
-        "parent": "UU:41:2014:36",
-        "path": "Pasal 36 > Ayat (3)",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:36:3",
       "text": "Pemerintah dan Pemerintah Daerah sesuai dengan kewenangannya berkewajiban untuk menciptakan iklim usaha yang sehat bagi pemasaran Hewan atau Ternak dan Produk Hewan. 11. Di antara Pasal 36 dan Pasal 37 disisipkan 5 (lima) pasal, yakni Pasal 36A, Pasal 36Et, Pasal 36C, Pasal 36D, dan Pasal 36E sehingga berbunyi sebagai berikut:",
       "metadata": {
         "doc_type": "UU",
@@ -609,6 +533,7 @@
         "parent": "UU:41:2014:368",
         "path": "Pasal 368 > Ayat (1)",
         "status": "active",
+        "_ocr_flag": "Possible OCR: pasal \"368\" may be \"36B\" (sibling alpha pasals exist for prefix 36)",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
         "family": "A",
@@ -628,6 +553,7 @@
         "parent": "UU:41:2014:368",
         "path": "Pasal 368 > Ayat (2)",
         "status": "active",
+        "_ocr_flag": "Possible OCR: pasal \"368\" may be \"36B\" (sibling alpha pasals exist for prefix 36)",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
         "family": "A",
@@ -647,6 +573,7 @@
         "parent": "UU:41:2014:368",
         "path": "Pasal 368 > Ayat (3)",
         "status": "active",
+        "_ocr_flag": "Possible OCR: pasal \"368\" may be \"36B\" (sibling alpha pasals exist for prefix 36)",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
         "family": "A",
@@ -666,6 +593,7 @@
         "parent": "UU:41:2014:368",
         "path": "Pasal 368 > Ayat (6)",
         "status": "active",
+        "_ocr_flag": "Possible OCR: pasal \"368\" may be \"36B\" (sibling alpha pasals exist for prefix 36)",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
         "family": "A",
@@ -685,6 +613,7 @@
         "parent": "UU:41:2014:368",
         "path": "Pasal 368 > Ayat (3)",
         "status": "active",
+        "_ocr_flag": "Possible OCR: pasal \"368\" may be \"36B\" (sibling alpha pasals exist for prefix 36)",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
         "family": "A",
@@ -704,6 +633,7 @@
         "parent": "UU:41:2014:368",
         "path": "Pasal 368 > Ayat (1)",
         "status": "active",
+        "_ocr_flag": "Possible OCR: pasal \"368\" may be \"36B\" (sibling alpha pasals exist for prefix 36)",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
         "family": "A",
@@ -826,25 +756,6 @@
     },
     {
       "id": "UU:41:2014:37:1",
-      "text": "Pemerintah membina dan memfasilitasi (l) (2t",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "37",
-        "ayat": "1",
-        "parent": "UU:41:2014:37",
-        "path": "Pasal 37 > Ayat (1)",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:37:1",
       "text": "(2t 12. Di antara ayat (2) dan ayat (3) pasal 37 disisipkan 1 (satu) ayat yakni ayat (2a), sehingga pasal 37 berbunyi sebagai berikut: berkembangnya industri pengolahan produk Hewan dengan mengutamakan penggunaan bahan baku dari dalam negeri.",
       "metadata": {
         "doc_type": "UU",
@@ -855,25 +766,6 @@
         "ayat": "1",
         "parent": "UU:41:2014:37",
         "path": "Pasal 37 > Ayat (1)",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:37:2",
-      "text": "Pemerintah ...",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "37",
-        "ayat": "2",
-        "parent": "UU:41:2014:37",
-        "path": "Pasal 37 > Ayat (2)",
         "status": "active",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
@@ -1028,25 +920,6 @@
         "ayat": null,
         "parent": null,
         "path": "Pasal 41A",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:58:3",
-      "text": "Standardisasi ...",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "58",
-        "ayat": "3",
-        "parent": "UU:41:2014:58",
-        "path": "Pasal 58 > Ayat (3)",
         "status": "active",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
@@ -1325,25 +1198,6 @@
     {
       "id": "UU:41:2014:68A:1",
       "text": "dipimpin oleh pejabat Otoritas Veteriner. Pejabat Otoritas Veteriner sebagaimana dimaksud pada ayat (2) terdiri atas;",
-      "metadata": {
-        "doc_type": "UU",
-        "issuer": "Presiden/DPR",
-        "year": "2014",
-        "bab": null,
-        "pasal": "68A",
-        "ayat": "1",
-        "parent": "UU:41:2014:68A",
-        "path": "Pasal 68A > Ayat (1)",
-        "status": "active",
-        "source_file": "uunomor41tahun2014.pdf",
-        "directory": "uu",
-        "family": "A",
-        "nomor": "41"
-      }
-    },
-    {
-      "id": "UU:41:2014:68A:1",
-      "text": "(21 (s) a. pejabat...",
       "metadata": {
         "doc_type": "UU",
         "issuer": "Presiden/DPR",
@@ -2247,6 +2101,7 @@
         "parent": null,
         "path": "Penjelasan > Pasal 918",
         "status": "penjelasan",
+        "_ocr_flag": "Possible OCR: pasal \"918\" may be \"91B\" (sibling alpha pasals exist for prefix 91)",
         "source_file": "uunomor41tahun2014.pdf",
         "directory": "uu",
         "family": "A",
@@ -3531,25 +3386,6 @@
       }
     },
     {
-      "id": "Perpres:148:2024:11:6",
-      "text": "Sekretariat Presiden",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "11",
-        "ayat": "6",
-        "parent": "Perpres:148:2024:11",
-        "path": "BAB III > Bagian Ketiga > Pasal 11 > Ayat (6)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
       "id": "Perpres:148:2024:12:1",
       "text": "Sekretariat Presiden berada di bawah dan bertanggung jawab kepada Menteri. (21 Sekretariat Presiden dipimpin oleh Sekretaris Presiden.",
       "metadata": {
@@ -3759,25 +3595,6 @@
       }
     },
     {
-      "id": "Perpres:148:2024:19:5",
-      "text": "Deputi Bidang Protokol, Pers, dan Media",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "19",
-        "ayat": "5",
-        "parent": "Perpres:148:2024:19",
-        "path": "BAB III > Bagian Ketiga > Paragraf 2 > Pasal 19 > Ayat (5)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
       "id": "Perpres:148:2024:20:1",
       "text": "Deputi Bidang Protokol, Pers, dan Media berada di bawah dan bertanggung jawab kepada Sekretaris Presiden. (21 Deputi Bidang Protokol, Pers, dan Media dipimpin oleh Deputi.",
       "metadata": {
@@ -3922,25 +3739,6 @@
         "ayat": "1",
         "parent": "Perpres:148:2024:24",
         "path": "BAB III > Bagian Ketiga > Paragraf 2 > Pasal 24 > Ayat (1)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:24:1",
-      "text": "Sekretariat Wakil Presiden",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "24",
-        "ayat": "1",
-        "parent": "Perpres:148:2024:24",
-        "path": "BAB III > Bagian Keempat > Pasal 24 > Ayat (1)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -4291,25 +4089,6 @@
       }
     },
     {
-      "id": "Perpres:148:2024:36:3",
-      "text": "Deputi Bidang Dukungan Kebijakan Pemerintahan dan Pemerataan Pembangunan",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "36",
-        "ayat": "3",
-        "parent": "Perpres:148:2024:36",
-        "path": "BAB III > Bagian Keempat > Paragraf 3 > Pasal 36 > Ayat (3)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
       "id": "Perpres:148:2024:37:1",
       "text": "Deputi Bidang Dukungan Kebijakan Pemerintahan dan Pemerataan Pembangunan berada di bawah dan bertanggung jawab kepada Sekretaris Wakil presiden.",
       "metadata": {
@@ -4435,25 +4214,6 @@
         "ayat": "3",
         "parent": "Perpres:148:2024:40",
         "path": "BAB III > Bagian Keempat > Paragraf 3 > Pasal 40 > Ayat (3)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:40:3",
-      "text": "Deputi Bidang Administrasi Pasal 4 1",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "40",
-        "ayat": "3",
-        "parent": "Perpres:148:2024:40",
-        "path": "BAB III > Bagian Keempat > Paragraf 4 > Pasal 40 > Ayat (3)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -4606,25 +4366,6 @@
         "ayat": "5",
         "parent": "Perpres:148:2024:44",
         "path": "BAB III > Bagian Keempat > Paragraf 4 > Pasal 44 > Ayat (5)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:44:5",
-      "text": "Sekretariat Militer Presiden",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "44",
-        "ayat": "5",
-        "parent": "Perpres:148:2024:44",
-        "path": "BAB III > Bagian Kelima > Pasal 44 > Ayat (5)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -4815,25 +4556,6 @@
         "ayat": "4",
         "parent": "Perpres:148:2024:48",
         "path": "BAB III > Bagian Kelima > Pasal 48 > Ayat (4)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:48:4",
-      "text": "Sekretariat Dukungan Kabinet",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "48",
-        "ayat": "4",
-        "parent": "Perpres:148:2024:48",
-        "path": "BAB III > Bagian Keenam > Pasal 48 > Ayat (4)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -5081,25 +4803,6 @@
         "ayat": "4",
         "parent": "Perpres:148:2024:56",
         "path": "BAB III > Bagian Keenam > Paragraf 1 > Pasal 56 > Ayat (4)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:56:4",
-      "text": "Deputi Bidang Perekonomian",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "56",
-        "ayat": "4",
-        "parent": "Perpres:148:2024:56",
-        "path": "BAB III > Bagian Keenam > Paragraf 2 > Pasal 56 > Ayat (4)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -5602,25 +5305,6 @@
       }
     },
     {
-      "id": "Perpres:148:2024:68:4",
-      "text": "Deputi Bidang Persidangan Kabinet",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "68",
-        "ayat": "4",
-        "parent": "Perpres:148:2024:68",
-        "path": "BAB III > Bagian Keenam > Paragraf 5 > Pasal 68 > Ayat (4)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
       "id": "Perpres:148:2024:69:1",
       "text": "Deputi Bidang Persidangan Kabinet berada di bawah dan bertanggung jawab kepada Sekretaris Dukungan Kabinet.",
       "metadata": {
@@ -5773,25 +5457,6 @@
       }
     },
     {
-      "id": "Perpres:148:2024:72:4",
-      "text": "Deputi Bidang Administrasi",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "72",
-        "ayat": "4",
-        "parent": "Perpres:148:2024:72",
-        "path": "BAB III > Bagian Keenam > Paragraf 6 > Pasal 72 > Ayat (4)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
       "id": "Perpres:148:2024:73:1",
       "text": "Deputi Bidang Administrasi berada di bawah dan bertanggung jawab kepada Sekretaris Dukungan Kabinet.",
       "metadata": {
@@ -5917,25 +5582,6 @@
         "ayat": "5",
         "parent": "Perpres:148:2024:76",
         "path": "BAB III > Bagian Keenam > Paragraf 6 > Pasal 76 > Ayat (5)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:76:5",
-      "text": "Deputi Bidang Perundang-undangan dan Administrasi Hukum Pasal TT",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "76",
-        "ayat": "5",
-        "parent": "Perpres:148:2024:76",
-        "path": "BAB III > Bagian Ketujuh > Pasal 76 > Ayat (5)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -6248,25 +5894,6 @@
       }
     },
     {
-      "id": "Perpres:148:2024:84:3",
-      "text": "Deputi Bidang Administrasi Aparatur",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "84",
-        "ayat": "3",
-        "parent": "Perpres:148:2024:84",
-        "path": "BAB III > Bagian Kesembilan > Pasal 84 > Ayat (3)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
       "id": "Perpres:148:2024:85:1",
       "text": "Deputi Bidang Administrasi Aparatur berada di bawah dan bertanggung jawab kepada Menteri.",
       "metadata": {
@@ -6411,25 +6038,6 @@
         "ayat": "4",
         "parent": "Perpres:148:2024:88",
         "path": "BAB III > Bagian Kesembilan > Pasal 88 > Ayat (4)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:88:4",
-      "text": "Badan Teknologi, Data, dan Informasi",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "88",
-        "ayat": "4",
-        "parent": "Perpres:148:2024:88",
-        "path": "BAB III > Bagian Kesepuluh > Pasal 88 > Ayat (4)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -6639,25 +6247,6 @@
         "ayat": "5",
         "parent": "Perpres:148:2024:93",
         "path": "BAB III > Bagian Kesebelas > Pasal 93 > Ayat (5)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:93:5",
-      "text": "Inspektorat",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "93",
-        "ayat": "5",
-        "parent": "Perpres:148:2024:93",
-        "path": "BAB III > Bagian Keduabelas > Pasal 93 > Ayat (5)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -6924,25 +6513,6 @@
         "ayat": "5",
         "parent": "Perpres:148:2024:99",
         "path": "BAB III > Bagian yang > menangani fungsi ketatausahaan > Pasal 99 > Ayat (5)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:99:5",
-      "text": "Jabatan Fungsional dan Jabatan Pelaksana",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "III",
-        "pasal": "99",
-        "ayat": "5",
-        "parent": "Perpres:148:2024:99",
-        "path": "BAB III > Bagian Keempatbelas > Pasal 99 > Ayat (5)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -7237,25 +6807,6 @@
     },
     {
       "id": "Perpres:148:2024:107:2",
-      "text": "Proses . . . A",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "V",
-        "pasal": "107",
-        "ayat": "2",
-        "parent": "Perpres:148:2024:107",
-        "path": "BAB V > Pasal 107 > Ayat (2)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:107:2",
       "text": "Proses bisnis antarunit organisasi di lingkungan Kementerian sebagaimana dimaksud pada ayat (1) diatur dengan Peraturan Menteri.",
       "metadata": {
         "doc_type": "Perpres",
@@ -7342,25 +6893,6 @@
         "ayat": "1",
         "parent": "Perpres:148:2024:112",
         "path": "BAB V > Pasal 112 > Ayat (1)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:112:2",
-      "text": "Pengarahan. . .",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "V",
-        "pasal": "112",
-        "ayat": "2",
-        "parent": "Perpres:148:2024:112",
-        "path": "BAB V > Pasal 112 > Ayat (2)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -7570,25 +7102,6 @@
         "ayat": "1",
         "parent": "Perpres:148:2024:121",
         "path": "BAB IX > Pasal 121 > Ayat (1)",
-        "status": "active",
-        "source_file": "perppu-no-148-tahun-2024.pdf",
-        "directory": "perppu",
-        "family": "A",
-        "nomor": "148"
-      }
-    },
-    {
-      "id": "Perpres:148:2024:121:2",
-      "text": "Dalam... A",
-      "metadata": {
-        "doc_type": "Perpres",
-        "issuer": "Presiden",
-        "year": "2024",
-        "bab": "IX",
-        "pasal": "121",
-        "ayat": "2",
-        "parent": "Perpres:148:2024:121",
-        "path": "BAB IX > Pasal 121 > Ayat (2)",
         "status": "active",
         "source_file": "perppu-no-148-tahun-2024.pdf",
         "directory": "perppu",
@@ -8209,25 +7722,6 @@
       }
     },
     {
-      "id": "Perda:1:2025:7:4",
-      "text": "dan ayat (5) diatur dalam Peraturan Bupati.",
-      "metadata": {
-        "doc_type": "Perda",
-        "issuer": "Kepala Daerah",
-        "year": "2025",
-        "bab": "II",
-        "pasal": "7",
-        "ayat": "4",
-        "parent": "Perda:1:2025:7",
-        "path": "BAB II > Pasal 7 > Ayat (4)",
-        "status": "active",
-        "source_file": "perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
-        "directory": "perda",
-        "family": "A",
-        "nomor": "1"
-      }
-    },
-    {
       "id": "Perda:1:2025:8",
       "text": "Tempat khusus untuk Merokok sebagaimana dimaksud dalam Pasal 7 ayat (2) harus memenuhi persyaratan: a. merupakan ruang terbuka atau ruang yang berhubungan langsung dengan udara luar, sehingga udara dapat bersirkulasi dengan baik; b. terpisah dari gedung/tempat/ruang utama dan ruang lain yang digunakan untuk beraktivitas; c. jauh dari pintu masuk dan keluar; dan d. jauh dari tempat orang berlalu-lalang.",
       "metadata": {
@@ -8334,25 +7828,6 @@
         "ayat": "3",
         "parent": "Perda:1:2025:10",
         "path": "BAB III > Bagian Kedua > Pasal 10 > Ayat (3)",
-        "status": "active",
-        "source_file": "perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
-        "directory": "perda",
-        "family": "A",
-        "nomor": "1"
-      }
-    },
-    {
-      "id": "Perda:1:2025:10:3",
-      "text": "Larangan dan Pengendalian",
-      "metadata": {
-        "doc_type": "Perda",
-        "issuer": "Kepala Daerah",
-        "year": "2025",
-        "bab": "III",
-        "pasal": "10",
-        "ayat": "3",
-        "parent": "Perda:1:2025:10",
-        "path": "BAB III > Bagian Ketiga > Pasal 10 > Ayat (3)",
         "status": "active",
         "source_file": "perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
         "directory": "perda",
@@ -8855,25 +8330,6 @@
       }
     },
     {
-      "id": "Perda:1:2025:16:1",
-      "text": "ditetapkan dengan Keputusan Bupati.",
-      "metadata": {
-        "doc_type": "Perda",
-        "issuer": "Kepala Daerah",
-        "year": "2025",
-        "bab": "V",
-        "pasal": "16",
-        "ayat": "1",
-        "parent": "Perda:1:2025:16",
-        "path": "BAB V > Pasal 16 > Ayat (1)",
-        "status": "active",
-        "source_file": "perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
-        "directory": "perda",
-        "family": "A",
-        "nomor": "1"
-      }
-    },
-    {
       "id": "Perda:1:2025:17:1",
       "text": "Bupati melakukan pembinaan terhadap penataan dan pengelolaan KTR.",
       "metadata": {
@@ -8923,25 +8379,6 @@
         "ayat": "3",
         "parent": "Perda:1:2025:17",
         "path": "BAB VI > Bagian Kesatu > Pasal 17 > Ayat (3)",
-        "status": "active",
-        "source_file": "perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
-        "directory": "perda",
-        "family": "A",
-        "nomor": "1"
-      }
-    },
-    {
-      "id": "Perda:1:2025:17:3",
-      "text": "Pengawasan",
-      "metadata": {
-        "doc_type": "Perda",
-        "issuer": "Kepala Daerah",
-        "year": "2025",
-        "bab": "VI",
-        "pasal": "17",
-        "ayat": "3",
-        "parent": "Perda:1:2025:17",
-        "path": "BAB VI > Bagian Kedua > Pasal 17 > Ayat (3)",
         "status": "active",
         "source_file": "perda-kabupaten-sukoharjo-no-1-tahun-2025.pdf",
         "directory": "perda",
@@ -9676,25 +9113,6 @@
   ],
   "inpres": [
     {
-      "id": "Inpres:3:2023:diktum:2",
-      "text": "Menteri Pekerjaan Umum dan Perumahan Ralryat;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "2",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum 2",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
       "id": "Inpres:3:2023:diktum:3",
       "text": "Menteri Keuangan;",
       "metadata": {
@@ -9707,25 +9125,6 @@
         "diktum": "3",
         "parent": null,
         "path": "MENGINSTRUKSIKAN > Diktum 3",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:4",
-      "text": "Menteri Dalam Negeri;",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "4",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum 4",
         "status": "active",
         "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
         "directory": "inpres",
@@ -9840,25 +9239,6 @@
         "diktum": "d",
         "parent": null,
         "path": "MENGINSTRUKSIKAN > Diktum d",
-        "status": "active",
-        "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
-        "directory": "inpres",
-        "family": "B"
-      }
-    },
-    {
-      "id": "Inpres:3:2023:diktum:f",
-      "text": "ob h 2 SK No 145510 A e. menetapkan. . .",
-      "metadata": {
-        "doc_type": "Inpres",
-        "issuer": "Presiden",
-        "year": "2023",
-        "nomor": "3",
-        "section": "keputusan",
-        "decision_keyword": "MENGINSTRUKSIKAN",
-        "diktum": "f",
-        "parent": null,
-        "path": "MENGINSTRUKSIKAN > Diktum f",
         "status": "active",
         "source_file": "inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
         "directory": "inpres",
@@ -13575,25 +12955,6 @@
       }
     },
     {
-      "id": "Permen:5:2024:2:1",
-      "text": "dilaksanakan oleh laboratorium uji yang ditetapkan sebagai Balai Uji.",
-      "metadata": {
-        "doc_type": "Permen",
-        "issuer": "Menteri",
-        "year": "2024",
-        "bab": "I",
-        "pasal": "2",
-        "ayat": "1",
-        "parent": "Permen:5:2024:2",
-        "path": "BAB I > Pasal 2 > Ayat (1)",
-        "status": "active",
-        "source_file": "Permenkominfo No. 5 Tahun 2024.pdf",
-        "directory": "JDIH_Komdigi",
-        "family": "A",
-        "nomor": "5"
-      }
-    },
-    {
       "id": "Permen:5:2024:3",
       "text": "Balai Uji sebagaimana dimaksud dalam Pasal 2 ayat (2) terdiri atas: a. Balai Uji Dalam Negeri; dan b. Balai Uji Luar Negeri.",
       "metadata": {
@@ -14031,25 +13392,6 @@
       }
     },
     {
-      "id": "Permen:5:2024:9:1",
-      "text": "dilaksanakan dengan melibatkan instansi terkait.",
-      "metadata": {
-        "doc_type": "Permen",
-        "issuer": "Menteri",
-        "year": "2024",
-        "bab": "II",
-        "pasal": "9",
-        "ayat": "1",
-        "parent": "Permen:5:2024:9",
-        "path": "BAB II > Pasal 9 > Ayat (1)",
-        "status": "active",
-        "source_file": "Permenkominfo No. 5 Tahun 2024.pdf",
-        "directory": "JDIH_Komdigi",
-        "family": "A",
-        "nomor": "5"
-      }
-    },
-    {
       "id": "Permen:5:2024:9:3",
       "text": "Ketentuan mengenai verifikasi penetapan Balai Uji Dalam - 8 - Negeri sebagaimana dimaksud dalam Pasal 5 berlaku mutatis mutandis untuk verifikasi permohonan perpanjangan penetapan Balai Uji Dalam Negeri sebagaimana dimaksud pada ayat (1).",
       "metadata": {
@@ -14270,25 +13612,6 @@
         "ayat": "2",
         "parent": "Permen:5:2024:12",
         "path": "BAB II > Pasal 12 > Ayat (2)",
-        "status": "active",
-        "source_file": "Permenkominfo No. 5 Tahun 2024.pdf",
-        "directory": "JDIH_Komdigi",
-        "family": "A",
-        "nomor": "5"
-      }
-    },
-    {
-      "id": "Permen:5:2024:12:1",
-      "text": "dilaksanakan dengan melibatkan instansi terkait.",
-      "metadata": {
-        "doc_type": "Permen",
-        "issuer": "Menteri",
-        "year": "2024",
-        "bab": "II",
-        "pasal": "12",
-        "ayat": "1",
-        "parent": "Permen:5:2024:12",
-        "path": "BAB II > Pasal 12 > Ayat (1)",
         "status": "active",
         "source_file": "Permenkominfo No. 5 Tahun 2024.pdf",
         "directory": "JDIH_Komdigi",
@@ -16370,18 +15693,19 @@
   ],
   "JDIH_KPU": [
     {
-      "id": "PKPU:8:2026:I:1",
-      "text": "Pengurus Partai Politik Peserta Pemilu sesuai dengan tingkatannya wajib menyampaikan laporan awal Dana Kampanye Partai Politik Peserta Pemilu kepada KPU, KPU Provinsi, dan KPU Kabupaten/Kota.",
+      "id": "PKPU:8:2026:20:quoted",
+      "text": "Ketentuan Pasal 20 ayat (5) diubah, sehingga berbunyi sebagai berikut: “Pasal 20 (1) Pengurus Partai Politik Peserta Pemilu sesuai dengan tingkatannya wajib menyampaikan laporan awal Dana Kampanye Partai Politik Peserta Pemilu kepada KPU, KPU Provinsi, dan KPU Kabupaten/Kota. (2) Laporan awal Dana Kampanye Partai Politik Peserta Pemilu sebagaimana dimaksud pada ayat (1) mencakup … - 3 - mencakup laporan awal Dana Kampanye para calon anggota DPR, DPRD provinsi dan DPRD kabupaten/kota. (3) Laporan awal Dana Kampanye Partai Politik Peserta Pemilu sebagaimana dimaksud pada ayat (1) wajib dilampiri laporan pencatatan penerimaan dan pengeluaran Dana Kampanye Calon Anggota DPR, DPRD provinsi dan DPRD kabupaten/kota. (4) Calon Anggota DPD wajib menyampaikan laporan awal Dana Kampanye Calon Anggota DPD yang bersangkutan kepada KPU melalui KPU Provinsi. (5) Laporan sebagaimana dimaksud pada ayat (1) dan ayat (4) disampaikan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum.”",
       "metadata": {
         "doc_type": "PKPU",
         "issuer": "Komisi Pemilihan Umum",
         "year": "2026",
         "bab": null,
-        "pasal": "I",
-        "ayat": "1",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (1)",
-        "status": "active",
+        "pasal": "20",
+        "ayat": "quoted",
+        "parent": null,
+        "path": "[AMANDEMEN Pasal 20]",
+        "status": "quoted_amendment",
+        "amends_pasal": "20",
         "source_file": "PKPU_8_2026.pdf",
         "directory": "JDIH_KPU",
         "family": "A",
@@ -16389,18 +15713,19 @@
       }
     },
     {
-      "id": "PKPU:8:2026:I:2",
-      "text": "Laporan awal Dana Kampanye Partai Politik Peserta Pemilu sebagaimana dimaksud pada ayat",
+      "id": "PKPU:8:2026:21:quoted",
+      "text": "Ketentuan Pasal 21 ayat (1), diubah, sehingga berbunyi sebagai berikut: “Pasal 21 (1) Laporan awal Dana Kampanye sebagaimana dimaksud dalam Pasal 20 ayat (1) dan ayat (4) mencakup: a. informasi daftar penyumbang; b. jumlah penerimaan dan pengeluaran Dana Kampanye berupa uang, barang dan/atau jasa setelah tanggal pembukaan rekening khusus sampai dengan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum; c. jumlah penerimaan dan pengeluaran Dana Kampanye sebagaimana tercatat dalam Rekening Khusus Dana Kampanye dari bank sejak dibuka sampai dengan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum. (2) Lingkup waktu laporan awal Dana Kampanye terhitung dari sejak pembukaan Rekening Khusus Dana Kampanye dan pembukuan penerimaan dan pengeluaran Dana Kampanye sampai dengan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum. (3) Laporan … (3) Laporan awal Dana Kampanye yang tidak mencakup semua informasi/data sebagaimana dimaksud pada ayat (1) dikembalikan kepada Peserta Pemilu. (4) Peserta Pemilu wajib menyampaikan laporan hasil perbaikan kepada KPU, KPU Provinsi, dan KPU Kabupaten/Kota paling lambat 5 (lima) hari sejak diterima dari KPU, KPU Provinsi dan KPU Kabupaten/Kota. (5) Dalam hal Peserta Pemilu tidak menyampaikan laporan hasil perbaikan sebagaimana dimaksud pada ayat (4), KPU, KPU Provinsi dan KPU Kabupaten/Kota mengumumkan kepada masyarakat melalui papan pengumuman dan/atau website KPU, KPU Provinsi dan KPU Kabupaten/Kota  paling lambat 3 (tiga) hari setelah batas waktu Peserta Pemilu tidak menyampaikan laporan hasil perbaikan.”",
       "metadata": {
         "doc_type": "PKPU",
         "issuer": "Komisi Pemilihan Umum",
         "year": "2026",
         "bab": null,
-        "pasal": "I",
-        "ayat": "2",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (2)",
-        "status": "active",
+        "pasal": "21",
+        "ayat": "quoted",
+        "parent": null,
+        "path": "[AMANDEMEN Pasal 21]",
+        "status": "quoted_amendment",
+        "amends_pasal": "21",
         "source_file": "PKPU_8_2026.pdf",
         "directory": "JDIH_KPU",
         "family": "A",
@@ -16408,18 +15733,19 @@
       }
     },
     {
-      "id": "PKPU:8:2026:I:1",
-      "text": "mencakup … - 3 - mencakup laporan awal Dana Kampanye para calon anggota DPR, DPRD provinsi dan DPRD kabupaten/kota.",
+      "id": "PKPU:8:2026:22:quoted",
+      "text": "Ketentuan Pasal 22 ayat (4) diubah, sehingga berbunyi sebagai berikut: “Pasal 22 (1) Pengurus Partai Politik Peserta Pemilu pada setiap tingkatan wajib melaporkan sumbangan sebagaimana dimaksud dalam Pasal 19 kepada KPU, KPU Provinsi dan KPU Kabupaten/Kota. (2) Calon Anggota DPD wajib melaporkan sumbangan sebagaimana dimaksud dalam Pasal 19 kepada KPU melalui KPU Provinsi. (3) Laporan penerimaan sumbangan mencakup informasi sebagaimana dimaksud dalam Pasal 19 ayat (2), ayat (3) dan ayat (4). (4) Laporan penerimaan sumbangan sebagaimana dimaksud pada ayat (3) disampaikan secara periodik per Desember 2013 dan per Maret 2014.”",
       "metadata": {
         "doc_type": "PKPU",
         "issuer": "Komisi Pemilihan Umum",
         "year": "2026",
         "bab": null,
-        "pasal": "I",
-        "ayat": "1",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (1)",
-        "status": "active",
+        "pasal": "22",
+        "ayat": "quoted",
+        "parent": null,
+        "path": "[AMANDEMEN Pasal 22]",
+        "status": "quoted_amendment",
+        "amends_pasal": "22",
         "source_file": "PKPU_8_2026.pdf",
         "directory": "JDIH_KPU",
         "family": "A",
@@ -16427,18 +15753,19 @@
       }
     },
     {
-      "id": "PKPU:8:2026:I:3",
-      "text": "Laporan awal Dana Kampanye Partai Politik Peserta Pemilu sebagaimana dimaksud pada ayat (1) wajib dilampiri laporan pencatatan penerimaan dan pengeluaran Dana Kampanye Calon Anggota DPR, DPRD provinsi dan DPRD kabupaten/kota.",
+      "id": "PKPU:8:2026:28:quoted",
+      "text": "Ketentuan Pasal 28 ayat (4) huruf d diubah, sehingga berbunyi sebagai berikut: “Pasal 28 (1) KPU menunjuk Kantor Akuntan Publik untuk melakukan audit Dana Kampanye Peserta Pemilu. (2) Pengadaan Kantor Akuntan Publik sebagaimana dimaksud pada ayat (1) dilakukan berdasarkan peraturan perundang-undangan. (3) Biaya … (3) Biaya pengadaan Kantor Akuntan Publik sebagaimana dimaksud pada ayat (1) dibebankan pada Anggaran Belanja dan Pendapatan Negara Bagian KPU dan KPU Provinsi. (4) Kantor Akuntan Publik yang ditunjuk sebagaimana dimaksud pada ayat (2) wajib membuat pernyataan tertulis di atas kertas bermeterai cukup bahwa rekan yang bertanggung jawab atas pemeriksaan laporan Dana Kampanye: a. tidak berafiliasi secara langsung ataupun tidak langsung dengan Partai Politik Peserta Pemilu dan Calon Anggota DPD; b. bukan merupakan anggota atau pengurus Partai Politik Peserta Pemilu; c. Akuntan Publik yang bertanggung jawab atas pemeriksaan laporan dana kampanye telah mengikuti pelatihan audit dana kampanye yang diselenggarakan oleh asosiasi profesi akuntan publik; dan d. telah mendapatkan 1 (satu) surat rekomendasi dari asosiasi profesi akuntan publik yang dijadikan sebagai nilai tambah dalam proses pengadaan jasa audit Partai Politik dan Calon Anggota DPD.”",
       "metadata": {
         "doc_type": "PKPU",
         "issuer": "Komisi Pemilihan Umum",
         "year": "2026",
         "bab": null,
-        "pasal": "I",
-        "ayat": "3",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (3)",
-        "status": "active",
+        "pasal": "28",
+        "ayat": "quoted",
+        "parent": null,
+        "path": "[AMANDEMEN Pasal 28]",
+        "status": "quoted_amendment",
+        "amends_pasal": "28",
         "source_file": "PKPU_8_2026.pdf",
         "directory": "JDIH_KPU",
         "family": "A",
@@ -16446,265 +15773,19 @@
       }
     },
     {
-      "id": "PKPU:8:2026:I:4",
-      "text": "Calon Anggota DPD wajib menyampaikan laporan awal Dana Kampanye Calon Anggota DPD yang bersangkutan kepada KPU melalui KPU Provinsi.",
+      "id": "PKPU:8:2026:37:quoted",
+      "text": "Ketentuan Pasal 37 diubah, sehingga berbunyi sebagai berikut: ”Pasal 37 Dalam hal pengurus Partai Politik Peserta Pemilu pada setiap tingkatan dan Calon Anggota DPD tidak menyampaikan laporan awal Dana Kampanye kepada KPU/KPU Provinsi/ KPU Kabupaten/Kota sampai batas waktu sebagaimana dimaksud dalam Pasal 20 ayat (5), Partai Politik dan Calon Anggota DPD yang bersangkutan dikenai sanksi sebagaimana diatur dalam Peraturan Perundang-undangan tentang Pemilu Anggota DPR, DPD dan DPRD.”",
       "metadata": {
         "doc_type": "PKPU",
         "issuer": "Komisi Pemilihan Umum",
         "year": "2026",
         "bab": null,
-        "pasal": "I",
-        "ayat": "4",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (4)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:5",
-      "text": "Laporan sebagaimana dimaksud pada ayat (1) dan ayat (4) disampaikan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum.” 2. Ketentuan Pasal 21 ayat (1), diubah, sehingga berbunyi sebagai berikut: “Pasal 21",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "5",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (5)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:1",
-      "text": "Laporan awal Dana Kampanye sebagaimana dimaksud dalam Pasal 20 ayat (1) dan ayat (4) mencakup: a. informasi daftar penyumbang; b. jumlah penerimaan dan pengeluaran Dana Kampanye berupa uang, barang dan/atau jasa setelah tanggal pembukaan rekening khusus sampai dengan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum; c. jumlah penerimaan dan pengeluaran Dana Kampanye sebagaimana tercatat dalam Rekening Khusus Dana Kampanye dari bank sejak dibuka sampai dengan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "1",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (1)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:2",
-      "text": "Lingkup waktu laporan awal Dana Kampanye terhitung dari sejak pembukaan Rekening Khusus Dana Kampanye dan pembukuan penerimaan dan pengeluaran Dana Kampanye sampai dengan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "2",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (2)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:3",
-      "text": "Laporan awal Dana Kampanye yang tidak mencakup semua informasi/data sebagaimana dimaksud pada ayat (1) dikembalikan kepada Peserta Pemilu.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "3",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (3)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:4",
-      "text": "Peserta Pemilu wajib menyampaikan laporan hasil perbaikan kepada KPU, KPU Provinsi, dan KPU Kabupaten/Kota paling lambat 5 (lima) hari sejak diterima dari KPU, KPU Provinsi dan KPU Kabupaten/Kota.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "4",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (4)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:5",
-      "text": "Dalam hal Peserta Pemilu tidak menyampaikan laporan hasil perbaikan sebagaimana dimaksud pada ayat (4), KPU, KPU Provinsi dan KPU Kabupaten/Kota mengumumkan kepada masyarakat melalui papan pengumuman dan/atau website KPU, KPU Provinsi dan KPU Kabupaten/Kota  paling lambat 3 (tiga) hari setelah batas waktu Peserta Pemilu tidak menyampaikan laporan hasil perbaikan.” 3. Ketentuan Pasal 22 ayat (4) diubah, sehingga berbunyi sebagai berikut: “Pasal 22",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "5",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (5)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:1",
-      "text": "Pengurus Partai Politik Peserta Pemilu pada setiap tingkatan wajib melaporkan sumbangan sebagaimana dimaksud dalam Pasal 19 kepada KPU, KPU Provinsi dan KPU Kabupaten/Kota.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "1",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (1)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:2",
-      "text": "Calon Anggota DPD wajib melaporkan sumbangan sebagaimana dimaksud dalam Pasal 19 kepada KPU melalui KPU Provinsi.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "2",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (2)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:3",
-      "text": "Laporan penerimaan sumbangan mencakup informasi sebagaimana dimaksud dalam Pasal 19 ayat (2), ayat (3) dan ayat (4).",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "3",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (3)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:4",
-      "text": "Laporan penerimaan sumbangan sebagaimana dimaksud pada ayat (3) disampaikan secara periodik per Desember 2013 dan per Maret 2014.” 4. Ketentuan Pasal 28 ayat (4) huruf d diubah, sehingga berbunyi sebagai berikut: “Pasal 28",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "4",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (4)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:1",
-      "text": "KPU menunjuk Kantor Akuntan Publik untuk melakukan audit Dana Kampanye Peserta Pemilu.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "1",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (1)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:2",
-      "text": "Pengadaan Kantor Akuntan Publik sebagaimana dimaksud pada ayat (1) dilakukan berdasarkan peraturan perundang-undangan.",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "2",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (2)",
-        "status": "active",
-        "source_file": "PKPU_8_2026.pdf",
-        "directory": "JDIH_KPU",
-        "family": "A",
-        "nomor": "8"
-      }
-    },
-    {
-      "id": "PKPU:8:2026:I:3",
-      "text": "Biaya pengadaan Kantor Akuntan Publik sebagaimana dimaksud pada ayat (1) dibebankan pada Anggaran Belanja dan Pendapatan Negara",
-      "metadata": {
-        "doc_type": "PKPU",
-        "issuer": "Komisi Pemilihan Umum",
-        "year": "2026",
-        "bab": null,
-        "pasal": "I",
-        "ayat": "3",
-        "parent": "PKPU:8:2026:I",
-        "path": "Pasal I > Ayat (3)",
-        "status": "active",
+        "pasal": "37",
+        "ayat": "quoted",
+        "parent": null,
+        "path": "[AMANDEMEN Pasal 37]",
+        "status": "quoted_amendment",
+        "amends_pasal": "37",
         "source_file": "PKPU_8_2026.pdf",
         "directory": "JDIH_KPU",
         "family": "A",
@@ -16713,7 +15794,7 @@
     },
     {
       "id": "PKPU:8:2026:I",
-      "text": "Beberapa ketentuan dalam Peraturan Komisi Pemilihan Umum Nomor 17 Tahun 2013 tentang Pedoman Pelaporan Dana Kampanye Peserta Pemilu Anggota Dewan Perwakilan Rakyat, Dewan Perwakilan Daerah, dan Dewan Perwakilan Rakyat Daerah, diubah sebagai berikut: 1. Ketentuan Pasal 20 ayat (5) diubah, sehingga berbunyi sebagai berikut: “Pasal 20",
+      "text": "Beberapa ketentuan dalam Peraturan Komisi Pemilihan Umum Nomor 17 Tahun 2013 tentang Pedoman Pelaporan Dana Kampanye Peserta Pemilu Anggota Dewan Perwakilan Rakyat, Dewan Perwakilan Daerah, dan Dewan Perwakilan Rakyat Daerah, diubah sebagai berikut: 1. Laporan sebagaimana dimaksud pada ayat (1) dan ayat (4) disampaikan paling lambat 14 (empat belas) hari sebelum hari pertama jadual pelaksanaan Kampanye Pemilu dalam bentuk rapat umum.” 2. Kabupaten/Kota  paling lambat 3 (tiga) hari setelah batas waktu Peserta Pemilu tidak menyampaikan laporan hasil perbaikan.” 3. Laporan penerimaan sumbangan sebagaimana dimaksud pada ayat (3) disampaikan secara periodik per Desember 2013 dan per Maret 2014.” 4. d. telah mendapatkan 1 (satu) surat rekomendasi dari asosiasi profesi akuntan publik yang dijadikan sebagai nilai tambah dalam proses pengadaan jasa audit Partai Politik dan Calon Anggota DPD.” 5. Perundang-undangan tentang Pemilu Anggota DPR, DPD dan DPRD.” 6.",
       "metadata": {
         "doc_type": "PKPU",
         "issuer": "Komisi Pemilihan Umum",
@@ -16731,18 +15812,19 @@
       }
     },
     {
-      "id": "PKPU:8:2026:I:4",
-      "text": "Kantor Akuntan Publik yang ditunjuk sebagaimana dimaksud pada ayat (2) wajib membuat pernyataan tertulis di atas kertas bermeterai cukup bahwa rekan yang bertanggung jawab atas pemeriksaan laporan Dana Kampanye: a. tidak berafiliasi secara langsung ataupun tidak langsung dengan Partai Politik Peserta Pemilu dan Calon Anggota DPD; b. bukan merupakan anggota atau pengurus Partai Politik Peserta Pemilu; c. Akuntan Publik yang bertanggung jawab atas pemeriksaan laporan dana kampanye telah mengikuti pelatihan audit dana kampanye yang diselenggarakan oleh asosiasi profesi akuntan publik; dan d. telah mendapatkan 1 (satu) surat rekomendasi dari asosiasi profesi akuntan publik yang dijadikan sebagai nilai tambah dalam proses pengadaan jasa audit Partai Politik dan Calon Anggota DPD.” 5. Ketentuan Pasal 37 diubah, sehingga berbunyi sebagai berikut: ”Pasal 37 Dalam hal pengurus Partai Politik Peserta Pemilu pada setiap tingkatan dan Calon Anggota DPD tidak menyampaikan laporan awal Dana Kampanye kepada KPU/KPU Provinsi/ KPU Kabupaten/Kota sampai batas waktu sebagaimana dimaksud dalam Pasal 20 ayat (5), Partai Politik dan Calon Anggota DPD yang bersangkutan dikenai sanksi sebagaimana diatur dalam Peraturan Perundang-undangan tentang Pemilu Anggota DPR, DPD dan DPRD.” 6. Ketentuan Pasal 38 diubah, sehingga berbunyi sebagai berikut: “Pasal 38 Dalam hal pengurus Partai Politik Peserta Pemilu pada setiap tingkatan dan Calon Anggota DPD tidak menyampaikan laporan penerimaan dan pengeluaran Dana …",
+      "id": "PKPU:8:2026:38:quoted",
+      "text": "Ketentuan Pasal 38 diubah, sehingga berbunyi sebagai berikut: “Pasal 38 Dalam hal pengurus Partai Politik Peserta Pemilu pada setiap tingkatan dan Calon Anggota DPD tidak menyampaikan laporan penerimaan dan pengeluaran Dana …",
       "metadata": {
         "doc_type": "PKPU",
         "issuer": "Komisi Pemilihan Umum",
         "year": "2026",
         "bab": null,
-        "pasal": "I",
-        "ayat": "4",
-        "parent": "PKPU:8:2026:I",
-        "path": "Bagian KPU > dan KPU Provinsi > Pasal I > Ayat (4)",
-        "status": "active",
+        "pasal": "38",
+        "ayat": "quoted",
+        "parent": null,
+        "path": "[AMANDEMEN Pasal 38]",
+        "status": "quoted_amendment",
+        "amends_pasal": "38",
         "source_file": "PKPU_8_2026.pdf",
         "directory": "JDIH_KPU",
         "family": "A",
