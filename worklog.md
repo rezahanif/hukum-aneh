@@ -132,3 +132,32 @@ Stage Summary:
 - uu: Garbled header `FTRESIDEN...` chunk eliminated by fuzzy noise detection
 - Net: 98->75 dup IDs (-23%), 141->86 dup chunks (-39%)
 - Output: chunk_results_v6.json, chunk_qa_report_v6.json in /home/z/my-project/download/
+
+---
+Task ID: v7-fixes
+Agent: Main Agent
+Task: v7 round fixes — JDIH_KPU amendment trigger, perppu dedup + doc_type, B↔8 OCR detection
+
+Work Log:
+- Diagnosed JDIH_KPU 95% dup rate: root cause = comma in "diubah, sehingga berbunyi" not matched by RE_AMENDMENT_TRIGGER regex (\s+ doesn't match ", ")
+- Fixed RE_AMENDMENT_TRIGGER: \s+ → [,\s]+ between verb and "sehingga" (backward compatible)
+- Diagnosed perppu doc_type: PDF has image cover, body text cites "Peraturan Presiden" in Mengingat, causing false Perpres detection. Added directory-based override in chunk_pdf()
+- Enhanced _dedup_truncated_fragments() with v7 short-artifact rule: removes chunks <80 chars that are <40% length of longest sibling (catches org unit labels and OCR fragments)
+- Added _dedup_short_artifacts() to FamilyBParser (same logic, covers inpres)
+- Changed elif → independent if for short-artifact check to catch non-substring fragments
+- Built _flag_ocr_pasal_numbers() method: detects trailing-digit pasal numbers (8→B, 0→O, etc.) when alpha siblings exist for same prefix
+- Successfully flagged 368→36B and 918→91B/91C in UU 41/2014
+
+Stage Summary:
+- Results: 165 dup chunks (v6) → 37 dup chunks (v7) = -78% reduction
+- JDIH_KPU: 19 → 1 dup chunk (-95%), 6 quoted amendment chunks correctly generated
+- perppu: 52 → 8 dup chunks (-85%), doc_type corrected to PerPPU
+- inpres: 8 → 1 dup chunk (-88%)
+- uu: 34 → 9 dup chunks (-74%)
+- uud-1945: 13 → 7 dup chunks (-46%)
+- perpres: 0 → 0 (clean, no regression)
+- B↔8 OCR: 368 and 918 flagged with _ocr_flag metadata
+- Remaining 37 dups are structural content collisions (medium-length pairs), not page-break artifacts
+- Files modified: parsers.py (4 changes), clean_extractor.py (none)
+- New script: scripts/run_v7.py
+- Output: chunk_results_v7.json, chunk_qa_report_v7.json
