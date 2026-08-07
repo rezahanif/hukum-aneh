@@ -109,3 +109,26 @@ Stage Summary:
 - uu: 68A/68C/68D/68E now distinct IDs. 68B missing due to OCR corruption (688 in source PDF — not regex-fixable)
 - perppu: 30 dup chunks (was 115 in v3), worst case 2/ID (was 9)
 - Output: chunk_results_v5.json, chunk_qa_report_v5.json, chunk_test_report_v5.json in /home/z/my-project/download/
+
+---
+Task ID: 1
+Agent: Main
+Task: Apply v6 QA fixes — uud-1945 alpha pasals, perppu dedup, currency normalization, fuzzy noise
+
+Work Log:
+- Analyzed v5 independent verification results from user
+- Diagnosed uud-1945 root cause: UUD 1945 PDF has `* Pasal 22A` prefix pattern and `BAB VIIA ... * Pasal 22C` glued-to-heading pattern, neither matched by v5 RE_PASAL. Also `PEMILIHAN UMUM * Pasal 22E` as BAB label with pasal glued.
+- Diagnosed perppu root cause: page-break fragments (10-50 chars) getting same pasal:ayat ID as the full continuation text (100-300+ chars). Classic truncation duplicate.
+- Diagnosed perpres Lampiran currency: `Rp1.38O.OO0,0o` — O in digit context within Rp amounts, not caught by word-level glyph patterns.
+- Diagnosed UU garbled header: `FTRESIDEN R Ei:IUE I- IK IND ONES IA -9-` — new OCR variant not in exact pattern list.
+- Fixed clean_extractor.py: (1) Currency glyph normalization via function-based replacer that replaces all O/o/A/a with 0 within Rp amount spans. (2) Added FTRESIDEN to RE_GARBLED_HEADER. (3) Added fuzzy noise detection module using Levenshtein edit distance against known boilerplate strings. (4) Added _is_fuzzy_noise() call in is_noise_line().
+- Fixed parsers.py: (1) Extended RE_PASAL to handle `* ` prefix. (2) Added RE_PASAL_EMBEDDED for mid-line pasal detection. (3) Extended RE_BAB/RE_BAGIAN/RE_PARAGRAF with `*?` prefix. (4) Added glued-pasal extraction after BAB match. (5) Added embedded-pasal detection in main parse loop. (6) Added _dedup_truncated_fragments() method to FamilyAParser with 50% length threshold.
+- Ran full pipeline: 16 files, 892 chunks, 86 dup chunks
+
+Stage Summary:
+- uud-1945: 24->6 dup IDs (-75%), 38->7 dup chunks (-82%). Now has 39 alpha-suffixed pasals (22A-E, 23A-G, 24A-C, 25A, 28A-J, etc.). Pasal 22C/22E now correctly split via glued-heading detection.
+- perppu: 30->26 dup IDs (-13%), removed 14 truncated page-break fragments
+- perpres: Currency amounts now all-numeric (Rp1.380.000,00, Rp500.000,00, etc.)
+- uu: Garbled header `FTRESIDEN...` chunk eliminated by fuzzy noise detection
+- Net: 98->75 dup IDs (-23%), 141->86 dup chunks (-39%)
+- Output: chunk_results_v6.json, chunk_qa_report_v6.json in /home/z/my-project/download/
