@@ -15,6 +15,9 @@ tool-results/
 # Sample PDFs (large binary files)
 download/samples/
 
+# Skeletons (generated)
+download/skeletons/
+
 # Chunk output artifacts (large JSONs)
 download/chunk_results_v*.json
 download/chunk_qa_report_v*.json
