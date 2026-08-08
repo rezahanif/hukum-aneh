@@ -1,2 +1,32 @@
-skills/
+# Dependencies
 node_modules/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+upload/client_secret_*.json
+upload/google_token.json
+upload/git-credentials
+
+# Tool results (auto-generated debug logs)
+tool-results/
+
+# Sample PDFs (large binary files)
+download/samples/
+
+# Chunk output artifacts (large JSONs)
+download/chunk_results_v*.json
+download/chunk_qa_report_v*.json
+download/chunk_test_report_v*.json
+download/chunker_test.db
+download/batch_test_results.json
+download/chunks_for_upload/
+
+# Misc generated docs
+download/*.docx
+download/*.pdf
+download/*.md
+
+# Skills (internal)
+skills/

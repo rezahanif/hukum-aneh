@@ -26,7 +26,7 @@ SAMPLES = {
     "keppres": "keppres/keppres-no-5-tahun-2015_Dewan Kawasan Kawasan Ekonomi Khusus Provinsi Kalimantan Timur.pdf",
     "inpres": "inpres/inpres-no-3-tahun-2023_Percepatan Peningkatan Konektivitas Jalan Daerah.pdf",
     "tap_mpr": "tap_mpr/Ketetapan Majelis Permusyawaratan Rakyat Republik Indonesia Nomor IIIMPR2002 ten.pdf",
-    "uud-1945": "uud-1945/uud_1945.pdf",
+    "uud-1945": None,  # manually chunked — excluded from pipeline
     "Putusan-MK": "Putusan-MK/putusan_mkri_5301.pdf",
     "JDIH_Kemnaker": "JDIH_Kemnaker/Permenaker No. 90 Tahun 2013.pdf",
     "JDIH_Kemenkeu": "JDIH_Kemenkeu/PMK_No__9_Tahun_2025_2024pmkeuangan009.pdf",
@@ -43,6 +43,9 @@ all_results = {}
 total_chunks = 0
 
 for folder, rel_path in SAMPLES.items():
+    if rel_path is None:
+        print(f"SKIP {folder}: manually chunked (excluded)")
+        continue
     full_path = os.path.join(SAMPLES_DIR, rel_path)
     if not os.path.exists(full_path):
         print(f"SKIP {folder}: file not found")
